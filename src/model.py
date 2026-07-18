@@ -12,8 +12,7 @@ from torch_geometric.nn import GATv2Conv, global_mean_pool
 
 
 class GATv2Block(nn.Module):
-    def __init__(self, in_channels, out_channels, heads, edge_dim,
-                 dropout=0.15):
+    def __init__(self, in_channels, out_channels, heads, edge_dim, dropout=0.0):
         super().__init__()
         self.conv = GATv2Conv(
             in_channels, out_channels // heads,
@@ -36,16 +35,18 @@ class AntennaGNN(nn.Module):
     def __init__(self, node_feat_dim=5, edge_feat_dim=2,
                  hidden_dim=128, heads=8, edge_dim=16,
                  num_blocks=4, output_dim=201,
-                 conv_dropout=0.15, mlp_dropout=0.2):
+                 conv_dropout=0.10, mlp_dropout=0.10,
+                 dropout_from_block=2):
         super().__init__()
         self.input_proj = nn.Linear(node_feat_dim, hidden_dim)
         self.edge_proj  = nn.Linear(edge_feat_dim, edge_dim)
 
         self.blocks = nn.ModuleList()
         for i in range(num_blocks):
+            block_dropout = conv_dropout if i >= dropout_from_block else 0.0
             self.blocks.append(nn.ModuleList([
-                GATv2Block(hidden_dim, hidden_dim, heads, edge_dim, dropout=conv_dropout),
-                GATv2Block(hidden_dim, hidden_dim, heads, edge_dim, dropout=conv_dropout),
+                GATv2Block(hidden_dim, hidden_dim, heads, edge_dim, dropout=block_dropout),
+                GATv2Block(hidden_dim, hidden_dim, heads, edge_dim, dropout=block_dropout),
             ]))
 
         self.readout_proj = nn.Linear(hidden_dim * 2, 256)

@@ -1,166 +1,98 @@
 ---
 name: transfer-active-learning
-description: Use this skill when the task involves loading pretrained GNN weights for fine-tuning, designing layer-freezing strategies, implementing MC Dropout uncertainty estimation, building a Query-by-Committee ensemble, or running a pool-based active learning acquisition loop.
+description: Fine-tuning a pretrained GATv2 antenna surrogate onto larger pixel grids (35x35, 45x45, 55x55) from a 25x25 pretrained checkpoint, and selecting which samples to label using active learning. Covers the normalization contract, weight loading, layer freezing, MC Dropout, Query by Committee, and latent diversity sampling.
 ---
 
 # Skill: transfer-active-learning
 
 ## Description
-Use this skill when the task involves loading pretrained GNN weights for
-fine-tuning, designing layer-freezing strategies, implementing MC Dropout
-uncertainty estimation, building a Query-by-Committee ensemble, or running
-a pool-based active learning acquisition loop.
+Fine-tuning a pretrained GATv2 antenna surrogate onto larger pixel grids
+(35x35, 45x45, 55x55) from a 25x25 pretrained checkpoint, and selecting which
+samples to label using active learning. Covers the normalization contract,
+weight loading, layer freezing, MC Dropout, Query by Committee, and latent
+diversity sampling.
 
-## Loading Pretrained Weights for Fine-Tuning
+## Normalization contract (non-negotiable)
+On-disk `data.y` is RAW dB. The Dataset z-scores at load using the 25x25
+training-split s11_mean/s11_std and preserves `y_raw`. `evaluate()`
+de-normalizes with the same statistics. Never recompute statistics from the
+fine-tune pool. Every loader construction site passes the statistics. A
+load-time assertion (mean approx 0, std approx 1, min > -12) must run before
+any training. Violating this silently inflates every dB metric by a factor of
+s11_std and corrupts resonance detection.
+
+## Loading pretrained weights
 ```python
-from model import AntennaGNN
-
 def load_pretrained_gnn(checkpoint_path, device):
-    model = AntennaGNN()  # same architecture, same hyperparameters
-    ckpt = torch.load(checkpoint_path, map_location=device)
+    model = AntennaGNN()
+    ckpt = torch.load(checkpoint_path, map_location=device, weights_only=False)
     model.load_state_dict(ckpt['model_state'])
-    model = model.to(device)
-    return model
+    return model.to(device)
 ```
-No architecture changes are needed — the model accepts any grid size as-is.
+The architecture is grid-agnostic: node features are normalized coordinates and
+the readout is a mean over nodes, so the same weights accept any N. Only the
+target scale ties the head to the 25x25 statistics — hence the contract.
 
-## Layer-Freezing Strategies
-Two strategies to compare empirically (see Chunk TL-3):
-
+## Layer-freezing strategies
+`model.blocks` is a ModuleList of 4 GATv2Block pairs (8 layers). Freezing the
+first k pairs means freezing layers `0 .. 2k-1`.
 ```python
 def freeze_early_blocks(model, n_blocks_to_freeze=2):
-    """Freeze the first N of 4 GATv2Block pairs. Early layers likely learn
-    generic local pixel-connectivity patterns; later layers likely encode
-    more task/scale-specific mapping to S11."""
-    for i, block_pair in enumerate(model.blocks):
-        if i < n_blocks_to_freeze:
-            for layer in block_pair:
-                for param in layer.parameters():
-                    param.requires_grad = False
-
-def unfreeze_all(model):
-    for param in model.parameters():
-        param.requires_grad = True
+    for i, layer in enumerate(model.blocks):
+        if i < n_blocks_to_freeze * 2:
+            for p in layer.parameters():
+                p.requires_grad = False
 ```
+Always pass `filter(lambda p: p.requires_grad, model.parameters())` to the
+optimizer. Print the trainable/total parameter counts so freezing is visible in
+the log.
 
-Use a lower learning rate for fine-tuning than the original training run
-(e.g. 1e-4 instead of 1e-3) regardless of which freezing strategy is used —
-this is standard transfer learning practice to avoid catastrophically
-overwriting pretrained weights with noisy early gradients from a much
-smaller dataset.
+Expected ordering with correctly scaled targets: lower learning rates (1e-4)
+should be competitive with or better than 5e-4, and some freezing should help.
+If 5e-4 with no freezing wins by a wide margin, suspect the normalization
+contract before believing the result.
 
-## MC Dropout for Uncertainty Estimation
-The base AntennaGNN has no dropout layers. Add dropout ONLY in a fine-tuning
-variant, and only in the output MLP (adding dropout inside GATv2Block message
-passing is more disruptive to pretrained weights):
-
+## MC Dropout for uncertainty
+Wrap the pretrained model, replacing the output-MLP dropout with a
+higher-rate module, and copy ALL parameterized layers across.
 ```python
-import torch.nn as nn
-
 class AntennaGNNMCDropout(nn.Module):
-    """Wraps a pretrained AntennaGNN, inserting dropout into the output MLP
-    for MC Dropout uncertainty estimation during active learning."""
     def __init__(self, pretrained_model, dropout_p=0.2):
         super().__init__()
-        self.backbone = pretrained_model  # everything up to readout_proj
+        self.blocks = pretrained_model.blocks
         self.dropout = nn.Dropout(dropout_p)
-        # Rebuild output_mlp with dropout inserted between layers
         self.output_mlp = nn.Sequential(
             nn.Linear(256, 512), nn.ReLU(), self.dropout,
-            nn.LayerNorm(512),
-            nn.Linear(512, 201)
-        )
-        # Copy pretrained output_mlp weights where shapes match
-        self.output_mlp[0].load_state_dict(pretrained_model.output_mlp[0].state_dict())
-        self.output_mlp[3].load_state_dict(pretrained_model.output_mlp[3].state_dict())
-
-def mc_dropout_predict(model, data, n_passes=20):
-    """Run N stochastic forward passes with dropout ACTIVE (train mode for
-    dropout only) to estimate predictive uncertainty via prediction variance."""
-    model.train()  # enables dropout
-    preds = []
-    with torch.no_grad():
-        for _ in range(n_passes):
-            preds.append(model(data).cpu().numpy())
-    preds = np.stack(preds)  # (n_passes, batch, 201)
-    mean_pred = preds.mean(axis=0)
-    uncertainty = preds.std(axis=0).mean(axis=1)  # scalar per sample, averaged over freq points
-    return mean_pred, uncertainty
+            nn.LayerNorm(512), nn.Linear(512, 201))
+        # indices 0, 3, 4 are the parameterized layers. Copying only 0 and 3
+        # silently discards the final Linear(512, 201) — a real bug in v1.0.
+        for i in (0, 3, 4):
+            self.output_mlp[i].load_state_dict(
+                pretrained_model.output_mlp[i].state_dict())
 ```
+`model.train()` during MC sampling enables the backbone conv dropout as well as
+the output dropout. That is intended, but state it in the code comment so it is
+not mistaken for a bug.
 
-## Query by Committee (QBC)
-Train a small ensemble on different bootstrap subsets of the current labeled
-pool, then measure prediction disagreement on unlabeled candidates:
+Uncertainty is computed on NORMALIZED outputs. Do not de-normalize before
+taking the standard deviation: in dB space the variance is dominated by the
+deep-resonance points, which is a different — and worse — acquisition signal.
 
-```python
-def train_committee(labeled_dataset, n_members=3, epochs=15, device='cuda'):
-    committee = []
-    n_samples = len(labeled_dataset)
-    for m in range(n_members):
-        # Bootstrap resample (sample with replacement)
-        indices = np.random.choice(n_samples, n_samples, replace=True)
-        bootstrap_subset = torch.utils.data.Subset(labeled_dataset, indices)
-        loader = DataLoader(bootstrap_subset, batch_size=32, shuffle=True)
-        member = load_pretrained_gnn(f'{DATA_ROOT}/checkpoints/best_model.pt', device)
-        optimizer = torch.optim.Adam(member.parameters(), lr=1e-4)
-        member.train()
-        for epoch in range(epochs):
-            for batch in loader:
-                batch = batch.to(device)
-                optimizer.zero_grad()
-                out = member(batch)
-                loss = nn.functional.mse_loss(out, batch.y.squeeze(1))
-                loss.backward()
-                optimizer.step()
-        member.eval()
-        committee.append(member)
-    return committee
+## Query by Committee
+Train k=3 members on bootstrap resamples of the current labeled set. Committee
+members are cheap approximations, not publishable models: fixed epoch count, no
+early stopping, no validation. Budget accordingly — the committee is the
+dominant cost of the AL arm (3 members x 15 epochs x 7 rounds per seed).
+Disagreement is the per-sample variance of member predictions, again in
+normalized space.
 
-def qbc_disagreement(committee, data):
-    """Variance across committee member predictions — higher = more disagreement."""
-    preds = []
-    with torch.no_grad():
-        for member in committee:
-            preds.append(member(data).cpu().numpy())
-    preds = np.stack(preds)  # (n_members, batch, 201)
-    disagreement = preds.std(axis=0).mean(axis=1)  # scalar per sample
-    return disagreement
-```
+## Diversity sampling in latent space
+Take the pooled graph embedding (pre-output-MLP, 256-d), then greedy
+farthest-point selection over the top-scoring candidates. Restrict embedding
+computation to the candidate shortlist, not the whole unlabeled pool — a full
+pool forward pass per round is wasted compute.
 
-## Diversity Sampling in Latent Space
-Avoid selecting clustered uncertain points by enforcing spread in the 256-dim
-embedding space (reuse the EmbeddingGNN pattern from the main promptbook's
-Chunk 11):
-
-```python
-def diversity_select(candidate_embeddings, candidate_scores, k, already_selected_embeddings=None):
-    """Greedy furthest-point selection among the top-scoring candidates,
-    to avoid picking many near-duplicate high-uncertainty samples."""
-    from scipy.spatial.distance import cdist
-    selected_idx = []
-    remaining_idx = list(range(len(candidate_embeddings)))
-    # Start from the highest-scoring candidate
-    first = int(np.argmax(candidate_scores))
-    selected_idx.append(first)
-    remaining_idx.remove(first)
-    selected_embs = [candidate_embeddings[first]]
-    if already_selected_embeddings is not None:
-        selected_embs = list(already_selected_embeddings) + selected_embs
-    while len(selected_idx) < k and remaining_idx:
-        remaining_embs = candidate_embeddings[remaining_idx]
-        dists = cdist(remaining_embs, np.array(selected_embs)).min(axis=1)
-        # Combine distance (diversity) with acquisition score (uncertainty)
-        combined = dists * candidate_scores[remaining_idx]
-        next_idx = remaining_idx[int(np.argmax(combined))]
-        selected_idx.append(next_idx)
-        selected_embs.append(candidate_embeddings[next_idx])
-        remaining_idx.remove(next_idx)
-    return selected_idx
-
-def hybrid_acquisition_score(mc_uncertainty, qbc_disagreement, w_mc=0.5, w_qbc=0.5):
-    """Combine MC Dropout and QBC signals into one acquisition score.
-    Both inputs should be normalized to [0,1] via min-max scaling first."""
-    mc_norm = (mc_uncertainty - mc_uncertainty.min()) / (mc_uncertainty.max() - mc_uncertainty.min() + 1e-8)
-    qbc_norm = (qbc_disagreement - qbc_disagreement.min()) / (qbc_disagreement.max() - qbc_disagreement.min() + 1e-8)
-    return w_mc * mc_norm + w_qbc * qbc_norm
-```
+## Hybrid acquisition
+Rank-normalize each of {MC std, QBC disagreement} to [0,1], sum, take the top
+`3 * round_size` as candidates, then apply diversity selection down to
+`round_size`. Record the composition of every acquisition.

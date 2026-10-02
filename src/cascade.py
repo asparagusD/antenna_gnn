@@ -256,7 +256,10 @@ def per_sample_metrics(pred_db, true_db, f0=None, s=None, grid=None):
             pk = [i for i in pk if abs(F_GHZ[i] - ft) <= 0.30]
             if pk:
                 ip = min(pk, key=lambda i: abs(F_GHZ[i] - ft))
-                rec.update(missed=False, dip_err_bins=abs(F_GHZ[ip] - ft) / BIN_GHZ, dip_depth_err=float(p[ip] - tmin))
+                # dip positions are grid points, so the error is an integer number of bins; ROUND it. Without the
+                # round, float noise made ~60% of exact 1-bin errors compare as > 1.0 (Chunk 29/31 bug).
+                rec.update(missed=False, dip_err_bins=float(round(abs(F_GHZ[ip] - ft) / BIN_GHZ)),
+                           dip_depth_err=float(p[ip] - tmin))
             else:
                 rec.update(missed=True)
         if s is not None:

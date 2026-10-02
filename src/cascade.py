@@ -192,7 +192,17 @@ def cascade_loss(out, truth_db, targets, excluded, matches, cfg):
     """truth_db [B,201] RAW dB; targets: list of TRUE-mode dicts; excluded [B] bool
     (fit_mse > 0.17: curve loss only). Returns dict of scalar tensors."""
     dev = out['db'].device
-    curve = (out['db'] - floor_truth_torch(truth_db)).pow(2).mean()
+    eps2_loss = cfg.get('eps2_loss')
+    if eps2_loss is None:
+        curve = (out['db'] - floor_truth_torch(truth_db)).pow(2).mean()
+    else:
+        # Gradient-safe curve loss: re-floor BOTH prediction and truth at a higher floor (e.g. 1e-4
+        # = -40 dB) for the LOSS ONLY. d(dB)/d(rho) peaks at 1/eps, so the -60 dB floor makes the
+        # curve-loss gradient ~10x spikier near nulls than a -40 dB floor. The model output, the
+        # reported metric and the targets are unchanged.
+        rho2 = (torch.pow(10.0, out['db'] / 10.0) - EPS2_60).clamp_min(0.0)
+        pred_l = 10.0 * torch.log10(rho2 + eps2_loss)
+        curve = (pred_l - floor_truth_torch(truth_db, eps2_loss)).pow(2).mean()
     bi, pi, tf0, tdep, tq, deepest = [], [], [], [], [], []
     for b, pairs in enumerate(matches):
         if excluded[b] or not pairs:

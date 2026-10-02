@@ -41,22 +41,52 @@ def synth_db_numpy(theta, K, order, eps2=EPS2_60):
 
 
 def synth_db_torch(theta, K, order, eps2=EPS2_60):
-    """Torch equivalent of :func:`synth_db_numpy`, preserving input dtype/device."""
+    """Torch equivalent of :func:`synth_db_numpy` for ONE flat parameter vector."""
+    c, p = theta[:order + 1], theta[order + 1:].reshape(K, 4)
+    return synth_db_torch_batched(c.unsqueeze(0), p[:, 0].unsqueeze(0), p[:, 1].exp().unsqueeze(0),
+                                  p[:, 2].unsqueeze(0), p[:, 3].unsqueeze(0), eps2)[0]
+
+
+def synth_db_torch_batched(coeffs, f0, Q, rmin, s, eps2=EPS2_60, return_linear=False):
+    """Batched, differentiable synthesizer used by the cascade head (Chunk 31+).
+
+    coeffs: (B, order+1) baseline polynomial coefficients in T_NORM = (f - 2.5)/1.5
+    f0, Q, rmin, s: (B, K) resonator parameters in PHYSICAL units (GHz, -, linear |Gamma|, [0,1])
+    Returns S11 in dB, (B, 201); with return_linear=True also (rho, base).
+    Identical formula to synth_lin_numpy / to_db_numpy (Chunk 29 Cell A reference).
+    """
     import torch
 
-    f = torch.linspace(1.0, 4.0, 201, dtype=theta.dtype, device=theta.device)
+    f = torch.linspace(1.0, 4.0, 201, dtype=coeffs.dtype, device=coeffs.device)
     t = (f - 2.5) / 1.5
-    c, p = theta[:order + 1], theta[order + 1:].reshape(K, 4)
-    poly = sum(c[i] * t ** i for i in range(order + 1))
-    base = torch.sigmoid(poly)
-    rho = base
-    for f0, lq, r, s in p:
-        q = torch.exp(lq)
-        x = 2.0 * q * (f - f0) / f0
-        b = (1.0 - r) / (1.0 + r)
-        a, bb = (b - 1.0) ** 2, (b + 1.0) ** 2
-        rho = rho * (1.0 - s * (1.0 - torch.sqrt((a + x * x) / (bb + x * x))))
-    return 10.0 * torch.log10(rho ** 2 + eps2)
+    powers = torch.stack([t ** i for i in range(coeffs.shape[1])], dim=0)      # (order+1, 201)
+    base = torch.sigmoid(coeffs @ powers)                                       # (B, 201)
+    x = 2.0 * Q.unsqueeze(-1) * (f - f0.unsqueeze(-1)) / f0.unsqueeze(-1)       # (B, K, 201)
+    b = ((1.0 - rmin) / (1.0 + rmin)).unsqueeze(-1)
+    a, bb = (b - 1.0) ** 2, (b + 1.0) ** 2
+    factor = 1.0 - s.unsqueeze(-1) * (1.0 - torch.sqrt((a + x * x) / (bb + x * x)))
+    rho = base * factor.prod(dim=1)
+    db = 10.0 * torch.log10(rho ** 2 + eps2)
+    return (db, rho, base) if return_linear else db
+
+
+def check_numpy_torch_agreement(n=200, K=3, order=2, seed=0, tol_db=1e-6):
+    """Random-parameter agreement test in float64; returns the max |numpy - torch| in dB."""
+    import torch
+
+    rng = np.random.default_rng(seed)
+    worst = 0.0
+    for _ in range(n):
+        c = rng.normal(0, 1, order + 1); c[0] += 3.0
+        p = np.column_stack([rng.uniform(F0_LO, F0_HI, K), rng.uniform(LOGQ_LO, LOGQ_HI, K),
+                             rng.uniform(1e-3, 0.999, K), rng.uniform(0, 1, K)])
+        theta = np.concatenate([c, p.ravel()])
+        ref = synth_db_numpy(theta, K, order)
+        got = synth_db_torch(torch.tensor(theta, dtype=torch.float64), K, order).numpy()
+        worst = max(worst, float(np.abs(ref - got).max()))
+    if worst > tol_db:
+        raise AssertionError(f"numpy/torch synthesizers disagree by {worst:.3g} dB (> {tol_db})")
+    return worst
 
 
 def _logit(p):
@@ -121,6 +151,25 @@ def fit_curve_scipy(y_raw, K=3, order=2, eps2=EPS2_60):
             best = trial
     if best is None:
         return dict(ok=False, converged=False, time_s=time.perf_counter() - start)
+    # NOTE: identical optimisation path to Chunk 29 Cell A, so its fits reproduce exactly.
     yhat = synth_db_numpy(best.x, K, order, eps2)
-    return dict(ok=True, converged=bool(best.status > 0), theta=best.x, yhat=yhat,
-                fit_mse=float(np.mean((yhat - yfl) ** 2)), time_s=time.perf_counter() - start)
+    rho, base = synth_lin_numpy(best.x, K, order)
+    return dict(ok=True, converged=bool(best.status > 0), theta=best.x, yhat=yhat, base=base,
+                fit_mse=float(np.mean((yhat - yfl) ** 2)),
+                fit_mse_raw=float(np.mean((yhat - np.asarray(y_raw)) ** 2)),
+                time_s=time.perf_counter() - start)
+
+
+def mode_rows_from_fit(fit, K=3, order=2):
+    """Per-resonator target rows from a fit_curve_scipy result.
+
+    depth_db is the resonator's own dip including the baseline at f0:
+    20*log10(rmin * base(f0)), with base = sigmoid(poly) taken from synth_lin_numpy
+    (NOT 1/(1+exp(+poly)), which is 1 - sigmoid)."""
+    p = np.asarray(fit["theta"])[order + 1:].reshape(K, 4)
+    rows = []
+    for k, (f0, lq, rmin, s) in enumerate(p):
+        b_at = float(np.interp(np.clip(f0, 1.0, 4.0), F_GHZ, fit["base"]))
+        rows.append(dict(k=k, f0=float(f0), Q=float(np.exp(lq)), rmin=float(rmin), s=float(s),
+                         depth_db=float(20.0 * np.log10(max(rmin * b_at, 1e-6)))))
+    return rows

@@ -2,7 +2,6 @@
 
 A graph neural network that predicts the full |S11| spectrum of a pixelated microstrip patch antenna (201 points, 1–4 GHz) directly from its binary metal pattern. A single 587k-parameter model covers five pixel resolutions (12×12, 15×15, 25×25, 35×35, 45×45), replacing a full-wave EM simulation with a forward pass that takes milliseconds.
 
-The work grew out of an undergraduate thesis at the University of Dhaka and is being prepared for IEEE journal submission. The repository is the complete, chronological research log: every experiment is a numbered Colab notebook ("chunk"), and the shared code lives in `src/`.
 
 ---
 
@@ -354,17 +353,6 @@ MyDrive/antenna_gnn/
 | `ch45_replay35_new100_s{0,1}.pt` | 25/35/45 model with the extra 35×35 data |
 | `ch42_cnn12_p100_s*.pt`, `ch44_cnn15_p100_s*.pt`, `ch49_cnn{35,45}_p100_s*.pt` | Gupta CNN baselines |
 | `ch50_*.pt` | Chunk 50 chain (not adopted) |
-
----
-
-## Known issues and caveats
-
-- **Missing 25×25 CNN files:** `ch36_gupta_cnn25_best.pt` and `ch36_per_sample.parquet` were deleted. The 25×25 CNN numbers are Chunk 36's recorded values, and 25×25 is the only grid without a paired GATv2-vs-CNN test.
-- **45×45 seed-0 CNN batch:** it trained with micro-batch 128 and 2-step gradient accumulation (effective batch 256), so its BatchNorm saw 128-sample statistics. Seed 1 ran at a full 256.
-- **`ch49_report.md` parameter label:** it lists the Chunk 45 GATv2 with the CNN's parameter count. The model has 587,129 parameters; its metrics are correct.
-- **Single seeds:** the final GATv2 and the table CNNs are seed 0. Where a second seed exists, the conclusions are unchanged (the seed-1 CNNs are worse).
-- **Asymmetric-loss models:** the asymmetric loss (κ = 1.5) reduced deep-resonance false negatives, but those models are not part of the final lineage.
-- **`chunk30` vs `chunk30b`:** `chunk30b` is the v2 run (replay, two-condition gate) that produced the `backbone_no55.pt` used downstream.
 
 ---
 

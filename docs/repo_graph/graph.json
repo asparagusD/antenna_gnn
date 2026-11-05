@@ -680,9 +680,9 @@
    "type": "markdown",
    "size": 2044,
    "chunk": null,
-   "sha": "04809296b3e4238f6979a17cd911358b0959e483",
+   "sha": "d1f137e0cce615d138d3c2c521fa18003ea78950",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "04809296b3e4238f6979a17cd911358b0959e483"
+   "summary_sha": "d1f137e0cce615d138d3c2c521fa18003ea78950"
   },
   {
    "path": "README.md",
@@ -2320,13 +2320,52 @@
    "summary_sha": "34b5b9b9a96e4bfcff2fb018ac02c2884884aba5"
   },
   {
+   "path": "export/antenna_export/predict.py",
+   "type": "python",
+   "size": 5480,
+   "chunk": null,
+   "sha": "c57d253accaa9035b990216fc9f463f618aa57c0",
+   "imports": [
+    ".graph_builder",
+    "__future__",
+    "csv",
+    "feed_component",
+    "hashlib",
+    "model",
+    "numpy",
+    "pathlib",
+    "sys",
+    "torch",
+    "torch_geometric.data"
+   ],
+   "functions": [
+    "sha256_of",
+    "expected_sha256",
+    "load_model",
+    "load_stats",
+    "with_feed_feature",
+    "graph_for_pattern"
+   ],
+   "classes": [
+    "Predictor"
+   ],
+   "src_imports": [
+    "src/feed_component.py",
+    "src/model.py"
+   ],
+   "reads": [],
+   "writes": [],
+   "summary": "Float64 CPU reference predictor for the deployed model: verifies ch52_bal_ft45_s0.pt against its SHA-256 in ch52_runs.csv, loads model_state into src/model.AntennaGNN (6 inputs, imported), builds the 6-feature graph with the frozen builder plus src/feed_component.AppendFeedComponentFeature (imported), and de-normalises z * s11_std + s11_mean to 201 dB values.",
+   "summary_sha": "c57d253accaa9035b990216fc9f463f618aa57c0"
+  },
+  {
    "path": "export/pyproject.toml",
    "type": "config",
-   "size": 556,
+   "size": 577,
    "chunk": null,
-   "sha": "839197aeaeeaafccd0ab9fa590579cd3e1622c95",
-   "summary": "Packaging for antenna-export: Python 3.12 with pinned numpy 2.5.4, torch 2.15.0, torch_geometric 2.8.1 and (test extra) pytest 9.2.0; pytest runs from export/tests.",
-   "summary_sha": "839197aeaeeaafccd0ab9fa590579cd3e1622c95"
+   "sha": "653c9d57f65dde8d0774bc55ad3dd57a9b019266",
+   "summary": "Packaging for antenna-export: Python 3.12 with pinned numpy 2.5.4, scipy 1.18.1, torch 2.15.0, torch_geometric 2.8.1 and (test extra) pytest 9.2.0; pytest runs from export/tests.",
+   "summary_sha": "653c9d57f65dde8d0774bc55ad3dd57a9b019266"
   },
   {
    "path": "export/tests/test_graph_builder.py",
@@ -2361,6 +2400,45 @@
    "writes": [],
    "summary": "C1.1 exact-parity tests: rebuilds all 100 stored training graphs in webapp_private/graphs from their own metal patterns and requires identical x, edge_index (sorted pairs and order) and edge_attr; checks the generator seed rule reproduces each seed_mask file and is used when one is missing; checks the builder source equals the notebook copy; and checks invalid patterns are rejected.",
    "summary_sha": "beec5df29b8de08fe27534bddee118c2a558078c"
+  },
+  {
+   "path": "export/tests/test_predict.py",
+   "type": "python",
+   "size": 3981,
+   "chunk": null,
+   "sha": "54b5da10e2ffd7f2c1f3848a1b24270a04b1f9d1",
+   "imports": [
+    "antenna_export",
+    "feed_component",
+    "numpy",
+    "pathlib",
+    "pytest",
+    "shutil",
+    "sys",
+    "torch",
+    "torch_geometric.data"
+   ],
+   "functions": [
+    "_grid_of",
+    "_load",
+    "_pattern",
+    "predictor",
+    "test_parameter_count",
+    "test_model_runs_in_float64_on_cpu",
+    "test_checkpoint_hash_mismatch_is_rejected",
+    "test_feed_feature_equals_transform_on_reference_graph",
+    "test_prediction_shape_dtype_and_determinism",
+    "test_pattern_and_stored_graph_predictions_agree",
+    "test_sanity_mae_against_true_curves"
+   ],
+   "classes": [],
+   "src_imports": [
+    "src/feed_component.py"
+   ],
+   "reads": [],
+   "writes": [],
+   "summary": "C1.2 tests: 587,129 parameters, float64/CPU/eval model, checkpoint hash mismatch rejected, exact feed-feature parity with AppendFeedComponentFeature on all 100 reference graphs, deterministic (201,) float64 output, and a per-grid sanity check that mean MAE against the stored true curves is below 1 dB (printing the numbers).",
+   "summary_sha": "54b5da10e2ffd7f2c1f3848a1b24270a04b1f9d1"
   },
   {
    "path": "notebooks/chunk01_data_exploration.ipynb",
@@ -3828,6 +3906,21 @@
   }
  ],
  "edges": [
+  {
+   "source": "export/antenna_export/predict.py",
+   "target": "src/feed_component.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/predict.py",
+   "target": "src/model.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_predict.py",
+   "target": "src/feed_component.py",
+   "kind": "imports"
+  },
   {
    "source": "notebooks/chunk01_data_exploration.ipynb",
    "target": "artifact:seed_mask_25.npy",

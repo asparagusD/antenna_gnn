@@ -95,7 +95,10 @@ Specialised playbooks (detail in the `debug-protocol` skill, created in C0.1):
 
 - **Grids:** 12, 15, 25, 35, 45 only. **55×55 is excluded.**
 - **Output:** |S11| in dB at 201 points, 1–4 GHz (`np.linspace(1, 4, 201)`). The model outputs
-  **z-scored** values; convert with the **25×25** statistics: `dB = z * s11_std + s11_mean`.
+  **z-scored** values; convert with `dB = z * s11_std + s11_mean`, using the canonical
+  `s11_mean.npy` / `s11_std.npy` (201 values each, in `webapp_private/artifacts/`). Chunk 5 computed
+  them on the joint train split of 25/35/45/55 (91,837 antennas, 87% 25×25); later notebooks call them
+  the "25×25 statistics". Never recompute them. (Training z-scored with `std + 1e-8`; prediction uses `std`.)
 - **Model:** `AntennaGNN(node_feat_dim=6, edge_feat_dim=2, hidden_dim=128, heads=8, edge_dim=16,
   num_blocks=4, output_dim=201)` in `src/model.py`, 587,129 parameters (note: the constructor
   default is `node_feat_dim=5`; always pass 6). Checkpoint **`ch52_bal_ft45_s0.pt`**
@@ -128,5 +131,8 @@ Specialised playbooks (detail in the `debug-protocol` skill, created in C0.1):
 - **Domain of validity:** the model learned from the generator's random patterns (for 12/15/35/45,
   only single-band and non-functioning antennas). Hand-drawn shapes and multi-band designs may be
   out of distribution, and the app must say so.
-- **Functioning:** predicted curve minimum below **−10 dB**. A **band** is a dip below −10 dB
-  with ≥ 3 dB prominence and ≥ 150 MHz separation (chunks 46/47).
+- **Functioning:** predicted curve minimum below **−10 dB** (strict `min < −10`). A **band** is a dip
+  below −10 dB with ≥ 3 dB prominence and ≥ 150 MHz separation: exactly
+  `scipy.signal.find_peaks(-y, height=10, prominence=3, distance=10)`, as used by Chunk 51 to build the
+  deployed model's data (and Chunk 46). Endpoints (1 and 4 GHz) are never bands; Chunk 47's extra
+  band-edge rule is not used.

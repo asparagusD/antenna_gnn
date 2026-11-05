@@ -651,11 +651,11 @@
   {
    "path": "CLAUDE.md",
    "type": "markdown",
-   "size": 7978,
+   "size": 8535,
    "chunk": null,
-   "sha": "25361762e643a90ceda9c25011cf65f551db69d8",
+   "sha": "24e06b6721305e33c6b294da868588a1557d6add",
    "summary": "Working rules for building the web app: one-time hook setup, private-data rules for webapp_private/, the subchunk loop, commit protocol, six-step debugging protocol with the three-hypothesis stop rule, stop conditions, and the domain facts the app must not get wrong.",
-   "summary_sha": "25361762e643a90ceda9c25011cf65f551db69d8"
+   "summary_sha": "24e06b6721305e33c6b294da868588a1557d6add"
   },
   {
    "path": "DEBUG_LOG.md",

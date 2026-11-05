@@ -1,0 +1,6 @@
+# Local private data and build outputs (web app)
+webapp_private/
+node_modules/
+webapp/dist/
+.env
+.env.*

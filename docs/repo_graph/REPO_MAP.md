@@ -5,6 +5,7 @@ The human-readable companion to [`graph.json`](graph.json) (one node per file, e
 - **Code:** `src/` (5 modules), `scripts/repo_graph/build_graph.py`, and `export/` (the Python reference pipeline for the web app: `antenna_export.graph_builder` holds the frozen `build_pyg_graph` verbatim plus `pattern_to_graph`; tests in `export/tests/`, run with `make py-test`).
 - **Research log:** `notebooks/` (50 notebooks, Chunks 1–53 plus 3 unnumbered). They ran on Colab/Kaggle against a Google Drive tree (`{DATA_ROOT}/artifacts`, `checkpoints/`, `splits/`, `data/processed/`), which is **not** in the repository; local copies of what the web app needs are in `webapp_private/` (ignored, never committed).
 - **Web-app working files:** `CLAUDE.md`, `PROGRESS.md`, `DEBUG_LOG.md`, `.claude/skills/*`, `.githooks/pre-commit`.
+- **Golden fixtures (the cross-layer contract):** `webapp/fixtures/{N}x{N}.json`, generated only by `export/scripts/make_fixtures.py` from the float64 reference predictor; each case holds the pattern, the exact 6-feature graph, `expected_z`, `expected_db` and `predicted_bands`.
 - **Note:** `README.md` predates Chunks 51–53. Its "final five-grid model" (`ch44_ft15_from4_replay_p100_s0`) is **not** the deployed model; the web app deploys `ch52_bal_ft45_s0`.
 
 ---

@@ -660,11 +660,11 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 978,
+   "size": 2394,
    "chunk": null,
-   "sha": "915c1a5a90a274ce1d54f0c553f839f5e7868a17",
+   "sha": "e8184385621930001268129c1032037e8cc14688",
    "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first.",
-   "summary_sha": "915c1a5a90a274ce1d54f0c553f839f5e7868a17"
+   "summary_sha": "e8184385621930001268129c1032037e8cc14688"
   },
   {
    "path": "Makefile",
@@ -680,9 +680,9 @@
    "type": "markdown",
    "size": 2044,
    "chunk": null,
-   "sha": "d1f137e0cce615d138d3c2c521fa18003ea78950",
+   "sha": "e594be3baf2f29b301dff75b3cb91462dcda94a2",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "d1f137e0cce615d138d3c2c521fa18003ea78950"
+   "summary_sha": "e594be3baf2f29b301dff75b3cb91462dcda94a2"
   },
   {
    "path": "README.md",
@@ -2262,11 +2262,11 @@
   {
    "path": "docs/repo_graph/REPO_MAP.md",
    "type": "markdown",
-   "size": 16109,
+   "size": 16388,
    "chunk": null,
-   "sha": "28b18f145aa7915383f8644dbd56ea89e7df1216",
-   "summary": "Human-readable repository map: Mermaid diagrams of the model lineage (deployed Chunk 52 chain best_model -> bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45, with Chunk 51 data and Chunk 53 CNN comparison, plus the earlier natural-distribution lineage), src/ module dependencies and the planned web-app data flow; a table of every notebook; and the files and exact graph-builder specification the web app depends on.",
-   "summary_sha": "28b18f145aa7915383f8644dbd56ea89e7df1216"
+   "sha": "ce2479de310b729b61360e1424dfae6f77b9dfe4",
+   "summary": "Human-readable repository map: Mermaid diagrams of the model lineage (deployed Chunk 52 chain best_model -> bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45, with Chunk 51 data and Chunk 53 CNN comparison, plus the earlier natural-distribution lineage), src/ module dependencies and the planned web-app data flow; a table of every notebook; the golden fixtures; and the files and exact graph-builder specification the web app depends on.",
+   "summary_sha": "ce2479de310b729b61360e1424dfae6f77b9dfe4"
   },
   {
    "path": "docs/repo_graph/graph.json",
@@ -2290,6 +2290,67 @@
    "writes": [],
    "summary": "Package marker for antenna_export, the Python reference pipeline for the web app (frozen graph builder now; ONNX export and golden fixtures in later subchunks).",
    "summary_sha": "b8399b6e857e706f8cc9271f195f11c3f49ff37d"
+  },
+  {
+   "path": "export/antenna_export/bands.py",
+   "type": "python",
+   "size": 1342,
+   "chunk": null,
+   "sha": "ffff6adec0b24698d3186b4ff337bfcc4f26dbc4",
+   "imports": [
+    "__future__",
+    "numpy",
+    "scipy.signal"
+   ],
+   "functions": [
+    "band_indices",
+    "count_bands",
+    "is_functioning"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Chunk 51 functioning and band rules: functioning = min < -10 dB (strict); bands = scipy find_peaks(-y, height=10, prominence=3, distance=10) on the 201-point curve, so endpoint minima are never bands.",
+   "summary_sha": "ffff6adec0b24698d3186b4ff337bfcc4f26dbc4"
+  },
+  {
+   "path": "export/antenna_export/fixtures.py",
+   "type": "python",
+   "size": 9830,
+   "chunk": null,
+   "sha": "78f2ce9eb3967eba685795f8f0a16da1828574be",
+   "imports": [
+    ".",
+    ".graph_builder",
+    ".predict",
+    "__future__",
+    "hashlib",
+    "json",
+    "numpy",
+    "pathlib",
+    "torch"
+   ],
+   "functions": [
+    "_f32",
+    "_round",
+    "reference_samples",
+    "reference_pattern",
+    "random_pattern",
+    "make_case",
+    "grid_cases",
+    "search_band_case",
+    "build_all",
+    "dumps",
+    "write_all",
+    "file_sha256"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Builds the golden fixtures: per grid, reference patterns (5; 3 at 45x45) and 5 seeded random patterns at exact fills 0.30-0.80 with seeds metal, each with the exact 6-feature graph, float64 expected_z/expected_db from the reference predictor and predicted band count; documents why no 2+ band case exists (the model never predicted one) and writes byte-reproducible compact JSON.",
+   "summary_sha": "78f2ce9eb3967eba685795f8f0a16da1828574be"
   },
   {
    "path": "export/antenna_export/graph_builder.py",
@@ -2366,6 +2427,90 @@
    "sha": "653c9d57f65dde8d0774bc55ad3dd57a9b019266",
    "summary": "Packaging for antenna-export: Python 3.12 with pinned numpy 2.5.4, scipy 1.18.1, torch 2.15.0, torch_geometric 2.8.1 and (test extra) pytest 9.2.0; pytest runs from export/tests.",
    "summary_sha": "653c9d57f65dde8d0774bc55ad3dd57a9b019266"
+  },
+  {
+   "path": "export/scripts/make_fixtures.py",
+   "type": "python",
+   "size": 1005,
+   "chunk": null,
+   "sha": "3580078e5e25d29f49365246f5c9f9cbab03457a",
+   "imports": [
+    "antenna_export",
+    "argparse",
+    "pathlib",
+    "sys"
+   ],
+   "functions": [
+    "main"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Command-line wrapper that regenerates webapp/fixtures/{N}x{N}.json via antenna_export.fixtures.write_all; the only sanctioned way to change the fixtures.",
+   "summary_sha": "3580078e5e25d29f49365246f5c9f9cbab03457a"
+  },
+  {
+   "path": "export/tests/test_bands.py",
+   "type": "python",
+   "size": 1575,
+   "chunk": null,
+   "sha": "be23b67af0c76ecfe8767a53d6358b0aa03be5ff",
+   "imports": [
+    "antenna_export.bands",
+    "numpy",
+    "pytest"
+   ],
+   "functions": [
+    "curve",
+    "test_flat_curve_has_no_band_and_does_not_function",
+    "test_single_deep_dip_is_one_band",
+    "test_two_separated_dips_are_two_bands",
+    "test_dips_closer_than_150_mhz_count_once",
+    "test_shallow_dip_above_minus_10_db_is_not_a_band",
+    "test_dip_with_too_little_prominence_is_not_a_band",
+    "test_minimum_at_band_edge_functions_without_a_band",
+    "test_functioning_is_strict",
+    "test_wrong_length_is_rejected"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Unit tests of the Chunk 51 band and functioning rules on synthetic curves: no dip, one dip, two separated dips, dips closer than 150 MHz, shallow and low-prominence dips, an endpoint minimum, the strict -10 dB threshold and input length.",
+   "summary_sha": "be23b67af0c76ecfe8767a53d6358b0aa03be5ff"
+  },
+  {
+   "path": "export/tests/test_fixtures.py",
+   "type": "python",
+   "size": 4034,
+   "chunk": null,
+   "sha": "cd3b32672feea19da18b7fdd39c24f3fcad33645",
+   "imports": [
+    "antenna_export",
+    "antenna_export.graph_builder",
+    "antenna_export.predict",
+    "json",
+    "numpy",
+    "pathlib",
+    "pytest"
+   ],
+   "functions": [
+    "_load",
+    "predictor",
+    "test_regenerating_reproduces_committed_files_exactly",
+    "test_file_size_and_header",
+    "test_cases_are_self_consistent",
+    "test_random_cases_hit_their_target_fill",
+    "test_expected_db_matches_expected_z",
+    "test_band_coverage_for_scope_notice_tests"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "C1.3 tests: regenerating the fixtures reproduces the committed files byte for byte; files are under 2 MB with the expected header and case mix; every case's graph matches the frozen builder exactly, seeds are metal, band fields match the rule, random fills hit their exact pixel targets, and expected_db agrees with expected_z.",
+   "summary_sha": "cd3b32672feea19da18b7fdd39c24f3fcad33645"
   },
   {
    "path": "export/tests/test_graph_builder.py",
@@ -3903,6 +4048,51 @@
    "writes": [],
    "summary": "Shared resonator synthesizer on F_GHZ = linspace(1, 4, 201): numpy and torch versions of a logistic-polynomial baseline times K resonant notches, dB conversion with a -60 dB floor, and a scipy least-squares curve fitter that produces per-mode targets (f0, Q, depth) for Chunks 29-31.",
    "summary_sha": "540732dba03c564772b6708a3ae71a4159b56fc2"
+  },
+  {
+   "path": "webapp/fixtures/12x12.json",
+   "type": "json",
+   "size": 202746,
+   "chunk": null,
+   "sha": "25bcffb4101f6b7cfcff54431de3bff828a26408",
+   "summary": "Golden fixture for the 12x12 grid (10 cases): seed mask, header (checkpoint and statistics SHA-256, band rule, number formats, model_band_note) and cases with the flattened pattern, the exact 6-feature x (float32), edge_index, edge_attr, expected_z, expected_db and predicted band count; generated by export/scripts/make_fixtures.py and the contract for the ONNX and TypeScript layers.",
+   "summary_sha": "25bcffb4101f6b7cfcff54431de3bff828a26408"
+  },
+  {
+   "path": "webapp/fixtures/15x15.json",
+   "type": "json",
+   "size": 293481,
+   "chunk": null,
+   "sha": "e2f16cf279484f720438d89aace7e98ec19351b3",
+   "summary": "Golden fixture for the 15x15 grid (10 cases): seed mask, header (checkpoint and statistics SHA-256, band rule, number formats, model_band_note) and cases with the flattened pattern, the exact 6-feature x (float32), edge_index, edge_attr, expected_z, expected_db and predicted band count; generated by export/scripts/make_fixtures.py and the contract for the ONNX and TypeScript layers.",
+   "summary_sha": "e2f16cf279484f720438d89aace7e98ec19351b3"
+  },
+  {
+   "path": "webapp/fixtures/25x25.json",
+   "type": "json",
+   "size": 729596,
+   "chunk": null,
+   "sha": "e33421dcc230e07dc4c6bc820d827d6ea5a8aec0",
+   "summary": "Golden fixture for the 25x25 grid (10 cases): seed mask, header (checkpoint and statistics SHA-256, band rule, number formats, model_band_note) and cases with the flattened pattern, the exact 6-feature x (float32), edge_index, edge_attr, expected_z, expected_db and predicted band count; generated by export/scripts/make_fixtures.py and the contract for the ONNX and TypeScript layers.",
+   "summary_sha": "e33421dcc230e07dc4c6bc820d827d6ea5a8aec0"
+  },
+  {
+   "path": "webapp/fixtures/35x35.json",
+   "type": "json",
+   "size": 1493533,
+   "chunk": null,
+   "sha": "fc4c218b6dd17c43510d44bd958e853076f5d2e5",
+   "summary": "Golden fixture for the 35x35 grid (10 cases): seed mask, header (checkpoint and statistics SHA-256, band rule, number formats, model_band_note) and cases with the flattened pattern, the exact 6-feature x (float32), edge_index, edge_attr, expected_z, expected_db and predicted band count; generated by export/scripts/make_fixtures.py and the contract for the ONNX and TypeScript layers.",
+   "summary_sha": "fc4c218b6dd17c43510d44bd958e853076f5d2e5"
+  },
+  {
+   "path": "webapp/fixtures/45x45.json",
+   "type": "json",
+   "size": 1992134,
+   "chunk": null,
+   "sha": "c74d4a78cf2a610d75708a8bb62d0e771e161fa5",
+   "summary": "Golden fixture for the 45x45 grid (8 cases: 3 reference, 5 random, to stay under 2 MB): seed mask, header (checkpoint and statistics SHA-256, band rule, number formats, model_band_note) and cases with the flattened pattern, the exact 6-feature x (float32), edge_index, edge_attr, expected_z, expected_db and predicted band count; generated by export/scripts/make_fixtures.py and the contract for the ONNX and TypeScript layers.",
+   "summary_sha": "c74d4a78cf2a610d75708a8bb62d0e771e161fa5"
   }
  ],
  "edges": [

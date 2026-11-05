@@ -11,7 +11,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 ## C1 Python reference pipeline and golden fixtures
 - [x] C1.1 Extract the frozen graph builder (exact parity with training graphs)
 - [x] C1.2 Feed component and reference predictor
-- [ ] C1.3 Golden fixtures for the TypeScript and ONNX layers
+- [x] C1.3 Golden fixtures for the TypeScript and ONNX layers
 
 ## C2 ONNX export and parity
 - [ ] C2.1 Attempt a direct export (≤ 1e-4 dB parity)

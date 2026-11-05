@@ -24,4 +24,20 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
-_None yet._
+### 2026-11-06: C1.3: random-fixture fill test fails at 25x25, fill 0.30
+
+- **Status:** closed
+- **Symptom:** `test_random_cases_hit_their_target_fill` failed: `assert 0.3008 == 0.3 ± 8.0e-04`.
+- **Reproducer:** `cd export && .venv/Scripts/python.exe -m pytest tests/test_fixtures.py::test_random_cases_hit_their_target_fill`
+  → `E assert 0.3008 == 0.3 ± 8.0e-04` (1 failed).
+- **Localised to:** the 25x25 `rand-fill30` case; target count 0.30 · 625 = 187.5 pixels, generated 188.
+- **Hypotheses:**
+  1. Half-pixel targets round (Python `round`, half to even, or the float just below .5) to a count
+     whose fill differs from the target by exactly 0.5/N², and `pytest.approx(abs=0.5/N²)` fails on
+     floating-point error at that boundary; the generator is correct. Check: list every random case with
+     |fill − target| ≥ 0.5/N² − 1e-12 and compare its metal count with `round(target·N²)`. **confirmed**
+     (8 cases, all half-pixel targets at 15/25/35/45, every count equals `round(target·N²)`).
+- **Root cause:** test compared floats exactly at the theoretical bound; no generator bug.
+- **Fix:** C1.3 feat(fixtures) commit; the test now asserts the exact integer count `round(target·N²)` and
+  the bound `≤ 0.5/N² + 1e-12` (tests/test_fixtures.py::test_random_cases_hit_their_target_fill).
+- **Verification:** reproducer passes; full export suite passes (`make check` does not exist yet, C3.1).

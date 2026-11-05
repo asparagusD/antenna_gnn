@@ -9,7 +9,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C0.2 Read every file and build the repository graph
 
 ## C1 Python reference pipeline and golden fixtures
-- [ ] C1.1 Extract the frozen graph builder (exact parity with training graphs)
+- [x] C1.1 Extract the frozen graph builder (exact parity with training graphs)
 - [ ] C1.2 Feed component and reference predictor
 - [ ] C1.3 Golden fixtures for the TypeScript and ONNX layers
 

@@ -2,7 +2,7 @@
 
 The human-readable companion to [`graph.json`](graph.json) (one node per file, each with a hand-written summary, plus imports / reads / writes / produces / precedes edges). Regenerate the graph with `make graph` (or `python scripts/repo_graph/build_graph.py`); `make graph-check` fails if a tracked file is missing, the graph is stale, or a summary is missing or out of date. See the `repo-graph` skill for the update procedure.
 
-- **Code:** `src/` (5 modules), `scripts/repo_graph/build_graph.py`.
+- **Code:** `src/` (5 modules), `scripts/repo_graph/build_graph.py`, and `export/` (the Python reference pipeline for the web app: `antenna_export.graph_builder` holds the frozen `build_pyg_graph` verbatim plus `pattern_to_graph`; tests in `export/tests/`, run with `make py-test`).
 - **Research log:** `notebooks/` (50 notebooks, Chunks 1–53 plus 3 unnumbered). They ran on Colab/Kaggle against a Google Drive tree (`{DATA_ROOT}/artifacts`, `checkpoints/`, `splits/`, `data/processed/`), which is **not** in the repository; local copies of what the web app needs are in `webapp_private/` (ignored, never committed).
 - **Web-app working files:** `CLAUDE.md`, `PROGRESS.md`, `DEBUG_LOG.md`, `.claude/skills/*`, `.githooks/pre-commit`.
 - **Note:** `README.md` predates Chunks 51–53. Its "final five-grid model" (`ch44_ft15_from4_replay_p100_s0`) is **not** the deployed model; the web app deploys `ch52_bal_ft45_s0`.

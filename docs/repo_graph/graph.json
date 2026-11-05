@@ -680,9 +680,9 @@
    "type": "markdown",
    "size": 2044,
    "chunk": null,
-   "sha": "fa4de6a60b8bb67244015b6c313c6f81e1f1354d",
+   "sha": "8a67ac56987f415a29a6f93d0f6108698c17da57",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "fa4de6a60b8bb67244015b6c313c6f81e1f1354d"
+   "summary_sha": "8a67ac56987f415a29a6f93d0f6108698c17da57"
   },
   {
    "path": "README.md",
@@ -2258,6 +2258,15 @@
    "external": true,
    "summary": "",
    "summary_sha": null
+  },
+  {
+   "path": "docs/repo_graph/REPO_MAP.md",
+   "type": "markdown",
+   "size": 15895,
+   "chunk": null,
+   "sha": "493259f1d33bbf60c810b8ab3feb8dd6c37752c3",
+   "summary": "Human-readable repository map: Mermaid diagrams of the model lineage (deployed Chunk 52 chain best_model -> bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45, with Chunk 51 data and Chunk 53 CNN comparison, plus the earlier natural-distribution lineage), src/ module dependencies and the planned web-app data flow; a table of every notebook; and the files and exact graph-builder specification the web app depends on.",
+   "summary_sha": "493259f1d33bbf60c810b8ab3feb8dd6c37752c3"
   },
   {
    "path": "docs/repo_graph/graph.json",

@@ -6,7 +6,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 ## C0 Setup, skills, repository graph
 - [x] C0.0 Protect webapp_private/, working rules, memory files
 - [x] C0.1 Install Impeccable and create the project skills
-- [ ] C0.2 Read every file and build the repository graph
+- [x] C0.2 Read every file and build the repository graph
 
 ## C1 Python reference pipeline and golden fixtures
 - [ ] C1.1 Extract the frozen graph builder (exact parity with training graphs)

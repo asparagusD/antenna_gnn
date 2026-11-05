@@ -15,8 +15,8 @@
    "size": 8250,
    "chunk": null,
    "sha": "9fa186e7ad8a99f90401d7821ac1f60c4823a29f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Subagent definition that cleans up approved mock references into reusable raster assets and decision comps without redesigning the direction, following an input and output contract.",
+   "summary_sha": "9fa186e7ad8a99f90401d7821ac1f60c4823a29f"
   },
   {
    "path": ".claude/agents/impeccable-documenter.md",
@@ -24,8 +24,8 @@
    "size": 3144,
    "chunk": null,
    "sha": "eb12233534675517c97b6ba526c6f8d7182d9f1a",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Subagent definition that records DESIGN.md and its sidecar after a build, deriving tokens and rules from the shipped code rather than from intentions.",
+   "summary_sha": "eb12233534675517c97b6ba526c6f8d7182d9f1a"
   },
   {
    "path": ".claude/agents/impeccable-finish-reviewer.md",
@@ -33,8 +33,8 @@
    "size": 15636,
    "chunk": null,
    "sha": "58e5832efa52e45dad577451b4e9e7d1f09146dd",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Read-only subagent definition that reviews a finished build against its direction contract, approved comp and craft floor, returning an ordered list of material fixes.",
+   "summary_sha": "58e5832efa52e45dad577451b4e9e7d1f09146dd"
   },
   {
    "path": ".claude/agents/impeccable-manual-edit-applier.md",
@@ -42,8 +42,8 @@
    "size": 6983,
    "chunk": null,
    "sha": "a1e179cbed669cf4f25267d5684fa813553df6a7",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Subagent definition that applies a leased live-mode manual copy-edit batch to real source files atomically and returns canonical Apply results.",
+   "summary_sha": "a1e179cbed669cf4f25267d5684fa813553df6a7"
   },
   {
    "path": ".claude/settings.json",
@@ -51,8 +51,8 @@
    "size": 1348,
    "chunk": null,
    "sha": "77eb8729f14ede75f9a30fc069d3ce79e7480118",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Shared Claude Code settings: registers the Impeccable design-detector hook on SessionStart, after Edit/Write, and on Stop (each a no-op until the Impeccable launcher is present).",
+   "summary_sha": "77eb8729f14ede75f9a30fc069d3ce79e7480118"
   },
   {
    "path": ".claude/skills/commit-protocol/SKILL.md",
@@ -60,8 +60,8 @@
    "size": 1498,
    "chunk": null,
    "sha": "cf00e7e15dfea1b1374baa3129dc4667fbdff18f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Project skill: pre-commit checks (staged-file review, private-data and hook rules), commit size limits and the What/Why/How verified/Follow-ups/Refs message format.",
+   "summary_sha": "cf00e7e15dfea1b1374baa3129dc4667fbdff18f"
   },
   {
    "path": ".claude/skills/debug-protocol/SKILL.md",
@@ -69,8 +69,8 @@
    "size": 2180,
    "chunk": null,
    "sha": "5cdde10b5617b86c1cc485531140b633c69b7556",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Project skill: the six-step debugging protocol with DEBUG_LOG.md, the three-hypothesis stop rule, and playbooks for graph-builder, ONNX/onnxruntime, UI and deployment failures.",
+   "summary_sha": "5cdde10b5617b86c1cc485531140b633c69b7556"
   },
   {
    "path": ".claude/skills/impeccable/SKILL.md",
@@ -78,8 +78,8 @@
    "size": 12009,
    "chunk": null,
    "sha": "ff0426b809d4d028b2183495665dd252f86a95e1",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Main entry point of the Impeccable design skill (v4.8.0): setup, design principles, the Persuade/Operate/Read/Experience modes, the command table and routing to each reference file.",
+   "summary_sha": "ff0426b809d4d028b2183495665dd252f86a95e1"
   },
   {
    "path": ".claude/skills/impeccable/reference/adapt.md",
@@ -87,8 +87,8 @@
    "size": 11313,
    "chunk": null,
    "sha": "cabc0fde53348f032a2fc6e26d526e90fa6c2ed2",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `adapt` command on web: rethinks a design for another device, input method or context (mobile, tablet, desktop, print, email) rather than just scaling it.",
+   "summary_sha": "cabc0fde53348f032a2fc6e26d526e90fa6c2ed2"
   },
   {
    "path": ".claude/skills/impeccable/reference/adapt.native.md",
@@ -96,8 +96,8 @@
    "size": 3910,
    "chunk": null,
    "sha": "877871aa0314ab96814f5794ffabda43ac986fea",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Native variant of `adapt` for iOS, Android and adaptive apps: restructures for phone-to-tablet, orientation, foldables, cross-platform and web-to-native ports.",
+   "summary_sha": "877871aa0314ab96814f5794ffabda43ac986fea"
   },
   {
    "path": ".claude/skills/impeccable/reference/android.md",
@@ -105,8 +105,8 @@
    "size": 4203,
    "chunk": null,
    "sha": "32a5cf7ccfd78afe659f10f80cca6bbb3ef7de69",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Platform reference for native Android work: Material 3 navigation, system Back, touch targets, typography, theming, components, motion and build verification.",
+   "summary_sha": "32a5cf7ccfd78afe659f10f80cca6bbb3ef7de69"
   },
   {
    "path": ".claude/skills/impeccable/reference/animate.md",
@@ -114,8 +114,8 @@
    "size": 5236,
    "chunk": null,
    "sha": "4ae4cc5fcd7ae4341f4f130ab67a7d9b03c00562",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `animate` command: uses motion to explain state and hierarchy, covering motion thesis, timing and easing, runtime implementation, accessibility and verification.",
+   "summary_sha": "4ae4cc5fcd7ae4341f4f130ab67a7d9b03c00562"
   },
   {
    "path": ".claude/skills/impeccable/reference/audit.md",
@@ -123,8 +123,8 @@
    "size": 9584,
    "chunk": null,
    "sha": "41033f119b6265176e1fdc34a6c2ad1e004c16ac",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `audit` command: runs technical checks on accessibility, performance, theming, responsive design and implementation integrity, scores each 0-4 and reports without fixing.",
+   "summary_sha": "41033f119b6265176e1fdc34a6c2ad1e004c16ac"
   },
   {
    "path": ".claude/skills/impeccable/reference/audit.native.md",
@@ -132,8 +132,8 @@
    "size": 8326,
    "chunk": null,
    "sha": "2f5ac5143c99dd93dfbc5871089a569ed3ee7223",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Native variant of `audit` for iOS and Android source: scores accessibility, performance, theming, platform conformance and adaptivity, mirroring the web audit report skeleton.",
+   "summary_sha": "2f5ac5143c99dd93dfbc5871089a569ed3ee7223"
   },
   {
    "path": ".claude/skills/impeccable/reference/bolder.md",
@@ -141,8 +141,8 @@
    "size": 3497,
    "chunk": null,
    "sha": "d90e62d0d90f6872b5895158017ac25644e15cb9",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `bolder` command: amplifies one named, existing part of a surface to the conviction its system implies, without restyling neighbours or adding effects.",
+   "summary_sha": "d90e62d0d90f6872b5895158017ac25644e15cb9"
   },
   {
    "path": ".claude/skills/impeccable/reference/clarify.md",
@@ -150,8 +150,8 @@
    "size": 4590,
    "chunk": null,
    "sha": "3047a9d82b9cfa31b392e35c643d82bcdb50250a",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `clarify` command: rewrites unclear interface text (actions, forms, errors, empty and loading states, help) while preserving meaning, terminology and brand voice.",
+   "summary_sha": "3047a9d82b9cfa31b392e35c643d82bcdb50250a"
   },
   {
    "path": ".claude/skills/impeccable/reference/colorize.md",
@@ -159,8 +159,8 @@
    "size": 4537,
    "chunk": null,
    "sha": "dc45f88c5f81c61355a915c6ea1391b1a36c9ba8",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `colorize` command: introduces color as hierarchy, meaning and atmosphere, preserving brand and semantic conventions, with contrast checks and live-mode parameters.",
+   "summary_sha": "dc45f88c5f81c61355a915c6ea1391b1a36c9ba8"
   },
   {
    "path": ".claude/skills/impeccable/reference/component-review.md",
@@ -168,8 +168,8 @@
    "size": 8017,
    "chunk": null,
    "sha": "0e96a9d2ceba25197ab8cb6b08dd62eb4b107d2a",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Checkpoint for comp-led builds that plans and presents plates and the production plan for user review via the `component-review` script before any page code exists.",
+   "summary_sha": "0e96a9d2ceba25197ab8cb6b08dd62eb4b107d2a"
   },
   {
    "path": ".claude/skills/impeccable/reference/craft-floor.md",
@@ -177,8 +177,8 @@
    "size": 4516,
    "chunk": null,
    "sha": "1f2bb82a2a58c3e90189efcb7884eb3c028bc6cc",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Checklist of verifiable quality checks (contrast, depth, spacing, type, motion) and refusals applied to a built result after the design direction is settled.",
+   "summary_sha": "1f2bb82a2a58c3e90189efcb7884eb3c028bc6cc"
   },
   {
    "path": ".claude/skills/impeccable/reference/craft.md",
@@ -186,8 +186,8 @@
    "size": 555,
    "chunk": null,
    "sha": "dbbc9402c07cdab21f2b6eb69279b8435fecfd7f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Short note that `craft` is a deprecated alias for ordinary new visual work, routing to init and new-work with no extra behavior.",
+   "summary_sha": "dbbc9402c07cdab21f2b6eb69279b8435fecfd7f"
   },
   {
    "path": ".claude/skills/impeccable/reference/critique.md",
@@ -195,8 +195,8 @@
    "size": 45636,
    "chunk": null,
    "sha": "19feee5d5201ccee8e29e68f401b8bbeedab09d5",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `critique` command: runs design review and detector/browser evidence as two isolated assessments, synthesizes a scored critique, saves a snapshot and asks what to improve.",
+   "summary_sha": "19feee5d5201ccee8e29e68f401b8bbeedab09d5"
   },
   {
    "path": ".claude/skills/impeccable/reference/degraded/asset-producer.md",
@@ -204,8 +204,8 @@
    "size": 8429,
    "chunk": null,
    "sha": "ffdf8747e7ad410b4cddba9efb3d5c8b8ce77f0e",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Generated inline-fallback copy of the asset-producer agent instructions for harnesses without subagents, prefixed with a notice to disclose the substitution.",
+   "summary_sha": "ffdf8747e7ad410b4cddba9efb3d5c8b8ce77f0e"
   },
   {
    "path": ".claude/skills/impeccable/reference/degraded/documenter.md",
@@ -213,8 +213,8 @@
    "size": 3325,
    "chunk": null,
    "sha": "e9dfb799bcece32233386bf9702bc3141d56d196",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Generated inline-fallback copy of the documenter agent instructions for harnesses without subagent support, prefixed with a notice to disclose the substitution.",
+   "summary_sha": "e9dfb799bcece32233386bf9702bc3141d56d196"
   },
   {
    "path": ".claude/skills/impeccable/reference/degraded/finish-reviewer.md",
@@ -222,8 +222,8 @@
    "size": 15803,
    "chunk": null,
    "sha": "06f257d4a97ec7a19726e9b8eea702592bc0fdf8",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Generated inline-fallback copy of the finish-reviewer agent instructions for harnesses without subagents, prefixed with a notice to disclose the substitution.",
+   "summary_sha": "06f257d4a97ec7a19726e9b8eea702592bc0fdf8"
   },
   {
    "path": ".claude/skills/impeccable/reference/degraded/manual-edit-applier.md",
@@ -231,8 +231,8 @@
    "size": 7196,
    "chunk": null,
    "sha": "ef5095b924623ce04e02188a6790ebd98a273bcd",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Generated inline-fallback copy of the manual-edit-applier agent instructions for harnesses without subagents, prefixed with a notice to disclose the substitution.",
+   "summary_sha": "ef5095b924623ce04e02188a6790ebd98a273bcd"
   },
   {
    "path": ".claude/skills/impeccable/reference/delight.md",
@@ -240,8 +240,8 @@
    "size": 3716,
    "chunk": null,
    "sha": "798c43a5b735a5b75b67484c516821f1355dfbd6",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `delight` command: adds earned personality at meaningful moments through a single delight thesis, while protecting usability and reliability.",
+   "summary_sha": "798c43a5b735a5b75b67484c516821f1355dfbd6"
   },
   {
    "path": ".claude/skills/impeccable/reference/distill.md",
@@ -249,8 +249,8 @@
    "size": 5529,
    "chunk": null,
    "sha": "d7c525d922900a051d0eacc8a50df70c693369f0",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `distill` command: strips a design to its essence by removing redundant elements, excess variation and complexity in information, visuals, layout and interaction.",
+   "summary_sha": "d7c525d922900a051d0eacc8a50df70c693369f0"
   },
   {
    "path": ".claude/skills/impeccable/reference/doctor.md",
@@ -258,8 +258,8 @@
    "size": 5617,
    "chunk": null,
    "sha": "438b8aac8d91430ae6ee7384c15a3fced3108b3b",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `doctor` command: reports and repairs schema drift between a project's PRODUCT.md, DESIGN.md, sidecar, config and hook files and the installed Impeccable version.",
+   "summary_sha": "438b8aac8d91430ae6ee7384c15a3fced3108b3b"
   },
   {
    "path": ".claude/skills/impeccable/reference/document.md",
@@ -267,8 +267,8 @@
    "size": 27457,
    "chunk": null,
    "sha": "879ba4e86e3a8d37d0452d1c8053b49456f781b8",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `document` command: generates DESIGN.md with YAML token frontmatter and eight canonical sections by scanning project code, so agents stay on-brand.",
+   "summary_sha": "879ba4e86e3a8d37d0452d1c8053b49456f781b8"
   },
   {
    "path": ".claude/skills/impeccable/reference/extract.md",
@@ -276,8 +276,8 @@
    "size": 3337,
    "chunk": null,
    "sha": "4c6255cf2430048b90391ade163ebd2dce88492a",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `extract` command: finds reusable patterns, components and tokens, then extracts, migrates and documents them in the design system.",
+   "summary_sha": "4c6255cf2430048b90391ade163ebd2dce88492a"
   },
   {
    "path": ".claude/skills/impeccable/reference/generate.md",
@@ -285,8 +285,8 @@
    "size": 13152,
    "chunk": null,
    "sha": "447e8527d10ee37e3b0a1677d37d5b31efa81141",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `generate` command: fast lane into live mode that parses a request, selects the named element in the browser and writes variants for the user to choose.",
+   "summary_sha": "447e8527d10ee37e3b0a1677d37d5b31efa81141"
   },
   {
    "path": ".claude/skills/impeccable/reference/harden.md",
@@ -294,8 +294,8 @@
    "size": 10748,
    "chunk": null,
    "sha": "e7183cfab285807bfad71dfbf6409e00b6ce5da1",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `harden` command: makes an interface production-ready against extreme inputs, text overflow, i18n, errors, edge cases, validation and network conditions.",
+   "summary_sha": "e7183cfab285807bfad71dfbf6409e00b6ce5da1"
   },
   {
    "path": ".claude/skills/impeccable/reference/hooks.md",
@@ -303,8 +303,8 @@
    "size": 14496,
    "chunk": null,
    "sha": "c523d5c4395a9f0e423b0bb6ec37f80ace521359",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `hooks` command: manages the design detector hook that scans edited UI files after tool use and feeds findings back to the agent.",
+   "summary_sha": "c523d5c4395a9f0e423b0bb6ec37f80ace521359"
   },
   {
    "path": ".claude/skills/impeccable/reference/init.md",
@@ -312,8 +312,8 @@
    "size": 11697,
    "chunk": null,
    "sha": "d1b8f01cad65aef84aa28d985d76b9c8961f9c7f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `init` command: interviews the user and writes PRODUCT.md with durable product truth, without inventing a visual world or writing DESIGN.md.",
+   "summary_sha": "d1b8f01cad65aef84aa28d985d76b9c8961f9c7f"
   },
   {
    "path": ".claude/skills/impeccable/reference/ios.md",
@@ -321,8 +321,8 @@
    "size": 3812,
    "chunk": null,
    "sha": "c6244dfe32176e5718d86211b7d1eb5601eb0860",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Platform reference for native iOS and iPadOS work: HIG conformance, layout, touch targets, typography, color and materials, components, and motion.",
+   "summary_sha": "c6244dfe32176e5718d86211b7d1eb5601eb0860"
   },
   {
    "path": ".claude/skills/impeccable/reference/layout.md",
@@ -330,8 +330,8 @@
    "size": 5161,
    "chunk": null,
    "sha": "7f3b30d80964a21776ec9dd7bb2a9d5db0075003",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `layout` command: fixes structure, reading order, grouping, rhythm and spacing inside the established visual world, using two isolated assessments.",
+   "summary_sha": "7f3b30d80964a21776ec9dd7bb2a9d5db0075003"
   },
   {
    "path": ".claude/skills/impeccable/reference/live-setup.md",
@@ -339,8 +339,8 @@
    "size": 8186,
    "chunk": null,
    "sha": "670ecc737035debe4783a7c15394ea14ac26c915",
-   "summary": "",
-   "summary_sha": null
+   "summary": "One-time live-mode setup reference: writing .impeccable/live/config.json, handling config drift, and detecting CSP restrictions with a consent prompt.",
+   "summary_sha": "670ecc737035debe4783a7c15394ea14ac26c915"
   },
   {
    "path": ".claude/skills/impeccable/reference/live.md",
@@ -348,8 +348,8 @@
    "size": 36892,
    "chunk": null,
    "sha": "fb598f2caddc0b230e9a7304ed9ac112cae0bf6c",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for interactive live variant mode: select elements in the browser, pick an action, and hot-swap AI-generated HTML and CSS variants through the dev server using a poll loop.",
+   "summary_sha": "fb598f2caddc0b230e9a7304ed9ac112cae0bf6c"
   },
   {
    "path": ".claude/skills/impeccable/reference/mode-operate.md",
@@ -357,8 +357,8 @@
    "size": 4716,
    "chunk": null,
    "sha": "833775ba85f03bf65a4c1b23e39192f7653414e6",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Mode rules for Operate surfaces (apps, dashboards, tools): the world lends only type, palette, density and one signature move, never layout or controls, plus comp guidance.",
+   "summary_sha": "833775ba85f03bf65a4c1b23e39192f7653414e6"
   },
   {
    "path": ".claude/skills/impeccable/reference/mode-persuade.md",
@@ -366,8 +366,8 @@
    "size": 3638,
    "chunk": null,
    "sha": "9c152d67064fb8453a7eaa89de20c35fc115b085",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Mode rules for Persuade and Experience surfaces: the world may own and structure the page, with opening, offer and action requirements plus comp guidance.",
+   "summary_sha": "9c152d67064fb8453a7eaa89de20c35fc115b085"
   },
   {
    "path": ".claude/skills/impeccable/reference/mode-read.md",
@@ -375,8 +375,8 @@
    "size": 4396,
    "chunk": null,
    "sha": "b30c4c9139e3094bd35c60738decb6109326153f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Mode rules for Read surfaces (docs, articles, guides): the world frames masthead, navigation and openers while the reading column stays calm and comprehensible.",
+   "summary_sha": "b30c4c9139e3094bd35c60738decb6109326153f"
   },
   {
    "path": ".claude/skills/impeccable/reference/new-work.md",
@@ -384,8 +384,8 @@
    "size": 63084,
    "chunk": null,
    "sha": "46e62ac276b9525f94e5e364a1cd9df5a19fca9c",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference flow for new visual work or replacement identity: reads existing truth, decides how much invention to apply, selects the world and surface, then implements and finishes.",
+   "summary_sha": "46e62ac276b9525f94e5e364a1cd9df5a19fca9c"
   },
   {
    "path": ".claude/skills/impeccable/reference/onboard.md",
@@ -393,8 +393,8 @@
    "size": 7688,
    "chunk": null,
    "sha": "464ae5516e2623ef4be8260a33968548b33ae697",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `onboard` command: designs first-run flows, empty states and activation that get users to first value quickly.",
+   "summary_sha": "464ae5516e2623ef4be8260a33968548b33ae697"
   },
   {
    "path": ".claude/skills/impeccable/reference/operate.md",
@@ -402,8 +402,8 @@
    "size": 4145,
    "chunk": null,
    "sha": "524f2c3ae9fa497284e9699f3ca5320cce5d05cf",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Extended depth for Operate and Read surfaces: product slop test plus guidance on typography, color, layout, components and motion for task-focused interfaces.",
+   "summary_sha": "524f2c3ae9fa497284e9699f3ca5320cce5d05cf"
   },
   {
    "path": ".claude/skills/impeccable/reference/optimize.md",
@@ -411,8 +411,8 @@
    "size": 7577,
    "chunk": null,
    "sha": "3f3fc7c33e21b029d5888112a566a547f30a3520",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `optimize` command: measures Core Web Vitals, finds the real UI bottleneck and fixes loading, rendering, animation, framework and network performance.",
+   "summary_sha": "3f3fc7c33e21b029d5888112a566a547f30a3520"
   },
   {
    "path": ".claude/skills/impeccable/reference/overdrive.md",
@@ -420,8 +420,8 @@
    "size": 9010,
    "chunk": null,
    "sha": "01a1cb131f7bfda4e438dc7a8ff4b7530c07f7f9",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `overdrive` command: pushes an interface past conventional limits with ambitious effects or technical feats, proposing before building and verifying in the browser.",
+   "summary_sha": "01a1cb131f7bfda4e438dc7a8ff4b7530c07f7f9"
   },
   {
    "path": ".claude/skills/impeccable/reference/polish.md",
@@ -429,8 +429,8 @@
    "size": 6646,
    "chunk": null,
    "sha": "d981459468a485dc3b3e8add112ea0f5e6b9e576",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `polish` command: final refinement pass over flow, layout, type, color and states that preserves the incumbent visual world and never smuggles in redesign.",
+   "summary_sha": "d981459468a485dc3b3e8add112ea0f5e6b9e576"
   },
   {
    "path": ".claude/skills/impeccable/reference/quieter.md",
@@ -438,8 +438,8 @@
    "size": 4951,
    "chunk": null,
    "sha": "bcd4f8a6948f741996777b156f3706955cc802ff",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `quieter` command: reduces visual intensity in loud designs through color, weight and simplification refinements while keeping personality.",
+   "summary_sha": "bcd4f8a6948f741996777b156f3706955cc802ff"
   },
   {
    "path": ".claude/skills/impeccable/reference/region-map.md",
@@ -447,8 +447,8 @@
    "size": 3361,
    "chunk": null,
    "sha": "1d33c7b4a61f6590484c42847499a10beb4b93ca",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference describing how to map visible regions of an approved comp (regions.json via comp-spec) before asset production, covering containment, independent variation and painted material.",
+   "summary_sha": "1d33c7b4a61f6590484c42847499a10beb4b93ca"
   },
   {
    "path": ".claude/skills/impeccable/reference/routing.md",
@@ -456,8 +456,8 @@
    "size": 3336,
    "chunk": null,
    "sha": "e41a143fdab06e4545640896a3f9b7516e6d1b2f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for command guidance: answers workflow questions and builds the context-aware menu shown when `/impeccable` is invoked with no argument.",
+   "summary_sha": "e41a143fdab06e4545640896a3f9b7516e6d1b2f"
   },
   {
    "path": ".claude/skills/impeccable/reference/shape.md",
@@ -465,8 +465,8 @@
    "size": 3547,
    "chunk": null,
    "sha": "90a74ae813331cbce8fff6beb498ced77970fadf",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `shape` command: runs a discovery interview, resolves design direction and returns a confirmed design brief without writing code.",
+   "summary_sha": "90a74ae813331cbce8fff6beb498ced77970fadf"
   },
   {
    "path": ".claude/skills/impeccable/reference/typeset.md",
@@ -474,8 +474,8 @@
    "size": 6263,
    "chunk": null,
    "sha": "87a33d3e119e001ac04174be0aaed0ed0a5f72ca",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for the `typeset` command: improves typography hierarchy, fonts and line breaks inside the existing world using two isolated assessments and live-mode parameters.",
+   "summary_sha": "87a33d3e119e001ac04174be0aaed0ed0a5f72ca"
   },
   {
    "path": ".claude/skills/impeccable/reference/visualize.md",
@@ -483,8 +483,8 @@
    "size": 13956,
    "chunk": null,
    "sha": "88c09cbbe5be3e301c8534a07be325271c6a1802",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reference for comp-led builds with image generation: produces three compositional direction comps, one approval point, then turns the approved comp into a spec, plates and provenance.",
+   "summary_sha": "88c09cbbe5be3e301c8534a07be325271c6a1802"
   },
   {
    "path": ".claude/skills/impeccable/scripts/VERSION",
@@ -492,8 +492,8 @@
    "size": 7,
    "chunk": null,
    "sha": "f8bc4c6256ab7d4bb54c2ab7af94c4fa5e58ac56",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Single-line file recording the pinned Impeccable engine version, 0.1.18.",
+   "summary_sha": "f8bc4c6256ab7d4bb54c2ab7af94c4fa5e58ac56"
   },
   {
    "path": ".claude/skills/impeccable/scripts/command-metadata.json",
@@ -501,8 +501,8 @@
    "size": 8318,
    "chunk": null,
    "sha": "4686bb6deea643493198bff1369bc2958b3909a7",
-   "summary": "",
-   "summary_sha": null
+   "summary": "JSON map of each Impeccable command to its description and argument hint, used to expose commands and shortcuts.",
+   "summary_sha": "4686bb6deea643493198bff1369bc2958b3909a7"
   },
   {
    "path": ".claude/skills/impeccable/scripts/data/font-index-failures.json",
@@ -510,8 +510,8 @@
    "size": 2437,
    "chunk": null,
    "sha": "1aca67220413ef163570c75405b444d7a27a32be",
-   "summary": "",
-   "summary_sha": null
+   "summary": "JSON list of font families and weights that failed font indexing (not loaded or no lettering), with category and variable flag.",
+   "summary_sha": "1aca67220413ef163570c75405b444d7a27a32be"
   },
   {
    "path": ".claude/skills/impeccable/scripts/data/font-index.json",
@@ -519,8 +519,8 @@
    "size": 1100013,
    "chunk": null,
    "sha": "9d2029971df232a72ff6584d264c104490521742",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Large JSON font index (schema 2) with sample text, sizes, feature names and per-font visual metrics used to match and recommend typefaces by category.",
+   "summary_sha": "9d2029971df232a72ff6584d264c104490521742"
   },
   {
    "path": ".claude/skills/impeccable/scripts/engine-checksums.txt",
@@ -528,8 +528,8 @@
    "size": 787,
    "chunk": null,
    "sha": "2e948006a8ac3cb811b775f88b131def849f2237",
-   "summary": "",
-   "summary_sha": null
+   "summary": "List of SHA-256 digests of engine binaries for the pinned engine version, used by launchers to verify downloads.",
+   "summary_sha": "2e948006a8ac3cb811b775f88b131def849f2237"
   },
   {
    "path": ".claude/skills/impeccable/scripts/impeccable",
@@ -537,8 +537,8 @@
    "size": 10167,
    "chunk": null,
    "sha": "92d8cca299b95a1222885145c921842760ebd22c",
-   "summary": "",
-   "summary_sha": null
+   "summary": "POSIX shell launcher that runs the platform engine binary, falling back to home, cached or PATH copies with probe handshake and checksum verification.",
+   "summary_sha": "92d8cca299b95a1222885145c921842760ebd22c"
   },
   {
    "path": ".claude/skills/impeccable/scripts/impeccable.cmd",
@@ -546,8 +546,8 @@
    "size": 10817,
    "chunk": null,
    "sha": "5f2039ec9ed66a899809b3becdc660089b68fa7f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Windows batch launcher equivalent that runs the engine binary or a cached or downloaded copy, validating candidates with the engine-probe handshake.",
+   "summary_sha": "5f2039ec9ed66a899809b3becdc660089b68fa7f"
   },
   {
    "path": ".claude/skills/impeccable/scripts/live-browser-dom.js",
@@ -555,8 +555,8 @@
    "size": 12283,
    "chunk": null,
    "sha": "ef1ca8928111080ddb923da14c7827b7396a9e62",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Browser-side helper module for live mode providing DOM utilities such as chrome mounting, element lookup, pickability checks and focus handling.",
+   "summary_sha": "ef1ca8928111080ddb923da14c7827b7396a9e62"
   },
   {
    "path": ".claude/skills/impeccable/scripts/live-browser-ignores.js",
@@ -564,8 +564,8 @@
    "size": 10423,
    "chunk": null,
    "sha": "1a2912e57a3b2b10a0d961b5dfe568253133fe53",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Browser-side module that resolves project detector waivers from config against the current page path so the live overlay suppresses the same findings as the CLI.",
+   "summary_sha": "1a2912e57a3b2b10a0d961b5dfe568253133fe53"
   },
   {
    "path": ".claude/skills/impeccable/scripts/live-browser-session.js",
@@ -573,8 +573,8 @@
    "size": 5838,
    "chunk": null,
    "sha": "6871770720d3dd7a284c545e20b97b613635f36f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Browser-side helper for durable live-mode session state and recovery, including a UUID generator that works in non-secure contexts.",
+   "summary_sha": "6871770720d3dd7a284c545e20b97b613635f36f"
   },
   {
    "path": ".claude/skills/impeccable/scripts/live-browser.js",
@@ -582,8 +582,8 @@
    "size": 553621,
    "chunk": null,
    "sha": "53a2d95fa0299743512a0baeb404060f833da25f",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Large browser script injected into the page for live variant mode, providing the floating configure, generating and cycling bar for picking elements and previewing variants.",
+   "summary_sha": "53a2d95fa0299743512a0baeb404060f833da25f"
   },
   {
    "path": ".claude/skills/impeccable/scripts/modern-screenshot.umd.js",
@@ -591,8 +591,8 @@
    "size": 29290,
    "chunk": null,
    "sha": "a9c5208f6b141d3bafdb8eb843d6fcbdcf23e370",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Minified vendored UMD build of the modern-screenshot library for rendering DOM elements to images in the browser.",
+   "summary_sha": "a9c5208f6b141d3bafdb8eb843d6fcbdcf23e370"
   },
   {
    "path": ".claude/skills/parity-check/SKILL.md",
@@ -600,8 +600,8 @@
    "size": 1189,
    "chunk": null,
    "sha": "7652274fda25da06b7e26982b888d4545d82149e",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Project skill: the numerical-parity contract between the Python reference, the ONNX export and the TypeScript/browser implementation, with per-layer tolerances that may never be loosened.",
+   "summary_sha": "7652274fda25da06b7e26982b888d4545d82149e"
   },
   {
    "path": ".claude/skills/repo-graph/SKILL.md",
@@ -609,8 +609,8 @@
    "size": 1448,
    "chunk": null,
    "sha": "4959abd5ff0864497d573ef1372ece59c8d5bd09",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Project skill describing how to read, regenerate and update the repository graph (graph.json, REPO_MAP.md, build_graph.py) and its rules.",
+   "summary_sha": "4959abd5ff0864497d573ef1372ece59c8d5bd09"
   },
   {
    "path": ".claude/skills/subchunk-loop/SKILL.md",
@@ -618,8 +618,8 @@
    "size": 1066,
    "chunk": null,
    "sha": "8e96f7809f7b9655e23e27a42bda756f39b9675a",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Project skill: the mandatory PLAN, TEST FIRST, IMPLEMENT, VERIFY, COMMIT, RECORD loop for every web-app subchunk.",
+   "summary_sha": "8e96f7809f7b9655e23e27a42bda756f39b9675a"
   },
   {
    "path": ".gitattributes",
@@ -627,8 +627,8 @@
    "size": 315,
    "chunk": null,
    "sha": "97d5d02caa900f3c0dfdf2c2bd0f0d882cc7932d",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Forces LF line endings for .githooks/* and Impeccable's launcher scripts (CRLF for its .cmd launcher), so the sh scripts still run in Windows checkouts.",
+   "summary_sha": "97d5d02caa900f3c0dfdf2c2bd0f0d882cc7932d"
   },
   {
    "path": ".githooks/pre-commit",
@@ -636,8 +636,8 @@
    "size": 1304,
    "chunk": null,
    "sha": "7e58421776842cc2496df4640f81b9cbc47067e7",
-   "summary": "",
-   "summary_sha": null
+   "summary": "POSIX sh pre-commit hook (enabled with `git config core.hooksPath .githooks`) that rejects any staged path under webapp_private/, any .pt/.pth/.npy file, or any file over 10 MB.",
+   "summary_sha": "7e58421776842cc2496df4640f81b9cbc47067e7"
   },
   {
    "path": ".gitignore",
@@ -645,8 +645,8 @@
    "size": 1234,
    "chunk": null,
    "sha": "8955fe6c5f28708a52764ee33252d7fe91561ff6",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Ignores webapp_private/ (local-only checkpoint and data copies), node_modules/, webapp/dist/, .env files, Impeccable's ephemeral runtime files, its per-platform engine binary and Claude Code's per-user settings.local.json.",
+   "summary_sha": "8955fe6c5f28708a52764ee33252d7fe91561ff6"
   },
   {
    "path": "CLAUDE.md",
@@ -654,8 +654,8 @@
    "size": 7978,
    "chunk": null,
    "sha": "25361762e643a90ceda9c25011cf65f551db69d8",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Working rules for building the web app: one-time hook setup, private-data rules for webapp_private/, the subchunk loop, commit protocol, six-step debugging protocol with the three-hypothesis stop rule, stop conditions, and the domain facts the app must not get wrong.",
+   "summary_sha": "25361762e643a90ceda9c25011cf65f551db69d8"
   },
   {
    "path": "DEBUG_LOG.md",
@@ -663,8 +663,8 @@
    "size": 978,
    "chunk": null,
    "sha": "915c1a5a90a274ce1d54f0c553f839f5e7868a17",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first.",
+   "summary_sha": "915c1a5a90a274ce1d54f0c553f839f5e7868a17"
   },
   {
    "path": "Makefile",
@@ -672,8 +672,8 @@
    "size": 444,
    "chunk": null,
    "sha": "b6d598b9168183f3b34927c86a1c5a1b3ffbe2ed",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Project task runner: `make graph` regenerates docs/repo_graph/graph.json and checks it; `make graph-check` fails on a stale graph, a tracked file missing from it, or missing/stale summaries.",
+   "summary_sha": "b6d598b9168183f3b34927c86a1c5a1b3ffbe2ed"
   },
   {
    "path": "PROGRESS.md",
@@ -681,8 +681,8 @@
    "size": 2044,
    "chunk": null,
    "sha": "fa4de6a60b8bb67244015b6c313c6f81e1f1354d",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
+   "summary_sha": "fa4de6a60b8bb67244015b6c313c6f81e1f1354d"
   },
   {
    "path": "README.md",
@@ -690,8 +690,8 @@
    "size": 22598,
    "chunk": null,
    "sha": "477c1053f25e00e7cbcdecc1d67dd0990a7ed395",
-   "summary": "",
-   "summary_sha": null
+   "summary": "Project README: the problem and data (five grids, 201-point |S11| from alternate.m simulations), graph representation, GATv2 architecture, model lineage up to the Chunk 44/45/50 natural-distribution models, the Gupta et al. CNN baseline, a research log of every notebook, source modules, conventions and known caveats. It predates Chunks 51-53 in its headline table (it names ch44_ft15_from4_replay_p100_s0 as the final five-grid model).",
+   "summary_sha": "477c1053f25e00e7cbcdecc1d67dd0990a7ed395"
   },
   {
    "path": "artifact:al_curves.csv",
@@ -2264,7 +2264,7 @@
    "type": "json",
    "size": null,
    "chunk": null,
-   "summary": "",
+   "summary": "The repository graph generated by scripts/repo_graph/build_graph.py: one node per file (with hand-written summaries) plus external Drive-artifact nodes, and imports/reads/writes/produces/precedes edges. Regenerate with `make graph`.",
    "summary_sha": null
   },
   {
@@ -2282,8 +2282,8 @@
    "writes": [
     "seed_mask_{}.npy"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Mounts Drive, counts raw .mat files per grid (25x25: 99,833; 35x35: 4,988; 45x45: 6,984; 55x55: 2,992), samples summary stats (functioning rate 54.5-67.5%, metal fraction ~0.59-0.60, mean f_res ~3.6 GHz) and plots patterns/S11. Derives seed_mask_{N}.npy by AND-ing all patterns (always-metal block) and computes its centroid (25x25 pixel centroid (11.40,11.51); bbox rows 5-15, cols 8-15; 64 px, 2 components).",
+   "summary_sha": "9175b5a88b5708eac6301c2d4dc074b96d445249"
   },
   {
    "path": "notebooks/chunk02_graph_construction.ipynb",
@@ -2299,8 +2299,8 @@
     "seed_mask_55.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Defines a NetworkX prototype mat_to_networkx (pixel nodes + a 'global' virtual node, 4-connectivity edges with etype/direction, global node linked bidirectionally to metal pixels only), draws graphs, and verifies node/edge counts (626 nodes for 25x25, 3026 for 55x55; global degree = 2*metal count).",
+   "summary_sha": "9e70c8a594726f6f8103b86aee541115d6a4a945"
   },
   {
    "path": "notebooks/chunk03_cnn_baseline.ipynb",
@@ -2313,8 +2313,8 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Kaggle notebook training the Gupta et al. 2023-style CNN baseline (AntennaCNN, 6,163,473 params, 25x25 input, 201 outputs, MSE on raw dB, NAdam lr1e-3, bs512, 40 epochs, ReduceLROnPlateau) on 99,833 25x25 samples with a stratified 80/10/10 split. Test result: S11 MAE 0.4184 dB, resonant-freq MAE 0.0283 GHz, functioning classification 80.02%; permutation sensitivity 0.29 dB.",
+   "summary_sha": "364c67685dd5ed36f0f67ea662528a0d6f883c8c"
   },
   {
    "path": "notebooks/chunk04-pyg-foundations.ipynb",
@@ -2330,8 +2330,8 @@
     "seed_mask_25.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Kaggle notebook that defines build_pyg_graph (5 node features, 4-connectivity edges, metal-only virtual node, edge_attr=[etype,direction]) from the cached raw tensors, checks shapes (x [626,5], edge_index [2,3324], edge_attr [3324,2], y [1,201]), runs a SimpleGCN forward pass, and tests an in-memory Dataset and PyG DataLoader batching on 200 samples.",
+   "summary_sha": "6f64a13de3aeeb7661c5fb4d4cc6e0fc6e6291dc"
   },
   {
    "path": "notebooks/chunk05_build_dataset.ipynb",
@@ -2352,8 +2352,8 @@
     "s11_mean.npy",
     "s11_std.npy"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Kaggle notebook that builds all 114,797 PyG graphs (25x25: 99,833; 35: 4,988; 45: 6,984; 55: 2,992) with the same build_pyg_graph, makes a joint stratified 80/10/10 split (stratified by grid_size x is_functioning; 91,837/11,480/11,480; random_state=42), and computes per-frequency-point S11 mean/std from the joint training split of all four grids (79,866/3,990/5,587/2,394 for 25/35/45/55): these are the canonical s11_mean.npy/s11_std.npy every later chunk loads (mean range [-5.619,-0.044], std range [0.014,7.161]).",
+   "summary_sha": "57cba85c02472063978fdec978fd56fc69db42a1"
   },
   {
    "path": "notebooks/chunk06_model_architecture.ipynb",
@@ -2369,8 +2369,8 @@
     "seed_mask_{}.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "CPU-only Kaggle notebook defining GATv2Block and AntennaGNN (4 blocks x 2 GATv2 layers, hidden 128, 8 heads, edge_dim 16, metal-only mean pool + virtual-node embedding -> MLP -> 201 outputs; 587,001 params), verifying output shapes across 25/45/55 grids and gradient flow, and writing src/model.py.",
+   "summary_sha": "937d65dd4fd31d2c8320744f37b5218c2ed01da9"
   },
   {
    "path": "notebooks/chunk07_training.ipynb",
@@ -2389,8 +2389,8 @@
     "sample_{}.pt"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Colab notebook training AntennaGNN on the 25x25 subset (79,866 train / 9,984 val) with Adam lr1e-3 wd1e-4, batch 128, ReduceLROnPlateau(0.5,5), grad-clip 1.0, dropout 0.10, early stop patience 20, MSE on z-scored S11, resuming from a Drive checkpoint at epoch 112. Best val MSE (normalised) 0.688534 at epoch 111; early stopped at epoch 131.",
+   "summary_sha": "6950387be696e13371e32d2f04ca76bd890c1c56"
   },
   {
    "path": "notebooks/chunk08_evaluation.ipynb",
@@ -2410,8 +2410,8 @@
     "sample_{}.pt"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Evaluates GNN (best_model.pt) vs CNN (cnn_best.pt) on the 25x25 test set (9,983): S11 MAE 0.3742 dB (GNN) vs 0.3913 (CNN), RMSE 1.1478 vs 1.1356, resonant-freq MAE 0.0210 vs 0.0207 GHz, functioning accuracy 80.26% vs 80.24%. Also band-stratified MAE, cost table (GNN 587,001 vs CNN 6,163,473 params), data-efficiency curves (GNN 0.434 vs CNN ~0.54 dB at 20k), and permutation test (CNN 0.42 dB vs GNN 3.4e-7 dB).",
+   "summary_sha": "d857af183fd7fabda082b3f9dba7cad5c9bc2451"
   },
   {
    "path": "notebooks/chunk09_attention_visualization.ipynb",
@@ -2430,8 +2430,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Subclasses AntennaGNN to return GATv2 attention weights from the last layer of the last block, builds per-pixel attention heatmaps (mean over 8 heads, metal-metal edges only, aggregated per target node, min-max normalised) and plots pattern/attention/S11 panels for 9 functioning and 4 non-functioning 25x25 test antennas. Qualitatively, functioning antennas show attention along continuous metal paths from the feed; non-functioning ones show scattered or isolated-island attention.",
+   "summary_sha": "d50aa9cbd4802bfb49e8b425cd5b6ba85afcf176"
   },
   {
    "path": "notebooks/chunk10_path_analysis.ipynb",
@@ -2452,8 +2452,8 @@
     "seed_mask_25.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Tests whether BFS path length from the feed predicts resonant frequency (poor: in-band R of L vs 1/f only ~0.05-0.09; R_all -0.20 to -0.57 over 5,485 functioning test antennas) and runs a counterfactual ablation flipping the 10 highest-attention vs 10 distance-matched low-attention metal pixels on 50 antennas. Paired Wilcoxon on median ||dS11||: p=0.037, path>offpath in 30/50; pooled Mann-Whitney p=0.004; discrete peak shift not significant (p=0.63).",
+   "summary_sha": "787003af0fd35b7aa89318ea840f8791a085dfe1"
   },
   {
    "path": "notebooks/chunk11_latent_analysis.ipynb",
@@ -2477,8 +2477,8 @@
     "train_embeddings_10k_25x25.npy",
     "umap_2d_test_25x25.npy"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Subclasses AntennaGNN to extract the 256-d post-readout_proj embedding for 9,983 25x25 test graphs (UMAP fit on 10k train embeddings, n_neighbors=30, min_dist=0.1) and relates it to resonant frequency, path length and gain. Headline: PCA-1D manifold axis vs resonant freq Spearman rho=0.78; zero-shot 35/45/55 grids embed near frequency-matched 25x25 neighbours (median kNN delta_f 0.098 GHz vs 0.237 random, 2.41x; 5.06x/2.32x/1.08x per grid); gain correlates best with electrical size sqrt(A)/lambda (rho=0.891); raw .mat has no angular pattern data.",
+   "summary_sha": "f3a5efdb7860afb956f515171b3d3923d87ae770"
   },
   {
    "path": "notebooks/chunk12_finetune_data_prep.ipynb",
@@ -2498,8 +2498,8 @@
     "seed_mask_{}.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Builds PyG graphs (frozen build_pyg_graph copied from Chunk 5) for the 35x35, 45x45, 55x55 fine-tune grids (14,964 samples; 63.4/65.3/48.4% functioning), writes manifest and pool/val/test splits (11,971/1,496/1,497, reusing Chunk 5 indices.json) and defines FinetuneDataset that z-scores y at load with the 25x25 s11_mean/s11_std. Smoke test: zero-shot weighted val S11 MAE 0.6717 dB (was ~3.9 in v1.0 with broken normalisation); 5 epochs of full fine-tune (lr 1e-4) gives 0.3580 dB, grad norm clipped ~99.7% of steps at max_norm 1.0.",
+   "summary_sha": "f4eb1a45524346811722c8c77c02d86588bacf96"
   },
   {
    "path": "notebooks/chunk13_transfer_strategy.ipynb",
@@ -2519,8 +2519,8 @@
     "strategy_{}.pt"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Compares four fine-tune strategies (A full lr1e-4, B freeze 2 blocks, C freeze 3 blocks, D full lr5e-4) plus a clip-threshold control A-hi on a 2,000-sample stratified pool subset with z-scored targets. Strategy A wins (weighted val S11 MAE 0.3524 dB vs zero-shot 0.6717; B 0.3553, C 0.3588, D 0.3675, A-hi 0.3539); on test, A beats zero-shot per grid (35: 0.5689->0.3711, 45: 0.6915->0.3187, 55: 0.7234->0.3606 dB), though resonance detection rate stays ~47-49%.",
+   "summary_sha": "b275e02d49c2041f7839f172c17fe20dd61e6b79"
   },
   {
    "path": "notebooks/chunk14_active_learning.ipynb",
@@ -2540,8 +2540,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Simulated active learning (MC-dropout + 3-member QBC hybrid score + latent-space diversity) vs random selection, 3 seeds x 8 rounds of 500 labels, warm-started fine-tuning. Result on val S11 MAE: no benefit from AL, random is better at 1500-2000 labels (AL 1.2534 vs random 1.1932 at 2000); MAE (~1.2-1.3 dB) is far above the 0.35 dB of the normalised pipeline because this notebook's FinetuneDataset has no z-scoring (apparently pre-contract), and the final test-evaluation cell did not run (final_models not in memory).",
+   "summary_sha": "85ac0022f076b90eb56eb395ded7cb3d4771a3a8"
   },
   {
    "path": "notebooks/chunk14a_random_arm_and_power.ipynb",
@@ -2563,8 +2563,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Re-runs the random-selection arm at seeds 1-3 (8 rounds x 500, grid/functioning-stratified acquisition, warm start, Strategy A, correct z-score contract) into al_curves.csv, then derives a minimum detectable effect from the random-arm seed std at 4000 labels and a GREEN/AMBER/RED rule for whether the full AL arm is worth running; a single-seed AL run (rank-normalised MC+QBC, farthest-point diversity) executes only if AMBER. The exported notebook has no cell outputs, so no sigma, MDE or decision value is recorded.",
+   "summary_sha": "36848e14bffdaa163c4bb2bb5634c9e0ce833a71"
   },
   {
    "path": "notebooks/chunk15_finetuned_evaluation.ipynb",
@@ -2587,8 +2587,8 @@
     "strategy_A.pt"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains a full-pool (11,971 samples) ceiling model by fine-tuning best_model.pt with Strategy A (lr 1e-4, no freezing, early stop at epoch 29, best weighted val MAE 0.3274), promotes it to gnn_finetuned_multiscale.pt with a provenance file, and evaluates zero-shot / fine-tuned@2000 / ceiling on the 1,497-sample multi-scale (35/45/55) test set. Weighted test S11 MAE is 0.6570 (zero-shot), 0.3445 (@2000), 0.3206 (ceiling); also adds a data-efficiency curve (500: 0.3544, 1000: 0.3527, 2000: 0.3445, 4000: 0.3351, full: 0.3206), a common-subset frequency-MAE metric, and shows the manifest is_functioning label equals the find_peaks label (100% agreement, 1497/1497).",
+   "summary_sha": "b4181abe0e1d852e0cfb6dad4b1bd4075479d07c"
   },
   {
    "path": "notebooks/chunk17_path_viz.ipynb",
@@ -2603,8 +2603,8 @@
    ],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Visualises GATv2 last-layer attention for 6 showcase 25x25 test antennas (seed 17; true f_res 2.96-3.91 GHz) and extracts a model-inferred feed-to-boundary path via Dijkstra on the metal lattice (edge weight -log(mean raw node attention)), with many diagnostics: raw attention CV is only ~13-15%, extracted paths are mostly minimal lattice paths (length is geometry), f_theory=150/L is systematically ~1.5x too high (ratios 1.39-1.84 on the first antennas), and attention is confounded by metal degree and input features (dist_feed, is_seed). The notebook frames per-pixel sensitivity (Chunk 18) as the decisive experiment rather than attention paths.",
+   "summary_sha": "ee70f8433ac0926588afa1b41a9dd1b38e45d7b0"
   },
   {
    "path": "notebooks/chunk20_dataset_structure.ipynb",
@@ -2617,8 +2617,8 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Audits the raw .mat dataset (114,797 files: 25x25 99,833; 35x35 4,988; 45x45 6,984; 55x55 2,992) to test whether the lower functioning rate at 55x55 is explained by percolation or self-averaging, using a pre-registered rule over fill fraction, 4-connectivity spanning and f_res statistics. Fill outside seed is ~0.551 on every grid and P(span_4conn) ~0.54, so neither rule branch cleanly fires (mixed/inconclusive by the stated rule, inferred since the printed verdict was trimmed); non-spanning dominates non-functioning at 25-45 (76-95%) but only 62% at 55x55 (37.6% weak dip), and a resonant_freqs vs argmin-frequency check FAILS (max diff 2.1 GHz on 2,713 rows).",
+   "summary_sha": "ac921431088846d72440e68378663adfb653a137"
   },
   {
    "path": "notebooks/chunk21_depth_diagnostics.ipynb",
@@ -2637,8 +2637,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Diagnoses why the ceiling model under-predicts resonance depth on the 1,496 validation graphs: pooled depth error 5.26 dB with |bias| 4.92 dB (94% of the error is bias) but weak pred-vs-true-min correlation (per-grid OLS slopes 0.13-0.23, R2<0.06); ranking is decent (AUROC 0.910 pooled; 0.940/0.946/0.810 for 35/45/55) with best balanced-accuracy threshold tau* = -6 dB (82.7% accuracy). The pre-registered gate evaluates to MIXED (AUROC passes but acc@tau* < 0.88), and min-based and find_peaks detectors agree exactly (758 yes / 738 no, 0 disagreements).",
+   "summary_sha": "1b4e53d627f3a5e51800cb3211fe6479804fd1b1"
   },
   {
    "path": "notebooks/chunk22_loss_surgery.ipynb",
@@ -2658,8 +2658,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Fine-tunes best_model.pt on a grid-stratified 2,000-sample subset (seed 22; 667/933/400 for 35/45/55) under three loss arms (L0 MSE, L1 Huber delta=1, L2 per-frequency weighted MSE w=std^2/mean(std^2)) and evaluates on validation only (test never loaded). Val S11 MAE: L0 0.3614, L1 0.3386, L2 0.3570; the code names L2 the Cell G winner, but depth-stratified FNR checks (Cell I/J) report a deep-resonance blind spot for L0 and L2 at -10 dB (FNR 24-43% across most functioning bins) and tau*_bal=-6 dB for both, pointing to a classification head (Chunk 23) as the next step.",
+   "summary_sha": "b1d23f56686c8debe8ee3a9c0892373bf846b0cc"
   },
   {
    "path": "notebooks/chunk23_classification_head.ipynb",
@@ -2681,8 +2681,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Adds a binary 'functioning' classification head (nn.Linear(256,1)) on the 256-d readout of AntennaGNN, warm-started from best_model.pt (587,001+257=587,258 params), and trains it jointly with weighted-MSE spectrum loss (gamma auto-set to 0.175, 20% of initial loss) on the 2,000-sample subset; best epoch 24, val S11 MAE ~0.36 dB, val Bal-Acc ~0.83 for both the recalibrated spectrum threshold (tau -5 dB) and cls_head (p>=0.65). Evaluates three classifiers against a pre-registered adopt/reject rule and runs permutation-invariance guards (spectrum std 5.8e-6 dB); the final ADOPT/REJECT verdict line is truncated in the extracted output.",
+   "summary_sha": "7defff3b12f2d76188de5ecf8343852f9e7be526"
   },
   {
    "path": "notebooks/chunk25_asymmetric_loss_sweep.ipynb",
@@ -2700,8 +2700,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Sweeps an asymmetric weighted-MSE loss (penalty kappa on pred>true, i.e. predicted dip too shallow) for kappa in {1.5,2,3,5} x 5 seeds, warm-starting from best_model.pt on the 2,000-sample subset, versus 5 existing kappa=1.0 (L2) anchors. Mean deep-resonance FNR falls 0.2754 -> 0.2560 (k1.5) -> 0.2416 (k2.0) -> 0.2270 (k3.0) while MAE degrades +7.1% / +14.3% / +27.0% / +52.0%; under the pre-registered 15% MAE cap the rule picks kappa=2.0 (final selection line truncated, inferred).",
+   "summary_sha": "f2bf8b0674977d25965d7be6cd4c771eda91521e"
   },
   {
    "path": "notebooks/chunk26_frontier_scaleup.ipynb",
@@ -2718,8 +2718,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Re-runs the asymmetric-loss comparison with a 4,000-sample grid-stratified training subset (seed 2026): first kappa 1.0 vs 2.0 (deep-FNR reduction +3.38 pp at 2k vs +3.23 pp at 4k, baseline FNR stable), then extends to kappa 1.5/3.0/5.0 (25 runs total). At 4,000 samples only kappa 1.0 and 1.5 stay under the 15% MAE cap (kappa 1.5: +7.53% MAE, FNR 0.2542 vs 0.2748 anchor), so the pre-registered selection shifts to kappa=1.5.",
+   "summary_sha": "35de92f5e8b017b62ae6efa8eb086d43f49617b6"
   },
   {
    "path": "notebooks/chunk27_stratified_reaudit.ipynb",
@@ -2735,8 +2735,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Evaluation-only re-audit of 35 checkpoints (L0@2000; kappa 1.0/1.5/2.0 @2000 and @4000, 5 seeds) on the 1,496-sample val set: pooled and 55x55 AUROC, depth-bin FNR at the fixed -10 dB boundary, FPR at tau*_bal, per-grid accuracy/specificity. Cell D applies a pre-registered rule (keep kappa=1.5@4000 unless k2.0 gains >=3pp recall at <3pp specificity cost) and writes final_deliverable_choice.json; the chosen outcome is truncated in the extracted output, but kappa=2.0 is documented as exceeding the MAE cap (15.13% +/- 2.11%).",
+   "summary_sha": "48c1935c404c0cdc4bd5c4e85ba4127591c2f312"
   },
   {
    "path": "notebooks/chunk27b_fnr_reconciliation.ipynb",
@@ -2753,8 +2753,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Reloads the five kappa=1.5 @4000 checkpoints (asym_scaleup_k1.5_seed42-46) on the 1,496-sample finetune val set and reconciles Chunk 26's mean deep FNR 0.2542 with Chunk 27's 0.2898. Root cause: Chunk 27 zipped BIN_EDGES and BIN_LABELS in reversed order, dropping the 536-sample shallow bin and including the 13-sample tail bin (denominator 381 instead of 904); corrected per-seed FNR matches 0.2542, so Chunk 26 was right and Chunk 27 must be re-run; recommends rate-of-pool as the standard pooled FNR.",
+   "summary_sha": "900f0120e85670ffe07c01c37fac1a67e171f072"
   },
   {
    "path": "notebooks/chunk28_unified_measurement.ipynb",
@@ -2773,8 +2773,8 @@
     "sample_{}.pt"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Single-pass, evaluation-only measurement of 49 checkpoints (best_model, ceiling_fullpool, strategy_A, ch22_L0 and kappa 1.0/1.5/2.0 arms) on the 25x25 val/test and finetune val/test splits (1,125,040 per-sample rows), producing MSE/MAE in dB^2, RULE_MIN vs RULE_PEAK detection comparison, bug-fixed stratified FNR, three pooling schemes, 25x25 forgetting check, 55x55 appendix and target-feasibility arithmetic. best_model reproduces Chunk 8 (25x25 test MAE 0.3742 dB, MSE 1.3175 dB^2, acc 0.8047 with min<-10 rule, AUROC 0.904); ceiling_fullpool pooled MSE is about 2.31 dB^2 on POOL_ALL_SAMPLES_VAL (23x above the 0.1 target).",
+   "summary_sha": "69f5c0e3f351bd3d7e059ecf82186b4c61b2dba3"
   },
   {
    "path": "notebooks/chunk29_cascade_diagnostics_v2.ipynb",
@@ -2789,8 +2789,8 @@
     "ch29_resonator_params_sample.parquet"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "CPU/eval-only diagnostics gating the Chunk 30-34 cascade: restates baselines without 55x55, fits 3,197 true curves with a product-of-one-port-resonators synthesizer (K=1-4, scipy least_squares, 15,985 fits), decomposes best_model MSE, measures loss-vs-metric misalignment (Spearman 0.392), tests clamping/mirror/ensemble gains, and tests Laplacian-eigenvalue comparability across grids. Decisions written to ch29_decisions.json and consumed by Chunk 30 as VIABLE, K=3, quadratic baseline, -60 dB floor, spectral variant V2, mirror augmentation off, label LABEL_MIN (clamping gain ~0.01 percent; mirror averaging not useful, best_model not mirror-equivariant).",
+   "summary_sha": "bdac04d06eb161706cde5a4b5475a10a152ba70a"
   },
   {
    "path": "notebooks/chunk30_backbone_targets_cache.ipynb",
@@ -2834,8 +2834,8 @@
     "ch30_readout.npy",
     "ch30_splits.json"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Unexecuted (no outputs saved) v2 version of the Chunk 30 pipeline: builds the no-55 split manifest, extends best_model to 6 node inputs with a zero column (exactness guard in float64), fine-tunes it with 25x25 replay (5,587 samples per grid per epoch), applies a two-condition gate (POOL_FINETUNE_VAL <=1.35 dB^2 and 25x25 val <=1.38 dB^2), then generates K=3 resonator mode targets, a readout/node-embedding cache and V2 eigenvalue cache.",
+   "summary_sha": "57720e8506458e2feb10143f83f5b8c4099f5ba7"
   },
   {
    "path": "notebooks/chunk30b_backbone_targets_cache.ipynb",
@@ -2880,8 +2880,8 @@
     "ch30_readout.npy",
     "ch30_splits.json"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Executed run of the v2 Chunk 30 pipeline: zero-column 6-input extension of best_model is exact (0.0 dB diff on 300 graphs), fine-tuning with 25x25 replay yields backbone_no55.pt with val MSE 25x25 1.3692, 35x35 1.3277, 45x45 1.0966 and POOL_FINETUNE_VAL 1.1930 dB^2 (v1 forgot 25x25 at 2.55), so both gates pass (<=1.35 and <=1.38). Embedding cache built for 10,774 graphs (18.2M node rows, 4.67 GB fp16), final guards pass and next step is Chunk 31.",
+   "summary_sha": "8bd6d928fa69da15ae8bc81df28f2bebb78303cd"
   },
   {
    "path": "notebooks/chunk31_head_design.ipynb",
@@ -2919,8 +2919,8 @@
     "ch31_synthetic_test.json",
     "ch31_val_comparison.csv"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains only a new CascadeHead (K mode slots, Hungarian-matched resonance parameters plus synthesized curve) on frozen Chunk 30 backbone_no55 node embeddings (10,774 graphs, grids 35/45 only), after synthetic fitter/matcher/oracle tests and a ~16-arm staged sweep. Best arm (lam_k=0, w=(1,1,0.5)) reached val MSE 1.1666 dB2 vs legacy MLP head 1.193, far above the pre-registered 0.50 dB2 gate; the head is node-permutation invariant.",
+   "summary_sha": "2bea2f3396515690fe62d74b055e13c1c098fbe3"
   },
   {
    "path": "notebooks/chunk35_classification_metrics.ipynb",
@@ -2950,8 +2950,8 @@
     "ch35_metrics.csv",
     "ch35_per_sample.parquet"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Inference-only functioning-classification evaluation on TEST for best_model, backbone_no55 and cnn_best: label = true min |S11| < -10 dB, score = -(predicted min), AUROC/balanced accuracy with 1000 stratified bootstraps plus balanced-subsample macro-F1, a paired GNN-vs-CNN comparison on identical graphs, and VAL-fitted Youden thresholds (secondary, about -3 to -8 dB). Examples: best_model 25x25 AUROC 0.904, balanced acc 0.826; backbone_no55 equal-grid AUROC 0.933, balanced acc 0.861.",
+   "summary_sha": "687a68da0d24636c01e2372e2b24364c8bbf7b65"
   },
   {
    "path": "notebooks/chunk36_gupta_cnn_25x25.ipynb",
@@ -2983,8 +2983,8 @@
     "ch36_train_log.csv",
     "ch36_training_curves.png"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains a Gupta-et-al.-style fixed-size 25x25 CNN (flatten instead of pooling, 165,907,473 params, raw-dB MSE, NAdam 1e-3, batch 256, early stopping, best epoch 28) and compares it on the 9,983-graph 25x25 test set with best_model, backbone_no55 and cnn_best. gupta_cnn25 reaches AUROC 0.9047 / balanced acc 0.8245 vs best_model 0.9040 / 0.8259, i.e. essentially equal to the GNN; the CNN cannot be applied to 35/45 grids without a new model per grid.",
+   "summary_sha": "affa0e6b2f6cf7029505d37aba0887c3dc7fbc06"
   },
   {
    "path": "notebooks/chunk37_data_efficiency.ipynb",
@@ -3016,8 +3016,8 @@
     "ch37_subsets.json",
     "ch37_test_metrics.csv"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains the Chunk 7 GNN (node_feat_dim=5, dropout 0.10 from block 2, 587,001 params) and the Chunk 36 fixed CNN on nested prevalence-stratified 25x25 subsets (5k/10k/20k/40k, 2 seeds; 40k seed 0 only) and compares them with full-data (79,866) models on test. Full-data test: GNN MSE 1.3175, MAE 0.3742, AUROC 0.9040; CNN MSE 1.2932, MAE 0.3795, AUROC 0.9047; GNN at 20k seed0 MSE 1.657, MAE 0.447, AUROC 0.9028.",
+   "summary_sha": "728ddaf2ccdfbe9f29e26a0d1548ec984bf0a2e3"
   },
   {
    "path": "notebooks/chunk40_test_mse_per_grid.ipynb",
@@ -3051,8 +3051,8 @@
     "ch40_standardisation.json",
     "ch40_test_mse.png"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Inference-only test evaluation of best_model (25-trained, zero-shot at 35/45) and backbone_no55 (fine-tuned with replay) on 25/35/45 grids, asking whether 45x45 is genuinely easier via a bootstrap of 45-35, average-curve baseline skill and depth-mix standardisation. 25x25 test MSE: best_model 1.318, backbone_no55 1.377 dB2; equal-grid (25/35/45) MSE 1.211 (backbone_no55) vs 2.513 (best_model); zero-shot skill vs mean-curve baseline is 0.39 at 35x35 but only 0.07 at 45x45.",
+   "summary_sha": "18b53c1a5502760b55d691ee41b7f9ab55f4d198"
   },
   {
    "path": "notebooks/chunk41_preprocess_12x12.ipynb",
@@ -3078,8 +3078,8 @@
     "sample_{}.pt",
     "seed_mask_12.npy"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Preprocesses the 7,000 new 12x12 .mat files into PyG graphs with the frozen Chunk 5/12 builder (checked bit-identical on 20 rebuilt 35x35 graphs), builds the 26-pixel always-metal seed mask (feed pixel row 2, col 5), and writes an 80/10/10 split (5,600/700/700, stratified on min S11 < -10 dB, duplicates kept together). Zero-shot val MSE on 12x12 is 5.267 dB2 for best_model and 3.691 dB2 for backbone_no55 (average-curve baseline 3.780).",
+   "summary_sha": "bdb1dac8e8805bef4c8258239022021ae187c8bc"
   },
   {
    "path": "notebooks/chunk42_train_test_12x12.ipynb",
@@ -3114,8 +3114,8 @@
     "ch42_runs.csv",
     "ch42_{}.pt"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains and tests four arms on 12x12 (ft12 and ft12_replay from backbone_no55, scratch12 GNN, Gupta CNN cnn12 with 42.8M params) plus 25/50% learning-curve runs; selection on 12x12 val MSE in raw dB, one test touch, bootstrap intervals. Fine-tuning beats scratch (test MSE paired difference -0.198 dB2 seed 0, verdict A better), ft12 val MSE settles near 2.1 dB2 vs 3.69 zero-shot; the replay arm costs a little on 12x12 (+0.058 dB2) but limits forgetting.",
+   "summary_sha": "4a01a30f43cb2d568e6a245c261a5eb3ad44b7ab"
   },
   {
    "path": "notebooks/chunk43_preprocess_15x15.ipynb",
@@ -3140,8 +3140,8 @@
     "sample_{}.pt",
     "seed_mask_15.npy"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Same pipeline as chunk 41 for 15x15: preprocesses 6,367 .mat files into graphs with the frozen builder (bit-identical check passed), seed mask 37 px (feed pixel row 3, col 7), split 5,092/638/637. Legacy vs LABEL_MIN functioning labels disagree on 153 antennas (97.6% agreement), all with minimum within 3 points of a band edge; zero-shot val MSE 4.843 (best_model), 3.231 (backbone_no55), 2.109 (ch42_ft12_replay four-grid model), average curve 5.165.",
+   "summary_sha": "8bd8cb070b815baf0504fda008332e7f11cb3a46"
   },
   {
    "path": "notebooks/chunk44_train_test_15x15.ipynb",
@@ -3178,8 +3178,8 @@
     "ch44_runs.csv",
     "ch44_{}.pt"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains and tests six arms on 15x15 (ft15, ft15_replay from backbone_no55; ft15_from4 and ft15_from4_replay from the Chunk 42 four-grid model; scratch15; Gupta CNN cnn15 63.5M params) with 25/50% learning curves, pre-registered S0-S6 statements and one test touch. The four-grid model zero-shot beats backbone_no55 on 15x15 test (MSE diff -1.108 dB2), and ft15_from4_replay_p100_s0 (one network for all five grids) reaches test MSE 2.106 dB2 on 15x15 (12x12 1.812, 25x25 1.391, 35x35 1.128).",
+   "summary_sha": "7f228319daba4f1882b153b6c303d1b6ab74e56d"
   },
   {
    "path": "notebooks/chunk45_replay_finetune_35x35_extra.ipynb",
@@ -3216,8 +3216,8 @@
     "ch45_{}.pt",
     "sample_{}.pt"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Preprocesses 1,997 extra 35x35 antennas with the frozen build_pyg_graph (copied verbatim and verified bit-identical on 20 existing 35x35 graphs, canonical seed mask), de-duplicates them against all existing 35x35 data, then replay-fine-tunes backbone_no55 on 25/35/45 with and without the new data (replay35_new0/50/100). The extra data gave only a small 35x35 gain, mostly attributable to longer training.",
+   "summary_sha": "5b562951463aa4d1a5665179e0eadc82a4337e02"
   },
   {
    "path": "notebooks/chunk46_s11_prediction_figures.ipynb",
@@ -3245,8 +3245,8 @@
     "ch46_captions.md",
     "ch46_selected_examples.csv"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Generates ten IEEE-style S11 figures (single-band and dual-band per grid for 25, 12, 15, 35, 45) from the most accurate fine-tuned prediction of each group, comparing ground truth, zero-shot best_model and the five-grid model ch44_ft15_from4_replay_p100_s0; test MSEs reproduce Chunk 44 (fine-tuned 1.391/1.812/2.106/1.128 on 25/12/15/35; best_model 1.318/5.035/4.695/2.529). Band counts on 25x25 test: 5,136 single, 328 dual, 13 three-plus, 4,506 non-functioning.",
+   "summary_sha": "32a5c7b76d2e26a4f9d30efaf5e2e206cfee62ed"
   },
   {
    "path": "notebooks/chunk47_band_distribution.ipynb",
@@ -3269,8 +3269,8 @@
     "ch47_per_antenna.parquet",
     "ch47_report.md"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Classifies every antenna of all processed datasets (12, 15, 25, 35, 45, plus 1,997 extra 35x35) as non-functioning, single, dual, 3+ band or functioning-without-resolvable-band, per grid and split, with sensitivity at 1/3/5 dB prominence. 12x12: 49.2% functioning, 43.1% single, 5.6% dual, 0.1% 3+; most functioning antennas are single band.",
+   "summary_sha": "74dd983ffb2750bed26111e4fa17c479b9ece0d9"
   },
   {
    "path": "notebooks/chunk48_deep_single_band_figures.ipynb",
@@ -3299,8 +3299,8 @@
     "ch48_near_misses.csv",
     "ch48_selected_examples.csv"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Produces one deep single-band best-case S11 figure per grid (12, 15, 25, 35, 45) with the same models, harness and band rule as chunk 46. The text says dip below -20 dB at 2.5-3.0 GHz, but the executed code constants were DEPTH_DB=-15 and window 3.50-3.75 GHz; qualifying test antennas under the executed constants: 25x25 924, 12x12 24, 15x15 86, 35x35 98, 45x45 113.",
+   "summary_sha": "1c56c825703f83e1ca9f687ac59396d356e1e3b1"
   },
   {
    "path": "notebooks/chunk49_gupta_cnn_35x35_45x45.ipynb",
@@ -3340,8 +3340,8 @@
     "ch49_table_gatv2_vs_gupta_cnn.{}",
     "ch49_{}.pt"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains the Gupta CNN at 35x35 (319.5M params, 5,987 training antennas incl. Chunk 45's 1,997 extras) and 45x45 (524.3M params, 5,587) with the cnn12/cnn15 recipe, then scores GATv2 vs CNN on test and draws the table. Earlier numbers reproduce; the five-grid GATv2 beats the CNN on 12x12 (MSE 1.812 vs 2.300), 15x15 (2.106 vs 3.109) and 35x35 (MAE 0.327 vs 0.479); the 25x25 CNN row is missing because ch36_per_sample.parquet was not found.",
+   "summary_sha": "eb16cf9c9408df7a9d699db15684ada3b60889f2"
   },
   {
    "path": "notebooks/chunk50_replay_chain_from_ch45.ipynb",
@@ -3380,8 +3380,8 @@
     "ch50_table_values.csv",
     "ch50_{}.pt"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Re-runs the 12x12 -> 15x15 replay chain starting from Chunk 45's replay35_new100_s0 (which saw the 1,997 extra 35x35 antennas), giving a new single five-grid GATv2. Final model ch50_ft15_from4_replay_from45_s0 has 15x15 val MSE 1.906 and 12x12 test MSE 1.834 (old five-grid model 1.812: old slightly better on 12x12, 15x15 not significantly different).",
+   "summary_sha": "4c9064e84adc9df0e2f56e3bd37883dfd250e913"
   },
   {
    "path": "notebooks/chunk51_balanced_single_band_data.ipynb",
@@ -3405,8 +3405,8 @@
     "ch51_report.md",
     "ch51_summary.csv"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Data preparation for the deployed model: classifies every 12/15/35/45 antenna from its true curve (non-functioning = min >= -10 dB; single-band = exactly one find_peaks(-y, height=10, prominence=3, distance=10) dip), keeps single-band and non-functioning only, de-duplicates patterns, and samples 5,000 per grid (about 50/50) split 4,000/500/500. 25x25 data and the canonical s11_mean/s11_std are untouched; 55x55 stays excluded.",
+   "summary_sha": "6a7726a43ae86ef40f7af197b8b24ab9405d9e49"
   },
   {
    "path": "notebooks/chunk52_balanced_replay_finetune_gatv2.ipynb",
@@ -3438,8 +3438,8 @@
     "ch52_table_values.csv",
     "ch52_{}.pt"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains the deployed model: best_model.pt widened to 6 inputs with a zero column (exact to 2.8e-14 dB), then replay fine-tuning bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45 on the Chunk 51 sets (Adam 1e-4, replay 4,000 per other grid, the canonical Chunk 5 s11_mean/s11_std, which the notebooks call the 25x25 statistics). Final ch52_bal_ft45_s0 test MSE/MAE: 12x12 1.936/0.495, 15x15 1.692/0.454, 25x25 1.426/0.393, 35x35 0.988/0.314, 45x45 1.087/0.310.",
+   "summary_sha": "95e549f7fbde50b7d4c56bb152dab7651e7ce968"
   },
   {
    "path": "notebooks/chunk53_balanced_gupta_cnn.ipynb",
@@ -3471,8 +3471,8 @@
     "ch53_table_values.csv",
     "ch53_{}.pt"
    ],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Trains one flatten-readout Gupta CNN per grid (12, 15, 35, 45; seeds 0 and 1) on the Chunk 51 balanced splits and compares it antenna-by-antenna with the Chunk 52 GATv2 (bal_ft45_s0) on 500 test antennas per grid. The GATv2 wins on every grid, overall and per class: test MSE GATv2 vs CNN 1.936 vs 2.287 (12x12), 1.692 vs 2.784 (15x15), 0.988 vs 1.689 (35x35), 1.087 vs 1.677 (45x45).",
+   "summary_sha": "4efc62a2bc3455ec59e09836949082f0bbbf5719"
   },
   {
    "path": "notebooks/chunk_prereq_multigrid_cache.ipynb",
@@ -3485,8 +3485,8 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Prerequisite data-prep notebook: copies raw .mat files (25x25 training set; 35, 45, 55 fine-tuning sets) from Drive to local disk with 16 threads, parses patch_pattern, S11_dB and is_functioning (= resonant_freqs non-empty) and saves one raw_cache_{N}x{N}.pt per grid. No metrics reported.",
+   "summary_sha": "301b9eab22cec1723f3f4811720a0063b4ae7752"
   },
   {
    "path": "notebooks/chunk_seed_stability.ipynb",
@@ -3507,8 +3507,8 @@
     "seed_stability_ch23.csv"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Re-runs the Chunk 22 loss-arm comparison (L0 MSE vs L2 variance-weighted MSE) and the Chunk 23 multi-task classification head over 5 seeds (42-46), warm-starting from best_model.pt on the 2,000-sample ch22 subset, and applies pre-registered fragility gates (pooled AUROC gain > 0.005 for ch22; pooled and 55x55 gain >= 0.01 with MAE delta <= 5% for ch23). Outputs were not retained in the text, so the verdicts are unknown here; the closing note says the deliverable stays the single-task AntennaGNN with a swept threshold tau*.",
+   "summary_sha": "d9dfdd6d5dce974172cd71a55dab78968df119a5"
   },
   {
    "path": "notebooks/cleanup_v1_artifacts.ipynb",
@@ -3528,8 +3528,8 @@
     "s11_std.npy"
    ],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Maintenance notebook that archives and quarantines the invalid v1.0 fine-tuning artifacts, produced when FinetuneDataset never z-scored targets while evaluate() de-normalised them. It inventories, verifies the surviving files (best_model.pt = 587,001 parameters, splits, graphs, index alignment, normalisation leakage), copies quarantined files to prenorm_archive_v1/, removes the originals, and writes v1_cleanup_report.json. It sits just before v2.0 Chunk 12 and reports no model metrics (v1.0 headline numbers noted in the README: strategy D val MAE 1.1875, AL test MAE 1.2063, random 1.0977).",
+   "summary_sha": "be76a2e38a568c3620970d34bcc63a82e26191c0"
   },
   {
    "path": "scripts/repo_graph/build_graph.py",
@@ -3579,8 +3579,8 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Builds docs/repo_graph/graph.json from git-listed files (excluding webapp_private, node_modules, caches): node type/size/sha/chunk, Python imports and top-level definitions, notebook src imports and Drive artifacts read/written, plus precedes edges in chunk order. Also checks for drift, dumps notebook text for reading, and merges hand-written summaries while tracking the hash each was written against.",
+   "summary_sha": "7d01b63cee37d61ad6a5c8a400ef583a961952d9"
   },
   {
    "path": "src/cascade.py",
@@ -3619,8 +3619,8 @@
    ],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Chunk 31-34 resonator-cascade head: spectral-feature normalisation, a transformer head predicting K resonant modes that are rendered through synth.synth_db_torch_batched, Hungarian mode matching, the cascade loss and per-sample metrics. Experimental branch, not used by the deployed model.",
+   "summary_sha": "5d340a7936b366fd8160ef60dc6fbe1a43a72f38"
   },
   {
    "path": "src/feed_component.py",
@@ -3647,8 +3647,8 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Feed geometry helpers: MATLAB-rounded feed_rc(N) = (round(0.25N)-1, round(N/2)-1), the 8-connected metal component containing the feed, pixel-to-feed distances, and the AppendFeedComponentFeature transform that appends x[:,5] (1 for pixels in the feed's component, 0 elsewhere and on the virtual node) to legacy 5-column graphs.",
+   "summary_sha": "467b4184df82857b11d5a27f7ff2b119714df4f9"
   },
   {
    "path": "src/model.py",
@@ -3669,8 +3669,8 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Defines GATv2Block (GATv2Conv with concat heads, LayerNorm, residual, ReLU) and AntennaGNN: input/edge projections, 4 blocks x 2 GATv2 layers (128 hidden, 8 heads, edge_dim 16), readout = mean over metal nodes (x[:,0] > 0.5) concatenated with the virtual-node embedding (x[:,3] == -1), then an MLP to 201 z-scored |S11| values. Constructor defaults to node_feat_dim=5; the deployed model uses 6 (587,129 parameters).",
+   "summary_sha": "c2e8959af1a607afaa77a5fba475ea3d9e1ab5b5"
   },
   {
    "path": "src/spectral.py",
@@ -3694,8 +3694,8 @@
    ],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Chunk 29 V2 spectral features: the 20 smallest non-zero eigenvalues (scaled by N^2) of the normalised Laplacian of the feed's 8-connected metal component, plus connected and total metal areas in mm^2; used by the Chunk 30-35 cascade-head experiments, not by the deployed model.",
+   "summary_sha": "f7bc5b886730de3f7ef25b662413742943212b3b"
   },
   {
    "path": "src/synth.py",
@@ -3728,8 +3728,8 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "",
-   "summary_sha": null
+   "summary": "Shared resonator synthesizer on F_GHZ = linspace(1, 4, 201): numpy and torch versions of a logistic-polynomial baseline times K resonant notches, dB conversion with a -60 dB floor, and a scipy least-squares curve fitter that produces per-mode targets (f0, Q, depth) for Chunks 29-31.",
+   "summary_sha": "540732dba03c564772b6708a3ae71a4159b56fc2"
   }
  ],
  "edges": [

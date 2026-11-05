@@ -14,8 +14,8 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C1.3 Golden fixtures for the TypeScript and ONNX layers
 
 ## C2 ONNX export and parity
-- [ ] C2.1 Attempt a direct export (≤ 1e-4 dB parity)
-- [ ] C2.2 (only if C2.1 failed) Plain-PyTorch GATv2 for export
+- [x] C2.1 Attempt a direct export (≤ 1e-4 dB parity)
+- [ ] C2.2 (only if C2.1 failed) Plain-PyTorch GATv2 for export — not needed: C2.1 parity passed (2.5e-5 dB)
 - [ ] C2.3 Model assets for the browser (meta.json, hashes)
 
 ## C3 Web scaffold and design foundation

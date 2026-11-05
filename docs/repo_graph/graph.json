@@ -624,11 +624,11 @@
   {
    "path": ".gitattributes",
    "type": "config",
-   "size": 444,
+   "size": 519,
    "chunk": null,
-   "sha": "9556c17d1be8daf25e9a079c60984844b21debc5",
-   "summary": "Forces LF line endings for .githooks/*, Impeccable's launcher scripts (CRLF for its .cmd launcher) and the golden fixtures webapp/fixtures/*.json, so sh scripts run and byte-compared fixtures stay identical in Windows checkouts.",
-   "summary_sha": "9556c17d1be8daf25e9a079c60984844b21debc5"
+   "sha": "19d873c1533958e80dadabc6da348554a8225296",
+   "summary": "Forces LF line endings for .githooks/*, Impeccable's launcher scripts (CRLF for its .cmd launcher) and the golden fixtures webapp/fixtures/*.json, and marks the exported ONNX model as binary, so scripts run and byte-compared files stay identical in Windows checkouts.",
+   "summary_sha": "19d873c1533958e80dadabc6da348554a8225296"
   },
   {
    "path": ".githooks/pre-commit",
@@ -660,11 +660,11 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 3398,
+   "size": 5517,
    "chunk": null,
-   "sha": "4ad0b88d3e14c15099892b8cb6dca2cb2b32b89d",
+   "sha": "6154a1a630a2dc0856a97468fd19f67f7ca4fbfa",
    "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first.",
-   "summary_sha": "4ad0b88d3e14c15099892b8cb6dca2cb2b32b89d"
+   "summary_sha": "6154a1a630a2dc0856a97468fd19f67f7ca4fbfa"
   },
   {
    "path": "Makefile",
@@ -678,11 +678,11 @@
   {
    "path": "PROGRESS.md",
    "type": "markdown",
-   "size": 2044,
+   "size": 2091,
    "chunk": null,
-   "sha": "e594be3baf2f29b301dff75b3cb91462dcda94a2",
+   "sha": "35d8e6d05fe3dec7ac390984a42eb516015f1384",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "e594be3baf2f29b301dff75b3cb91462dcda94a2"
+   "summary_sha": "35d8e6d05fe3dec7ac390984a42eb516015f1384"
   },
   {
    "path": "README.md",
@@ -2381,6 +2381,41 @@
    "summary_sha": "34b5b9b9a96e4bfcff2fb018ac02c2884884aba5"
   },
   {
+   "path": "export/antenna_export/onnx_export.py",
+   "type": "python",
+   "size": 5699,
+   "chunk": null,
+   "sha": "415cd830efd1dc584323612ae97294f5e0c120a4",
+   "imports": [
+    ".fixtures",
+    ".graph_builder",
+    ".predict",
+    "__future__",
+    "json",
+    "numpy",
+    "onnx",
+    "onnxruntime",
+    "pathlib",
+    "torch",
+    "types"
+   ],
+   "functions": [
+    "fixture_cases",
+    "case_inputs",
+    "export",
+    "_declare_output_shape",
+    "check_parity"
+   ],
+   "classes": [
+    "SingleGraphAntennaGNN"
+   ],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Direct ONNX export of the deployed model: wraps src/model.AntennaGNN (ch52_bal_ft45_s0, float32, unmodified) as (x, edge_index, edge_attr) -> z with an internal all-zero batch, exports with the TorchScript exporter at opset 18 with dynamic node/edge axes (dynamo fails on PyG scatter), declares z as [1, 201], and checks onnxruntime parity against every golden fixture (<= 1e-4 dB).",
+   "summary_sha": "415cd830efd1dc584323612ae97294f5e0c120a4"
+  },
+  {
    "path": "export/antenna_export/predict.py",
    "type": "python",
    "size": 5480,
@@ -2422,11 +2457,33 @@
   {
    "path": "export/pyproject.toml",
    "type": "config",
-   "size": 577,
+   "size": 649,
    "chunk": null,
-   "sha": "653c9d57f65dde8d0774bc55ad3dd57a9b019266",
-   "summary": "Packaging for antenna-export: Python 3.12 with pinned numpy 2.5.4, scipy 1.18.1, torch 2.15.0, torch_geometric 2.8.1 and (test extra) pytest 9.2.0; pytest runs from export/tests.",
-   "summary_sha": "653c9d57f65dde8d0774bc55ad3dd57a9b019266"
+   "sha": "879ca79d7f7589914433bbdf1e6a5b24a94e4fa8",
+   "summary": "Packaging for antenna-export: Python 3.12 with pinned numpy 2.5.4, onnx 1.23.2, onnxruntime 1.31.1, onnxscript 0.7.2, scipy 1.18.1, torch 2.15.0, torch_geometric 2.8.1 and (test extra) pytest 9.2.0; pytest runs from export/tests.",
+   "summary_sha": "879ca79d7f7589914433bbdf1e6a5b24a94e4fa8"
+  },
+  {
+   "path": "export/scripts/export_onnx.py",
+   "type": "python",
+   "size": 1706,
+   "chunk": null,
+   "sha": "d04d3c85cef25c1f23a8db67fb4fddfa193d84ea",
+   "imports": [
+    "antenna_export",
+    "argparse",
+    "pathlib",
+    "sys"
+   ],
+   "functions": [
+    "main"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Command-line wrapper that exports webapp/public/model/antenna_gnn.onnx (default TorchScript exporter) and prints the onnxruntime parity report over all fixture cases, exiting non-zero if any case exceeds 1e-4 dB.",
+   "summary_sha": "d04d3c85cef25c1f23a8db67fb4fddfa193d84ea"
   },
   {
    "path": "export/scripts/make_fixtures.py",
@@ -2545,6 +2602,34 @@
    "writes": [],
    "summary": "C1.1 exact-parity tests: rebuilds all 100 stored training graphs in webapp_private/graphs from their own metal patterns and requires identical x, edge_index (sorted pairs and order) and edge_attr; checks the generator seed rule reproduces each seed_mask file and is used when one is missing; checks the builder source equals the notebook copy; and checks invalid patterns are rejected.",
    "summary_sha": "beec5df29b8de08fe27534bddee118c2a558078c"
+  },
+  {
+   "path": "export/tests/test_onnx.py",
+   "type": "python",
+   "size": 2331,
+   "chunk": null,
+   "sha": "7d3b312e03dfe32e498446efd6683d31b42541bc",
+   "imports": [
+    "antenna_export",
+    "numpy",
+    "onnx",
+    "onnxruntime",
+    "pytest"
+   ],
+   "functions": [
+    "model",
+    "_shape",
+    "test_opset_is_at_least_17",
+    "test_inputs_and_output_interface",
+    "test_parity_on_every_fixture_case",
+    "test_handles_every_grid_size_with_one_session"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "C2.1 tests on the committed ONNX model: onnx.checker passes, opset >= 17, exact input/output names, types and dynamic shapes, parity <= 1e-4 dB on every fixture case, and one onnxruntime session serving all five grid sizes.",
+   "summary_sha": "7d3b312e03dfe32e498446efd6683d31b42541bc"
   },
   {
    "path": "export/tests/test_predict.py",
@@ -4093,6 +4178,15 @@
    "sha": "c74d4a78cf2a610d75708a8bb62d0e771e161fa5",
    "summary": "Golden fixture for the 45x45 grid (8 cases: 3 reference, 5 random, to stay under 2 MB): seed mask, header (checkpoint and statistics SHA-256, band rule, number formats, model_band_note) and cases with the flattened pattern, the exact 6-feature x (float32), edge_index, edge_attr, expected_z, expected_db and predicted band count; generated by export/scripts/make_fixtures.py and the contract for the ONNX and TypeScript layers.",
    "summary_sha": "c74d4a78cf2a610d75708a8bb62d0e771e161fa5"
+  },
+  {
+   "path": "webapp/public/model/antenna_gnn.onnx",
+   "type": "other",
+   "size": 2590161,
+   "chunk": null,
+   "sha": "66e85e097cd44112521b0aeda4062cfce9279879",
+   "summary": "The deployed model ch52_bal_ft45_s0 exported to ONNX (opset 18, 2.59 MB): inputs x [num_nodes, 6] float32, edge_index [2, num_edges] int64, edge_attr [num_edges, 2] float32; output z [1, 201] float32 (z-scored |S11|, de-normalise with s11_std and s11_mean). Matches the fixtures within 2.5e-5 dB.",
+   "summary_sha": "66e85e097cd44112521b0aeda4062cfce9279879"
   }
  ],
  "edges": [

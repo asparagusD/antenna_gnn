@@ -9,6 +9,9 @@ description = "Python reference pipeline for the antenna GNN web app: frozen gra
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "numpy==2.5.4",
+    "onnx==1.23.2",
+    "onnxruntime==1.31.1",
+    "onnxscript==0.7.2",
     "scipy==1.18.1",
     "torch==2.15.0",
     "torch_geometric==2.8.1",

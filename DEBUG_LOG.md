@@ -24,6 +24,31 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: C2.1: dynamo ONNX exporter fails on PyG scatter (data-dependent shape)
+
+- **Status:** closed (exporter choice; model unchanged, no patch)
+- **Symptom:** `torch.onnx.export(..., dynamo=True)` (torch 2.15.0, torch_geometric 2.8.1) fails in step 1/3
+  (`torch.export.export`, both strict=False and strict=True).
+- **Reproducer:** `PYTHONIOENCODING=utf-8 export/.venv/Scripts/python.exe export/scripts/export_onnx.py --exporter dynamo`
+  → `GuardOnDataDependentSymNode: Could not guard on data-dependent expression u8 > 0 ... Caused by:
+  (torch_geometric\utils\_scatter.py:48 in scatter)`. (Without PYTHONIOENCODING the real error is hidden by a
+  cp1252 `UnicodeEncodeError` while torch.onnx prints its progress marks.)
+- **Localised to:** PyG `scatter`, where a branch depends on a size produced by data-dependent ops (the boolean
+  metal / virtual-node masks and self-loop handling in GATv2Conv), which torch.export cannot guard on.
+- **Hypotheses:**
+  1. The failure is specific to torch.export's symbolic tracing of data-dependent sizes; the TorchScript
+     exporter, which traces with concrete shapes and emits dynamic ONNX ops, exports the same unmodified model.
+     Check: `--exporter torchscript`, then onnxruntime parity on all 48 fixture cases. **confirmed**
+     (export succeeds; max |dB error| 2.494e-05 ≤ 1e-4).
+- **Root cause:** dynamo/torch.export does not support PyG's data-dependent scatter sizes here.
+- **Fix:** C2.1 feat commit: export_onnx.py defaults to `--exporter torchscript` (dynamo kept as an option to
+  reproduce this). The model and PyG are not modified; only the exported output's declared shape is set to
+  [1, 201] (the exporter labelled the batch axis symbolically).
+- **Verification:** tests/test_onnx.py (interface, opset 18, parity on every fixture, all grids in one session).
+- **Notes:** the TorchScript exporter is deprecated upstream (FutureWarning), so the torch pin matters; onnxruntime
+  logs harmless `VerifyOutputSizes` warnings (declared `{-1}` vs actual `{E, 8}` on an intermediate attention
+  tensor) — watch for them in onnxruntime-web (C4.3).
+
 ### 2026-11-06: C1.3: fixtures check out with CRLF on Windows clones
 
 - **Status:** closed

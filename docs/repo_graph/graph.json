@@ -624,11 +624,11 @@
   {
    "path": ".gitattributes",
    "type": "config",
-   "size": 315,
+   "size": 444,
    "chunk": null,
-   "sha": "97d5d02caa900f3c0dfdf2c2bd0f0d882cc7932d",
-   "summary": "Forces LF line endings for .githooks/* and Impeccable's launcher scripts (CRLF for its .cmd launcher), so the sh scripts still run in Windows checkouts.",
-   "summary_sha": "97d5d02caa900f3c0dfdf2c2bd0f0d882cc7932d"
+   "sha": "9556c17d1be8daf25e9a079c60984844b21debc5",
+   "summary": "Forces LF line endings for .githooks/*, Impeccable's launcher scripts (CRLF for its .cmd launcher) and the golden fixtures webapp/fixtures/*.json, so sh scripts run and byte-compared fixtures stay identical in Windows checkouts.",
+   "summary_sha": "9556c17d1be8daf25e9a079c60984844b21debc5"
   },
   {
    "path": ".githooks/pre-commit",
@@ -660,11 +660,11 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 2394,
+   "size": 3398,
    "chunk": null,
-   "sha": "e8184385621930001268129c1032037e8cc14688",
+   "sha": "4ad0b88d3e14c15099892b8cb6dca2cb2b32b89d",
    "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first.",
-   "summary_sha": "e8184385621930001268129c1032037e8cc14688"
+   "summary_sha": "4ad0b88d3e14c15099892b8cb6dca2cb2b32b89d"
   },
   {
    "path": "Makefile",

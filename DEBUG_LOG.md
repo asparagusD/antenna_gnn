@@ -24,6 +24,21 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: C1.3: fixtures check out with CRLF on Windows clones
+
+- **Status:** closed
+- **Symptom:** a fresh clone with core.autocrlf=true gets `webapp/fixtures/*.json` with CRLF line endings,
+  while make_fixtures.py writes LF, so test_regenerating_reproduces_committed_files_exactly would fail there.
+- **Reproducer:** `git -c core.autocrlf=true clone -q . /tmp/c && git -C /tmp/c ls-files --eol webapp/fixtures/12x12.json`
+  → `i/lf w/crlf`.
+- **Localised to:** checkout conversion (no .gitattributes rule for the fixtures); the committed blobs are LF.
+- **Hypotheses:**
+  1. Without an eol rule, autocrlf converts the fixtures on checkout; `text eol=lf` keeps them LF.
+     Check: add the rule and re-clone. **confirmed** (`w/lf`).
+- **Root cause:** missing .gitattributes rule for byte-compared generated files.
+- **Fix:** fix(git) commit after 572c625; `.gitattributes`: `webapp/fixtures/*.json text eol=lf`.
+- **Verification:** fresh autocrlf clone shows `i/lf w/lf`; export suite passes.
+
 ### 2026-11-06: C1.3: random-fixture fill test fails at 25x25, fill 0.30
 
 - **Status:** closed

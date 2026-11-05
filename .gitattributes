@@ -4,3 +4,5 @@
 # The Windows batch launcher keeps CRLF (later rule wins).
 .claude/skills/impeccable/scripts/** text eol=lf
 .claude/skills/impeccable/scripts/*.cmd text eol=crlf
+# Golden fixtures are compared byte for byte by export/tests/test_fixtures.py; never convert.
+webapp/fixtures/*.json text eol=lf

@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "antenna-export"
+version = "0.1.0"
+description = "Python reference pipeline for the antenna GNN web app: frozen graph builder, ONNX export, golden fixtures."
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "numpy==2.5.4",
+    "torch==2.15.0",
+    "torch_geometric==2.8.1",
+]
+
+[project.optional-dependencies]
+test = ["pytest==9.2.0"]
+
+[tool.setuptools]
+packages = ["antenna_export"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

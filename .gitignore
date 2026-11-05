@@ -33,3 +33,9 @@ webapp/dist/
 .claude/skills/impeccable/scripts/bin/
 # Claude Code per-user settings (the shared hook lives in .claude/settings.json)
 .claude/settings.local.json
+
+# Python environments and caches (export/ package)
+.venv/
+__pycache__/
+.pytest_cache/
+*.egg-info/

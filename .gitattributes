@@ -1,2 +1,6 @@
 # Hooks run under sh; keep LF line endings on every platform.
 .githooks/* text eol=lf
+# Impeccable launcher and data are read by sh/the engine; keep LF.
+# The Windows batch launcher keeps CRLF (later rule wins).
+.claude/skills/impeccable/scripts/** text eol=lf
+.claude/skills/impeccable/scripts/*.cmd text eol=crlf

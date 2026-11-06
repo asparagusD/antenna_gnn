@@ -1,20 +1,22 @@
-import { render, screen } from '@testing-library/react';
+import { cleanup, render, screen } from '@testing-library/react';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import committedMeta from '../public/model/meta.json';
 import { App } from './App';
 
-describe('App placeholder', () => {
+describe('App top-bar model status', () => {
   afterEach(() => {
+    cleanup();
     vi.unstubAllGlobals();
   });
 
-  it('shows the number of grids once meta.json has loaded', async () => {
+  it('reports the model state, not the metadata (jsdom has no Web Workers, so the model cannot run)', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn(() => Promise.resolve(new Response(JSON.stringify(committedMeta), { status: 200 }))),
     );
     render(<App />);
-    expect(await screen.findByText('model meta loaded: 5 grids')).toBeDefined();
+    expect(await screen.findByText('Model failed to load')).toBeDefined();
+    expect(screen.queryByText(/model meta/)).toBeNull();
   });
 
   it('shows the error when meta.json cannot be loaded', async () => {
@@ -23,6 +25,8 @@ describe('App placeholder', () => {
       vi.fn(() => Promise.resolve(new Response('missing', { status: 404 }))),
     );
     render(<App />);
-    expect(await screen.findByText(/model meta failed to load: meta\.json: HTTP 404/)).toBeDefined();
+    expect(
+      await screen.findByText(/Could not load the model description \(meta\.json: HTTP 404 for /),
+    ).toBeDefined();
   });
 });

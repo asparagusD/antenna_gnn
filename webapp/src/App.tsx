@@ -40,6 +40,17 @@ function gridFromHash(meta: ModelMeta): { grid: Grid; error: string | null } | n
     : { grid: create(DEFAULT_N, meta), error: shared.reason };
 }
 
+/** The top bar's status: the model's own state (the chart reports single predictions). */
+function topbarStatus(state: MetaState, model: 'loading' | 'ready' | 'error'): string {
+  if (state.status === 'loading') return 'Loading…';
+  if (state.status === 'error') return `Could not load the model description (${state.message})`;
+  if (model === 'error') return 'Model failed to load';
+  if (model === 'loading') {
+    return `Loading model (${(state.meta.onnx.size_bytes / 1e6).toFixed(1)} MB)…`;
+  }
+  return 'Model ready · runs in your browser';
+}
+
 function historyOrNull(state: GridHistory | null, action: HistoryAction): GridHistory | null {
   if (action.type === 'reset') return initHistory(action.grid);
   return state === null ? null : historyReducer(state, action);
@@ -175,9 +186,7 @@ export function App() {
           />
         )}
         <p className="topbar-status" role="status">
-          {state.status === 'loading' && 'loading model meta…'}
-          {state.status === 'ready' && `model meta loaded: ${state.meta.grids.length} grids`}
-          {state.status === 'error' && `model meta failed to load: ${state.message}`}
+          {topbarStatus(state, prediction.model)}
         </p>
       </header>
       {shareError !== null && (

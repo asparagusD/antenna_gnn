@@ -28,6 +28,8 @@ interface State {
 
 export interface Prediction {
   status: ChartStatus;
+  /** The model itself (not one prediction): loading, ready, or failed to load. */
+  model: 'loading' | 'ready' | 'error';
   db: Float64Array | null;
   inferMs: number | null;
   error: string | null;
@@ -109,5 +111,5 @@ export function usePrediction(grid: Grid | null): Prediction {
           ? 'updating'
           : 'ready';
 
-  return { status, db: state.db, inferMs: state.inferMs, error: state.error, retry };
+  return { status, model: state.model, db: state.db, inferMs: state.inferMs, error: state.error, retry };
 }

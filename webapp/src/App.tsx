@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
 import { GridSizeSelector } from './components/GridSizeSelector';
+import { PredictionSummary } from './components/PredictionSummary';
 import { StartingPoints } from './components/StartingPoints';
 import { ResultsPanel } from './components/ResultsPanel';
 import { S11Chart } from './components/S11Chart';
@@ -75,6 +76,7 @@ export function App() {
   const [history, dispatch] = useReducer(historyOrNull, null);
   const prediction = usePrediction(history?.present ?? null);
   const [shareError, setShareError] = useState<string | null>(null);
+  const resultsRef = useRef<HTMLElement>(null);
   // Only ever set by the e2e test hook (testHook.ts); null in every real build.
   const [curveOverride, setCurveOverride] = useState<Float64Array | null>(null);
 
@@ -221,6 +223,14 @@ export function App() {
         </div>
       )}
       <main className="workspace">
+        <PredictionSummary
+          db={db}
+          status={curveOverride === null ? prediction.status : 'ready'}
+          onShow={() => {
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            resultsRef.current?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+          }}
+        />
         <section className="workspace-board" aria-label="Metal pattern">
           {state.status === 'ready' && history !== null && (
             <>
@@ -268,7 +278,7 @@ export function App() {
             </>
           )}
         </section>
-        <section className="workspace-results" aria-label="Prediction">
+        <section className="workspace-results" aria-label="Prediction" ref={resultsRef}>
           <S11Chart
             db={db}
             status={curveOverride === null ? prediction.status : 'ready'}

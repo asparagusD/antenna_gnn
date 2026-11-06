@@ -55,3 +55,9 @@ test('200% text (WCAG 1.4.4): no sideways scroll and no clipped or overlapping r
     .evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth + 1).length);
   expect(clipped).toBe(0);
 });
+
+test('desktop two-column layout has no sticky summary', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('./');
+  await expect(page.getByRole('button', { name: /^Show the prediction:/ })).toHaveCount(0);
+});

@@ -69,6 +69,11 @@
   .workspace-board {
     width: min(100%, 640px);
   }
+
+  /* Scrolled to from the sticky summary: keep the chart's top clear of it. */
+  .workspace-results {
+    scroll-margin-top: 64px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -79,6 +84,10 @@
   .workspace {
     grid-template-columns: minmax(0, 1fr);
     padding: var(--space-md);
+  }
+
+  .workspace-results {
+    scroll-margin-top: 64px;
   }
 
   .share-error {

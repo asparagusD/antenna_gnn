@@ -1,0 +1,66 @@
+/* Sticky one-line summary, only where the chart is below the board (stacked layouts). */
+.summary-bar {
+  display: none;
+}
+
+@media (max-aspect-ratio: 5/4), (max-width: 767px) {
+  .summary-bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    width: 100%;
+    min-height: 48px;
+    padding: var(--space-sm) var(--space-md);
+    border: 0;
+    border-bottom: 1px solid var(--rule);
+    background: var(--laminate);
+    color: var(--text);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+}
+
+.summary-item {
+  display: grid;
+  min-width: 0;
+}
+
+.summary-label {
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.summary-value {
+  font-size: var(--text-body);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.summary-updating {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.summary-icon {
+  flex: none;
+  margin-left: auto;
+  color: var(--text-muted);
+}
+
+.summary-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

@@ -3,7 +3,7 @@ import { defineConfig } from 'vite';
 
 /**
  * Base path for every asset URL. Local development serves from "/"; the GitHub Pages build sets
- * BASE_PATH=/antenna_gnn/ (the repository name), so model and fixture URLs must be built from
+ * BASE_PATH=/graphpatch/ (the repository name), so model and fixture URLs must be built from
  * import.meta.env.BASE_URL, never hard-coded.
  */
 export function basePath(value: string | undefined): string {

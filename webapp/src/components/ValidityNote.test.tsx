@@ -48,7 +48,7 @@ describe('ValidityNote', () => {
     const links = screen.getAllByRole('link');
     expect(links).toHaveLength(1);
     expect(links[0]?.getAttribute('href')).toBe(REPOSITORY_URL);
-    expect(REPOSITORY_URL).toBe('https://github.com/asparagusD/antenna_gnn');
+    expect(REPOSITORY_URL).toBe('https://github.com/asparagusD/graphpatch');
     expect(document.body.textContent).not.toMatch(/paper|IEEE|doi/i);
   });
 });

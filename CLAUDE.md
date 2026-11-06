@@ -1,4 +1,4 @@
-# CLAUDE.md: working rules for the antenna GNN web app
+# CLAUDE.md: working rules for the GraphPatch web app
 
 A zero-cost, client-side web app for the GATv2 antenna surrogate (`src/model.py`).
 Work happens on branch `webapp`. Progress lives in `PROGRESS.md`, and failures are logged in `DEBUG_LOG.md`.

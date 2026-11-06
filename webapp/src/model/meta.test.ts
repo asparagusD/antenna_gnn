@@ -63,16 +63,16 @@ describe('parseMeta', () => {
 describe('metaUrl', () => {
   it('builds the URL under the base path', () => {
     expect(metaUrl('/')).toBe('/model/meta.json');
-    expect(metaUrl('/antenna_gnn/')).toBe('/antenna_gnn/model/meta.json');
-    expect(metaUrl('/antenna_gnn')).toBe('/antenna_gnn/model/meta.json');
+    expect(metaUrl('/graphpatch/')).toBe('/graphpatch/model/meta.json');
+    expect(metaUrl('/graphpatch')).toBe('/graphpatch/model/meta.json');
   });
 });
 
 describe('loadMeta', () => {
   it('fetches meta.json under the base path and validates it', async () => {
     const fetchFn = vi.fn(() => Promise.resolve(jsonResponse(committedMeta)));
-    const meta = await loadMeta('/antenna_gnn/', fetchFn);
-    expect(fetchFn).toHaveBeenCalledWith('/antenna_gnn/model/meta.json');
+    const meta = await loadMeta('/graphpatch/', fetchFn);
+    expect(fetchFn).toHaveBeenCalledWith('/graphpatch/model/meta.json');
     expect(meta.grids).toHaveLength(5);
   });
 

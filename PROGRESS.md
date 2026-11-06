@@ -52,3 +52,6 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C8.3 Documentation
 - [x] C8.4 Repository graph update
 - [x] C8.5 Final summary
+
+## After the plan
+- [x] P1 Rename the repository and project to GraphPatch (`graphpatch`; site at /graphpatch/)

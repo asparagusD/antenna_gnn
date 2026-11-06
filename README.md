@@ -1,4 +1,4 @@
-# Antenna GNN: a GATv2 surrogate for pixelated microstrip patch antennas
+# GraphPatch: a GATv2 surrogate for pixelated microstrip patch antennas
 
 A graph neural network that predicts the full |S11| spectrum of a pixelated microstrip patch antenna (201 points, 1–4 GHz) directly from its binary metal pattern. A single 587k-parameter model covers five pixel resolutions (12×12, 15×15, 25×25, 35×35, 45×45), replacing a full-wave EM simulation with a forward pass that takes milliseconds.
 
@@ -25,7 +25,7 @@ A graph neural network that predicts the full |S11| spectrum of a pixelated micr
 
 ## Web app
 
-**GraphPatch: https://asparagusd.github.io/antenna_gnn/**
+**GraphPatch: https://asparagusd.github.io/graphpatch/**
 
 A static web app that runs the model in your browser: draw the metal pattern on a 12×12, 15×15, 25×25, 35×35 or 45×45 grid and the predicted |S11| curve, the functioning verdict (minimum below −10 dB) and the bands update on every edit. Nothing is sent to a server; the model runs with onnxruntime-web (WebAssembly) in a Web Worker. Patterns can be shared as links and exported as CSV.
 

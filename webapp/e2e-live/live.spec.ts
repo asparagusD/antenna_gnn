@@ -57,7 +57,7 @@ test('page and model load; console clean; assets served with 200, right types an
 
   const find = (pattern: RegExp) => responses.find((r) => pattern.test(new URL(r.url()).pathname));
   const assets = {
-    html: find(/\/antenna_gnn\/$|\/$/),
+    html: find(/\/graphpatch\/$|\/$/),
     meta: find(/\/model\/meta\.json$/),
     onnx: find(/\/model\/antenna_gnn\.onnx$/),
     wasm: find(/\/assets\/ort-wasm[^/]*\.wasm$/),

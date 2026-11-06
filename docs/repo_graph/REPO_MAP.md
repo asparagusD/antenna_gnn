@@ -106,11 +106,11 @@ Only `model.py` and `feed_component.py` matter for the web app (highlighted). No
 
 ## 3. Web app (GraphPatch)
 
-Live at https://asparagusd.github.io/antenna_gnn/. How to run, re-export and test it: [`webapp/README.md`](../../webapp/README.md); final checks and performance: [`docs/verification.md`](../verification.md); deployment: [`docs/deployment.md`](../deployment.md).
+Live at https://asparagusd.github.io/graphpatch/. How to run, re-export and test it: [`webapp/README.md`](../../webapp/README.md); final checks and performance: [`docs/verification.md`](../verification.md); deployment: [`docs/deployment.md`](../deployment.md).
 
 ### 3a. Runtime data flow
 
-One prediction per edit, latest request wins. The main thread never runs the model; the worker fetches `meta.json` and the ONNX file itself (under the Vite base path, `/antenna_gnn/` on Pages).
+One prediction per edit, latest request wins. The main thread never runs the model; the worker fetches `meta.json` and the ONNX file itself (under the Vite base path, `/graphpatch/` on Pages).
 
 ```mermaid
 flowchart LR
@@ -209,7 +209,7 @@ flowchart LR
     fixtures --> tests["Vitest: graph.test.ts (exact),<br/>tests/node/infer.parity.test.ts (≤ 1e-4 dB),<br/>e2e-live/live.spec.ts (deployed app)"]
     onnx --> tests
     bvj --> tests
-    tests --> ci["GitHub Actions deploy-webapp.yml<br/>make check-web → build (BASE_PATH=/antenna_gnn/) → asset check"]
+    tests --> ci["GitHub Actions deploy-webapp.yml<br/>make check-web → build (BASE_PATH=/graphpatch/) → asset check"]
     ci --> pages["GitHub Pages"]
 ```
 

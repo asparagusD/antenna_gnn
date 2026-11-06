@@ -133,5 +133,5 @@ test('the validity note shows the selected grid’s test MAE and links to the re
   await expect(note).toContainText(
     'Test error on 45×45: 0.31 dB mean absolute error over 500 test antennas (single-band and non-functioning only).',
   );
-  await expect(note.getByRole('link')).toHaveAttribute('href', 'https://github.com/asparagusD/antenna_gnn');
+  await expect(note.getByRole('link')).toHaveAttribute('href', 'https://github.com/asparagusD/graphpatch');
 });

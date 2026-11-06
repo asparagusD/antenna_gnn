@@ -6,6 +6,9 @@ Playwright 1.65.0 (Chromium). Date: 2026-11-06.
 
 ## C8.1 Full regression
 
+All C8 measurements ran before the repository was renamed to `graphpatch`, against the site's old
+address https://asparagusd.github.io/antenna_gnn/. The site is now at https://asparagusd.github.io/graphpatch/.
+
 All runs on branch `webapp` at `00d5f0c` plus the C8.1 change to `webapp/e2e-live/live.spec.ts`.
 The live site was deployed from `main` at `52329bc`; the only commit after it on `webapp` (`00d5f0c`)
 is docs-only, so the live build matches the current `webapp/` source.

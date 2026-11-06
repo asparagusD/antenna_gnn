@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 // The smoke test runs against the production build (vite preview), under the same base path the
-// deployment uses when BASE_PATH is set (e.g. BASE_PATH=/antenna_gnn/ for GitHub Pages).
+// deployment uses when BASE_PATH is set (e.g. BASE_PATH=/graphpatch/ for GitHub Pages).
 const PORT = 4173;
 const base = process.env.BASE_PATH ?? '/';
 const isCI = process.env.CI !== undefined;

@@ -72,7 +72,7 @@ async function measureGrid(N) {
 }
 
 console.log(`url ${url}, CPU throttle ${cpu}x, ${clicks} single-pixel edits per grid`);
-for (const N of [12, 25, 45]) {
+for (const N of [12, 15, 25, 35, 45]) {
   const { total, infer } = await measureGrid(N);
   console.log(`${N}x${N}  perceived: ${summary(total)}`);
   console.log(`${' '.repeat(String(N).length * 2 + 1)}  worker inference: ${summary(infer)}`);

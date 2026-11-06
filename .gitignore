@@ -39,3 +39,8 @@ webapp/dist/
 __pycache__/
 .pytest_cache/
 *.egg-info/
+
+# Web app test outputs
+webapp/playwright-report/
+webapp/test-results/
+webapp/coverage/

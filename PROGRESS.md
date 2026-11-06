@@ -19,7 +19,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C2.3 Model assets for the browser (meta.json, hashes)
 
 ## C3 Web scaffold and design foundation
-- [ ] C3.1 Vite + React + TypeScript scaffold and quality gate
+- [x] C3.1 Vite + React + TypeScript scaffold and quality gate
 - [ ] C3.2 Impeccable: product context and the design plan
 
 ## C4 TypeScript core (no UI)

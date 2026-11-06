@@ -8,3 +8,7 @@
 webapp/fixtures/*.json text eol=lf
 # Exported model weights: never convert.
 webapp/public/model/*.onnx binary
+# Web app sources: LF everywhere (Prettier enforces LF); binary files are auto-detected.
+webapp/** text=auto eol=lf
+# Re-assert after the webapp rule above (later lines win).
+webapp/public/model/*.onnx binary

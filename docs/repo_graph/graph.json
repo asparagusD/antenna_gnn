@@ -624,11 +624,11 @@
   {
    "path": ".gitattributes",
    "type": "config",
-   "size": 519,
+   "size": 728,
    "chunk": null,
-   "sha": "19d873c1533958e80dadabc6da348554a8225296",
-   "summary": "Forces LF line endings for .githooks/*, Impeccable's launcher scripts (CRLF for its .cmd launcher) and the golden fixtures webapp/fixtures/*.json, and marks the exported ONNX model as binary, so scripts run and byte-compared files stay identical in Windows checkouts.",
-   "summary_sha": "19d873c1533958e80dadabc6da348554a8225296"
+   "sha": "c18032320cb03183c9bf65c33f7cd335657fcbcf",
+   "summary": "Line-ending rules: LF for .githooks/*, Impeccable's launcher scripts (CRLF for its .cmd launcher), the golden fixtures and all webapp/ text files (Prettier enforces LF); the exported ONNX model is binary.",
+   "summary_sha": "c18032320cb03183c9bf65c33f7cd335657fcbcf"
   },
   {
    "path": ".githooks/pre-commit",
@@ -642,11 +642,11 @@
   {
    "path": ".gitignore",
    "type": "config",
-   "size": 1333,
+   "size": 1421,
    "chunk": null,
-   "sha": "bd7ab6c45c322bac7d31cd060613d5039e5dbd90",
-   "summary": "Ignores webapp_private/ (local-only checkpoint and data copies), node_modules/, webapp/dist/, .env files, Impeccable's ephemeral runtime files, its per-platform engine binary, Claude Code's per-user settings.local.json, and Python virtual environments and caches.",
-   "summary_sha": "bd7ab6c45c322bac7d31cd060613d5039e5dbd90"
+   "sha": "f47b3062062794ae1988c15eb7e6ec56ad8d854a",
+   "summary": "Ignores webapp_private/ (local-only checkpoint and data copies), node_modules/, webapp/dist/, .env files, Impeccable's ephemeral runtime files, its per-platform engine binary, Claude Code's per-user settings.local.json, Python virtual environments and caches, and the web app's Playwright and coverage outputs.",
+   "summary_sha": "f47b3062062794ae1988c15eb7e6ec56ad8d854a"
   },
   {
    "path": "CLAUDE.md",
@@ -669,20 +669,20 @@
   {
    "path": "Makefile",
    "type": "config",
-   "size": 903,
+   "size": 1436,
    "chunk": null,
-   "sha": "fe452e1ab94dd342af378f30896bb63cf0b0085f",
-   "summary": "Project task runner: `make graph` regenerates and checks docs/repo_graph/graph.json, `make graph-check` fails on a stale graph or missing/stale summaries, `make py-setup` creates export/.venv with the pinned dependencies via uv, and `make py-test` runs the export/ tests.",
-   "summary_sha": "fe452e1ab94dd342af378f30896bb63cf0b0085f"
+   "sha": "7713d8f988b8cc48cf19b59682160a92e7d42f66",
+   "summary": "Project task runner: `make check` (typecheck, lint, Vitest, Python tests; about 40 s), `make e2e` (Playwright), `make graph` (regenerate and fail on drift), `make graph-check`, `make web-setup`, `make py-setup` and `make py-test`.",
+   "summary_sha": "7713d8f988b8cc48cf19b59682160a92e7d42f66"
   },
   {
    "path": "PROGRESS.md",
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "fc865fb98f48cdccc2419270420cb10b8d6a7b04",
+   "sha": "48b1f170e6be14aae1e775cce0897c1ff775c2cb",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "fc865fb98f48cdccc2419270420cb10b8d6a7b04"
+   "summary_sha": "48b1f170e6be14aae1e775cce0897c1ff775c2cb"
   },
   {
    "path": "README.md",
@@ -4227,6 +4227,42 @@
    "summary_sha": "540732dba03c564772b6708a3ae71a4159b56fc2"
   },
   {
+   "path": "webapp/.prettierignore",
+   "type": "config",
+   "size": 92,
+   "chunk": null,
+   "sha": "53dc48c43ed0e7453542a7274342f096fc9c163a",
+   "summary": "Files Prettier skips: build and test outputs, node_modules, fixtures, public assets and the lockfile.",
+   "summary_sha": "53dc48c43ed0e7453542a7274342f096fc9c163a"
+  },
+  {
+   "path": "webapp/.prettierrc.json",
+   "type": "json",
+   "size": 73,
+   "chunk": null,
+   "sha": "d51d0ee0a472b91e3baac522c97025f9dcbaf976",
+   "summary": "Prettier settings for the web app: single quotes, trailing commas, print width 110.",
+   "summary_sha": "d51d0ee0a472b91e3baac522c97025f9dcbaf976"
+  },
+  {
+   "path": "webapp/e2e/smoke.spec.ts",
+   "type": "typescript",
+   "size": 555,
+   "chunk": null,
+   "sha": "c0d6c24603a78ec9e9df951ecf80f18c25ab05b1",
+   "summary": "Playwright smoke test: the page renders its heading, shows 'model meta loaded: 5 grids' and logs no page or console errors.",
+   "summary_sha": "c0d6c24603a78ec9e9df951ecf80f18c25ab05b1"
+  },
+  {
+   "path": "webapp/eslint.config.js",
+   "type": "javascript",
+   "size": 1061,
+   "chunk": null,
+   "sha": "c22c56f3e6573814eb7e11f88092d15d7f8c9595",
+   "summary": "ESLint flat config: @eslint/js recommended, typescript-eslint strictTypeChecked with the project service, react-hooks and react-refresh rules, eslint-config-prettier last; build output, fixtures and public assets ignored.",
+   "summary_sha": "c22c56f3e6573814eb7e11f88092d15d7f8c9595"
+  },
+  {
    "path": "webapp/fixtures/12x12.json",
    "type": "json",
    "size": 202746,
@@ -4272,6 +4308,42 @@
    "summary_sha": "c74d4a78cf2a610d75708a8bb62d0e771e161fa5"
   },
   {
+   "path": "webapp/index.html",
+   "type": "other",
+   "size": 308,
+   "chunk": null,
+   "sha": "079e1649d4cadf904aee1bfdb1ba20b6b46021bb",
+   "summary": "Vite HTML entry for the web app: page title and the #root element, loading src/main.tsx.",
+   "summary_sha": "079e1649d4cadf904aee1bfdb1ba20b6b46021bb"
+  },
+  {
+   "path": "webapp/package-lock.json",
+   "type": "json",
+   "size": 131049,
+   "chunk": null,
+   "sha": "559e3d4f53453fd53f5e0d29a386ad0abfe1c0e1",
+   "summary": "npm lockfile pinning the full dependency tree of the web app for reproducible installs (npm ci).",
+   "summary_sha": "559e3d4f53453fd53f5e0d29a386ad0abfe1c0e1"
+  },
+  {
+   "path": "webapp/package.json",
+   "type": "json",
+   "size": 1363,
+   "chunk": null,
+   "sha": "fa6ad50807ea7c0e96f7e301dd6f0931269b021e",
+   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0) with scripts dev, build, preview, typecheck, lint, format, test and e2e.",
+   "summary_sha": "fa6ad50807ea7c0e96f7e301dd6f0931269b021e"
+  },
+  {
+   "path": "webapp/playwright.config.ts",
+   "type": "typescript",
+   "size": 874,
+   "chunk": null,
+   "sha": "19578fd859bc40acdca72544472c7fc40696e51b",
+   "summary": "Playwright config: Chromium only, runs against the production build served by vite preview on port 4173 under BASE_PATH, CI-aware retries and reporter.",
+   "summary_sha": "19578fd859bc40acdca72544472c7fc40696e51b"
+  },
+  {
    "path": "webapp/public/model/antenna_gnn.onnx",
    "type": "other",
    "size": 2590161,
@@ -4288,6 +4360,96 @@
    "sha": "2df8293108a23934b45ffd42bc686f7a679262e3",
    "summary": "Browser metadata for antenna_gnn.onnx: frequency grid (201 points, 1-4 GHz), exact float32 s11_mean and s11_std for de-normalisation, grids, seed masks and feed pixels, feature columns, functioning/band rules, fill warning range, scope (trained on single-band and non-functioning antennas for 12/15/35/45, natural data for 25x25; Chunk 52 test metrics) and SHA-256 provenance.",
    "summary_sha": "2df8293108a23934b45ffd42bc686f7a679262e3"
+  },
+  {
+   "path": "webapp/src/App.test.tsx",
+   "type": "typescript",
+   "size": 938,
+   "chunk": null,
+   "sha": "68789eaacac37ec9cc5989ce157345dc881a118a",
+   "summary": "Vitest + Testing Library tests of the placeholder page: shows the grid count once meta.json loads and the error message on an HTTP 404.",
+   "summary_sha": "68789eaacac37ec9cc5989ce157345dc881a118a"
+  },
+  {
+   "path": "webapp/src/App.tsx",
+   "type": "typescript",
+   "size": 1158,
+   "chunk": null,
+   "sha": "62c29d44d025af83d4145cbc406dc36fdd71e578",
+   "summary": "Placeholder page (C3.1): loads public/model/meta.json via loadMeta and shows 'model meta loaded: 5 grids', with loading and error states; replaced by the real UI in C5.",
+   "summary_sha": "62c29d44d025af83d4145cbc406dc36fdd71e578"
+  },
+  {
+   "path": "webapp/src/main.tsx",
+   "type": "typescript",
+   "size": 298,
+   "chunk": null,
+   "sha": "1fd874460fa39987118d7ffe07c21a3e8e79ed0f",
+   "summary": "React entry point: mounts App in StrictMode on #root and fails loudly if the element is missing.",
+   "summary_sha": "1fd874460fa39987118d7ffe07c21a3e8e79ed0f"
+  },
+  {
+   "path": "webapp/src/model/meta.test.ts",
+   "type": "typescript",
+   "size": 3357,
+   "chunk": null,
+   "sha": "0c6848132c1344c4ba74f340b3de4d9de3df78b7",
+   "summary": "Vitest unit tests for the meta loader: the committed meta.json parses, malformed variants (schema, statistics, seed mask, feed pixel) are rejected, URLs respect the base path, and HTTP errors and bad payloads raise MetaError.",
+   "summary_sha": "0c6848132c1344c4ba74f340b3de4d9de3df78b7"
+  },
+  {
+   "path": "webapp/src/model/meta.ts",
+   "type": "typescript",
+   "size": 4516,
+   "chunk": null,
+   "sha": "412efb828e3cc0299d3bf8c059fa66cc4151210c",
+   "summary": "Typed loader for public/model/meta.json: metaUrl builds the URL under the Vite base path, loadMeta fetches it, and parseMeta validates schema, 201-point frequency and statistics arrays, positive std, per-grid seed masks and feed pixels before returning a ModelMeta.",
+   "summary_sha": "412efb828e3cc0299d3bf8c059fa66cc4151210c"
+  },
+  {
+   "path": "webapp/tsconfig.app.json",
+   "type": "json",
+   "size": 628,
+   "chunk": null,
+   "sha": "8cdee9804a1127841f5123c96c8e5a840356e4a5",
+   "summary": "Strict TypeScript settings for the browser app in src/ (bundler resolution, react-jsx, noUncheckedIndexedAccess, verbatimModuleSyntax, JSON imports, vite/client types).",
+   "summary_sha": "8cdee9804a1127841f5123c96c8e5a840356e4a5"
+  },
+  {
+   "path": "webapp/tsconfig.json",
+   "type": "json",
+   "size": 107,
+   "chunk": null,
+   "sha": "d32ff682003e0ff5d8a6e6bb3663d4c35a45b116",
+   "summary": "Solution-style TypeScript config referencing the app and node (tooling) projects.",
+   "summary_sha": "d32ff682003e0ff5d8a6e6bb3663d4c35a45b116"
+  },
+  {
+   "path": "webapp/tsconfig.node.json",
+   "type": "json",
+   "size": 502,
+   "chunk": null,
+   "sha": "eafb883cf8173e6233bc27a0e64a2525a6a53bfb",
+   "summary": "Strict TypeScript settings for the Node-side tooling: vite, vitest and playwright configs and the e2e tests.",
+   "summary_sha": "eafb883cf8173e6233bc27a0e64a2525a6a53bfb"
+  },
+  {
+   "path": "webapp/vite.config.ts",
+   "type": "typescript",
+   "size": 705,
+   "chunk": null,
+   "sha": "12bc72bf1df07c40bf8e81fd4ce317e448baaa78",
+   "summary": "Vite config with the React plugin; the base path comes from BASE_PATH (default '/', '/antenna_gnn/' for GitHub Pages) and must start and end with '/'.",
+   "summary_sha": "12bc72bf1df07c40bf8e81fd4ce317e448baaa78"
+  },
+  {
+   "path": "webapp/vitest.config.ts",
+   "type": "typescript",
+   "size": 284,
+   "chunk": null,
+   "sha": "eed2cf3bcc7af3174c4bdeda7e469ee74791671a",
+   "summary": "Vitest config merged onto the Vite config: jsdom environment, src/**/*.test.{ts,tsx}, mocks restored between tests.",
+   "summary_sha": "eed2cf3bcc7af3174c4bdeda7e469ee74791671a"
   }
  ],
  "edges": [

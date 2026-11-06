@@ -7,6 +7,7 @@ import { ResultsPanel } from './components/ResultsPanel';
 import { S11Chart } from './components/S11Chart';
 import { ScopeNotice } from './components/ScopeNotice';
 import { ShareTools } from './components/ShareTools';
+import { downloadText } from './components/download';
 import { ValidityNote } from './components/ValidityNote';
 import { analyse } from './core/analysis';
 import { create, fill, fromCells, isEdited, mulberry32, randomPattern, type Grid } from './core/grid';
@@ -18,6 +19,7 @@ import {
   type GridHistory,
   type HistoryAction,
 } from './core/history';
+import { exportFilename, patternCsv, s11Csv } from './core/exportCsv';
 import { decodeShare, encodeShare } from './core/share';
 import { usePrediction } from './hooks/usePrediction';
 import { loadMeta, type ModelMeta } from './model/meta';
@@ -246,7 +248,29 @@ export function App() {
           />
           <ResultsPanel db={db} inferMs={curveOverride === null ? prediction.inferMs : null} />
           {history !== null && <ScopeNotice bands={bandCount} N={history.present.N} />}
-          {history !== null && <ShareTools />}
+          {history !== null && (
+            <ShareTools>
+              <button
+                type="button"
+                className="tool"
+                disabled={db === null}
+                onClick={() => {
+                  if (db !== null) downloadText(exportFilename(history.present, 's11'), s11Csv(db));
+                }}
+              >
+                Download |S11| CSV
+              </button>
+              <button
+                type="button"
+                className="tool"
+                onClick={() => {
+                  downloadText(exportFilename(history.present, 'pattern'), patternCsv(history.present));
+                }}
+              >
+                Download pattern CSV
+              </button>
+            </ShareTools>
+          )}
           {meta !== null && history !== null && <ValidityNote N={history.present.N} scope={meta.scope} />}
         </section>
       </main>

@@ -770,9 +770,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "861ecd9eb2bee81f4ed86a1d4d01444d3f77c34f",
-   "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk acceptance criteria are shown passing and committed.",
-   "summary_sha": "861ecd9eb2bee81f4ed86a1d4d01444d3f77c34f"
+   "sha": "1f8916051fc43c178ca31105aab8cb0679541d66",
+   "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk acceptance criteria are shown passing and committed; all done (C2.2 not needed).",
+   "summary_sha": "1f8916051fc43c178ca31105aab8cb0679541d66"
   },
   {
    "path": "README.md",

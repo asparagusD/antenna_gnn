@@ -51,4 +51,4 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C8.2 Performance report
 - [x] C8.3 Documentation
 - [x] C8.4 Repository graph update
-- [ ] C8.5 Final summary
+- [x] C8.5 Final summary

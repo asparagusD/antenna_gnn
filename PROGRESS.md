@@ -37,7 +37,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 
 ## C6 Design polish with Impeccable
 - [x] C6.1 Critique the whole app and fix P0/P1
-- [ ] C6.2 Audit (accessibility, performance, responsive, theming)
+- [x] C6.2 Audit (accessibility, performance, responsive, theming)
 - [ ] C6.3 Adapt (tablet and phone)
 - [ ] C6.4 Harden (errors, empty and loading states)
 - [ ] C6.5 Polish and the detector check

@@ -723,11 +723,11 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 11218,
+   "size": 12301,
    "chunk": null,
-   "sha": "bd1bc785fa9ac5be63b039aec61faa0c486db266",
-   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C5.5 implicit status role of <output>, and a share test reading the curve mid-transition).",
-   "summary_sha": "bd1bc785fa9ac5be63b039aec61faa0c486db266"
+   "sha": "d31761af7ba171be4f2f094f5beef315752e5ff8",
+   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C6.2 axe sampling the fading Updating mark).",
+   "summary_sha": "d31761af7ba171be4f2f094f5beef315752e5ff8"
   },
   {
    "path": "DESIGN.md",
@@ -761,9 +761,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "bedca2c6ded927bc0f0ce826a1fa3c544606a19f",
+   "sha": "0aa430fd2bff833dd0e08578da66adb9d50d5bf6",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "bedca2c6ded927bc0f0ce826a1fa3c544606a19f"
+   "summary_sha": "0aa430fd2bff833dd0e08578da66adb9d50d5bf6"
   },
   {
    "path": "README.md",
@@ -2343,11 +2343,11 @@
   {
    "path": "docs/design_review.md",
    "type": "markdown",
-   "size": 5586,
+   "size": 9222,
    "chunk": null,
-   "sha": "9946218f0a4eecbcfc7a17f1e937f6590ca2e7c7",
-   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding either fixed or justified (C6.1: whole-app critique 26/40, P0 and three P1s fixed).",
-   "summary_sha": "9946218f0a4eecbcfc7a17f1e937f6590ca2e7c7"
+   "sha": "22945afed9a3b4679984c6017efe4ef2d971ec10",
+   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding either fixed or justified (C6.1 whole-app critique 26/40; C6.2 audit 14/20 with three P1s fixed: focusable band table, 200% text, wasm-only onnxruntime).",
+   "summary_sha": "22945afed9a3b4679984c6017efe4ef2d971ec10"
   },
   {
    "path": "docs/repo_graph/REPO_MAP.md",
@@ -4394,6 +4394,24 @@
    "summary_sha": "1b0b7e2a6bdbec5d09c30c6140a0b0d9a964f676"
   },
   {
+   "path": "webapp/e2e/a11y.spec.ts",
+   "type": "typescript",
+   "size": 3058,
+   "chunk": null,
+   "sha": "192f0076482e47986bd2ec3146739fc8b7049fa0",
+   "summary": "Playwright accessibility checks with @axe-core/playwright (WCAG 2.1 A/AA tags) on settled states: the loaded app, the Starting points panel, the grid-size question, the share-link error with the fill warning and the scope notice, in dark and light, plus the stacked 768x1024 and 375x812 layouts; any violation fails.",
+   "summary_sha": "192f0076482e47986bd2ec3146739fc8b7049fa0"
+  },
+  {
+   "path": "webapp/e2e/assets.spec.ts",
+   "type": "typescript",
+   "size": 914,
+   "chunk": null,
+   "sha": "fdbd44c748ed1b3aae392216b1cb13554b5c659c",
+   "summary": "Playwright performance guard: the page loads only onnxruntime's plain wasm build (no JSEP/WebGPU wasm) and no wasm file over 16 MB.",
+   "summary_sha": "fdbd44c748ed1b3aae392216b1cb13554b5c659c"
+  },
+  {
    "path": "webapp/e2e/export.spec.ts",
    "type": "typescript",
    "size": 2042,
@@ -4441,11 +4459,11 @@
   {
    "path": "webapp/e2e/layout.spec.ts",
    "type": "typescript",
-   "size": 1707,
+   "size": 2454,
    "chunk": null,
-   "sha": "4192543e1ef14647d485e6f1e22490915c84cdd9",
-   "summary": "Playwright layout regressions: portrait 768x1024, 820x1180 and 1024x1366 stack board above results with no sideways scroll, a chart wider than 80% of the viewport and no clipped result values; 1024x768 keeps two columns.",
-   "summary_sha": "4192543e1ef14647d485e6f1e22490915c84cdd9"
+   "sha": "d9cb830951df8f332b9315a476ee577492d469b3",
+   "summary": "Playwright layout regressions: portrait 768x1024, 820x1180 and 1024x1366 stack board above results with no sideways scroll, a chart wider than 80% of the viewport and no clipped result values; 1024x768 keeps two columns; at 200% text (1280x800) no sideways scroll and no clipped result values.",
+   "summary_sha": "d9cb830951df8f332b9315a476ee577492d469b3"
   },
   {
    "path": "webapp/e2e/results.spec.ts",
@@ -4567,20 +4585,20 @@
   {
    "path": "webapp/package-lock.json",
    "type": "json",
-   "size": 131521,
+   "size": 132449,
    "chunk": null,
-   "sha": "6dce20b04b550b78c4132b37e1586f5f29d7d858",
-   "summary": "npm lockfile pinning the full dependency tree of the web app for reproducible installs (npm ci).",
-   "summary_sha": "6dce20b04b550b78c4132b37e1586f5f29d7d858"
+   "sha": "cf77b2c0e6e83aeee5c566a39b7b27bdeee707aa",
+   "summary": "npm lockfile for the web app: the exact resolved dependency tree behind package.json, including @axe-core/playwright for the accessibility checks.",
+   "summary_sha": "cf77b2c0e6e83aeee5c566a39b7b27bdeee707aa"
   },
   {
    "path": "webapp/package.json",
    "type": "json",
-   "size": 1492,
+   "size": 1530,
    "chunk": null,
-   "sha": "45c696c1f6cb4f3a977627c9d010a83524649bda",
-   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1, @fontsource-variable/public-sans 5.3.0) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0) with scripts dev, build, preview, typecheck, lint, format, test, e2e and bench:infer.",
-   "summary_sha": "45c696c1f6cb4f3a977627c9d010a83524649bda"
+   "sha": "4b415f9c3f43437951b29eb4da92d4db5a23319f",
+   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1, @fontsource-variable/public-sans 5.3.0) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0, @axe-core/playwright 4.14.0) with scripts dev, build, preview, typecheck, lint, format, test, e2e and bench:infer.",
+   "summary_sha": "4b415f9c3f43437951b29eb4da92d4db5a23319f"
   },
   {
    "path": "webapp/playwright.config.ts",
@@ -4729,11 +4747,11 @@
   {
    "path": "webapp/src/components/ResultsPanel.css",
    "type": "other",
-   "size": 2255,
+   "size": 2261,
    "chunk": null,
-   "sha": "795f7c2b074f17a8c23756ef74f247d3b08c2d74",
-   "summary": "Results styles: four fixed cells separated by rules (two columns below 1200px), uppercase labels, 1.75rem tabular values, reserved note lines, the band table, footnote and the visually hidden announcement region.",
-   "summary_sha": "795f7c2b074f17a8c23756ef74f247d3b08c2d74"
+   "sha": "bd3c7028527e27c2e27a730ccb7b5bd5c8bdc508",
+   "summary": "Results styles: cells that reflow by content width (auto-fit, 11.25rem minimum) with 1px rule separators from the grid gap, uppercase labels, 1.75rem tabular values, reserved note lines, the band table in a focusable horizontal scroll region, footnote and the visually hidden announcement region.",
+   "summary_sha": "bd3c7028527e27c2e27a730ccb7b5bd5c8bdc508"
   },
   {
    "path": "webapp/src/components/ResultsPanel.test.tsx",
@@ -4747,11 +4765,11 @@
   {
    "path": "webapp/src/components/ResultsPanel.tsx",
    "type": "typescript",
-   "size": 4481,
+   "size": 4863,
    "chunk": null,
-   "sha": "11bc608e4a17db4e95be6beab26b5e1bb9b4af04",
-   "summary": "Results under the chart from analyse(): fixed cells Functioning (strict min < −10 dB), Resonance (deepest band centre), Depth (minimum |S11|), Bands below −10 dB; a per-band table with centre, depth, −10 dB bandwidth and range; inference time; a polite announcement of the verdict and band count only.",
-   "summary_sha": "11bc608e4a17db4e95be6beab26b5e1bb9b4af04"
+   "sha": "c1ef9e94dba46510ef3ac4a805ba7eb2dc0d0748",
+   "summary": "Results under the chart from analyse(): fixed cells Functioning (strict min < -10 dB), Resonance (deepest band centre), Depth (minimum |S11|), Bands below -10 dB; a per-band table (centre, depth, -10 dB bandwidth and range) inside a focusable, labelled scroll region; inference time; a polite announcement of the verdict and band count only.",
+   "summary_sha": "c1ef9e94dba46510ef3ac4a805ba7eb2dc0d0748"
   },
   {
    "path": "webapp/src/components/S11Chart.css",
@@ -5044,11 +5062,11 @@
   {
    "path": "webapp/src/core/infer.ts",
    "type": "typescript",
-   "size": 3944,
+   "size": 4114,
    "chunk": null,
-   "sha": "8175e58285a830a6db153a281a6e94e7ca65031f",
-   "summary": "Inference with onnxruntime-web: loadModel creates a wasm session with one thread and no proxy (GitHub Pages has no COOP/COEP) from a URL or model bytes, logging errors only; predictZ validates the graph and runs the model; predict de-normalises z with the exact float32 statistics into a Float64Array of 201 dB values.",
-   "summary_sha": "8175e58285a830a6db153a281a6e94e7ca65031f"
+   "sha": "cdc7d671ee4098567d61806cc7c8d699ee6c3441",
+   "summary": "Inference with onnxruntime-web's wasm-only entry (single thread, no proxy, no JSEP/WebGPU build): loadModel from a URL or bytes, predictZ with input checks and output shape validation, predict de-normalising z to |S11| dB in float64 with meta.json statistics.",
+   "summary_sha": "cdc7d671ee4098567d61806cc7c8d699ee6c3441"
   },
   {
    "path": "webapp/src/core/predictClient.test.ts",

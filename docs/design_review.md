@@ -89,9 +89,9 @@ recorded user decisions or open findings below.
 
 | Sev | Finding | Location | Standard | Decision |
 |---|---|---|---|---|
-| **P1** | Band table scrolls sideways on phones but cannot receive focus, so keyboard users cannot scroll it | ResultsPanel.css (`display:block; overflow-x:auto` on the table) | WCAG 2.1.1; axe `scrollable-region-focusable` (serious) | Fix in C6.2 |
-| **P1** | 200% text: result values overlap their neighbours and the page scrolls 76 px sideways | ResultsPanel.css (fixed 4 / 2 columns, `white-space: nowrap`) | WCAG 1.4.4 Resize text | Fix in C6.2 |
-| **P1** | 29.5 MB JSEP wasm (WebGPU/WebNN) shipped though inference is CPU wasm only; first load ≈ 7.1 MB gzip + 2.6 MB model | `import * as ort from 'onnxruntime-web'` (infer.ts) | Performance budget, offline-first | Fix in C6.2: `onnxruntime-web/wasm` |
+| **P1** | Band table scrolls sideways on phones but cannot receive focus, so keyboard users cannot scroll it | ResultsPanel.css (`display:block; overflow-x:auto` on the table) | WCAG 2.1.1; axe `scrollable-region-focusable` (serious) | **Fixed** 2af9d69 (focusable labelled scroll region) |
+| **P1** | 200% text: result values overlap their neighbours and the page scrolls 76 px sideways | ResultsPanel.css (fixed 4 / 2 columns, `white-space: nowrap`) | WCAG 1.4.4 Resize text | **Fixed** 1484bb2 (auto-fit cells) |
+| **P1** | 29.5 MB JSEP wasm (WebGPU/WebNN) shipped though inference is CPU wasm only; first load ≈ 7.1 MB gzip + 2.6 MB model | `import * as ort from 'onnxruntime-web'` (infer.ts) | Performance budget, offline-first | **Fixed** 185f2bd (`onnxruntime-web/wasm`: 14.8 MB, 3.9 MB gzip; latency equal or better) |
 | P2 | Grid size is five toggle buttons (five tab stops) rather than a radio group with arrow keys | GridSizeSelector.tsx | ARIA APG radio group | C6.5 |
 | P2 | "\|S11\|" in the chart title is read as "vertical bar S 11 vertical bar" | S11Chart.tsx | — | C6.5 |
 | P2 | Touch targets 34–36 px (AA 24 px passes; 44 px recommended); board `touch-action: none` swallows page scroll | GridSizeSelector.css, App.css, GridEditor.css | WCAG 2.5.5 (AAA) | C6.3 |

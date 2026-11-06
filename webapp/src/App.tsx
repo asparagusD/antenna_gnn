@@ -236,6 +236,24 @@ export function App() {
           </button>
         </div>
       )}
+      {state.status === 'error' && (
+        <div className="startup-error" role="alert">
+          <p>
+            GraphPatch could not start: the model description did not load. Check your connection, then reload
+            the page.
+          </p>
+          <p className="startup-error-detail">{state.message}</p>
+          <button
+            type="button"
+            className="tool"
+            onClick={() => {
+              window.location.reload();
+            }}
+          >
+            Reload
+          </button>
+        </div>
+      )}
       <main className="workspace">
         <PredictionSummary
           db={db}

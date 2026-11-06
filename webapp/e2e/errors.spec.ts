@@ -36,3 +36,11 @@ test('a model that fails to load says so, and Retry recovers once it is reachabl
   await expect(page.locator('figure.s11-chart')).toHaveAttribute('aria-busy', 'false', { timeout: 30_000 });
   await expect(page.locator('path.s11-curve')).toHaveCount(1);
 });
+
+test('a missing meta.json shows a startup error with Reload instead of an empty page', async ({ page }) => {
+  await page.route('**/model/meta.json', (route) => route.fulfill({ status: 404, body: 'missing' }));
+  await page.goto('./');
+  const alert = page.getByRole('alert');
+  await expect(alert).toContainText('GraphPatch could not start: the model description did not load.');
+  await expect(alert.getByRole('button', { name: 'Reload' })).toBeVisible();
+});

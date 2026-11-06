@@ -55,6 +55,29 @@
   margin: 0;
 }
 
+/* GraphPatch could not start (meta.json failed): what happened, the detail, and Reload. */
+.startup-error {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-sm);
+  max-width: 70ch;
+  margin: var(--space-xl);
+  padding: var(--space-md);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--substrate);
+}
+
+.startup-error p {
+  margin: 0;
+}
+
+.startup-error-detail {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  overflow-wrap: anywhere;
+}
+
 .workspace-results {
   min-width: 0;
 }

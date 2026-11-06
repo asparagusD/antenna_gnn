@@ -2,12 +2,13 @@ import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
 import { GridSizeSelector } from './components/GridSizeSelector';
+import { PatternTools } from './components/PatternTools';
 import { ResultsPanel } from './components/ResultsPanel';
 import { S11Chart } from './components/S11Chart';
 import { ScopeNotice } from './components/ScopeNotice';
 import { ValidityNote } from './components/ValidityNote';
 import { analyse } from './core/analysis';
-import { create, fill, fromCells, isEdited, type Grid } from './core/grid';
+import { create, fill, fromCells, isEdited, mulberry32, randomPattern, type Grid } from './core/grid';
 import {
   canRedo,
   canUndo,
@@ -103,6 +104,18 @@ export function App() {
   const db = curveOverride ?? prediction.db;
   const bandCount = useMemo(() => (db === null ? 0 : analyse(db).bands.length), [db]);
 
+  const randomAntenna = useCallback(
+    (targetFill: number) => {
+      if (meta === null || history === null) return;
+      const seed = crypto.getRandomValues(new Uint32Array(1))[0] ?? 0;
+      dispatch({ type: 'set', grid: randomPattern(history.present.N, targetFill, mulberry32(seed), meta) });
+    },
+    [meta, history],
+  );
+  const clearBoard = useCallback(() => {
+    if (meta !== null && history !== null) dispatch({ type: 'set', grid: create(history.present.N, meta) });
+  }, [meta, history]);
+
   const changeSize = useCallback(
     (size: number) => {
       if (meta !== null) dispatch({ type: 'reset', grid: create(size, meta) });
@@ -163,6 +176,11 @@ export function App() {
                 >
                   Redo
                 </button>
+                <PatternTools
+                  edited={isEdited(history.present)}
+                  onRandom={randomAntenna}
+                  onClear={clearBoard}
+                />
               </div>
               <FillMeter value={fill(history.present)} />
             </>

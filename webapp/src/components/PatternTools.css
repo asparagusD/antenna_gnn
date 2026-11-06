@@ -1,0 +1,29 @@
+/* Random antenna + fill slider, then Clear (tools row, DESIGN.md secondary buttons). */
+.pattern-random {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+}
+
+.pattern-fill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-small);
+}
+
+.pattern-fill-label {
+  color: var(--text-muted);
+}
+
+.pattern-fill input {
+  width: 112px;
+  accent-color: var(--action);
+}
+
+.pattern-fill-value {
+  min-width: 3.5ch;
+  font-weight: 600;
+  text-align: right;
+}

@@ -21,7 +21,9 @@
     "vitest.config.ts",
     "vitest.bench.config.ts",
     "playwright.config.ts",
+    "playwright.live.config.ts",
     "e2e",
+    "e2e-live",
     "tests",
     "bench"
   ]

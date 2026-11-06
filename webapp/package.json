@@ -18,6 +18,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "playwright test",
+    "e2e:live": "playwright test -c playwright.live.config.ts",
     "bench:infer": "vitest run --config vitest.bench.config.ts --silent=false"
   },
   "dependencies": {

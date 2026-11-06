@@ -10,7 +10,9 @@
  * (and so multi-threaded wasm) needs, and the proxy worker is off because the app runs inference
  * in its own Web Worker (C4.4).
  */
-import * as ort from 'onnxruntime-web';
+// The wasm-only entry: the default entry bundles the JSEP build (WebGPU/WebNN, 29.5 MB of wasm), which
+// this CPU-only, single-thread app never uses (C6.2 audit).
+import * as ort from 'onnxruntime-web/wasm';
 import type { ModelMeta } from '../model/meta';
 import type { Graph } from './graph';
 import { NUM_FEATURES } from './graph';

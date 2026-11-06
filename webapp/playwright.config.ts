@@ -21,6 +21,8 @@ export default defineConfig({
     command: `npm run build && npm run preview -- --port ${PORT} --strictPort`,
     url: `http://localhost:${PORT}${base}`,
     reuseExistingServer: !isCI,
+    // Builds the e2e-only test hook (src/testHook.ts); the GitHub Pages build never sets this.
+    env: { VITE_E2E_HOOKS: '1' },
     timeout: 180_000,
   },
 });

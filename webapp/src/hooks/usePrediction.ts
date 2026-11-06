@@ -21,12 +21,15 @@ interface State {
   db: Float64Array | null;
   /** The grid the shown curve was computed for. */
   answered: Grid | null;
+  /** The worker's inference time for the shown curve, in ms. */
+  inferMs: number | null;
   error: string | null;
 }
 
 export interface Prediction {
   status: ChartStatus;
   db: Float64Array | null;
+  inferMs: number | null;
   error: string | null;
   retry: () => void;
 }
@@ -41,9 +44,10 @@ export function usePrediction(grid: Grid | null): Prediction {
           model: 'error',
           db: null,
           answered: null,
+          inferMs: null,
           error: 'this browser cannot run the model (no Web Workers)',
         }
-      : { model: 'loading', db: null, answered: null, error: null },
+      : { model: 'loading', db: null, answered: null, inferMs: null, error: null },
   );
   const clientRef = useRef<PredictClient | null>(null);
   const requested = useRef<Grid | null>(null);
@@ -57,7 +61,14 @@ export function usePrediction(grid: Grid | null): Prediction {
         setState((s) => ({ ...s, model: 'ready', error: null }));
       } else if (event.type === 'result') {
         const answered = requested.current;
-        setState((s) => ({ ...s, model: 'ready', db: event.s11, answered, error: null }));
+        setState((s) => ({
+          ...s,
+          model: 'ready',
+          db: event.s11,
+          answered,
+          inferMs: event.inferMs,
+          error: null,
+        }));
         requestAnimationFrame(() => {
           performance.clearMeasures(PREDICT_MEASURE);
           performance.measure(PREDICT_MEASURE, {
@@ -98,5 +109,5 @@ export function usePrediction(grid: Grid | null): Prediction {
           ? 'updating'
           : 'ready';
 
-  return { status, db: state.db, error: state.error, retry };
+  return { status, db: state.db, inferMs: state.inferMs, error: state.error, retry };
 }

@@ -1,9 +1,13 @@
-import { useCallback, useEffect, useReducer, useState } from 'react';
+import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
 import { GridSizeSelector } from './components/GridSizeSelector';
+import { ResultsPanel } from './components/ResultsPanel';
 import { S11Chart } from './components/S11Chart';
-import { create, fill, isEdited, type Grid } from './core/grid';
+import { ScopeNotice } from './components/ScopeNotice';
+import { ValidityNote } from './components/ValidityNote';
+import { analyse } from './core/analysis';
+import { create, fill, fromCells, isEdited, type Grid } from './core/grid';
 import {
   canRedo,
   canUndo,
@@ -14,6 +18,7 @@ import {
 } from './core/history';
 import { usePrediction } from './hooks/usePrediction';
 import { loadMeta, type ModelMeta } from './model/meta';
+import { installTestHook, TEST_HOOKS_ENABLED } from './testHook';
 import './App.css';
 
 type MetaState =
@@ -26,11 +31,16 @@ function historyOrNull(state: GridHistory | null, action: HistoryAction): GridHi
   return state === null ? null : historyReducer(state, action);
 }
 
-/** Core screen (C5): grid size, the board with undo/redo and the fill meter, and the live |S11| chart; results arrive in C5.4-C5.5. */
+/**
+ * Core screen (C5): grid size, board with undo/redo, fill meter, live |S11| chart, results, scope
+ * notice and validity note; starting points and sharing arrive in C5.5.
+ */
 export function App() {
   const [state, setState] = useState<MetaState>({ status: 'loading' });
   const [history, dispatch] = useReducer(historyOrNull, null);
   const prediction = usePrediction(history?.present ?? null);
+  // Only ever set by the e2e test hook (testHook.ts); null in every real build.
+  const [curveOverride, setCurveOverride] = useState<Float64Array | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -78,6 +88,21 @@ export function App() {
     dispatch({ type: 'end' });
   }, []);
   const meta = state.status === 'ready' ? state.meta : null;
+  useEffect(() => {
+    if (!TEST_HOOKS_ENABLED || meta === null) return;
+    return installTestHook({
+      loadPattern: (N, cells) => {
+        dispatch({ type: 'reset', grid: fromCells(N, cells, meta) });
+      },
+      setCurve: (db) => {
+        setCurveOverride(db === null ? null : Float64Array.from(db));
+      },
+    });
+  }, [meta]);
+
+  const db = curveOverride ?? prediction.db;
+  const bandCount = useMemo(() => (db === null ? 0 : analyse(db).bands.length), [db]);
+
   const changeSize = useCallback(
     (size: number) => {
       if (meta !== null) dispatch({ type: 'reset', grid: create(size, meta) });
@@ -145,11 +170,14 @@ export function App() {
         </section>
         <section className="workspace-results" aria-label="Prediction">
           <S11Chart
-            db={prediction.db}
-            status={prediction.status}
+            db={db}
+            status={curveOverride === null ? prediction.status : 'ready'}
             error={prediction.error ?? undefined}
             onRetry={prediction.retry}
           />
+          <ResultsPanel db={db} inferMs={curveOverride === null ? prediction.inferMs : null} />
+          {history !== null && <ScopeNotice bands={bandCount} N={history.present.N} />}
+          {meta !== null && history !== null && <ValidityNote N={history.present.N} scope={meta.scope} />}
         </section>
       </main>
     </div>

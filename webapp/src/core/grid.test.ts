@@ -5,6 +5,7 @@ import {
   create,
   fill,
   fillStatus,
+  fromCells,
   get,
   isEdited,
   isSeed,
@@ -150,6 +151,30 @@ describe('fill and fillStatus', () => {
 
   it.each([Number.NaN, -0.1, 1.1])('fillStatus(%s) throws RangeError', (value) => {
     expect(() => fillStatus(value)).toThrow(RangeError);
+  });
+});
+
+describe('fromCells', () => {
+  it('builds a grid from N*N 0/1 values with seeds metal', () => {
+    const base = toggle(create(12, meta), ...freeCell(create(12, meta)));
+    const grid = fromCells(12, Array.from(base.cells), meta);
+    expect(Array.from(grid.cells)).toEqual(Array.from(base.cells));
+    expect(grid.seed).toBe(create(12, meta).seed);
+  });
+
+  it.each([
+    ['wrong length', new Array<number>(143).fill(1)],
+    ['non 0/1 value', [...new Array<number>(143).fill(1), 2]],
+  ])('rejects %s', (_, cells) => {
+    expect(() => fromCells(12, cells, meta)).toThrow(RangeError);
+  });
+
+  it('rejects air on a seed pixel', () => {
+    const grid = create(12, meta);
+    const [r, c] = seedCell(grid);
+    const cells = Array.from(grid.cells);
+    cells[r * 12 + c] = 0;
+    expect(() => fromCells(12, cells, meta)).toThrow(/seed pixel/);
   });
 });
 

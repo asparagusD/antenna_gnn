@@ -89,6 +89,23 @@ export function toggle(grid: Grid, r: number, c: number): Grid {
   return paint(grid, r, c, grid.cells[k] === 1 ? 0 : 1);
 }
 
+/** A grid from N*N row-major 0/1 values (e.g. a saved or fixture pattern); seed pixels must be metal. */
+export function fromCells(N: number, values: ArrayLike<number>, spec: GridSpec): Grid {
+  const grid = create(N, spec);
+  if (values.length !== N * N)
+    throw new RangeError(`expected ${String(N * N)} values, got ${String(values.length)}`);
+  const cells = new Uint8Array(N * N);
+  for (let k = 0; k < cells.length; k++) {
+    const v = values[k];
+    if (v !== 0 && v !== 1) throw new RangeError(`value ${String(k)} must be 0 or 1`);
+    if (v === 0 && grid.seed[k] === 1) {
+      throw new RangeError(`seed pixel (${String(Math.floor(k / N))}, ${String(k % N)}) must be metal`);
+    }
+    cells[k] = v;
+  }
+  return { ...grid, cells };
+}
+
 /** True when any pixel differs from a fresh grid (metal outside the seed pixels). */
 export function isEdited(grid: Grid): boolean {
   const { cells, seed } = grid;

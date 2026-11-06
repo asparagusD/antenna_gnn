@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { loadMeta, type ModelMeta } from './model/meta';
 
 type MetaState =
-  | { status: 'loading' }
-  | { status: 'ready'; meta: ModelMeta }
-  | { status: 'error'; message: string };
+  { status: 'loading' } | { status: 'ready'; meta: ModelMeta } | { status: 'error'; message: string };
 
 /** Placeholder page (C3.1): proves the model metadata loads; the real UI arrives in C5. */
 export function App() {
@@ -17,7 +15,8 @@ export function App() {
         if (!cancelled) setState({ status: 'ready', meta });
       })
       .catch((error: unknown) => {
-        if (!cancelled) setState({ status: 'error', message: error instanceof Error ? error.message : String(error) });
+        if (!cancelled)
+          setState({ status: 'error', message: error instanceof Error ? error.message : String(error) });
       });
     return () => {
       cancelled = true;

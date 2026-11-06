@@ -86,7 +86,8 @@ export function parseMeta(raw: unknown): ModelMeta {
   if (raw.schema !== META_SCHEMA) fail(`schema must be "${META_SCHEMA}", got ${JSON.stringify(raw.schema)}`);
 
   const grids = numberArray(raw.grids, 'grids');
-  if (grids.length === 0 || !grids.every((n) => Number.isInteger(n) && n > 1)) fail('grids must be integers > 1');
+  if (grids.length === 0 || !grids.every((n) => Number.isInteger(n) && n > 1))
+    fail('grids must be integers > 1');
   numberArray(raw.freq_ghz, 'freq_ghz', NUM_FREQ);
   numberArray(raw.s11_mean, 's11_mean', NUM_FREQ);
   const std = numberArray(raw.s11_std, 's11_std', NUM_FREQ);
@@ -103,7 +104,8 @@ export function parseMeta(raw: unknown): ModelMeta {
     }
   }
 
-  if (!isRecord(raw.model) || typeof raw.model.parameter_count !== 'number') fail('model.parameter_count missing');
+  if (!isRecord(raw.model) || typeof raw.model.parameter_count !== 'number')
+    fail('model.parameter_count missing');
   if (!isRecord(raw.onnx) || typeof raw.onnx.file !== 'string') fail('onnx.file missing');
   if (!isRecord(raw.scope) || !isRecord(raw.scope.test)) fail('scope.test missing');
   return raw as unknown as ModelMeta;

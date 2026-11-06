@@ -9,7 +9,7 @@ test('page renders and loads the model meta', async ({ page }) => {
 
   await page.goto('./');
 
-  await expect(page.getByRole('heading', { name: 'Antenna S11 surrogate' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'GraphPatch' })).toBeVisible();
   await expect(page.getByRole('status')).toHaveText('model meta loaded: 5 grids');
   expect(errors).toEqual([]);
 });

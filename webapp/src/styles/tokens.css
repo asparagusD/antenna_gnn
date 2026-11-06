@@ -1,0 +1,119 @@
+/*
+ * GraphPatch design tokens (DESIGN.md): microwave laminate, flat copper, silkscreen type.
+ * Dark laminate is the default; the light theme (cool white PTFE laminate) follows the system
+ * preference, and [data-theme] on <html> overrides both.
+ */
+@import '@fontsource-variable/public-sans/index.css';
+
+:root {
+  color-scheme: dark;
+  --laminate: oklch(22% 0.02 165);
+  --substrate: oklch(27% 0.022 165);
+  --rule: oklch(38% 0.022 165);
+  --text: oklch(93% 0.012 95);
+  --text-muted: oklch(76% 0.016 150);
+  --copper: oklch(68% 0.115 55);
+  --copper-floating: oklch(60% 0.05 60);
+  --action: oklch(74% 0.09 175);
+  --action-hover: oklch(80% 0.085 175);
+  --on-action: var(--laminate);
+  --threshold: oklch(68% 0.17 28);
+  --caution: oklch(80% 0.13 80);
+
+  --font: 'Public Sans Variable', 'Public Sans', system-ui, sans-serif;
+  --text-title: 1.25rem;
+  --text-label: 0.75rem;
+  --text-body: 0.9375rem;
+  --text-small: 0.8125rem;
+  --text-value: 1.75rem;
+
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme='dark']) {
+    color-scheme: light;
+    --laminate: oklch(97.5% 0.004 165);
+    --substrate: oklch(93.5% 0.008 165);
+    --rule: oklch(83% 0.012 165);
+    --text: oklch(25% 0.02 165);
+    --text-muted: oklch(44% 0.02 165);
+    --copper: oklch(55% 0.12 55);
+    --copper-floating: oklch(61% 0.045 60);
+    --action: oklch(44% 0.075 175);
+    --action-hover: oklch(38% 0.075 175);
+    --on-action: oklch(97.5% 0.004 165);
+    --threshold: oklch(52% 0.18 28);
+    --caution: oklch(64% 0.12 70);
+  }
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --laminate: oklch(97.5% 0.004 165);
+  --substrate: oklch(93.5% 0.008 165);
+  --rule: oklch(83% 0.012 165);
+  --text: oklch(25% 0.02 165);
+  --text-muted: oklch(44% 0.02 165);
+  --copper: oklch(55% 0.12 55);
+  --copper-floating: oklch(61% 0.045 60);
+  --action: oklch(44% 0.075 175);
+  --action-hover: oklch(38% 0.075 175);
+  --on-action: oklch(97.5% 0.004 165);
+  --threshold: oklch(52% 0.18 28);
+  --caution: oklch(64% 0.12 70);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font);
+  font-size: 100%;
+  font-variant-numeric: tabular-nums;
+  background: var(--laminate);
+  color: var(--text);
+  scrollbar-color: var(--rule) var(--laminate);
+  caret-color: var(--action);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: var(--text-body);
+  line-height: 1.45;
+}
+
+::selection {
+  background: var(--action);
+  color: var(--on-action);
+}
+
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+  }
+}

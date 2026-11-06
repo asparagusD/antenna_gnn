@@ -21,6 +21,7 @@
     "bench:infer": "vitest run --config vitest.bench.config.ts --silent=false"
   },
   "dependencies": {
+    "@fontsource-variable/public-sans": "5.3.0",
     "onnxruntime-web": "1.31.1",
     "react": "19.3.1",
     "react-dom": "19.3.1"

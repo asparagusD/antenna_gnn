@@ -1,0 +1,93 @@
+.board-figure {
+  margin: 0;
+  display: grid;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+/* The board: substrate field framing the canvas, square, as large as its column allows. */
+.board {
+  position: relative;
+  padding: 18px;
+  background: var(--substrate);
+  outline-offset: 3px;
+  touch-action: none;
+  cursor: crosshair;
+  user-select: none;
+}
+
+.board:focus-visible {
+  outline: 2px solid var(--action);
+}
+
+.board-canvas {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  touch-action: none;
+}
+
+.board-tooltip {
+  position: absolute;
+  transform: translate(12px, -130%);
+  padding: var(--space-xs) var(--space-sm);
+  background: var(--laminate);
+  color: var(--text);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-small);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Silkscreen dimension line under the board: end ticks and a centred label. */
+.board-dimension {
+  position: relative;
+  height: 20px;
+  margin-inline: 18px;
+  border-left: 1px solid var(--text-muted);
+  border-right: 1px solid var(--text-muted);
+}
+
+.board-dimension::before {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  border-top: 1px solid var(--text-muted);
+}
+
+.board-dimension-label {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  padding-inline: var(--space-sm);
+  background: var(--laminate);
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  white-space: nowrap;
+}
+
+.board-readout {
+  min-height: 1.45em;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.board-readout [aria-live] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

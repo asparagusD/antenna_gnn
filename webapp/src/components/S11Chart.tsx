@@ -10,8 +10,8 @@
  *   (revealed by CSS after a short delay so fast edits do not flicker); before the first curve the
  *   plot shows "Loading model…" on empty axes; an error shows inline with Retry, keeping the curve.
  */
-import { useEffect, useId, useLayoutEffect, useRef, useState, type RefObject } from 'react';
-import { freqGhz } from '../core/analysis';
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react';
+import { analyse, freqGhz } from '../core/analysis';
 import {
   F_MAX_GHZ,
   F_MIN_GHZ,
@@ -50,7 +50,8 @@ interface Frame {
 
 const TWEEN_MS = 180;
 const REFERENCE_LABEL = '−10 dB';
-const MARGIN = { top: 14, right: 18, bottom: 34, left: 44 };
+// The top margin holds the band numbers (2+ bands), clear of the curve and the minimum marker.
+const MARGIN = { top: 26, right: 18, bottom: 34, left: 44 };
 const DEFAULT_SIZE = { width: 640, height: 360 };
 
 function argmin(db: ArrayLike<number>): number {
@@ -145,10 +146,17 @@ export function S11Chart({ db, status, error, errorDetail, onRetry }: S11ChartPr
   const minDb = min === null || frame === null ? null : (frame.db[min] as number);
   const minGhz = min === null ? null : (freqGhz[min] as number);
   const target = db === null ? null : argmin(db);
+  // Bands of the predicted curve (not the tween frame), numbered like the results table and marked in the
+  // top margin above the plot.
+  const bands = useMemo(() => (db === null ? [] : analyse(db).bands), [db]);
+  const bandText =
+    bands.length >= 2
+      ? ` ${String(bands.length)} bands below −10 dB, at ${bands.map((b) => formatGhz(b.freqGhz)).join(' and ')}.`
+      : '';
   const summary =
     db === null || target === null
       ? 'No prediction yet.'
-      : `Minimum ${formatDb(db[target] as number)} at ${formatGhz(freqGhz[target] as number)}.`;
+      : `Minimum ${formatDb(db[target] as number)} at ${formatGhz(freqGhz[target] as number)}.${bandText}`;
 
   // Minimum label: below the ring when there is room (the curve never dips below its own minimum, so
   // that space is clear), otherwise beside it; beside the drop line, flipped left near the right edge.
@@ -163,7 +171,10 @@ export function S11Chart({ db, status, error, errorDetail, onRetry }: S11ChartPr
   return (
     <figure className="s11-chart" aria-busy={status === 'loading' || status === 'updating'}>
       <figcaption className="s11-chart-head">
-        <span className="s11-chart-title">Reflection |S11|</span>
+        <span className="s11-chart-title">
+          Reflection <span aria-hidden="true">|S11|</span>
+          <span className="s11-sr">S11 magnitude</span>
+        </span>
         {status === 'updating' && <span className="s11-chart-updating">Updating…</span>}
         {status === 'error' && (
           <span className="s11-chart-error" role="alert">
@@ -186,7 +197,7 @@ export function S11Chart({ db, status, error, errorDetail, onRetry }: S11ChartPr
           role="img"
           aria-labelledby={`${titleId} ${descId}`}
         >
-          <title id={titleId}>|S11| from 1 to 4 GHz, in dB</title>
+          <title id={titleId}>S11 magnitude from 1 to 4 GHz, in dB</title>
           <desc id={descId}>{summary}</desc>
           <defs>
             <clipPath id={clipId}>
@@ -248,6 +259,19 @@ export function S11Chart({ db, status, error, errorDetail, onRetry }: S11ChartPr
           >
             {REFERENCE_LABEL}
           </text>
+
+          {bands.length >= 2 && (
+            <g aria-hidden="true">
+              {bands.map((band, i) => (
+                <g className="s11-band" key={band.index}>
+                  <line x1={sx(band.freqGhz)} x2={sx(band.freqGhz)} y1={y0} y2={y0 + 6} />
+                  <text x={sx(band.freqGhz)} y={y0 - 6} textAnchor="middle">
+                    {i + 1}
+                  </text>
+                </g>
+              ))}
+            </g>
+          )}
 
           {frame === null && (
             <text className="s11-chart-placeholder" x={(x0 + x1) / 2} y={(y0 + y1) / 2} textAnchor="middle">

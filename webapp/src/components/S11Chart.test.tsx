@@ -36,8 +36,24 @@ describe('S11Chart', () => {
       expect(screen.getAllByText(label, { selector: 'text' }).length).toBeGreaterThan(0);
     expect(screen.getByText('−10 dB', { selector: 'text' })).toBeDefined();
     expect(screen.getByText('−18.4 dB · 2.365 GHz', { selector: 'text' })).toBeDefined();
-    const img = screen.getByRole('img', { name: /\|S11\| from 1 to 4 GHz/ });
+    // "|S11|" is spoken as "S11 magnitude", not "vertical bar S 11 vertical bar".
+    const img = screen.getByRole('img', { name: /^S11 magnitude from 1 to 4 GHz, in dB/ });
     expect(img.textContent).toContain('Minimum −18.4 dB at 2.365 GHz');
+  });
+
+  it('numbers every band above the plot when there are two or more, matching the table', () => {
+    const twoBands = Float64Array.from(
+      freqGhz,
+      (_, k) => -2 + (dip(-16, 60)[k] ?? 0) + 2 + (dip(-12, 150)[k] ?? 0) + 2,
+    );
+    const { container, rerender } = render(<S11Chart db={dip()} status="ready" />);
+    expect(container.querySelectorAll('.s11-band')).toHaveLength(0); // one band: the minimum marker is enough
+    rerender(<S11Chart db={twoBands} status="ready" />);
+    const marks = Array.from(container.querySelectorAll('.s11-band'));
+    expect(marks.map((m) => m.textContent)).toEqual(['1', '2']);
+    const xs = marks.map((m) => Number(m.querySelector('line')?.getAttribute('x1')));
+    expect(xs[0]).toBeLessThan(xs[1] ?? 0);
+    expect(screen.getByRole('img').textContent).toContain('2 bands below −10 dB');
   });
 
   it('auto-ranges the y axis: bottom floored to 5 dB below the minimum', () => {

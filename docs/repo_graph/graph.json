@@ -714,11 +714,11 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 8481,
+   "size": 11218,
    "chunk": null,
-   "sha": "0e0704c03dd76b2c54f10beeac76fe5721c9bf44",
-   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C5.3 test-side typing and fixture mistakes).",
-   "summary_sha": "0e0704c03dd76b2c54f10beeac76fe5721c9bf44"
+   "sha": "bd1bc785fa9ac5be63b039aec61faa0c486db266",
+   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C5.5 implicit status role of <output>, and a share test reading the curve mid-transition).",
+   "summary_sha": "bd1bc785fa9ac5be63b039aec61faa0c486db266"
   },
   {
    "path": "DESIGN.md",
@@ -752,9 +752,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "44f2265d15a4947901847c48f1ed591e398b16bc",
+   "sha": "e005960df15e88ca590765cbaf144429cda9da15",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "44f2265d15a4947901847c48f1ed591e398b16bc"
+   "summary_sha": "e005960df15e88ca590765cbaf144429cda9da15"
   },
   {
    "path": "README.md",
@@ -4376,6 +4376,15 @@
    "summary_sha": "1b0b7e2a6bdbec5d09c30c6140a0b0d9a964f676"
   },
   {
+   "path": "webapp/e2e/export.spec.ts",
+   "type": "typescript",
+   "size": 2083,
+   "chunk": null,
+   "sha": "76c1ac81e1557f524485bece8789f924e92e2913",
+   "summary": "Playwright test of CSV export: after a Random antenna, the |S11| CSV has its header and 201 rows from 1.000 to 4.000 GHz with a minimum matching the Depth cell, and the pattern CSV has N rows of N 0/1 values whose metal count matches the board.",
+   "summary_sha": "76c1ac81e1557f524485bece8789f924e92e2913"
+  },
+  {
    "path": "webapp/e2e/fill-meter.spec.ts",
    "type": "typescript",
    "size": 3324,
@@ -4403,6 +4412,15 @@
    "summary_sha": "ef4d0725a761d591b2ffa6d0abe2d43018f65ab2"
   },
   {
+   "path": "webapp/e2e/pattern-tools.spec.ts",
+   "type": "typescript",
+   "size": 1292,
+   "chunk": null,
+   "sha": "ae8d166e5fe5f7d2a64a95e5ae827cfaa8fcc9a9",
+   "summary": "Playwright test of the starting points on 25x25: Random antenna gives exactly 60% (375) and, at a 30% slider, 188 metal pixels; Clear returns to the 65 seed pixels; Undo restores the random pattern.",
+   "summary_sha": "ae8d166e5fe5f7d2a64a95e5ae827cfaa8fcc9a9"
+  },
+  {
    "path": "webapp/e2e/results.spec.ts",
    "type": "typescript",
    "size": 5676,
@@ -4419,6 +4437,15 @@
    "sha": "b702ec4c78667247255147df458fb3a3368a9b58",
    "summary": "Playwright tests of the live chart on the production build with the real model: the settled curve has 201 points, the −10 dB label and a minimum label; painting the feed bridge changes path d without console errors; undo restores the identical path.",
    "summary_sha": "b702ec4c78667247255147df458fb3a3368a9b58"
+  },
+  {
+   "path": "webapp/e2e/share.spec.ts",
+   "type": "typescript",
+   "size": 4159,
+   "chunk": null,
+   "sha": "0883f3ef8f889a5c73fc7ebe7ae1258c302cf1cd",
+   "summary": "Playwright tests of share links: a 35x35 random antenna's URL opened in a fresh browser context restores the same metal count, an identical re-encoded hash and an identical settled curve; the address bar follows edits and Copy share link copies it; an invalid hash shows the friendly error and a fresh grid; a pasted hash loads in the same tab.",
+   "summary_sha": "0883f3ef8f889a5c73fc7ebe7ae1258c302cf1cd"
   },
   {
    "path": "webapp/e2e/smoke.spec.ts",
@@ -4558,11 +4585,11 @@
   {
    "path": "webapp/src/App.css",
    "type": "other",
-   "size": 1722,
+   "size": 2228,
    "chunk": null,
-   "sha": "555f8b6ce2eae0809c6d7745ea3b35f929cf132d",
-   "summary": "Core screen layout: wrapping top bar (title, grid-size control, status), two-column workspace with the board column sized to keep the board, readout, tools and fill meter with its warning in the viewport and the prediction column beside it, single column under 768px, and the tools-row secondary buttons.",
-   "summary_sha": "555f8b6ce2eae0809c6d7745ea3b35f929cf132d"
+   "sha": "2d1938bec85aaa95fa066b5116465241686d108f",
+   "summary": "Core screen layout: flex-column app with an optional share-link error banner, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, two tool rows and the fill meter with its warning in the viewport, the prediction column beside it, single column under 768px, and the tools-row secondary buttons.",
+   "summary_sha": "2d1938bec85aaa95fa066b5116465241686d108f"
   },
   {
    "path": "webapp/src/App.test.tsx",
@@ -4576,11 +4603,11 @@
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 6693,
+   "size": 10304,
    "chunk": null,
-   "sha": "36b5d7f09f43febdba7d070458012ca89d25333e",
-   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history, renders the GridSizeSelector, GridEditor, Undo/Redo and FillMeter on the left and, via usePrediction, the live S11Chart, ResultsPanel, ScopeNotice (2+ bands) and ValidityNote on the right; installs the e2e test hook only in VITE_E2E_HOOKS builds.",
-   "summary_sha": "36b5d7f09f43febdba7d070458012ca89d25333e"
+   "sha": "e81275d40abd5d91203d220725a4ffab15615fbb",
+   "summary": "Core screen: loads meta.json and starts from the URL's share link (friendly error and a fresh grid when it cannot be read), keeps the hash in sync with the board, loads pasted links; undo/redo history; GridSizeSelector, GridEditor, Undo/Redo, Random antenna and Clear, FillMeter; via usePrediction the live S11Chart, ResultsPanel, ScopeNotice, Share and export (copy link, |S11| and pattern CSV) and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
+   "summary_sha": "e81275d40abd5d91203d220725a4ffab15615fbb"
   },
   {
    "path": "webapp/src/components/FillMeter.css",
@@ -4653,6 +4680,33 @@
    "sha": "07e115281b57b73e62b5c19f5b96da11b4a292df",
    "summary": "Grid-size segmented control (12, 15, 25, 35, 45) as toggle buttons; on an edited board it asks first in an inline non-modal question (Keep primary and focused, cost in aria-describedby; closes on Keep, Escape, outside press or when no longer edited); after a switch focuses the new size and announces it in a polite live region.",
    "summary_sha": "07e115281b57b73e62b5c19f5b96da11b4a292df"
+  },
+  {
+   "path": "webapp/src/components/PatternTools.css",
+   "type": "other",
+   "size": 548,
+   "chunk": null,
+   "sha": "0740d980bebe4151d043d4eaeea922cb654a70c7",
+   "summary": "Styles for the Random antenna button, the labelled fill slider (action accent) with its visible value, and Clear in the tools row.",
+   "summary_sha": "0740d980bebe4151d043d4eaeea922cb654a70c7"
+  },
+  {
+   "path": "webapp/src/components/PatternTools.test.tsx",
+   "type": "typescript",
+   "size": 2054,
+   "chunk": null,
+   "sha": "0314f53b2eb70aa560e6b3210257887dd2edb87a",
+   "summary": "Vitest tests of PatternTools: the fill slider (30-80%, default 60%, valuetext, no extra status region), Random antenna passing the slider fill, and Clear enabled only when the board is edited.",
+   "summary_sha": "0314f53b2eb70aa560e6b3210257887dd2edb87a"
+  },
+  {
+   "path": "webapp/src/components/PatternTools.tsx",
+   "type": "typescript",
+   "size": 1919,
+   "chunk": null,
+   "sha": "6d5f34f2f035a6ba6e72ec335cbcdbef8c9ec570",
+   "summary": "Starting points in the Board tools row: Random antenna (randomPattern at the slider fill, default 60%, range 30-80%) and Clear (seed pixels only), both single undoable edits.",
+   "summary_sha": "6d5f34f2f035a6ba6e72ec335cbcdbef8c9ec570"
   },
   {
    "path": "webapp/src/components/ResultsPanel.css",
@@ -4736,6 +4790,33 @@
    "summary_sha": "a879cd5d98d7984c37816efc5a01042975e899d7"
   },
   {
+   "path": "webapp/src/components/ShareTools.css",
+   "type": "other",
+   "size": 344,
+   "chunk": null,
+   "sha": "9653e51faceeacee9d808b12d7ba00fe5350c63d",
+   "summary": "Styles for the Share and export toolbar row and its status line.",
+   "summary_sha": "9653e51faceeacee9d808b12d7ba00fe5350c63d"
+  },
+  {
+   "path": "webapp/src/components/ShareTools.test.tsx",
+   "type": "typescript",
+   "size": 1662,
+   "chunk": null,
+   "sha": "326ef6a8710f4b268d1471140eb500f651b53738",
+   "summary": "Vitest tests of ShareTools: Copy share link writes location.href to a mocked clipboard and confirms, a clipboard failure points to the address bar, and the status is a polite live region.",
+   "summary_sha": "326ef6a8710f4b268d1471140eb500f651b53738"
+  },
+  {
+   "path": "webapp/src/components/ShareTools.tsx",
+   "type": "typescript",
+   "size": 1420,
+   "chunk": null,
+   "sha": "cfce67213fa8d55c6718d5f3198e4c6625f56b2c",
+   "summary": "Share and export toolbar under the results: Copy share link (the URL hash already holds the pattern) with a politely announced outcome, plus slots for the CSV download buttons.",
+   "summary_sha": "cfce67213fa8d55c6718d5f3198e4c6625f56b2c"
+  },
+  {
    "path": "webapp/src/components/ValidityNote.css",
    "type": "other",
    "size": 731,
@@ -4779,6 +4860,15 @@
    "sha": "19da0eff6ec8adc023e4bc3c8537ab1a0b680851",
    "summary": "Pure chart helpers: yBottom (top +1 dB, bottom the largest multiple of 5 dB strictly below the minimum, never above −15 dB, −30 dB before the first curve), yTicks (5 dB, 10 dB beyond a 50 dB range), xTicks (1–4 GHz by 0.5), linear scale, curvePath (0.01 px), lerpCurve, easeOut, formatDb/formatGhz/formatTick with true minus signs.",
    "summary_sha": "19da0eff6ec8adc023e4bc3c8537ab1a0b680851"
+  },
+  {
+   "path": "webapp/src/components/download.ts",
+   "type": "typescript",
+   "size": 478,
+   "chunk": null,
+   "sha": "c382f315cf7f61e1a51e8749863b71c7ed364812",
+   "summary": "downloadText: saves a text file in the browser through a temporary object URL and an a[download] click.",
+   "summary_sha": "c382f315cf7f61e1a51e8749863b71c7ed364812"
   },
   {
    "path": "webapp/src/components/fillText.ts",
@@ -4833,6 +4923,24 @@
    "sha": "79895cb896a7dac992fb1ddecd7061ff3e6686c6",
    "summary": "Pure post-processing of a 201-point |S11| curve: the np.linspace frequency grid, an exact port of scipy find_peaks(-dB, height=10, prominence=3, distance=10) for bands, and analyse() returning the minimum and its frequency, edge flag, functioning verdict (min < -10 dB) and per-band depth, prominence and interpolated -10 dB bandwidth with edge-clipping flags.",
    "summary_sha": "79895cb896a7dac992fb1ddecd7061ff3e6686c6"
+  },
+  {
+   "path": "webapp/src/core/exportCsv.test.ts",
+   "type": "typescript",
+   "size": 2063,
+   "chunk": null,
+   "sha": "5ee1932d4a1a57e3714e6a8300843e4e8d8851f6",
+   "summary": "Vitest tests of CSV export: |S11| header, 201 rows and rounding, length check, pattern rows matching the grid, round trip through fromCells, and file names.",
+   "summary_sha": "5ee1932d4a1a57e3714e6a8300843e4e8d8851f6"
+  },
+  {
+   "path": "webapp/src/core/exportCsv.ts",
+   "type": "typescript",
+   "size": 1324,
+   "chunk": null,
+   "sha": "5d2ecab639be79b62099ba357adfc92d29914c50",
+   "summary": "CSV export: s11Csv (frequency_ghz,s11_db; 201 rows, GHz to 3 and dB to 6 decimals), patternCsv (N rows of N 0/1 values, row-major, seeds included) and exportFilename (graphpatch_NxN_s11/pattern.csv).",
+   "summary_sha": "5d2ecab639be79b62099ba357adfc92d29914c50"
   },
   {
    "path": "webapp/src/core/graph.test.ts",
@@ -4932,6 +5040,24 @@
    "sha": "f8d91883c0bf606928b18e3c09be56c8c6139765",
    "summary": "Worker message handler, independent of the worker global: loads the model once, answers predict requests with |S11| in dB and timing (buffer transferred), drops superseded waiting requests (latest wins), validates grid, cells and seed pixels, and reports init and predict errors.",
    "summary_sha": "f8d91883c0bf606928b18e3c09be56c8c6139765"
+  },
+  {
+   "path": "webapp/src/core/share.test.ts",
+   "type": "typescript",
+   "size": 3994,
+   "chunk": null,
+   "sha": "0f3016fff96a3f892b52b7625fdca810cf0abde9",
+   "summary": "Vitest tests of the share codec: exact round trip for all five grids on seeds-only, random and all-metal patterns, format and length per N, bit order, null for foreign hashes, and friendly rejections (version, grid size, truncation, characters, padding bits, seed air, garbage).",
+   "summary_sha": "0f3016fff96a3f892b52b7625fdca810cf0abde9"
+  },
+  {
+   "path": "webapp/src/core/share.ts",
+   "type": "typescript",
+   "size": 3124,
+   "chunk": null,
+   "sha": "022fe632c618e84680042a433aea8d64f9011078",
+   "summary": "Share-link codec: encodeShare writes p=v1.<N>.<base64url bitset of the N^2 pixels, row-major, MSB first>; decodeShare returns null for hashes without a pattern, the grid, or a readable reason for malformed links.",
+   "summary_sha": "022fe632c618e84680042a433aea8d64f9011078"
   },
   {
    "path": "webapp/src/core/worker.ts",

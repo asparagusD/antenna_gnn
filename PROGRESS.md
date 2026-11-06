@@ -33,7 +33,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C5.2 Grid-size selector and fill meter with warning
 - [x] C5.3 Live S11 chart
 - [x] C5.4 Results panel, domain-of-validity note and scope notice
-- [ ] C5.5 Starting points, sharing, export
+- [x] C5.5 Starting points, sharing, export
 
 ## C6 Design polish with Impeccable
 - [ ] C6.1 Critique the whole app and fix P0/P1

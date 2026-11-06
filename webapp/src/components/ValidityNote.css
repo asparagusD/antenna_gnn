@@ -1,0 +1,35 @@
+/* Validity note: quiet body text under the results; the selected grid's test error in tabular figures. */
+.validity {
+  max-width: 70ch;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--rule);
+  font-size: var(--text-small);
+}
+
+.validity-heading {
+  margin: 0 0 var(--space-sm);
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.validity p {
+  margin: 0 0 var(--space-sm);
+}
+
+.validity-metric {
+  font-weight: 600;
+}
+
+.validity-link {
+  color: var(--text);
+  text-decoration-color: var(--text-muted);
+  text-underline-offset: 3px;
+}
+
+.validity-link:hover {
+  text-decoration-color: var(--text);
+}

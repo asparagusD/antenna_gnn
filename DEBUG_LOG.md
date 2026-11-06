@@ -24,6 +24,22 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: C7.1: one e2e failure under BASE_PATH=/antenna_gnn/ that did not reproduce
+
+- **Status:** open, not reproduced (watch in CI)
+- **Symptom:** the first `MSYS_NO_PATHCONV=1 BASE_PATH=/antenna_gnn/ npx playwright test` run after a fresh build:
+  51 passed, 1 failed with `expect(locator).toContainText(expected) failed`. The output was piped through `tail`, so
+  the test name was lost.
+- **Reproducer:** none. Three further full runs: 52/52 each; `--repeat-each 3`: 156/156.
+- **Localised to:** unknown (a `toContainText` assertion; candidates are the specs that read text right after a
+  prediction or a reload: phone summary, errors, results).
+- **Hypotheses:** none tested; no failing run to test against. Not treated as a base-path problem: every asset and
+  model fetch under `/antenna_gnn/` succeeded in 52 + 156 subsequent tests.
+- **Root cause:** not found.
+- **Fix:** none. CI runs Playwright with one retry (`playwright.config.ts`, `retries: isCI ? 1 : 0`), and the list
+  reporter is used here from now on so a failing test's name is kept.
+- **Verification:** —
+
 ### 2026-11-06: C6.2: axe reports low contrast on "Updating…" in one light-theme state
 
 - **Status:** closed (test timing; no product change)

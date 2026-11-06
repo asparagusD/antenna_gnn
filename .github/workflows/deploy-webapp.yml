@@ -1,0 +1,76 @@
+# Build, check and deploy the GraphPatch web app (webapp/) to GitHub Pages at /antenna_gnn/.
+#
+# One-time manual step in the repository: Settings -> Pages -> Build and deployment -> Source: GitHub Actions.
+#
+# CI runs `make check-web` (typecheck, lint, Vitest incl. the TypeScript/ONNX parity tests against the
+# committed fixtures, the Impeccable design detector). The Python reference tests (`make py-test`) need
+# torch and the private checkpoint, so they stay local.
+name: Deploy web app to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'webapp/**'
+      - '.github/workflows/deploy-webapp.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; let a running deployment finish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: webapp/package-lock.json
+
+      - name: Install dependencies
+        working-directory: webapp
+        run: npm ci
+
+      - name: Quality gate (make check without the torch-based Python tests)
+        run: make check-web
+
+      - name: Build for /antenna_gnn/
+        working-directory: webapp
+        env:
+          BASE_PATH: /antenna_gnn/
+        run: npm run build
+
+      - name: Check that the model and onnxruntime wasm are in the build
+        working-directory: webapp/dist
+        run: |
+          test -s model/antenna_gnn.onnx
+          test -s model/meta.json
+          ls assets/*.wasm
+          grep -q 'src="/antenna_gnn/assets/' index.html
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: webapp/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

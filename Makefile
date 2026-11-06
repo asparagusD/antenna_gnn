@@ -15,11 +15,15 @@ else
 IMPECCABLE ?= .claude/skills/impeccable/scripts/impeccable
 endif
 
-.PHONY: check typecheck lint vitest design-check e2e graph graph-check py-setup py-test web-setup
+.PHONY: check check-web typecheck lint vitest design-check e2e graph graph-check py-setup py-test web-setup
 
 ## Fast quality gate (< 2 min): TypeScript typecheck, ESLint, Vitest, the Impeccable design detector on
 ## the web app source, Python reference tests.
-check: typecheck lint vitest design-check py-test
+check: check-web py-test
+
+## The web part of `make check`, used by CI (no torch): typecheck, lint, Vitest (including the ONNX parity
+## tests against the committed fixtures in webapp/tests/node), the design detector.
+check-web: typecheck lint vitest design-check
 
 typecheck:
 	cd $(WEB) && npm run typecheck

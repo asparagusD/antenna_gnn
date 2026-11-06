@@ -16,23 +16,42 @@ import type { Grid } from '../core/grid';
 
 export const PREDICT_MEASURE = 'graphpatch:predict';
 
+export type ModelState = 'loading' | 'ready' | 'error' | 'unsupported';
+
+/**
+ * What went wrong: the browser lacks WebAssembly or Web Workers (retrying cannot help), the model did not
+ * load, or one prediction failed. detail is the technical message, for engineers.
+ */
+export interface PredictionError {
+  kind: 'unsupported' | 'load' | 'predict';
+  detail: string;
+}
+
+/** Feature check before starting the worker: onnxruntime-web needs WebAssembly inside a Web Worker. */
+function missingFeature(): string | null {
+  if (typeof Worker === 'undefined') return 'no Web Workers';
+  if (typeof WebAssembly !== 'object' || typeof WebAssembly.instantiate !== 'function')
+    return 'no WebAssembly';
+  return null;
+}
+
 interface State {
-  model: 'loading' | 'ready' | 'error';
+  model: ModelState;
   db: Float64Array | null;
   /** The grid the shown curve was computed for. */
   answered: Grid | null;
   /** The worker's inference time for the shown curve, in ms. */
   inferMs: number | null;
-  error: string | null;
+  error: PredictionError | null;
 }
 
 export interface Prediction {
   status: ChartStatus;
-  /** The model itself (not one prediction): loading, ready, or failed to load. */
-  model: 'loading' | 'ready' | 'error';
+  /** The model itself (not one prediction): loading, ready, failed to load, or unsupported here. */
+  model: ModelState;
   db: Float64Array | null;
   inferMs: number | null;
-  error: string | null;
+  error: PredictionError | null;
   retry: () => void;
 }
 
@@ -40,22 +59,23 @@ const createWorker = (): WorkerLike =>
   new Worker(new URL('../core/worker.ts', import.meta.url), { type: 'module' });
 
 export function usePrediction(grid: Grid | null): Prediction {
-  const [state, setState] = useState<State>(() =>
-    typeof Worker === 'undefined'
-      ? {
-          model: 'error',
+  const [state, setState] = useState<State>(() => {
+    const missing = missingFeature();
+    return missing === null
+      ? { model: 'loading', db: null, answered: null, inferMs: null, error: null }
+      : {
+          model: 'unsupported',
           db: null,
           answered: null,
           inferMs: null,
-          error: 'this browser cannot run the model (no Web Workers)',
-        }
-      : { model: 'loading', db: null, answered: null, inferMs: null, error: null },
-  );
+          error: { kind: 'unsupported', detail: missing },
+        };
+  });
   const clientRef = useRef<PredictClient | null>(null);
   const requested = useRef<Grid | null>(null);
 
   useEffect(() => {
-    if (typeof Worker === 'undefined') return;
+    if (missingFeature() !== null) return;
     const client = createPredictClient({ createWorker });
     clientRef.current = client;
     const unsubscribe = client.subscribe((event) => {
@@ -80,7 +100,11 @@ export function usePrediction(grid: Grid | null): Prediction {
           });
         });
       } else {
-        setState((s) => ({ ...s, model: event.phase === 'init' ? 'error' : s.model, error: event.message }));
+        setState((s) => ({
+          ...s,
+          model: event.phase === 'init' ? 'error' : s.model,
+          error: { kind: event.phase === 'init' ? 'load' : 'predict', detail: event.message },
+        }));
       }
     });
     if (requested.current !== null) client.request(requested.current);

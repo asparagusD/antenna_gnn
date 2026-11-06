@@ -31,7 +31,7 @@ import {
 } from './core/history';
 import { exportFilename, patternCsv, s11Csv } from './core/exportCsv';
 import { decodeShare, encodeShare } from './core/share';
-import { usePrediction } from './hooks/usePrediction';
+import { usePrediction, type ModelState, type PredictionError } from './hooks/usePrediction';
 import { exampleGrid } from './model/examples';
 import { loadMeta, type ModelMeta } from './model/meta';
 import { installTestHook, TEST_HOOKS_ENABLED } from './testHook';
@@ -52,14 +52,28 @@ function gridFromHash(meta: ModelMeta): { grid: Grid; error: string | null } | n
 }
 
 /** The top bar's status: the model's own state (the chart reports single predictions). */
-function topbarStatus(state: MetaState, model: 'loading' | 'ready' | 'error'): string {
+function topbarStatus(state: MetaState, model: ModelState): string {
   if (state.status === 'loading') return 'Loading…';
   if (state.status === 'error') return `Could not load the model description (${state.message})`;
+  if (model === 'unsupported') return 'This browser cannot run the model';
   if (model === 'error') return 'Model failed to load';
   if (model === 'loading') {
     return `Loading model (${(state.meta.onnx.size_bytes / 1e6).toFixed(1)} MB)…`;
   }
   return 'Model ready · runs in your browser';
+}
+
+/** The chart's user-facing sentence for each kind of prediction error. */
+function errorMessage(error: PredictionError | null): string | undefined {
+  if (error === null) return undefined;
+  switch (error.kind) {
+    case 'unsupported':
+      return 'This browser cannot run the model: it needs WebAssembly and Web Workers. Use a current version of Chrome, Edge, Firefox or Safari.';
+    case 'load':
+      return 'The model could not be loaded. Check your connection, then retry.';
+    case 'predict':
+      return 'This prediction failed. Retry, or change the pattern.';
+  }
 }
 
 function historyOrNull(state: GridHistory | null, action: HistoryAction): GridHistory | null {
@@ -282,8 +296,9 @@ export function App() {
           <S11Chart
             db={db}
             status={curveOverride === null ? prediction.status : 'ready'}
-            error={prediction.error ?? undefined}
-            onRetry={prediction.retry}
+            error={errorMessage(prediction.error)}
+            errorDetail={prediction.error?.detail}
+            onRetry={prediction.error?.kind === 'unsupported' ? undefined : prediction.retry}
           />
           <ResultsPanel db={db} inferMs={curveOverride === null ? prediction.inferMs : null} />
           {history !== null && <ScopeNotice bands={bandCount} N={history.present.N} />}

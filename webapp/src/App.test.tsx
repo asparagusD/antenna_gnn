@@ -9,14 +9,21 @@ describe('App top-bar model status', () => {
     vi.unstubAllGlobals();
   });
 
-  it('reports the model state, not the metadata (jsdom has no Web Workers, so the model cannot run)', async () => {
+  it('reports a browser that cannot run the model (jsdom has no Web Workers)', async () => {
     vi.stubGlobal(
       'fetch',
       vi.fn(() => Promise.resolve(new Response(JSON.stringify(committedMeta), { status: 200 }))),
     );
     render(<App />);
-    expect(await screen.findByText('Model failed to load')).toBeDefined();
+    expect(await screen.findByText('This browser cannot run the model')).toBeDefined();
     expect(screen.queryByText(/model meta/)).toBeNull();
+    // The chart explains what is missing and offers no Retry (retrying cannot help).
+    expect(
+      await screen.findByText(
+        'This browser cannot run the model: it needs WebAssembly and Web Workers. Use a current version of Chrome, Edge, Firefox or Safari.',
+      ),
+    ).toBeDefined();
+    expect(screen.queryByRole('button', { name: 'Retry' })).toBeNull();
   });
 
   it('shows the error when meta.json cannot be loaded', async () => {

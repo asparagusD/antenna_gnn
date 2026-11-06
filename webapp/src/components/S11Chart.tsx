@@ -35,7 +35,11 @@ export interface S11ChartProps {
   /** Latest |S11| in dB at the 201 frequencies, or null before the first prediction. */
   db: Float64Array | null;
   status: ChartStatus;
+  /** A complete, user-facing sentence for the error state. */
   error?: string;
+  /** The technical message behind it, shown smaller. */
+  errorDetail?: string;
+  /** Omitted when retrying cannot help (e.g. an unsupported browser). */
   onRetry?: () => void;
 }
 
@@ -121,7 +125,7 @@ function useSize(ref: RefObject<HTMLDivElement | null>) {
   return size;
 }
 
-export function S11Chart({ db, status, error, onRetry }: S11ChartProps) {
+export function S11Chart({ db, status, error, errorDetail, onRetry }: S11ChartProps) {
   const boxRef = useRef<HTMLDivElement>(null);
   const { width, height } = useSize(boxRef);
   const frame = useTween(db);
@@ -162,8 +166,9 @@ export function S11Chart({ db, status, error, onRetry }: S11ChartProps) {
         <span className="s11-chart-title">Reflection |S11|</span>
         {status === 'updating' && <span className="s11-chart-updating">Updating…</span>}
         {status === 'error' && (
-          <span className="s11-chart-error">
-            Prediction failed: {error ?? 'unknown error'}
+          <span className="s11-chart-error" role="alert">
+            <span>{error ?? 'The prediction failed.'}</span>
+            {errorDetail !== undefined && <span className="s11-chart-error-detail">{errorDetail}</span>}
             {onRetry !== undefined && (
               <button type="button" className="s11-chart-retry" onClick={onRetry}>
                 Retry

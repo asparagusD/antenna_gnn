@@ -43,6 +43,11 @@
   font-size: var(--text-small);
 }
 
+.s11-chart-error-detail {
+  color: var(--text-muted);
+  overflow-wrap: anywhere;
+}
+
 .s11-chart-retry {
   height: 32px;
   padding: 0 14px;

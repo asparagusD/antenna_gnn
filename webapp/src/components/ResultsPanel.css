@@ -3,20 +3,22 @@
   margin-top: var(--space-lg);
 }
 
+/* Cells reflow by the room their values need (11.25rem fits "3.850 GHz" at the value size plus padding),
+   so 200% text wraps to fewer columns instead of overlapping (WCAG 1.4.4). The 1px gap over a rule-coloured
+   ground draws the separators for any number of columns. */
 .results-cells {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.25rem), 1fr));
+  gap: 1px;
   margin: 0;
   border-block: 1px solid var(--rule);
+  background: var(--rule);
 }
 
 .results-cell {
   min-width: 0;
   padding: 14px 16px;
-}
-
-.results-cell + .results-cell {
-  border-left: 1px solid var(--rule);
+  background: var(--laminate);
 }
 
 .results-label {
@@ -104,16 +106,3 @@
   border: 0;
 }
 
-@media (max-width: 1199px) {
-  .results-cells {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .results-cell:nth-child(3) {
-    border-left: 0;
-  }
-
-  .results-cell:nth-child(n + 3) {
-    border-top: 1px solid var(--rule);
-  }
-}

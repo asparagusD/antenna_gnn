@@ -36,3 +36,22 @@ test('landscape 1024×768 keeps two columns', async ({ page }) => {
   const chart = await page.locator('.s11-chart-svg').boundingBox();
   expect((chart?.x ?? 0) > (board?.x ?? 0) + (board?.width ?? 0)).toBe(true);
 });
+
+test('200% text (WCAG 1.4.4): no sideways scroll and no clipped or overlapping result values', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('./');
+  await expect(page.locator('figure.s11-chart')).toHaveAttribute('aria-busy', 'false', { timeout: 30_000 });
+  await page.evaluate(() => {
+    document.documentElement.style.fontSize = '200%';
+  });
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
+  expect(overflow).toBe(0);
+  const clipped = await page
+    .locator('.results-value')
+    .evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth + 1).length);
+  expect(clipped).toBe(0);
+});

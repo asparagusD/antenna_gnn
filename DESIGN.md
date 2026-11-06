@@ -113,7 +113,7 @@ components:
 
 # Design System: GraphPatch
 
-> Recorded at C3.2 from the approved shape plan, before the UI is built, at the user's request. The build (C5) implements these tokens; the C6 finish re-documents this file from the built screen.
+> Recorded at C3.2 from the approved shape plan; re-documented from the built screen at C6.5 (tokens unchanged except the light caution; layout and components below describe what ships). Decisions behind each change are in `docs/design_review.md`.
 
 ## Overview
 
@@ -175,9 +175,11 @@ One family carries the whole interface; numbers always use tabular figures (`fon
 
 ## Layout
 
-- **Desktop (≥ 1200px):** top bar; two columns. Left: the board, sized to fit square in the viewport height, with tools and the fill meter below. Right: the plot, a row of four fixed result cells, the scope notice when needed, the validity note.
-- **Tablet (768–1199px):** landscape keeps two tighter columns; portrait stacks board (≤ 600px), plot, results, note.
-- **Mobile (< 768px):** one column; a compact sticky result summary (verdict and band) above the board; the grid size becomes a select; touch-drag paints inside the board only.
+- **Top bar:** GraphPatch, the grid-size segmented control, Starting points (example antenna, random antenna with fill), the model status ("Loading model (2.6 MB)…", "Model ready · runs in your browser", or the failure) and the theme toggle (System / Light / Dark).
+- **Two columns (landscape, aspect ratio > 5/4, ≥ 768px):** left, the board sized square to fit the viewport height with its readout, one tool row (Undo, Redo, Clear), the fill meter and the board legend; right, the plot, four result cells, the band table, the scope notice when needed, Share and export, the validity note.
+- **Stacked (portrait tablets and phones: aspect ratio ≤ 5/4 or < 768px):** one column, board (≤ 640px) above the results; a sticky one-line summary (Functioning · Resonance · Depth) pinned above the board scrolls to the chart when pressed.
+- **Phones (< 768px):** result cells two to a row; the grid-size question and Starting points open as bottom sheets; the board's frame scrolls the page and two fingers pinch-zoom, one finger paints.
+- **Touch (coarse pointer, any size):** every control at least 44×44 px.
 - **Spacing:** 4px base (`xs` 4 to `2xl` 48). More space above a section label than below it.
 
 ## Elevation & Depth
@@ -191,24 +193,27 @@ Square by default, like etched copper pads: pixels and the board have no radius;
 ## Components
 
 ### Buttons
-- **Primary** (action background, laminate text): the one main action in a region (e.g. Retry). Hover lightens the action one step; focus shows a 2px silkscreen outline offset 2px.
-- **Secondary** (laminate background, rule border, silkscreen text): tools (Copper, Etch, Clear, Random, Starting points). The active tool takes an action-coloured border and text.
+- **Primary** (action background, laminate text): the one main action in a region: Retry after an error, Keep in the grid-size question. Hover darkens/lightens the action one step; focus shows a 2px silkscreen outline offset 2px.
+- **Secondary** (laminate background, rule border, silkscreen text): Undo, Redo, Clear, Starting points, Example antenna, Random antenna, Copy share link, the CSV downloads, the theme toggle, Switch in the grid-size question (the destructive choice is never the loud one). Disabled at 60% opacity.
 
 ### Navigation
-- **Grid-size segmented control:** 12×12 to 45×45, square segments, the selected one filled with action. On mobile a native select.
+- **Grid-size segmented control:** 12×12 to 45×45, square joined segments, the selected one filled with action. Kept as segments on phones too (44 px targets fit one row of 343 px; a native select would need two taps). When the board differs from the grid's example, a change asks first in a non-modal question with Keep focused.
+- **Starting points:** a disclosure in the top bar; its panel holds Example antenna (the grid's known single-band design from the test fixtures) and Random antenna with a 30–80% fill slider.
 
 ### Cards / Containers
-- **Result cells:** four fixed cells (Verdict, Band, Min |S11|, Metal fill), label above value, separated by rules; values replace in place, never resize the row.
-- **Scope notice:** substrate panel with a muted info icon and body text, no red, no animation. Appears under the results only when the prediction has 2+ bands.
+- **Result cells:** Functioning (Yes/No), Resonance (deepest band, GHz), Depth (minimum |S11|, dB), Bands (count below −10 dB); label above value, 1px rule separators; cells reflow by content width (four, two, or one per row) and never overlap at 200% text. The band table (centre, depth, −10 dB bandwidth and range) is always present, in a focusable scroll region, with an empty-state row when there is no band. Metal fill lives in the fill meter, not a cell.
+- **Scope notice:** substrate panel with a muted info icon and body text, no red, no animation. Appears under the results only when the prediction has 2+ bands; 25×25 has its own wording.
+- **Validity note:** surrogate caveat, training scope, the selected grid's test MAE, one repository link.
+- **Error panels:** calm substrate panels in words: the share-link error (dismissable) and the startup error (Reload); prediction errors sit inline in the plot header with their detail and Retry where retrying can help.
 
 ### The Board (signature component)
-The editable N×N pixel grid on the substrate field, framed by silkscreen dimension lines (overall 32.4 mm, pixel pitch). Live copper vs floating copper per the North Star; seed pixels hatched and locked (not-allowed cursor, hint "Seed pixel: always metal"); the feed pixel carries a small silkscreen ring. One tab stop; arrow keys move, Space toggles, Shift+arrows paint.
+The editable N×N pixel grid on the substrate field, framed by silkscreen dimension lines (overall 32.4 mm, pixel pitch). Live copper vs floating copper per the North Star; seed pixels hatched and locked (not-allowed cursor, hint "Seed pixel: always metal"); the feed pixel carries a small silkscreen ring. A legend under the fill meter names each mark with drawn swatches. One tab stop; arrow keys move, Space toggles, Shift+arrows paint. The app opens every grid on its example antenna.
 
 ### The Plot
-|S11| in dB (0 to −30, extending if needed) over 1–4 GHz on substrate with rule gridlines; the curve in silkscreen/ink at 2px; the −10 dB line in threshold red with its label; band markers as a dashed drop line with the frequency. Hover or keyboard focus shows a crosshair readout. While a prediction is pending the previous curve stays and an "updating" mark shows in the plot header.
+|S11| in dB from +1 dB down to the largest multiple of 5 dB below the minimum (never above −15 dB, −30 dB before the first curve) over 1–4 GHz on substrate with rule gridlines; the curve in silkscreen/ink at 2px; the −10 dB line in threshold red with its label at the end away from the minimum; the minimum as a ring, dashed drop line and "depth · frequency"; with 2+ bands, copper band numbers above the plot matching the table. While a prediction is pending the previous curve stays and "Updating…" shows in the plot header after 150 ms. Not built yet: the hover/keyboard crosshair readout.
 
 ### Motion
-150–200ms ease-out state transitions only (value swap, notice reveal); no load choreography; nothing moves under `prefers-reduced-motion`.
+A 180 ms ease-out tween between predictions and 150–200 ms state transitions only; no load choreography; under `prefers-reduced-motion` the curve swaps at once and nothing animates.
 
 ## Do's and Don'ts
 

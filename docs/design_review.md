@@ -150,3 +150,53 @@ first request; no separate placeholder was added.
 Not changed (justified): after an invalid share link the address bar is replaced by the example's link at once
 (C6.1 rank 13). The friendly alert names the problem; keeping a broken hash in the address bar would make
 "Copy share link" copy a link that does not open.
+
+## C6.5 Polish and detector check (2026-11-06)
+
+### Polish pass
+
+| Change | Finding | Commit |
+|---|---|---|
+| Validity paragraph capped at 60ch (≈ 63 characters per line, was ≈ 92) | C6.1 rank 12, detector `line-length` | 47141b3 |
+| Numbered copper band markers above the plot for 2+ bands; chart description lists the bands; "\|S11\|" spoken as "S11 magnitude" | C6.1 rank 6, C6.2 P2 | d97575e |
+| Board legend with drawn swatches and a how-to line, under the fill meter (outside the board's height reserve) | C6.1 rank 9 | 897abb4 |
+| Band table always present with an empty-state row (no layout shift while painting) | C6.1 rank 10 | a493dfa |
+| Theme toggle (System / Light / Dark), remembered per viewer | C6.1 rank 13, C6.2 P2 | da69acc |
+| Example antenna decoded once per grid size | C6.2 P3 | b694c66 |
+| DESIGN.md re-documented from the built screen | brief: "the C6 finish re-documents this file" | this record commit |
+
+### Detector results
+
+Command note: the brief names `npx impeccable detect …`. No such binary is installed in the project, and the npm
+package called `impeccable` is the retired 3.x CLI (the launcher's own notes), so `npx` would download and run an
+outdated tool from the registry. Both scans and the `make check` gate use the same detector through the
+project's bundled, checksum-verified launcher (`.claude/skills/impeccable/scripts/impeccable`, `.cmd` on Windows).
+
+| Scan | Command | Result |
+|---|---|---|
+| Source | `impeccable detect --json webapp/src` (70 files; regex rules only, as the tool states) | `[]`, exit 0 |
+| Running app | `impeccable detect --json http://localhost:5173` (dev server, page as loaded) | `[]`, exit 0 |
+| Gate | `make check` now runs `design-check` (`impeccable detect webapp/src`); a probe file with gradient text made the detector exit 2, so a finding fails the gate | passes |
+
+Every detector finding raised during Chunk 6, and its disposition:
+
+| Finding | Where | Disposition |
+|---|---|---|
+| `line-length` (~92 ch) | validity paragraph | Fixed, 47141b3 |
+| `text-occlusion` | open grid-size question over the chart title | Fixed on phones (bottom sheet, 2ce999a); on desktop justified: a transient, non-modal question next to the control that opened it, closed by any outside press (C6.3 section) |
+
+### Justified exceptions (not changed)
+
+| Item | Reason |
+|---|---|
+| Grid size as toggle buttons, not an ARIA radio group (C6.2 P2) | A radio group selects on arrow-key focus, which would raise the "Switch to N×N?" question on every arrow press of an edited board. Toggle buttons with `aria-pressed` keep one deliberate press per change; each is a 44 px tab stop on touch. |
+| Segmented control instead of DESIGN.md's native select on phones | C6.3 section: fits one row with 44 px targets, one tap instead of two, one interaction model. |
+| Native range track contrast (UA-drawn) | C6.2 table: thumb, filled part and value text carry the state. |
+| Button borders 1.4–1.7:1 | C6.2 table: text labels identify the controls. |
+| Address bar replaced after an invalid share link | C6.4 section: a broken hash would make Copy share link copy a link that does not open. |
+
+### Still open (not P0/P1)
+
+- Plot crosshair readout on hover and keyboard focus (DESIGN.md "The Plot"; C6.1 rank 8): a feature, not polish.
+- Physical-device check of pinch-zoom and scrolling (C6.3).
+- `.impeccable/design.json` component snippets predate the build; DESIGN.md is the current record.

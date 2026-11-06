@@ -732,20 +732,20 @@
   {
    "path": "DESIGN.md",
    "type": "markdown",
-   "size": 10746,
+   "size": 12950,
    "chunk": null,
-   "sha": "a59e5349b3382b3b097aedb6a88c69ecf8bcf7de",
-   "summary": "Design system for GraphPatch (microwave laminate world, recorded before the build): OKLCH colour tokens for dark and light themes with checked WCAG contrast (light caution changed to an ochre in C5.2 so it never reads as copper), Public Sans type scale with tabular figures, 4px spacing, square shapes, flat elevation, components (buttons, grid segmented control, result cells, the live-copper board, the plot) and do's and don'ts; to be re-documented from the built screen at C6.",
-   "summary_sha": "a59e5349b3382b3b097aedb6a88c69ecf8bcf7de"
+   "sha": "22969e87a1bf332c660f05cf305c1dbd09c534b7",
+   "summary": "Design system for GraphPatch (microwave laminate world), re-documented from the built screen at C6.5: OKLCH colour tokens for dark and light themes with checked contrast (light caution is an ochre), Public Sans with tabular figures, 4px spacing, flat square shapes, layouts (two columns, stacked with a sticky summary, phone bottom sheets, 44 px touch targets), components (buttons, segmented grid size, Starting points, result cells and band table, notices and error panels, the live-copper board with its legend, the plot with band numbers) and do's and don'ts.",
+   "summary_sha": "22969e87a1bf332c660f05cf305c1dbd09c534b7"
   },
   {
    "path": "Makefile",
    "type": "config",
-   "size": 1436,
+   "size": 1993,
    "chunk": null,
-   "sha": "7713d8f988b8cc48cf19b59682160a92e7d42f66",
-   "summary": "Project task runner: `make check` (typecheck, lint, Vitest, Python tests; about 40 s), `make e2e` (Playwright), `make graph` (regenerate and fail on drift), `make graph-check`, `make web-setup`, `make py-setup` and `make py-test`.",
-   "summary_sha": "7713d8f988b8cc48cf19b59682160a92e7d42f66"
+   "sha": "59bda6f5ac5e36e73ba24fb4f3e485cda1ca3ca3",
+   "summary": "Project task runner: `make check` (typecheck, lint, Vitest, the Impeccable design detector on webapp/src via the bundled launcher, Python tests), `make design-check`, `make e2e` (Playwright), `make graph` (regenerate and fail on drift), `make graph-check`, `make web-setup`, `make py-setup` and `make py-test`.",
+   "summary_sha": "59bda6f5ac5e36e73ba24fb4f3e485cda1ca3ca3"
   },
   {
    "path": "PRODUCT.md",
@@ -761,9 +761,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "62a3452213f987ef5bca7364a33c0f95d4d3bc5a",
+   "sha": "90070624da8bc36f1307675b94a664f0534a0dfd",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "62a3452213f987ef5bca7364a33c0f95d4d3bc5a"
+   "summary_sha": "90070624da8bc36f1307675b94a664f0534a0dfd"
   },
   {
    "path": "README.md",
@@ -2343,11 +2343,11 @@
   {
    "path": "docs/design_review.md",
    "type": "markdown",
-   "size": 13244,
+   "size": 16699,
    "chunk": null,
-   "sha": "d9a9bc36afd81f20b12f9825c318a648d2f7d18b",
-   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding fixed or justified (C6.1 critique; C6.2 audit; C6.3 phone and tablet adaptation; C6.4 hardened error, loading and long-number states).",
-   "summary_sha": "d9a9bc36afd81f20b12f9825c318a648d2f7d18b"
+   "sha": "e31509daa9bb7dcffc81620b1f47ceb5ef5376db",
+   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and closing commit (C6.1 critique, C6.2 audit, C6.3 adaptation, C6.4 hardening, C6.5 polish), the source and live-app detector results, every detector finding fixed or justified, justified exceptions and what remains open.",
+   "summary_sha": "e31509daa9bb7dcffc81620b1f47ceb5ef5376db"
   },
   {
    "path": "docs/repo_graph/REPO_MAP.md",
@@ -4396,11 +4396,11 @@
   {
    "path": "webapp/e2e/a11y.spec.ts",
    "type": "typescript",
-   "size": 3058,
+   "size": 3706,
    "chunk": null,
-   "sha": "192f0076482e47986bd2ec3146739fc8b7049fa0",
-   "summary": "Playwright accessibility checks with @axe-core/playwright (WCAG 2.1 A/AA tags) on settled states: the loaded app, the Starting points panel, the grid-size question, the share-link error with the fill warning and the scope notice, in dark and light, plus the stacked 768x1024 and 375x812 layouts; any violation fails.",
-   "summary_sha": "192f0076482e47986bd2ec3146739fc8b7049fa0"
+   "sha": "fbdfa93e2e5a967965e2f3f814f8a41f5bd10c13",
+   "summary": "Playwright accessibility checks with @axe-core/playwright (WCAG 2.1 A/AA tags) on settled states: the loaded app, the Starting points panel, the grid-size question, the share-link error with the fill warning and the scope notice, in dark and light, the stacked 768x1024 and 375x812 layouts, and after switching the theme toggle to Light; any violation fails.",
+   "summary_sha": "fbdfa93e2e5a967965e2f3f814f8a41f5bd10c13"
   },
   {
    "path": "webapp/e2e/assets.spec.ts",
@@ -4675,11 +4675,11 @@
   {
    "path": "webapp/src/App.css",
    "type": "other",
-   "size": 3311,
+   "size": 3336,
    "chunk": null,
-   "sha": "788bb88649517d414f39fb20b24f986783435612",
-   "summary": "Core screen layout: flex-column app with optional share-link and startup error panels, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, one tool row and the fill meter in the viewport, stacked under aspect ratio 5/4 or below 768px (with a scroll margin for the sticky summary), and the tools-row secondary buttons.",
-   "summary_sha": "788bb88649517d414f39fb20b24f986783435612"
+   "sha": "9e586766084425384c9830f6251e2b0a6891f501",
+   "summary": "Core screen layout: flex-column app with optional share-link and startup error panels, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, one tool row and the fill meter in the viewport (legend below), stacked under aspect ratio 5/4 or below 768px with a scroll margin for the sticky summary, and the tools-row secondary buttons.",
+   "summary_sha": "9e586766084425384c9830f6251e2b0a6891f501"
   },
   {
    "path": "webapp/src/App.test.tsx",
@@ -4693,11 +4693,38 @@
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 13104,
+   "size": 13589,
    "chunk": null,
-   "sha": "d3c4b85e860fa43a6a53d757ad90ef715ab54d98",
-   "summary": "Core screen: loads meta.json (startup alert with Reload if it fails) and opens on the share link or the grid's example antenna, keeps the hash in sync, loads pasted links; top bar with grid size, Starting points and the model status; undo/redo history; sticky PredictionSummary on stacked layouts; GridEditor, Undo/Redo/Clear, FillMeter; via usePrediction the live S11Chart with user-facing error sentences, ResultsPanel, ScopeNotice, Share and export and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
-   "summary_sha": "d3c4b85e860fa43a6a53d757ad90ef715ab54d98"
+   "sha": "350a5fc341b4ae89597b30e098a79c1d894aab92",
+   "summary": "Core screen: loads meta.json (startup alert with Reload if it fails) and opens on the share link or the grid's example antenna, keeps the hash in sync, loads pasted links; top bar with grid size, Starting points, the model status and the theme toggle; undo/redo history; sticky PredictionSummary on stacked layouts; GridEditor, Undo/Redo/Clear, FillMeter, BoardLegend; via usePrediction the live S11Chart with user-facing errors, ResultsPanel, ScopeNotice, Share and export and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
+   "summary_sha": "350a5fc341b4ae89597b30e098a79c1d894aab92"
+  },
+  {
+   "path": "webapp/src/components/BoardLegend.css",
+   "type": "other",
+   "size": 889,
+   "chunk": null,
+   "sha": "6b69d92620142cca648c5ffe732bb074f80f3220",
+   "summary": "Board legend styles: small muted lines under the fill meter, a wrapping list of items with 12 px drawn swatches (live copper, floating copper with a dashed edge, hatched seed, feed ring) from the canvas tokens, and the how-to line.",
+   "summary_sha": "6b69d92620142cca648c5ffe732bb074f80f3220"
+  },
+  {
+   "path": "webapp/src/components/BoardLegend.test.tsx",
+   "type": "typescript",
+   "size": 1043,
+   "chunk": null,
+   "sha": "8d99a936e522fe6718f09c953625965b601b7d01",
+   "summary": "Vitest tests of BoardLegend: the four marks named in words in a labelled list with drawn (aria-hidden SVG) swatches, and the how-to line for mouse, touch and keyboard.",
+   "summary_sha": "8d99a936e522fe6718f09c953625965b601b7d01"
+  },
+  {
+   "path": "webapp/src/components/BoardLegend.tsx",
+   "type": "typescript",
+   "size": 1654,
+   "chunk": null,
+   "sha": "2d82ae695901410bf3743e64deb3c5449fc7228a",
+   "summary": "Board legend under the fill meter: what live copper, dashed (not connected) copper, hatched seed pixels and the feed ring mean, with drawn swatches, plus 'Click or drag to paint; keyboard: arrows move, Space toggles.'",
+   "summary_sha": "2d82ae695901410bf3743e64deb3c5449fc7228a"
   },
   {
    "path": "webapp/src/components/FillMeter.css",
@@ -4792,56 +4819,56 @@
   {
    "path": "webapp/src/components/ResultsPanel.css",
    "type": "other",
-   "size": 2615,
+   "size": 2693,
    "chunk": null,
-   "sha": "10ee7d50e90c0e3a35cf9b3b0f139f07955b6009",
-   "summary": "Results styles: cells that reflow by content width (auto-fit, 11.25rem minimum; 9.5rem with smaller values and padding on phones) with 1px rule separators from the grid gap, uppercase labels, tabular values, reserved note lines, the band table in a focusable horizontal scroll region, footnote and the visually hidden announcement region.",
-   "summary_sha": "10ee7d50e90c0e3a35cf9b3b0f139f07955b6009"
+   "sha": "9e2580e54432b6856cf75e3def14281f8d477e08",
+   "summary": "Results styles: cells that reflow by content width (auto-fit, 11.25rem minimum; 9.5rem with smaller values and padding on phones) with 1px rule separators from the grid gap, uppercase labels, tabular values, reserved note lines, the always-present band table (empty-state row in muted text) in a focusable horizontal scroll region, footnote and the visually hidden announcement region.",
+   "summary_sha": "9e2580e54432b6856cf75e3def14281f8d477e08"
   },
   {
    "path": "webapp/src/components/ResultsPanel.test.tsx",
    "type": "typescript",
-   "size": 5270,
+   "size": 5460,
    "chunk": null,
-   "sha": "ef1d5fe43a37d37eca3b8076c6d6a21b793d754b",
-   "summary": "Vitest tests of the result text helpers and ResultsPanel: dashes before a prediction, single band vs analyse(), non-functioning, band-edge case, strict −10 dB, synthetic 2-band rows and deepest-band resonance, and the verdict-only announcement.",
-   "summary_sha": "ef1d5fe43a37d37eca3b8076c6d6a21b793d754b"
+   "sha": "8559669cf842c9b69aa93bea98643a8ddc90002e",
+   "summary": "Vitest tests of the result text helpers and ResultsPanel: dashes and an empty band table before a prediction, single band vs analyse(), non-functioning with the empty-state row, band-edge case, strict -10 dB, synthetic 2-band rows and deepest-band resonance, and the verdict-only announcement.",
+   "summary_sha": "8559669cf842c9b69aa93bea98643a8ddc90002e"
   },
   {
    "path": "webapp/src/components/ResultsPanel.tsx",
    "type": "typescript",
-   "size": 4863,
+   "size": 5085,
    "chunk": null,
-   "sha": "c1ef9e94dba46510ef3ac4a805ba7eb2dc0d0748",
-   "summary": "Results under the chart from analyse(): fixed cells Functioning (strict min < -10 dB), Resonance (deepest band centre), Depth (minimum |S11|), Bands below -10 dB; a per-band table (centre, depth, -10 dB bandwidth and range) inside a focusable, labelled scroll region; inference time; a polite announcement of the verdict and band count only.",
-   "summary_sha": "c1ef9e94dba46510ef3ac4a805ba7eb2dc0d0748"
+   "sha": "95029c868e0614d177a7b25b8ebbe9ed1a6efd30",
+   "summary": "Results under the chart from analyse(): fixed cells Functioning (strict min < -10 dB), Resonance (deepest band centre), Depth (minimum |S11|), Bands below -10 dB; an always-present per-band table (centre, depth, -10 dB bandwidth and range, or an empty-state row) inside a focusable, labelled scroll region; inference time; a polite announcement of the verdict and band count only.",
+   "summary_sha": "95029c868e0614d177a7b25b8ebbe9ed1a6efd30"
   },
   {
    "path": "webapp/src/components/S11Chart.css",
    "type": "other",
-   "size": 2780,
+   "size": 3282,
    "chunk": null,
-   "sha": "305f08dc740d0f95a80ad5f4d833f3df616f5b64",
-   "summary": "Chart styles: label-style header with a CSS-delayed Updating reveal, error line with muted technical detail and a primary Retry button, substrate plot field, rule gridlines, muted 12px ticks and units, threshold-red -10 dB line and haloed label, 2px ink curve, minimum ring, dashed drop line and haloed label, placeholder text.",
-   "summary_sha": "305f08dc740d0f95a80ad5f4d833f3df616f5b64"
+   "sha": "fecb08fded52b524eae30977166718ef82ff052a",
+   "summary": "Chart styles: label-style header with a CSS-delayed Updating reveal and a visually hidden spoken name, error line with muted detail and Retry, substrate plot field, rule gridlines, muted ticks and units, threshold-red -10 dB line and haloed label, ink curve, minimum ring, dashed drop line and haloed label, copper band numbers above the plot, placeholder text.",
+   "summary_sha": "fecb08fded52b524eae30977166718ef82ff052a"
   },
   {
    "path": "webapp/src/components/S11Chart.test.tsx",
    "type": "typescript",
-   "size": 5009,
+   "size": 5954,
    "chunk": null,
-   "sha": "b08c8f0d842f6752df785e9585725138aee2ba11",
-   "summary": "Vitest tests of S11Chart: 201-point path, GHz/dB ticks and units, −10 dB label, minimum label and accessible desc; auto range; loading placeholder; curve kept while updating with the delayed mark; a new curve changes the path; −10 dB label placed away from the minimum and drawn on top; error with Retry keeps the curve.",
-   "summary_sha": "b08c8f0d842f6752df785e9585725138aee2ba11"
+   "sha": "a94c88c4d9ce99c5436d3a7f2e60301bbd82c56a",
+   "summary": "Vitest tests of S11Chart: 201-point path, GHz/dB ticks and units, -10 dB label, minimum label and the 'S11 magnitude' accessible name and desc; numbered band markers only for 2+ bands; auto range; loading placeholder; curve kept while updating; a new curve changes the path; -10 dB label away from the minimum; error with Retry keeps the curve.",
+   "summary_sha": "a94c88c4d9ce99c5436d3a7f2e60301bbd82c56a"
   },
   {
    "path": "webapp/src/components/S11Chart.tsx",
    "type": "typescript",
-   "size": 9647,
+   "size": 10733,
    "chunk": null,
-   "sha": "add89b3356d7ea53c27d1cecf97fe2e9a1404ff6",
-   "summary": "Live |S11| SVG chart at the container's pixel size: 1-4 GHz by dB with auto range, rule gridlines, ink curve, threshold-red -10 dB line with its label away from the minimum, minimum ring + drop line + 'depth · frequency' label; 180 ms ease-out tween (instant under reduced motion); loading placeholder, delayed Updating mark that never blanks the curve, an alert with a user-facing error sentence, its detail and an optional Retry; role=img with title and desc.",
-   "summary_sha": "add89b3356d7ea53c27d1cecf97fe2e9a1404ff6"
+   "sha": "95fa03e9fbf593fdd32252edc92a0702576e669e",
+   "summary": "Live |S11| SVG chart at the container's pixel size: 1-4 GHz by dB with auto range, rule gridlines, ink curve, threshold-red -10 dB line with its label away from the minimum, minimum ring + drop line + 'depth · frequency' label, numbered copper band markers above the plot for 2+ bands; 180 ms ease-out tween (instant under reduced motion); loading placeholder, delayed Updating mark, an alert with a user-facing error, detail and optional Retry; role=img named 'S11 magnitude from 1 to 4 GHz, in dB' with a desc of the minimum and bands.",
+   "summary_sha": "95fa03e9fbf593fdd32252edc92a0702576e669e"
   },
   {
    "path": "webapp/src/components/ScopeNotice.css",
@@ -4925,13 +4952,31 @@
    "summary_sha": "2feaa559c0ba9dc8dbc578863b567804aa41b283"
   },
   {
+   "path": "webapp/src/components/ThemeToggle.test.tsx",
+   "type": "typescript",
+   "size": 1508,
+   "chunk": null,
+   "sha": "765d03a405858c7e6d24f67d035e3c8062550909",
+   "summary": "Vitest tests of ThemeToggle: cycles System, Light, Dark and back, setting or removing data-theme on <html>, and restores a remembered choice from localStorage.",
+   "summary_sha": "765d03a405858c7e6d24f67d035e3c8062550909"
+  },
+  {
+   "path": "webapp/src/components/ThemeToggle.tsx",
+   "type": "typescript",
+   "size": 1602,
+   "chunk": null,
+   "sha": "a218b16978504dd7e1b4f6af45bafc30a4f42292",
+   "summary": "Top-bar theme toggle cycling System, Light and Dark: sets data-theme on <html> (honoured by tokens.css and observed by the board canvas) and remembers the choice in localStorage, best effort.",
+   "summary_sha": "a218b16978504dd7e1b4f6af45bafc30a4f42292"
+  },
+  {
    "path": "webapp/src/components/ValidityNote.css",
    "type": "other",
-   "size": 731,
+   "size": 847,
    "chunk": null,
-   "sha": "4bed660bbda486417ce245fe861878db269f3711",
-   "summary": "Validity note styles: ruled section under the results, uppercase heading, small body text, bold test-error line, underlined repository link.",
-   "summary_sha": "4bed660bbda486417ce245fe861878db269f3711"
+   "sha": "f0e05d6fc341d4f77b820a47ddd9d9a55ad56e1b",
+   "summary": "Validity note styles: ruled section under the results, uppercase heading, small body text capped at 60ch per paragraph, bold test-error line, underlined repository link.",
+   "summary_sha": "f0e05d6fc341d4f77b820a47ddd9d9a55ad56e1b"
   },
   {
    "path": "webapp/src/components/ValidityNote.test.tsx",

@@ -40,7 +40,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C6.2 Audit (accessibility, performance, responsive, theming)
 - [x] C6.3 Adapt (tablet and phone)
 - [x] C6.4 Harden (errors, empty and loading states)
-- [ ] C6.5 Polish and the detector check
+- [x] C6.5 Polish and the detector check
 
 ## C7 Deployment to GitHub Pages
 - [ ] C7.1 GitHub Actions workflow

@@ -1,0 +1,202 @@
+# GraphPatch design review
+
+Living record of the Chunk 6 design passes (Impeccable). Each section lists ranked findings with severity
+(P0 blocking, P1 fix before release, P2 minor, P3 polish), the decision taken and the commit that closed it.
+Detector findings that are not fixed are justified here, never silently ignored.
+
+## C6.1 Critique of the whole app (2026-11-06)
+
+Method: dual-agent Impeccable critique (A: design review in its own browser tab at 1440×900, 1024×768,
+768×1024 and 375×812, dark and light; B: `impeccable detect` CLI and in-page detector, measured contrast,
+layout, touch targets, focus order, console). Snapshot: `.impeccable/critique/*__webapp-src-app-tsx.md`.
+
+### Scores (Nielsen, 0–4)
+
+| # | Heuristic | Score | Key issue |
+|---|---|---|---|
+| 1 | Visibility of system status | 2 | Top bar says "model meta loaded: 5 grids" (metadata, not the model); loading shows no size |
+| 2 | Match system / real world | 3 | mm, pitch, dB, GHz right; "Random antenna" mostly yields non-antennas |
+| 3 | User control and freedom | 3 | Undo/redo, Keep-first confirmation, dismissable share error |
+| 4 | Consistency and standards | 2 | Plot readout, mobile select and sticky summary, theme toggle from DESIGN.md missing |
+| 5 | Error prevention | 3 | Locked seeds, size confirmation, clamped slider |
+| 6 | Recognition rather than recall | 3 | No visible board legend; instructions screen-reader only |
+| 7 | Flexibility and efficiency | 2 | No plot readout, no pattern import, five size tab stops |
+| 8 | Aesthetic and minimalist design | 3 | Restrained; resonance shown three times; tools wrap into ragged rows |
+| 9 | Error recovery | 3 | Calm, specific share-link error; broken URL replaced at once |
+| 10 | Help and documentation | 2 | Honest validity note; no legend or how-to |
+| | **Total** | **26/40** | **Acceptable (65%)** |
+
+### Design specificity
+
+Authored on the board (laminate field, flat copper, hatched seeds, dashed floating islands, the dimension
+line, live copper: the best moment in the app). The right column is a well-made but generic engineering
+dashboard; the top bar is the weakest surface.
+
+Detector: CLI `detect --json webapp/src`: 0 findings. In-page detector: `line-length` on the validity
+paragraph (about 92 characters per line) in every state; `text-occlusion` of the chart title by the open
+grid-size question (state with the question open). See "Detector findings" below.
+
+### Ranked findings
+
+| Rank | Sev | Finding | Evidence | Decision |
+|---|---|---|---|---|
+| 1 | **P0** | Tablet portrait (768×1024, any tall viewport ≥ 768 px wide) keeps two columns: the board takes 556 px, the results column 101 px; chart is a 101×100 thumbnail, results text overlaps, page scrolls sideways (scrollWidth 1088 at 768) | B layout table; App.css `minmax(0, min(100%, calc(100dvh − 468px), 640px)) 1fr` with the single-column breakpoint at 767 px | **Fixed** f28e788 (stack under aspect ratio 5/4) |
+| 2 | **P1** | Top bar shows developer text "model meta loaded: 5 grids" in a status region; it says "loaded" while the chart says "Loading model…" | App.tsx top bar; A, B | **Fixed** abbbce7 (model status from the worker) |
+| 3 | **P1** | Board undersized on desktop: 432 px at 1440×900 beside an 897 px chart (45×45 pixels ≈ 9.6 px; at 1024×768, 300 px ≈ 6.7 px) because two tool rows and the meter sit under it | A; App.css height reserve 468 px | **Fixed** 3875d37 (Starting points in the top bar; board 432 → 520 px column) |
+| 4 | **P1** | First run is a failure state: seeds only (10.4 % fill, amber warning, "No / None"), and Random antenna gave a functioning design 3 of 20 times; the approved "starting antenna with its curve" was not built | A emotional journey; surface brief "ready (starting antenna with its curve)" | **Fixed** 624f3c6 (user decision: every grid opens on its fixture example) |
+| 5 | P2 | Phone: chart starts below the fold (y ≈ 828–874 at 375×812); DESIGN.md's sticky compact summary and size select are missing; 34–36 px touch targets | A, B | C6.3 (adapt) |
+| 6 | P2 | Multi-band curves are not annotated in place: only the global minimum is marked, though the brief says "every band labelled" | S11Chart.tsx | C6.5 or later |
+| 7 | P2 | "Link copied" never clears and later becomes untrue | ShareTools.tsx | C6.4 (harden) |
+| 8 | P2 | No plot readout (DESIGN.md crosshair on hover/focus) | S11Chart.tsx | Later (feature) |
+| 9 | P2 | No visible board legend or instructions (hatch, dashes, ring explained only on hover) | GridEditor.tsx | C6.5 (polish) |
+| 10 | P2 | Layout shift when the band table appears pushes Share and the note down | ResultsPanel.tsx | C6.5 |
+| 11 | P2 | Grid-size question covers the chart title (detector `text-occlusion`) and, on phones, the board | GridSizeSelector.css | C6.3 |
+| 12 | P3 | Validity paragraph about 92 characters per line (detector `line-length`) | ValidityNote.css | C6.5 |
+| 13 | P3 | No theme toggle; CNN comparison from the brief not shown; only one h2; band table clips on phones; no download confirmation; invalid share URL replaced at once | A | C6.3–C6.5 as they fit |
+
+Known and accepted (not findings): confirmation on grid-size change, chart auto range, repository-only
+link, 30–80 % random-fill range (user decisions in C5.2–C5.5).
+
+### Detector findings (C6.1)
+
+| Finding | Where | Disposition |
+|---|---|---|
+| `line-length` (~92 ch) | `.validity p` | Real; fix in C6.5 (rank 12) |
+| `text-occlusion` | chart title under the open grid-size question | Real while the question is open; addressed with rank 11 in C6.3 |
+
+## C6.2 Audit (2026-11-06)
+
+Method: Impeccable audit (code-level). Evidence: `@axe-core/playwright` (WCAG 2.1 A/AA tags) over the loaded app,
+the Starting points panel, the grid-size question, the share-link error, the fill warning and the scope notice,
+in dark and light, plus stacked 768×1024 and 375×812 (`e2e/a11y.spec.ts`); the C6.1 measurements (contrast,
+focus order, touch targets); `npm run build` sizes; 200% text zoom at 1280×800; source reading.
+
+### Scores
+
+| # | Dimension | Score | Key finding |
+|---|---|---|---|
+| 1 | Accessibility | 3 | axe: one serious violation (band table scroll region not focusable on phones); 200% text overlaps result values |
+| 2 | Performance | 2 | The JSEP (WebGPU/WebNN) onnxruntime build ships 29.5 MB of wasm (7.1 MB gzip) that the CPU-only app never uses |
+| 3 | Theming | 4 | All colour through tokens (hex only as canvas fallbacks); board redraws on theme change; light theme verified |
+| 4 | Responsive | 2 | Phone and tablet gaps (C6.3): 34–36 px targets (AA 24 px passes), board swallows scroll, chart below the fold |
+| 5 | Implementation integrity | 3 | Detector: 0 CLI findings; in-page `line-length` and `text-occlusion` (C6.1 table) |
+| | **Total** | **14/20** | **Good** |
+
+Implementation integrity verdict: **pass**. Tokens, components and copy follow DESIGN.md; the deviations are
+recorded user decisions or open findings below.
+
+### Findings
+
+| Sev | Finding | Location | Standard | Decision |
+|---|---|---|---|---|
+| **P1** | Band table scrolls sideways on phones but cannot receive focus, so keyboard users cannot scroll it | ResultsPanel.css (`display:block; overflow-x:auto` on the table) | WCAG 2.1.1; axe `scrollable-region-focusable` (serious) | **Fixed** 2af9d69 (focusable labelled scroll region) |
+| **P1** | 200% text: result values overlap their neighbours and the page scrolls 76 px sideways | ResultsPanel.css (fixed 4 / 2 columns, `white-space: nowrap`) | WCAG 1.4.4 Resize text | **Fixed** 1484bb2 (auto-fit cells) |
+| **P1** | 29.5 MB JSEP wasm (WebGPU/WebNN) shipped though inference is CPU wasm only; first load ≈ 7.1 MB gzip + 2.6 MB model | `import * as ort from 'onnxruntime-web'` (infer.ts) | Performance budget, offline-first | **Fixed** 185f2bd (`onnxruntime-web/wasm`: 14.8 MB, 3.9 MB gzip; latency equal or better) |
+| P2 | Grid size is five toggle buttons (five tab stops) rather than a radio group with arrow keys | GridSizeSelector.tsx | ARIA APG radio group | C6.5 |
+| P2 | "\|S11\|" in the chart title is read as "vertical bar S 11 vertical bar" | S11Chart.tsx | — | C6.5 |
+| P2 | Touch targets 34–36 px (AA 24 px passes; 44 px recommended); board `touch-action: none` swallows page scroll | GridSizeSelector.css, App.css, GridEditor.css | WCAG 2.5.5 (AAA) | C6.3 |
+| P2 | No theme toggle (approved shape lists one); theme follows the system only | App.tsx | — | C6.5 |
+| P3 | The example grid is decoded on every render to decide "edited" | App.tsx | — | C6.5 |
+| P3 | Native range track (UA-drawn) 1.07–1.53:1 against the panel; thumb and filled part pass | StartingPoints.css | WCAG 1.4.11 (UA styling) | Justified: native control, thumb and value text carry the state |
+| P3 | Button and segment borders 1.4–1.7:1; buttons are identified by their text labels | App.css, GridSizeSelector.css | WCAG 1.4.11 | Justified: text label identifies the control |
+
+Positive: axe clean in every other state and both themes; every focus stop has a visible 2 px ring; one tab
+stop for the board with full keyboard painting; polite live regions that do not flood; reduced motion swaps the
+chart without a tween; no console errors.
+
+## C6.3 Adapt: tablet and phone (2026-11-06)
+
+Context: PRODUCT.md says desktop mostly, tablets sometimes; phones must work but are not the primary device.
+Stacked layout (aspect ratio ≤ 5/4 or < 768 px): board on top, chart below, as requested. Evidence is Chromium
+emulation (Pixel 7 profile, synthesized touch through CDP) and the browser pane at 375×812; no physical device.
+
+| Change | Finding addressed | Commit |
+|---|---|---|
+| 44×44 px targets for every control under `(pointer: coarse)` | C6.1 rank 5, C6.2 P2 (34–36 px targets) | 5389bf6 |
+| Sticky one-line summary (Functioning · Resonance · Depth) above the board on stacked layouts; press to scroll to the chart | C6.1 rank 5 (chart below the fold; DESIGN.md sticky summary) | 6ce5c5d |
+| Result cells two to a row on phones | follow-on of 1484bb2 on 343 px columns | 5d6c1d6 |
+| Grid-size question and Starting points as bottom sheets on phones; `viewport-fit=cover` with safe-area inset | C6.1 rank 11 (popover covered the board; detector `text-occlusion`) | 2ce999a |
+| Board: canvas `touch-action: pinch-zoom`, frame `pan-y pinch-zoom`; only the primary pointer paints | C6.1 rank 5 (board swallowed scroll; 45×45 pixels too small to tap) | 3f4e1fc |
+
+Justified deviation: DESIGN.md asks for a native `<select>` for the grid size on phones. The segmented control
+now has 44 px targets and fits a 343 px column in one row (5 × 69 px), shows all sizes at once and changes size
+in one tap (a select needs two); keeping one control also keeps one keyboard and screen-reader model. Kept as
+segments; DESIGN.md is re-documented in C6.5.
+
+Not verified: pinch-zoom and scroll on a physical iOS or Android device (emulation only).
+
+Detector `text-occlusion` (C6.1): on phones the question no longer covers the chart title (bottom sheet). On
+desktop the question still opens under the segments over the plot's top edge while it is open; justified: it is
+a transient, non-modal question that closes on any outside press, and keeping it next to the control that
+opened it is the expected pattern.
+
+## C6.4 Harden: errors, empty and loading states, long numbers (2026-11-06)
+
+| State | Before | After | Commit |
+|---|---|---|---|
+| Browser without WebAssembly or Web Workers | Not detected; the worker failed with a raw message | Checked before the worker starts: "This browser cannot run the model: it needs WebAssembly and Web Workers. Use a current version of Chrome, Edge, Firefox or Safari." No Retry; the board, share and export still work | daf7181 |
+| Model file fails to load | "Prediction failed: failed to load external data file: …" | "The model could not be loaded. Check your connection, then retry." with the detail beneath and Retry (recovers once reachable) | daf7181 |
+| One prediction fails | Raw message | "This prediction failed. Retry, or change the pattern." | daf7181 |
+| meta.json fails | Top-bar text and an empty workspace | Startup alert with the detail and Reload | d914600 |
+| Invalid share link | Calm alert, 25×25 example (C5.5/C6.1) | Unchanged (tested in share.spec.ts) | — |
+| "Link copied" after further edits | Stayed on screen, no longer true | Shown only while the copied pattern is unchanged | d12bf8d |
+| Long numbers (−95 dB, 3 bands, "≥" bandwidths) at 375 and 1440 px | Unchecked | Verified: no clipping or overflow (regression test) | b388388 |
+
+Loading and empty states, reviewed: the top bar says "Loading model (2.6 MB)…" and the chart shows "Loading model…"
+on empty axes while the model loads; the result cells show "—" before the first prediction; the previous curve
+never blanks while updating. meta.json is a small file, so the board area stays empty only for that brief
+first request; no separate placeholder was added.
+
+Not changed (justified): after an invalid share link the address bar is replaced by the example's link at once
+(C6.1 rank 13). The friendly alert names the problem; keeping a broken hash in the address bar would make
+"Copy share link" copy a link that does not open.
+
+## C6.5 Polish and detector check (2026-11-06)
+
+### Polish pass
+
+| Change | Finding | Commit |
+|---|---|---|
+| Validity paragraph capped at 60ch (≈ 63 characters per line, was ≈ 92) | C6.1 rank 12, detector `line-length` | 47141b3 |
+| Numbered copper band markers above the plot for 2+ bands; chart description lists the bands; "\|S11\|" spoken as "S11 magnitude" | C6.1 rank 6, C6.2 P2 | d97575e |
+| Board legend with drawn swatches and a how-to line, under the fill meter (outside the board's height reserve) | C6.1 rank 9 | 897abb4 |
+| Band table always present with an empty-state row (no layout shift while painting) | C6.1 rank 10 | a493dfa |
+| Theme toggle (System / Light / Dark), remembered per viewer | C6.1 rank 13, C6.2 P2 | da69acc |
+| Example antenna decoded once per grid size | C6.2 P3 | b694c66 |
+| DESIGN.md re-documented from the built screen | brief: "the C6 finish re-documents this file" | this record commit |
+
+### Detector results
+
+Command note: the brief names `npx impeccable detect …`. No such binary is installed in the project, and the npm
+package called `impeccable` is the retired 3.x CLI (the launcher's own notes), so `npx` would download and run an
+outdated tool from the registry. Both scans and the `make check` gate use the same detector through the
+project's bundled, checksum-verified launcher (`.claude/skills/impeccable/scripts/impeccable`, `.cmd` on Windows).
+
+| Scan | Command | Result |
+|---|---|---|
+| Source | `impeccable detect --json webapp/src` (70 files; regex rules only, as the tool states) | `[]`, exit 0 |
+| Running app | `impeccable detect --json http://localhost:5173` (dev server, page as loaded) | `[]`, exit 0 |
+| Gate | `make check` now runs `design-check` (`impeccable detect webapp/src`); a probe file with gradient text made the detector exit 2, so a finding fails the gate | passes |
+
+Every detector finding raised during Chunk 6, and its disposition:
+
+| Finding | Where | Disposition |
+|---|---|---|
+| `line-length` (~92 ch) | validity paragraph | Fixed, 47141b3 |
+| `text-occlusion` | open grid-size question over the chart title | Fixed on phones (bottom sheet, 2ce999a); on desktop justified: a transient, non-modal question next to the control that opened it, closed by any outside press (C6.3 section) |
+
+### Justified exceptions (not changed)
+
+| Item | Reason |
+|---|---|
+| Grid size as toggle buttons, not an ARIA radio group (C6.2 P2) | A radio group selects on arrow-key focus, which would raise the "Switch to N×N?" question on every arrow press of an edited board. Toggle buttons with `aria-pressed` keep one deliberate press per change; each is a 44 px tab stop on touch. |
+| Segmented control instead of DESIGN.md's native select on phones | C6.3 section: fits one row with 44 px targets, one tap instead of two, one interaction model. |
+| Native range track contrast (UA-drawn) | C6.2 table: thumb, filled part and value text carry the state. |
+| Button borders 1.4–1.7:1 | C6.2 table: text labels identify the controls. |
+| Address bar replaced after an invalid share link | C6.4 section: a broken hash would make Copy share link copy a link that does not open. |
+
+### Still open (not P0/P1)
+
+- Plot crosshair readout on hover and keyboard focus (DESIGN.md "The Plot"; C6.1 rank 8): a feature, not polish.
+- Physical-device check of pinch-zoom and scrolling (C6.3).
+- `.impeccable/design.json` component snippets predate the build; DESIGN.md is the current record.

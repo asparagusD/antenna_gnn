@@ -1,0 +1,17 @@
+/* Share and export row under the results (DESIGN.md secondary buttons). */
+.share-tools {
+  margin-top: var(--space-lg);
+}
+
+.share-tools-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.share-tools-status {
+  min-height: 1.45em;
+  margin: var(--space-sm) 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}

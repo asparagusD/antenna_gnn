@@ -1,0 +1,152 @@
+.app {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-lg);
+  padding: var(--space-md) var(--space-xl);
+  border-bottom: 1px solid var(--rule);
+}
+
+.topbar-title {
+  margin: 0;
+  font-size: var(--text-title);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.topbar-status {
+  margin: 0 0 0 auto;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.workspace {
+  flex: 1;
+  display: grid;
+  /* Board column: square board plus dimension line, readout, one tool row and the fill meter (with its
+     warning) inside the viewport (starting points live in the top bar); the legend below may scroll. */
+  grid-template-columns: minmax(0, min(100%, calc(100dvh - 380px), 640px)) 1fr;
+  gap: var(--space-xl);
+  padding: var(--space-xl);
+  align-items: start;
+}
+
+/* A share link that could not be read: calm, in words, dismissable (not the caution amber). */
+.share-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+  margin: var(--space-md) var(--space-xl) 0;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--substrate);
+}
+
+.share-error p {
+  margin: 0;
+}
+
+/* GraphPatch could not start (meta.json failed): what happened, the detail, and Reload. */
+.startup-error {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-sm);
+  max-width: 70ch;
+  margin: var(--space-xl);
+  padding: var(--space-md);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--substrate);
+}
+
+.startup-error p {
+  margin: 0;
+}
+
+.startup-error-detail {
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  overflow-wrap: anywhere;
+}
+
+.workspace-results {
+  min-width: 0;
+}
+
+/* Portrait and near-square viewports (tablets held upright) stack board above results: two columns
+   there left the results column ~100 px wide. The board keeps its square, capped at 640 px. */
+@media (max-aspect-ratio: 5/4) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .workspace-board {
+    width: min(100%, 640px);
+  }
+
+  /* Scrolled to from the sticky summary: keep the chart's top clear of it. */
+  .workspace-results {
+    scroll-margin-top: 64px;
+  }
+}
+
+@media (max-width: 767px) {
+  .topbar {
+    padding: var(--space-md);
+  }
+
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+    padding: var(--space-md);
+  }
+
+  .workspace-results {
+    scroll-margin-top: 64px;
+  }
+
+  .share-error {
+    margin-inline: var(--space-md);
+  }
+}
+
+/* Tools row under the board (DESIGN.md secondary buttons). */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.tool {
+  height: 36px;
+  padding: var(--space-sm) 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  background: var(--laminate);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.tool:hover:not(:disabled) {
+  border-color: var(--text-muted);
+}
+
+.tool:disabled {
+  color: var(--text-muted);
+  border-color: var(--rule);
+  cursor: default;
+  opacity: 0.6;
+}

@@ -1,0 +1,127 @@
+/* Results (DESIGN.md "Result cells"): fixed cells separated by rules, label above value, tabular. */
+.results {
+  margin-top: var(--space-lg);
+}
+
+/* Cells reflow by the room their values need (11.25rem fits "3.850 GHz" at the value size plus padding),
+   so 200% text wraps to fewer columns instead of overlapping (WCAG 1.4.4). The 1px gap over a rule-coloured
+   ground draws the separators for any number of columns. */
+.results-cells {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--results-cell-min, 11.25rem)), 1fr));
+  gap: 1px;
+  margin: 0;
+  border-block: 1px solid var(--rule);
+  background: var(--rule);
+}
+
+.results-cell {
+  min-width: 0;
+  padding: 14px 16px;
+  background: var(--laminate);
+}
+
+.results-label {
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.results-value {
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-value);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* Reserves its line even when empty, so the row never changes height. */
+.results-note {
+  min-height: 1.45em;
+  margin: var(--space-xs) 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.results-bands-scroll {
+  margin-top: var(--space-md);
+  overflow-x: auto;
+}
+
+.results-bands {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.results-bands caption {
+  padding-bottom: var(--space-sm);
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.results-bands th,
+.results-bands td {
+  padding: 6px var(--space-md) 6px 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.results-bands thead th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.results-bands tbody th {
+  font-weight: 600;
+}
+
+.results-bands td.results-bands-empty {
+  color: var(--text-muted);
+  white-space: normal;
+}
+
+.results-foot {
+  margin: var(--space-md) 0 0;
+  font-size: var(--text-small);
+}
+
+.results-foot {
+  color: var(--text-muted);
+}
+
+.results-announce {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Phones: slightly smaller values and padding, so the four cells sit two to a row (9.5rem fits
+   "3.850 GHz" at 1.5rem plus 12 px padding each side). */
+@media (max-width: 767px) {
+  .results-cells {
+    --results-cell-min: 9.5rem;
+  }
+
+  .results-cell {
+    padding: 12px;
+  }
+
+  .results-value {
+    font-size: 1.5rem;
+  }
+}

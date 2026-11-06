@@ -1,0 +1,45 @@
+#!/bin/sh
+# Pre-commit guard: block private data, model checkpoints and large files.
+# Enable once per clone:  git config core.hooksPath .githooks
+# Never bypass with --no-verify.
+
+MAX_BYTES=10485760  # 10 MB
+
+fail=0
+report() {
+    echo "pre-commit: REJECTED: $1" >&2
+    fail=1
+}
+
+# Added, copied, modified, renamed or type-changed paths (deletions are allowed).
+staged=$(git diff --cached --name-only --diff-filter=ACMRT)
+
+# Split on newlines only, so paths with spaces stay intact.
+IFS='
+'
+for path in $staged; do
+    lower=$(printf '%s' "$path" | tr '[:upper:]' '[:lower:]')
+
+    case "$lower" in
+        webapp_private/*|*/webapp_private/*)
+            report "'$path' is under webapp_private/ (local-only private data)" ;;
+    esac
+
+    case "$lower" in
+        *.pt|*.pth|*.npy)
+            report "'$path' is a checkpoint/array file (.pt, .pth, .npy)" ;;
+    esac
+
+    size=$(git cat-file -s ":$path" 2>/dev/null || echo 0)
+    if [ "$size" -gt "$MAX_BYTES" ]; then
+        report "'$path' is $size bytes (limit $MAX_BYTES, 10 MB)"
+    fi
+done
+
+if [ "$fail" -ne 0 ]; then
+    echo "" >&2
+    echo "pre-commit: unstage the files above, e.g. 'git restore --staged <path>'." >&2
+    echo "pre-commit: webapp_private/ and checkpoints must never be committed. See CLAUDE.md." >&2
+    exit 1
+fi
+exit 0

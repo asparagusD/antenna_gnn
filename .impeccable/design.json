@@ -1,0 +1,452 @@
+{
+ "schemaVersion": 2,
+ "generatedAt": "2026-11-06T00:52:44+00:00",
+ "title": "Design System: GraphPatch",
+ "extensions": {
+  "colorMeta": {
+   "laminate": {
+    "role": "neutral",
+    "displayName": "Laminate",
+    "canonical": "oklch(22% 0.020 165)",
+    "tonalRamp": [
+     "oklch(15% 0.010 165)",
+     "oklch(25% 0.012 165)",
+     "oklch(35% 0.015 165)",
+     "oklch(45% 0.017 165)",
+     "oklch(55% 0.020 165)",
+     "oklch(70% 0.016 165)",
+     "oklch(82% 0.013 165)",
+     "oklch(95% 0.010 165)"
+    ]
+   },
+   "substrate": {
+    "role": "neutral",
+    "displayName": "Substrate",
+    "canonical": "oklch(27% 0.022 165)",
+    "tonalRamp": [
+     "oklch(15% 0.011 165)",
+     "oklch(25% 0.014 165)",
+     "oklch(35% 0.016 165)",
+     "oklch(45% 0.019 165)",
+     "oklch(55% 0.022 165)",
+     "oklch(70% 0.018 165)",
+     "oklch(82% 0.014 165)",
+     "oklch(95% 0.011 165)"
+    ]
+   },
+   "rule": {
+    "role": "neutral",
+    "displayName": "Rule",
+    "canonical": "oklch(38% 0.022 165)",
+    "tonalRamp": [
+     "oklch(15% 0.011 165)",
+     "oklch(25% 0.014 165)",
+     "oklch(35% 0.016 165)",
+     "oklch(45% 0.019 165)",
+     "oklch(55% 0.022 165)",
+     "oklch(70% 0.018 165)",
+     "oklch(82% 0.014 165)",
+     "oklch(95% 0.011 165)"
+    ]
+   },
+   "silkscreen": {
+    "role": "neutral",
+    "displayName": "Silkscreen",
+    "canonical": "oklch(93% 0.012 95)",
+    "tonalRamp": [
+     "oklch(15% 0.006 95)",
+     "oklch(25% 0.007 95)",
+     "oklch(35% 0.009 95)",
+     "oklch(45% 0.010 95)",
+     "oklch(55% 0.012 95)",
+     "oklch(70% 0.010 95)",
+     "oklch(82% 0.008 95)",
+     "oklch(95% 0.006 95)"
+    ]
+   },
+   "silkscreen-muted": {
+    "role": "neutral",
+    "displayName": "Silkscreen muted",
+    "canonical": "oklch(76% 0.016 150)",
+    "tonalRamp": [
+     "oklch(15% 0.008 150)",
+     "oklch(25% 0.010 150)",
+     "oklch(35% 0.012 150)",
+     "oklch(45% 0.014 150)",
+     "oklch(55% 0.016 150)",
+     "oklch(70% 0.013 150)",
+     "oklch(82% 0.011 150)",
+     "oklch(95% 0.008 150)"
+    ]
+   },
+   "copper": {
+    "role": "primary",
+    "displayName": "Live copper",
+    "canonical": "oklch(68% 0.115 55)",
+    "tonalRamp": [
+     "oklch(15% 0.056 55)",
+     "oklch(25% 0.071 55)",
+     "oklch(35% 0.086 55)",
+     "oklch(45% 0.100 55)",
+     "oklch(55% 0.115 55)",
+     "oklch(70% 0.093 55)",
+     "oklch(82% 0.075 55)",
+     "oklch(95% 0.056 55)"
+    ]
+   },
+   "copper-floating": {
+    "role": "primary",
+    "displayName": "Floating copper",
+    "canonical": "oklch(60% 0.050 60)",
+    "tonalRamp": [
+     "oklch(15% 0.025 60)",
+     "oklch(25% 0.031 60)",
+     "oklch(35% 0.037 60)",
+     "oklch(45% 0.044 60)",
+     "oklch(55% 0.050 60)",
+     "oklch(70% 0.040 60)",
+     "oklch(82% 0.033 60)",
+     "oklch(95% 0.025 60)"
+    ]
+   },
+   "action": {
+    "role": "secondary",
+    "displayName": "Laminate green (action)",
+    "canonical": "oklch(74% 0.090 175)",
+    "tonalRamp": [
+     "oklch(15% 0.044 175)",
+     "oklch(25% 0.056 175)",
+     "oklch(35% 0.067 175)",
+     "oklch(45% 0.079 175)",
+     "oklch(55% 0.090 175)",
+     "oklch(70% 0.073 175)",
+     "oklch(82% 0.059 175)",
+     "oklch(95% 0.044 175)"
+    ]
+   },
+   "threshold": {
+    "role": "tertiary",
+    "displayName": "Threshold red",
+    "canonical": "oklch(68% 0.170 28)",
+    "tonalRamp": [
+     "oklch(15% 0.083 28)",
+     "oklch(25% 0.105 28)",
+     "oklch(35% 0.127 28)",
+     "oklch(45% 0.148 28)",
+     "oklch(55% 0.170 28)",
+     "oklch(70% 0.138 28)",
+     "oklch(82% 0.112 28)",
+     "oklch(95% 0.083 28)"
+    ]
+   },
+   "caution": {
+    "role": "tertiary",
+    "displayName": "Caution amber",
+    "canonical": "oklch(80% 0.130 80)",
+    "tonalRamp": [
+     "oklch(15% 0.064 80)",
+     "oklch(25% 0.080 80)",
+     "oklch(35% 0.097 80)",
+     "oklch(45% 0.113 80)",
+     "oklch(55% 0.130 80)",
+     "oklch(70% 0.105 80)",
+     "oklch(82% 0.085 80)",
+     "oklch(95% 0.064 80)"
+    ]
+   },
+   "laminate-light": {
+    "role": "neutral",
+    "displayName": "Laminate (light theme)",
+    "canonical": "oklch(97.5% 0.004 165)",
+    "tonalRamp": [
+     "oklch(15% 0.002 165)",
+     "oklch(25% 0.002 165)",
+     "oklch(35% 0.003 165)",
+     "oklch(45% 0.003 165)",
+     "oklch(55% 0.004 165)",
+     "oklch(70% 0.003 165)",
+     "oklch(82% 0.003 165)",
+     "oklch(95% 0.002 165)"
+    ]
+   },
+   "substrate-light": {
+    "role": "neutral",
+    "displayName": "Substrate (light theme)",
+    "canonical": "oklch(93.5% 0.008 165)",
+    "tonalRamp": [
+     "oklch(15% 0.004 165)",
+     "oklch(25% 0.005 165)",
+     "oklch(35% 0.006 165)",
+     "oklch(45% 0.007 165)",
+     "oklch(55% 0.008 165)",
+     "oklch(70% 0.006 165)",
+     "oklch(82% 0.005 165)",
+     "oklch(95% 0.004 165)"
+    ]
+   },
+   "rule-light": {
+    "role": "neutral",
+    "displayName": "Rule (light theme)",
+    "canonical": "oklch(83% 0.012 165)",
+    "tonalRamp": [
+     "oklch(15% 0.006 165)",
+     "oklch(25% 0.007 165)",
+     "oklch(35% 0.009 165)",
+     "oklch(45% 0.010 165)",
+     "oklch(55% 0.012 165)",
+     "oklch(70% 0.010 165)",
+     "oklch(82% 0.008 165)",
+     "oklch(95% 0.006 165)"
+    ]
+   },
+   "ink": {
+    "role": "neutral",
+    "displayName": "Ink (light theme text)",
+    "canonical": "oklch(25% 0.020 165)",
+    "tonalRamp": [
+     "oklch(15% 0.010 165)",
+     "oklch(25% 0.012 165)",
+     "oklch(35% 0.015 165)",
+     "oklch(45% 0.017 165)",
+     "oklch(55% 0.020 165)",
+     "oklch(70% 0.016 165)",
+     "oklch(82% 0.013 165)",
+     "oklch(95% 0.010 165)"
+    ]
+   },
+   "ink-muted": {
+    "role": "neutral",
+    "displayName": "Ink muted (light theme)",
+    "canonical": "oklch(44% 0.020 165)",
+    "tonalRamp": [
+     "oklch(15% 0.010 165)",
+     "oklch(25% 0.012 165)",
+     "oklch(35% 0.015 165)",
+     "oklch(45% 0.017 165)",
+     "oklch(55% 0.020 165)",
+     "oklch(70% 0.016 165)",
+     "oklch(82% 0.013 165)",
+     "oklch(95% 0.010 165)"
+    ]
+   },
+   "copper-light": {
+    "role": "primary",
+    "displayName": "Live copper (light theme)",
+    "canonical": "oklch(55% 0.120 55)",
+    "tonalRamp": [
+     "oklch(15% 0.059 55)",
+     "oklch(25% 0.074 55)",
+     "oklch(35% 0.089 55)",
+     "oklch(45% 0.105 55)",
+     "oklch(55% 0.120 55)",
+     "oklch(70% 0.097 55)",
+     "oklch(82% 0.079 55)",
+     "oklch(95% 0.059 55)"
+    ]
+   },
+   "copper-floating-light": {
+    "role": "primary",
+    "displayName": "Floating copper (light theme)",
+    "canonical": "oklch(61% 0.045 60)",
+    "tonalRamp": [
+     "oklch(15% 0.022 60)",
+     "oklch(25% 0.028 60)",
+     "oklch(35% 0.034 60)",
+     "oklch(45% 0.039 60)",
+     "oklch(55% 0.045 60)",
+     "oklch(70% 0.036 60)",
+     "oklch(82% 0.030 60)",
+     "oklch(95% 0.022 60)"
+    ]
+   },
+   "action-light": {
+    "role": "secondary",
+    "displayName": "Laminate green (action) (light theme)",
+    "canonical": "oklch(44% 0.075 175)",
+    "tonalRamp": [
+     "oklch(15% 0.037 175)",
+     "oklch(25% 0.046 175)",
+     "oklch(35% 0.056 175)",
+     "oklch(45% 0.065 175)",
+     "oklch(55% 0.075 175)",
+     "oklch(70% 0.061 175)",
+     "oklch(82% 0.049 175)",
+     "oklch(95% 0.037 175)"
+    ]
+   },
+   "threshold-light": {
+    "role": "tertiary",
+    "displayName": "Threshold red (light theme)",
+    "canonical": "oklch(52% 0.180 28)",
+    "tonalRamp": [
+     "oklch(15% 0.088 28)",
+     "oklch(25% 0.111 28)",
+     "oklch(35% 0.134 28)",
+     "oklch(45% 0.157 28)",
+     "oklch(55% 0.180 28)",
+     "oklch(70% 0.146 28)",
+     "oklch(82% 0.118 28)",
+     "oklch(95% 0.088 28)"
+    ]
+   },
+   "caution-light": {
+    "role": "tertiary",
+    "displayName": "Caution amber (light theme)",
+    "canonical": "oklch(58% 0.110 88)",
+    "tonalRamp": [
+     "oklch(15% 0.059 88)",
+     "oklch(25% 0.074 88)",
+     "oklch(35% 0.089 88)",
+     "oklch(45% 0.105 88)",
+     "oklch(55% 0.120 88)",
+     "oklch(70% 0.097 88)",
+     "oklch(82% 0.079 88)",
+     "oklch(95% 0.059 88)"
+    ]
+   }
+  },
+  "typographyMeta": {
+   "title": {
+    "displayName": "Title",
+    "purpose": "Product name in the top bar."
+   },
+   "label": {
+    "displayName": "Label",
+    "purpose": "Section and result-cell labels, uppercase."
+   },
+   "body": {
+    "displayName": "Body",
+    "purpose": "Controls, notices, validity note."
+   },
+   "small": {
+    "displayName": "Small",
+    "purpose": "Dimension annotations and footnotes."
+   },
+   "value": {
+    "displayName": "Value",
+    "purpose": "The four result values, tabular."
+   },
+   "axis": {
+    "displayName": "Axis",
+    "purpose": "Plot ticks and readouts, tabular."
+   }
+  },
+  "shadows": [],
+  "motion": [
+   {
+    "name": "duration-fast",
+    "value": "150ms",
+    "purpose": "Hover and value swaps."
+   },
+   {
+    "name": "duration-base",
+    "value": "200ms",
+    "purpose": "Notice reveal and theme change."
+   },
+   {
+    "name": "ease-standard",
+    "value": "cubic-bezier(0.2, 0, 0, 1)",
+    "purpose": "Ease-out for state transitions; nothing moves under prefers-reduced-motion."
+   }
+  ],
+  "breakpoints": [
+   {
+    "name": "tablet",
+    "value": "768px"
+   },
+   {
+    "name": "desktop",
+    "value": "1200px"
+   }
+  ]
+ },
+ "components": [
+  {
+   "name": "Primary Button",
+   "kind": "button",
+   "refersTo": "button-primary",
+   "description": "The one main action in a region, e.g. Retry.",
+   "html": "<button class=\"ds-btn-primary\">Retry</button>",
+   "css": ".ds-btn-primary{background:oklch(74% 0.090 175);color:oklch(22% 0.020 165);font:500 0.9375rem/1 'Public Sans',system-ui,sans-serif;padding:8px 16px;height:36px;border:0;border-radius:2px;cursor:pointer;transition:background .15s ease-out}.ds-btn-primary:hover{background:oklch(80% 0.085 175)}.ds-btn-primary:focus-visible{outline:2px solid oklch(93% 0.012 95);outline-offset:2px}"
+  },
+  {
+   "name": "Tool Button",
+   "kind": "button",
+   "refersTo": "button-secondary",
+   "description": "Editor tools; the active tool takes the action border and text.",
+   "html": "<div class=\"ds-tools\"><button class=\"ds-btn-tool ds-on\">Copper</button><button class=\"ds-btn-tool\">Etch</button><button class=\"ds-btn-tool\">Clear</button></div>",
+   "css": ".ds-tools{display:flex;gap:8px;background:oklch(22% 0.020 165);padding:12px}.ds-btn-tool{background:oklch(22% 0.020 165);color:oklch(93% 0.012 95);font:400 0.9375rem/1 'Public Sans',system-ui,sans-serif;padding:8px 14px;height:36px;border:1px solid oklch(38% 0.022 165);border-radius:2px;cursor:pointer;transition:border-color .15s ease-out}.ds-btn-tool:hover{border-color:oklch(76% 0.016 150)}.ds-btn-tool.ds-on{border-color:oklch(74% 0.090 175);color:oklch(74% 0.090 175);font-weight:600}.ds-btn-tool:focus-visible{outline:2px solid oklch(93% 0.012 95);outline-offset:2px}"
+  },
+  {
+   "name": "Grid Size Segmented Control",
+   "kind": "nav",
+   "refersTo": "segment",
+   "description": "Selects the grid; the selected segment is filled with action.",
+   "html": "<div class=\"ds-seg\" role=\"radiogroup\"><button>12×12</button><button>15×15</button><button class=\"ds-sel\" aria-checked=\"true\">25×25</button><button>35×35</button><button>45×45</button></div>",
+   "css": ".ds-seg{display:inline-flex;border:1px solid oklch(38% 0.022 165);background:oklch(22% 0.020 165)}.ds-seg button{background:transparent;color:oklch(93% 0.012 95);font:400 0.9375rem/1 'Public Sans',system-ui,sans-serif;font-variant-numeric:tabular-nums;padding:7px 14px;border:0;cursor:pointer}.ds-seg button:hover{background:oklch(27% 0.022 165)}.ds-seg .ds-sel{background:oklch(74% 0.090 175);color:oklch(22% 0.020 165)}.ds-seg button:focus-visible{outline:2px solid oklch(93% 0.012 95);outline-offset:-2px}"
+  },
+  {
+   "name": "Result Cells",
+   "kind": "card",
+   "refersTo": "result-cell",
+   "description": "Four fixed cells whose values update in place.",
+   "html": "<div class=\"ds-res\"><div><span>Verdict</span><b>Functioning</b></div><div><span>Band</span><b>3.85 GHz</b></div><div><span>Min |S11|</span><b>−21.4 dB</b></div><div><span>Metal fill</span><b>70%</b></div></div>",
+   "css": ".ds-res{display:grid;grid-template-columns:repeat(4,1fr);background:oklch(22% 0.020 165);font-family:'Public Sans',system-ui,sans-serif;border-top:1px solid oklch(38% 0.022 165);border-bottom:1px solid oklch(38% 0.022 165)}.ds-res div{padding:14px 16px;border-right:1px solid oklch(38% 0.022 165)}.ds-res span{display:block;color:oklch(76% 0.016 150);font-size:0.75rem;font-weight:600;line-height:1.3;text-transform:uppercase;letter-spacing:.06em}.ds-res b{display:block;color:oklch(93% 0.012 95);font-size:1.75rem;font-weight:600;line-height:1.1;font-variant-numeric:tabular-nums;margin-top:4px}"
+  },
+  {
+   "name": "Board (live copper)",
+   "kind": "custom",
+   "refersTo": "board",
+   "description": "Signature: live copper connected to the feed, floating islands dull with a dashed edge, hatched locked seeds.",
+   "html": "<div class=\"ds-board\"><i class=\"c\"></i><i class=\"c\"></i><i class=\"s\"></i><i></i><i class=\"f\"></i><i class=\"c\"></i><i class=\"s\"></i><i></i><i class=\"f\"></i></div>",
+   "css": ".ds-board{display:grid;grid-template-columns:repeat(3,28px);padding:18px;background:oklch(27% 0.022 165);width:max-content}.ds-board i{display:block;width:28px;height:28px}.ds-board .c{background:oklch(68% 0.115 55)}.ds-board .f{background:oklch(60% 0.050 60);outline:1px dashed oklch(76% 0.016 150);outline-offset:-3px}.ds-board .s{background:repeating-linear-gradient(45deg,oklch(68% 0.115 55) 0 3px,oklch(27% 0.022 165) 3px 5px)}"
+  },
+  {
+   "name": "Scope Notice",
+   "kind": "custom",
+   "description": "Calm notice shown under the results when the prediction has 2+ bands.",
+   "html": "<p class=\"ds-notice\">This prediction shows 2 bands. The model was trained on single-band and non-functioning antennas, so treat multi-band results as indicative only.</p>",
+   "css": ".ds-notice{background:oklch(27% 0.022 165);color:oklch(93% 0.012 95);font:400 0.9375rem/1.45 'Public Sans',system-ui,sans-serif;padding:12px 16px;border-radius:4px;border:1px solid oklch(38% 0.022 165);max-width:60ch;margin:0}"
+  }
+ ],
+ "narrative": {
+  "northStar": "The board you would etch.",
+  "overview": "GraphPatch draws an antenna the way an RF engineer meets it on the bench: flat copper on microwave laminate, dimensioned like a fabrication drawing. The pixel editor is the board; the |S11| plot and the results read beside it in silkscreen-white type. The world lends four things only: palette, type, density and one signature move. Layout, navigation and controls stay the standard ones of an engineering web tool.\n\nEverything is flat. Copper is a solid colour, not a metal effect; the substrate is a field, not a texture. Precision comes from alignment, tabular numbers and hairline rules.",
+  "keyCharacteristics": [
+   "Copper on laminate, strictly flat; dark laminate by default, cool white PTFE laminate in the light theme.",
+   "Live copper (signature move): copper connected to the feed reads full copper; floating islands read duller with a dashed edge, live as you paint.",
+   "Silkscreen dimension lines around the board (32.4 mm, pixel pitch).",
+   "One sans family with tabular numerals for every number.",
+   "Colour does one job per role: copper = metal, action = pressable, threshold red = the −10 dB line, caution amber = fill outside 30–80%."
+  ],
+  "rules": [
+   {
+    "name": "The One Job Rule",
+    "body": "Every accent has exactly one job. Red never marks errors, emphasis or decoration; action never colours data; copper never colours chrome.",
+    "section": "colors"
+   },
+   {
+    "name": "The Not-Colour-Alone Rule",
+    "body": "Seed pixels are hatched copper, metal is solid, air is bare substrate; floating copper carries a dashed edge; the scope notice and fill warning always carry words.",
+    "section": "colors"
+   },
+   {
+    "name": "The Tabular Rule",
+    "body": "Every number on screen, in every size, uses tabular figures.",
+    "section": "typography"
+   }
+  ],
+  "dos": [
+   "Do keep copper flat: one solid colour per state.",
+   "Do keep an out-of-scope curve on screen and annotate it in place.",
+   "Do give every state words as well as colour.",
+   "Do use tabular figures for every number."
+  ],
+  "donts": [
+   "Don't add PCB costume: solder-mask texture, vias, gold plating, copper sheen or gradients.",
+   "Don't use red for anything but the −10 dB line.",
+   "Don't use modals for routine states or spinners over the curve.",
+   "Don't let the world supply layout or controls; they stay standard web components."
+  ]
+ }
+}

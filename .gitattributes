@@ -1,0 +1,14 @@
+# Hooks run under sh; keep LF line endings on every platform.
+.githooks/* text eol=lf
+# Impeccable launcher and data are read by sh/the engine; keep LF.
+# The Windows batch launcher keeps CRLF (later rule wins).
+.claude/skills/impeccable/scripts/** text eol=lf
+.claude/skills/impeccable/scripts/*.cmd text eol=crlf
+# Golden fixtures are compared byte for byte by export/tests/test_fixtures.py; never convert.
+webapp/fixtures/*.json text eol=lf
+# Exported model weights: never convert.
+webapp/public/model/*.onnx binary
+# Web app sources: LF everywhere (Prettier enforces LF); binary files are auto-detected.
+webapp/** text=auto eol=lf
+# Re-assert after the webapp rule above (later lines win).
+webapp/public/model/*.onnx binary

@@ -1,0 +1,106 @@
+/* Metal-fill meter (DESIGN.md: flat, hairline rules, caution amber only outside 30–80%). */
+.fill-meter {
+  margin-top: var(--space-lg);
+}
+
+.fill-meter-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.fill-meter-label {
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.fill-meter-value {
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+
+/* Track: flat substrate field. The 30% and 80% bounds are ticks drawn across it, above the bar and
+   overhanging it, so they stay visible over any bar colour (no band fill for the bar to contrast with). */
+.fill-meter-track {
+  position: relative;
+  height: 8px;
+  border: 1px solid var(--rule);
+  background: var(--substrate);
+}
+
+.fill-meter-track::after {
+  content: '';
+  position: absolute;
+  inset: -4px -1px;
+  background:
+    linear-gradient(var(--text-muted), var(--text-muted)) 30% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--text-muted), var(--text-muted)) 80% 0 / 1px 100% no-repeat;
+  pointer-events: none;
+}
+
+.fill-meter-bar {
+  height: 100%;
+  background: var(--text);
+  transition:
+    width var(--duration-fast) var(--ease-standard),
+    background-color var(--duration-fast) var(--ease-standard);
+}
+
+.fill-meter[data-status='low'] .fill-meter-bar,
+.fill-meter[data-status='high'] .fill-meter-bar {
+  background: var(--caution);
+}
+
+/* The training range as a silkscreen dimension line: end ticks, hairline, bounds centred on ticks. */
+.fill-meter-range {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-top: var(--space-xs);
+  padding-top: 7px;
+  background:
+    linear-gradient(var(--text-muted), var(--text-muted)) left top / 1px 7px no-repeat,
+    linear-gradient(var(--text-muted), var(--text-muted)) right top / 1px 7px no-repeat;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+  line-height: 1.2;
+}
+
+.fill-meter-range::before {
+  content: '';
+  position: absolute;
+  inset: 3px 0 auto;
+  border-top: 1px solid var(--text-muted);
+}
+
+.fill-meter-range-bound:first-child {
+  transform: translateX(-50%);
+}
+
+.fill-meter-range-bound:last-child {
+  transform: translateX(50%);
+}
+
+.fill-meter-warning {
+  display: flex;
+  align-items: start;
+  gap: var(--space-sm);
+  max-width: 60ch;
+  font-size: var(--text-small);
+}
+
+.fill-meter-warning:not(:empty) {
+  margin-top: var(--space-sm);
+}
+
+.fill-meter-icon {
+  flex: none;
+  margin-top: 1px;
+  color: var(--caution);
+}

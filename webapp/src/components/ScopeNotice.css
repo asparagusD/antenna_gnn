@@ -1,0 +1,26 @@
+/* Scope notice: calm substrate panel, muted info icon, body text in ink; no red, no animation. */
+.scope-notice-live:not(:empty) {
+  margin-top: var(--space-md);
+}
+
+.scope-notice {
+  display: flex;
+  align-items: start;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--substrate);
+}
+
+.scope-notice p {
+  margin: 0;
+  max-width: 70ch;
+  font-size: var(--text-body);
+}
+
+.scope-notice-icon {
+  flex: none;
+  margin-top: 3px;
+  color: var(--text-muted);
+}

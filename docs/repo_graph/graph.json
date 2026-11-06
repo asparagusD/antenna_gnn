@@ -685,6 +685,15 @@
    "summary_sha": "051a23444bd958f7b4a641335bd3cd8e99eb507c"
   },
   {
+   "path": ".impeccable/critique/2026-11-06T03-22-47Z__webapp-src-app-tsx.md",
+   "type": "markdown",
+   "size": 5583,
+   "chunk": null,
+   "sha": "83ae9421da40145e9dd0d04b4356bf633fcb2efe",
+   "summary": "Impeccable critique snapshot of the whole app (C6.1, dual-agent): heuristic scores 26/40, design specificity (authored board, generic right column), detector results, and the ranked findings (one P0 tablet-portrait layout, three P1s: top-bar status, undersized board, failure-state first run) with the P2/P3 list carried into C6.2-C6.5.",
+   "summary_sha": "83ae9421da40145e9dd0d04b4356bf633fcb2efe"
+  },
+  {
    "path": ".impeccable/design.json",
    "type": "json",
    "size": 16380,
@@ -752,9 +761,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "e005960df15e88ca590765cbaf144429cda9da15",
+   "sha": "bedca2c6ded927bc0f0ce826a1fa3c544606a19f",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "e005960df15e88ca590765cbaf144429cda9da15"
+   "summary_sha": "bedca2c6ded927bc0f0ce826a1fa3c544606a19f"
   },
   {
    "path": "README.md",
@@ -2330,6 +2339,15 @@
    "external": true,
    "summary": "",
    "summary_sha": null
+  },
+  {
+   "path": "docs/design_review.md",
+   "type": "markdown",
+   "size": 5586,
+   "chunk": null,
+   "sha": "9946218f0a4eecbcfc7a17f1e937f6590ca2e7c7",
+   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding either fixed or justified (C6.1: whole-app critique 26/40, P0 and three P1s fixed).",
+   "summary_sha": "9946218f0a4eecbcfc7a17f1e937f6590ca2e7c7"
   },
   {
    "path": "docs/repo_graph/REPO_MAP.md",
@@ -4378,47 +4396,56 @@
   {
    "path": "webapp/e2e/export.spec.ts",
    "type": "typescript",
-   "size": 2083,
+   "size": 2042,
    "chunk": null,
-   "sha": "76c1ac81e1557f524485bece8789f924e92e2913",
-   "summary": "Playwright test of CSV export: after a Random antenna, the |S11| CSV has its header and 201 rows from 1.000 to 4.000 GHz with a minimum matching the Depth cell, and the pattern CSV has N rows of N 0/1 values whose metal count matches the board.",
-   "summary_sha": "76c1ac81e1557f524485bece8789f924e92e2913"
+   "sha": "e73522e15840c069d4f5849736aede5ebae29813",
+   "summary": "Playwright test of CSV export: after a Random antenna (Starting points), the |S11| CSV has its header and 201 rows from 1.000 to 4.000 GHz with a minimum matching the Depth cell, and the pattern CSV has N rows of N 0/1 values whose metal count matches the board.",
+   "summary_sha": "e73522e15840c069d4f5849736aede5ebae29813"
   },
   {
    "path": "webapp/e2e/fill-meter.spec.ts",
    "type": "typescript",
-   "size": 3324,
+   "size": 3370,
    "chunk": null,
-   "sha": "21222841ac9e4fb7dd624982f051f6f71364b103",
-   "summary": "Playwright test of the fill meter on the 25x25 board: paints free pixels in row-major runs to exact counts and checks the shown percentage and warning at 29.0% and 29.9% (warn), 30.1% (none), 80.0% exact (none), 80.2% and 81.0% (warn).",
-   "summary_sha": "21222841ac9e4fb7dd624982f051f6f71364b103"
+   "sha": "a654c2c5607bb0f91d12821e045e82ded643fa46",
+   "summary": "Playwright test of the fill meter on a seeds-only 25x25 board (seedsOnlyUrl): paints free pixels in row-major runs to exact counts and checks the shown percentage and warning at 29.0% and 29.9% (warn), 30.1% (none), 80.0% exact (none), 80.2% and 81.0% (warn).",
+   "summary_sha": "a654c2c5607bb0f91d12821e045e82ded643fa46"
   },
   {
    "path": "webapp/e2e/grid-editor.spec.ts",
    "type": "typescript",
-   "size": 6281,
+   "size": 6379,
    "chunk": null,
-   "sha": "717b9186bb0aaf9b437807836c702c0c590e6756",
-   "summary": "Playwright tests of the board with real mouse and keyboard: click toggle, gap-free drag and erase, locked seeds and feed with tooltips, feed-to-seed bridge reported as connected, keyboard editing, and stroke-level undo/redo by keys and buttons.",
-   "summary_sha": "717b9186bb0aaf9b437807836c702c0c590e6756"
+   "sha": "f3ac4dfcab7332ba3e035279a90bc894eda82d0c",
+   "summary": "Playwright tests of the board on a seeds-only 25x25 grid (seedsOnlyUrl) with real mouse and keyboard: click toggle, gap-free drag and erase, locked seeds and feed with tooltips, feed-to-seed bridge reported as connected, keyboard editing, and stroke-level undo/redo by keys and buttons.",
+   "summary_sha": "f3ac4dfcab7332ba3e035279a90bc894eda82d0c"
   },
   {
    "path": "webapp/e2e/grid-size.spec.ts",
    "type": "typescript",
-   "size": 4745,
+   "size": 4966,
    "chunk": null,
-   "sha": "ef4d0725a761d591b2ffa6d0abe2d43018f65ab2",
-   "summary": "Playwright tests of the grid-size selector: an unedited board switches at once; an edited board asks first with Keep focused, Keep/Escape/a press on the board cancel; confirming starts a fresh 35x35 seeds-only grid (145 metal) with empty undo history, focus on the new size and an announcement.",
-   "summary_sha": "ef4d0725a761d591b2ffa6d0abe2d43018f65ab2"
+   "sha": "c847eb5d67368c619ada17fbee846e65b719c715",
+   "summary": "Playwright tests of the grid-size selector from the 25x25 example: an unedited board switches at once; an edited board asks first with Keep focused, Keep/Escape/a press on the board cancel; confirming opens the 35x35 example (822 metal, 67.1%, no warning) with empty undo history, focus on the new size and an announcement.",
+   "summary_sha": "c847eb5d67368c619ada17fbee846e65b719c715"
   },
   {
-   "path": "webapp/e2e/pattern-tools.spec.ts",
+   "path": "webapp/e2e/helpers.ts",
    "type": "typescript",
-   "size": 1292,
+   "size": 936,
    "chunk": null,
-   "sha": "ae8d166e5fe5f7d2a64a95e5ae827cfaa8fcc9a9",
-   "summary": "Playwright test of the starting points on 25x25: Random antenna gives exactly 60% (375) and, at a 30% slider, 188 metal pixels; Clear returns to the 65 seed pixels; Undo restores the random pattern.",
-   "summary_sha": "ae8d166e5fe5f7d2a64a95e5ae827cfaa8fcc9a9"
+   "sha": "a09ce9a00860faef9b408e3d64a64c91a9683cff",
+   "summary": "Shared Playwright helpers: startingPoint (open the top-bar Starting points panel and press Example or Random antenna) and seedsOnlyUrl (a share link of a seeds-only NxN grid built with the app's own codec, for tests that need that start).",
+   "summary_sha": "a09ce9a00860faef9b408e3d64a64c91a9683cff"
+  },
+  {
+   "path": "webapp/e2e/layout.spec.ts",
+   "type": "typescript",
+   "size": 1707,
+   "chunk": null,
+   "sha": "4192543e1ef14647d485e6f1e22490915c84cdd9",
+   "summary": "Playwright layout regressions: portrait 768x1024, 820x1180 and 1024x1366 stack board above results with no sideways scroll, a chart wider than 80% of the viewport and no clipped result values; 1024x768 keeps two columns.",
+   "summary_sha": "4192543e1ef14647d485e6f1e22490915c84cdd9"
   },
   {
    "path": "webapp/e2e/results.spec.ts",
@@ -4441,20 +4468,29 @@
   {
    "path": "webapp/e2e/share.spec.ts",
    "type": "typescript",
-   "size": 4159,
+   "size": 3965,
    "chunk": null,
-   "sha": "0883f3ef8f889a5c73fc7ebe7ae1258c302cf1cd",
-   "summary": "Playwright tests of share links: a 35x35 random antenna's URL opened in a fresh browser context restores the same metal count, an identical re-encoded hash and an identical settled curve; the address bar follows edits and Copy share link copies it; an invalid hash shows the friendly error and a fresh grid; a pasted hash loads in the same tab.",
-   "summary_sha": "0883f3ef8f889a5c73fc7ebe7ae1258c302cf1cd"
+   "sha": "a507f7cef5c95116d2ffa4d872ae33f7de124d71",
+   "summary": "Playwright tests of share links: a 35x35 random antenna's URL opened in a fresh browser context restores the same metal count, an identical re-encoded hash and an identical settled curve; the address bar follows edits and Copy share link copies it; an invalid hash shows the friendly error and the 25x25 example; a pasted hash loads in the same tab.",
+   "summary_sha": "a507f7cef5c95116d2ffa4d872ae33f7de124d71"
   },
   {
    "path": "webapp/e2e/smoke.spec.ts",
    "type": "typescript",
-   "size": 544,
+   "size": 584,
    "chunk": null,
-   "sha": "4cd92e27e191cefc98c76e129757ad9f848768b8",
-   "summary": "Playwright smoke test: the GraphPatch page renders its heading, loads the model meta and logs no page or console errors.",
-   "summary_sha": "4cd92e27e191cefc98c76e129757ad9f848768b8"
+   "sha": "2e055b1386ab733dcaa4b6d8ff5ecbd15c295c9e",
+   "summary": "Playwright smoke test: the GraphPatch page renders its heading, the top-bar status reaches 'Model ready - runs in your browser', and no page or console errors are logged.",
+   "summary_sha": "2e055b1386ab733dcaa4b6d8ff5ecbd15c295c9e"
+  },
+  {
+   "path": "webapp/e2e/starting-points.spec.ts",
+   "type": "typescript",
+   "size": 2540,
+   "chunk": null,
+   "sha": "428fab62e158fb4ec241324e058355bf7549ee23",
+   "summary": "Playwright tests of starting points: the app opens on the functioning 25x25 example (438 metal, Functioning Yes, no fill warning); Random antenna at 60% and 30% gives exact counts; Clear, Undo and Example antenna; at 1440x900 the canvas is at least 480 px with one tool row and the fill warning in view.",
+   "summary_sha": "428fab62e158fb4ec241324e058355bf7549ee23"
   },
   {
    "path": "webapp/eslint.config.js",
@@ -4574,6 +4610,15 @@
    "summary_sha": "2df8293108a23934b45ffd42bc686f7a679262e3"
   },
   {
+   "path": "webapp/scripts/make-examples.mjs",
+   "type": "other",
+   "size": 1997,
+   "chunk": null,
+   "sha": "338552311bd9a1227e9cbece5012148152026173",
+   "summary": "Generator for src/model/examples.json: picks one single-band, functioning C1.3 fixture pattern per grid and stores it as a share string (p=v1.N.base64url bitset).",
+   "summary_sha": "338552311bd9a1227e9cbece5012148152026173"
+  },
+  {
    "path": "webapp/scripts/measure-latency.mjs",
    "type": "other",
    "size": 3638,
@@ -4585,29 +4630,29 @@
   {
    "path": "webapp/src/App.css",
    "type": "other",
-   "size": 2228,
+   "size": 2618,
    "chunk": null,
-   "sha": "2d1938bec85aaa95fa066b5116465241686d108f",
-   "summary": "Core screen layout: flex-column app with an optional share-link error banner, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, two tool rows and the fill meter with its warning in the viewport, the prediction column beside it, single column under 768px, and the tools-row secondary buttons.",
-   "summary_sha": "2d1938bec85aaa95fa066b5116465241686d108f"
+   "sha": "e32227dd1e8a408ae72a7388bb2ca20b2df3409c",
+   "summary": "Core screen layout: flex-column app with an optional share-link error banner, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, one tool row and the fill meter with its warning in the viewport, stacked under aspect ratio 5/4 (portrait tablets), single column under 768px, and the tools-row secondary buttons.",
+   "summary_sha": "e32227dd1e8a408ae72a7388bb2ca20b2df3409c"
   },
   {
    "path": "webapp/src/App.test.tsx",
    "type": "typescript",
-   "size": 938,
+   "size": 1094,
    "chunk": null,
-   "sha": "68789eaacac37ec9cc5989ce157345dc881a118a",
-   "summary": "Vitest + Testing Library tests of the placeholder page: shows the grid count once meta.json loads and the error message on an HTTP 404.",
-   "summary_sha": "68789eaacac37ec9cc5989ce157345dc881a118a"
+   "sha": "ffac838f85bc4b597c592ca4a0f733bc8034a69d",
+   "summary": "Vitest + Testing Library tests of the top-bar status: reports the model state (not the metadata) and a readable message when meta.json fails with HTTP 404.",
+   "summary_sha": "ffac838f85bc4b597c592ca4a0f733bc8034a69d"
   },
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 10304,
+   "size": 11228,
    "chunk": null,
-   "sha": "e81275d40abd5d91203d220725a4ffab15615fbb",
-   "summary": "Core screen: loads meta.json and starts from the URL's share link (friendly error and a fresh grid when it cannot be read), keeps the hash in sync with the board, loads pasted links; undo/redo history; GridSizeSelector, GridEditor, Undo/Redo, Random antenna and Clear, FillMeter; via usePrediction the live S11Chart, ResultsPanel, ScopeNotice, Share and export (copy link, |S11| and pattern CSV) and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
-   "summary_sha": "e81275d40abd5d91203d220725a4ffab15615fbb"
+   "sha": "07ba75c03536eaad54569b4c7c7f504d8b05b9fb",
+   "summary": "Core screen: loads meta.json and opens on the share link or the grid's example antenna, keeps the hash in sync, loads pasted links; top bar with grid size, Starting points (example, random) and the model status; undo/redo history; GridEditor, Undo/Redo/Clear, FillMeter; via usePrediction the live S11Chart, ResultsPanel, ScopeNotice, Share and export and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
+   "summary_sha": "07ba75c03536eaad54569b4c7c7f504d8b05b9fb"
   },
   {
    "path": "webapp/src/components/FillMeter.css",
@@ -4666,47 +4711,20 @@
   {
    "path": "webapp/src/components/GridSizeSelector.test.tsx",
    "type": "typescript",
-   "size": 5335,
+   "size": 5331,
    "chunk": null,
-   "sha": "4b077bfb283f8769e63bec022c022448ed730887",
-   "summary": "Vitest tests of GridSizeSelector: exactly 12/15/25/35/45 with aria-pressed, immediate switch when unedited, ask-first when edited with Keep focused and the cost as aria-describedby, focus and announcement after a confirmed switch, Keep/Escape (also from segments)/outside press cancel, question disappears when no longer edited, a second choice replaces the question.",
-   "summary_sha": "4b077bfb283f8769e63bec022c022448ed730887"
+   "sha": "9480bf93473ce4dfdf65dc3cf418a6b8ece060c5",
+   "summary": "Vitest tests of GridSizeSelector: exactly 12/15/25/35/45 with aria-pressed, immediate switch when unedited, ask-first when edited with Keep focused and the cost as aria-describedby, focus and the 'example antenna loaded' announcement after a confirmed switch, Keep/Escape (also from segments)/outside press cancel, question disappears when no longer edited, a second choice replaces the question.",
+   "summary_sha": "9480bf93473ce4dfdf65dc3cf418a6b8ece060c5"
   },
   {
    "path": "webapp/src/components/GridSizeSelector.tsx",
    "type": "typescript",
-   "size": 5143,
+   "size": 5139,
    "chunk": null,
-   "sha": "07e115281b57b73e62b5c19f5b96da11b4a292df",
-   "summary": "Grid-size segmented control (12, 15, 25, 35, 45) as toggle buttons; on an edited board it asks first in an inline non-modal question (Keep primary and focused, cost in aria-describedby; closes on Keep, Escape, outside press or when no longer edited); after a switch focuses the new size and announces it in a polite live region.",
-   "summary_sha": "07e115281b57b73e62b5c19f5b96da11b4a292df"
-  },
-  {
-   "path": "webapp/src/components/PatternTools.css",
-   "type": "other",
-   "size": 548,
-   "chunk": null,
-   "sha": "0740d980bebe4151d043d4eaeea922cb654a70c7",
-   "summary": "Styles for the Random antenna button, the labelled fill slider (action accent) with its visible value, and Clear in the tools row.",
-   "summary_sha": "0740d980bebe4151d043d4eaeea922cb654a70c7"
-  },
-  {
-   "path": "webapp/src/components/PatternTools.test.tsx",
-   "type": "typescript",
-   "size": 2054,
-   "chunk": null,
-   "sha": "0314f53b2eb70aa560e6b3210257887dd2edb87a",
-   "summary": "Vitest tests of PatternTools: the fill slider (30-80%, default 60%, valuetext, no extra status region), Random antenna passing the slider fill, and Clear enabled only when the board is edited.",
-   "summary_sha": "0314f53b2eb70aa560e6b3210257887dd2edb87a"
-  },
-  {
-   "path": "webapp/src/components/PatternTools.tsx",
-   "type": "typescript",
-   "size": 1919,
-   "chunk": null,
-   "sha": "6d5f34f2f035a6ba6e72ec335cbcdbef8c9ec570",
-   "summary": "Starting points in the Board tools row: Random antenna (randomPattern at the slider fill, default 60%, range 30-80%) and Clear (seed pixels only), both single undoable edits.",
-   "summary_sha": "6d5f34f2f035a6ba6e72ec335cbcdbef8c9ec570"
+   "sha": "29311bc4e1dde7a07e0c0d015201fd5eabca9e68",
+   "summary": "Grid-size segmented control (12, 15, 25, 35, 45) as toggle buttons; when the board differs from the grid's example it asks first in an inline non-modal question (Keep primary and focused, cost in aria-describedby; closes on Keep, Escape, outside press or when no longer edited); after a switch focuses the new size and announces that the example antenna loaded.",
+   "summary_sha": "29311bc4e1dde7a07e0c0d015201fd5eabca9e68"
   },
   {
    "path": "webapp/src/components/ResultsPanel.css",
@@ -4815,6 +4833,33 @@
    "sha": "cfce67213fa8d55c6718d5f3198e4c6625f56b2c",
    "summary": "Share and export toolbar under the results: Copy share link (the URL hash already holds the pattern) with a politely announced outcome, plus slots for the CSV download buttons.",
    "summary_sha": "cfce67213fa8d55c6718d5f3198e4c6625f56b2c"
+  },
+  {
+   "path": "webapp/src/components/StartingPoints.css",
+   "type": "other",
+   "size": 1261,
+   "chunk": null,
+   "sha": "e1aa1f662e02835658c6e97930a6d86a1bc3d4e4",
+   "summary": "Styles for the top-bar Starting points disclosure: toggle state, flat substrate panel, example item with its note, Random antenna with the labelled fill slider and value.",
+   "summary_sha": "e1aa1f662e02835658c6e97930a6d86a1bc3d4e4"
+  },
+  {
+   "path": "webapp/src/components/StartingPoints.test.tsx",
+   "type": "typescript",
+   "size": 3408,
+   "chunk": null,
+   "sha": "c8f9b1c3d37c9d19de28547a6b4c52062348c75b",
+   "summary": "Vitest tests of StartingPoints: closed disclosure until pressed, Example antenna first and focused, fill slider range/default/valuetext without a status region, Random antenna fill and closing with focus return, Escape and outside press.",
+   "summary_sha": "c8f9b1c3d37c9d19de28547a6b4c52062348c75b"
+  },
+  {
+   "path": "webapp/src/components/StartingPoints.tsx",
+   "type": "typescript",
+   "size": 4232,
+   "chunk": null,
+   "sha": "2feaa559c0ba9dc8dbc578863b567804aa41b283",
+   "summary": "Top-bar Starting points disclosure: a non-modal panel with Example antenna (the grid's known single-band design) and Random antenna with a 30-80% fill slider (default 60%); Escape or an outside press closes it and focus returns to the toggle.",
+   "summary_sha": "2feaa559c0ba9dc8dbc578863b567804aa41b283"
   },
   {
    "path": "webapp/src/components/ValidityNote.css",
@@ -4963,20 +5008,20 @@
   {
    "path": "webapp/src/core/grid.test.ts",
    "type": "typescript",
-   "size": 8104,
+   "size": 8500,
    "chunk": null,
-   "sha": "41dd0cd2fcba6baca6aca60793a0bd473f7b74e7",
-   "summary": "Vitest tests of the grid state model against the real meta.json: seed-only creation for all five grids, locked seeds, immutability, index and value validation, fromCells validation, isEdited, fill and fillStatus bounds, deterministic randomPattern with exact fill, and mulberry32 reproducibility.",
-   "summary_sha": "41dd0cd2fcba6baca6aca60793a0bd473f7b74e7"
+   "sha": "fabd728e318de4b710d8d9ac20a5b50e340bc744",
+   "summary": "Vitest tests of the grid state model against the real meta.json: seed-only creation for all five grids, locked seeds, immutability, index and value validation, fromCells validation, sameCells, isEdited, fill and fillStatus bounds, deterministic randomPattern with exact fill, and mulberry32 reproducibility.",
+   "summary_sha": "fabd728e318de4b710d8d9ac20a5b50e340bc744"
   },
   {
    "path": "webapp/src/core/grid.ts",
    "type": "typescript",
-   "size": 6193,
+   "size": 6455,
    "chunk": null,
-   "sha": "f210f8e3c57d9faf179c74e8687b7b4eea223f09",
-   "summary": "Immutable grid state for the pixel editor: create(N, meta) with seed pixels metal, fromCells (validated N*N 0/1 values with metal seeds), get/isSeed, paint and toggle returning a new Grid (or the same one for no-ops), isEdited, fill over N^2, fillStatus with inclusive 30-80% bounds, exact-count randomPattern and the mulberry32 PRNG; invalid input throws RangeError.",
-   "summary_sha": "f210f8e3c57d9faf179c74e8687b7b4eea223f09"
+   "sha": "e9caf854fc97f84bcd3634f982c9cb604561d4d0",
+   "summary": "Immutable grid state for the pixel editor: create(N, meta) with seed pixels metal, fromCells (validated N*N 0/1 values with metal seeds), get/isSeed, paint and toggle returning a new Grid (or the same one for no-ops), sameCells, isEdited, fill over N^2, fillStatus with inclusive 30-80% bounds, exact-count randomPattern and the mulberry32 PRNG; invalid input throws RangeError.",
+   "summary_sha": "e9caf854fc97f84bcd3634f982c9cb604561d4d0"
   },
   {
    "path": "webapp/src/core/history.test.ts",
@@ -5071,11 +5116,11 @@
   {
    "path": "webapp/src/hooks/usePrediction.ts",
    "type": "typescript",
-   "size": 3884,
+   "size": 4027,
    "chunk": null,
-   "sha": "bbc67c10bb466ad05408429b699825dba61d35f9",
-   "summary": "React hook that sends every grid change to the inference worker through predictClient and returns the chart status (loading, updating, error, ready), the latest curve and its worker inference time, and retry; records each applied result as the 'graphpatch:predict' User Timing measure.",
-   "summary_sha": "bbc67c10bb466ad05408429b699825dba61d35f9"
+   "sha": "ac5841daf3e9af3a9434ab2c2263cd5f5a9212e3",
+   "summary": "React hook that sends every grid change to the inference worker through predictClient and returns the chart status (loading, updating, error, ready), the model state (loading, ready, error), the latest curve and its worker inference time, and retry; records each applied result as the 'graphpatch:predict' User Timing measure.",
+   "summary_sha": "ac5841daf3e9af3a9434ab2c2263cd5f5a9212e3"
   },
   {
    "path": "webapp/src/main.tsx",
@@ -5085,6 +5130,33 @@
    "sha": "fc0162faad5c98347846ab13862a73f383ea1600",
    "summary": "React entry point: imports the design tokens and mounts App in StrictMode on #root.",
    "summary_sha": "fc0162faad5c98347846ab13862a73f383ea1600"
+  },
+  {
+   "path": "webapp/src/model/examples.json",
+   "type": "json",
+   "size": 1658,
+   "chunk": null,
+   "sha": "354ff83fa9be9313b4d65fc27ed88dba48b81a05",
+   "summary": "Bundled example antennas: one single-band, functioning C1.3 fixture pattern per grid (12, 15, 25, 35, 45) as share strings with the fixture id and predicted minimum.",
+   "summary_sha": "354ff83fa9be9313b4d65fc27ed88dba48b81a05"
+  },
+  {
+   "path": "webapp/src/model/examples.test.ts",
+   "type": "typescript",
+   "size": 1311,
+   "chunk": null,
+   "sha": "d41da2378ed2b08f5b3865287f31f8bb580593c7",
+   "summary": "Vitest test that each example antenna decodes to its fixture's pattern, that the fixture predicts exactly one band and functions, and that its fill is inside 30-80%.",
+   "summary_sha": "d41da2378ed2b08f5b3865287f31f8bb580593c7"
+  },
+  {
+   "path": "webapp/src/model/examples.ts",
+   "type": "typescript",
+   "size": 1107,
+   "chunk": null,
+   "sha": "15102b36dd854079478d3c5ddb9d36ec7d36b49e",
+   "summary": "Example antennas API: EXAMPLES from examples.json and exampleGrid(N, spec), which decodes the grid's example share string.",
+   "summary_sha": "15102b36dd854079478d3c5ddb9d36ec7d36b49e"
   },
   {
    "path": "webapp/src/model/meta.test.ts",

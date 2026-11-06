@@ -129,3 +129,24 @@ Detector `text-occlusion` (C6.1): on phones the question no longer covers the ch
 desktop the question still opens under the segments over the plot's top edge while it is open; justified: it is
 a transient, non-modal question that closes on any outside press, and keeping it next to the control that
 opened it is the expected pattern.
+
+## C6.4 Harden: errors, empty and loading states, long numbers (2026-11-06)
+
+| State | Before | After | Commit |
+|---|---|---|---|
+| Browser without WebAssembly or Web Workers | Not detected; the worker failed with a raw message | Checked before the worker starts: "This browser cannot run the model: it needs WebAssembly and Web Workers. Use a current version of Chrome, Edge, Firefox or Safari." No Retry; the board, share and export still work | daf7181 |
+| Model file fails to load | "Prediction failed: failed to load external data file: …" | "The model could not be loaded. Check your connection, then retry." with the detail beneath and Retry (recovers once reachable) | daf7181 |
+| One prediction fails | Raw message | "This prediction failed. Retry, or change the pattern." | daf7181 |
+| meta.json fails | Top-bar text and an empty workspace | Startup alert with the detail and Reload | d914600 |
+| Invalid share link | Calm alert, 25×25 example (C5.5/C6.1) | Unchanged (tested in share.spec.ts) | — |
+| "Link copied" after further edits | Stayed on screen, no longer true | Shown only while the copied pattern is unchanged | d12bf8d |
+| Long numbers (−95 dB, 3 bands, "≥" bandwidths) at 375 and 1440 px | Unchecked | Verified: no clipping or overflow (regression test) | b388388 |
+
+Loading and empty states, reviewed: the top bar says "Loading model (2.6 MB)…" and the chart shows "Loading model…"
+on empty axes while the model loads; the result cells show "—" before the first prediction; the previous curve
+never blanks while updating. meta.json is a small file, so the board area stays empty only for that brief
+first request; no separate placeholder was added.
+
+Not changed (justified): after an invalid share link the address bar is replaced by the example's link at once
+(C6.1 rank 13). The friendly alert names the problem; keeping a broken hash in the address bar would make
+"Copy share link" copy a link that does not open.

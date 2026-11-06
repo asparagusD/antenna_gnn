@@ -761,9 +761,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "1eb48020b676f24edd10ec7c5530d0e25c98cec5",
+   "sha": "62a3452213f987ef5bca7364a33c0f95d4d3bc5a",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "1eb48020b676f24edd10ec7c5530d0e25c98cec5"
+   "summary_sha": "62a3452213f987ef5bca7364a33c0f95d4d3bc5a"
   },
   {
    "path": "README.md",
@@ -2343,11 +2343,11 @@
   {
    "path": "docs/design_review.md",
    "type": "markdown",
-   "size": 11285,
+   "size": 13244,
    "chunk": null,
-   "sha": "57925f19fcd124fb1ab1792dc59f961834f371be",
-   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding fixed or justified (C6.1 critique 26/40; C6.2 audit 14/20, three P1s fixed; C6.3 phone and tablet adaptation with the justified segmented control).",
-   "summary_sha": "57925f19fcd124fb1ab1792dc59f961834f371be"
+   "sha": "d9a9bc36afd81f20b12f9825c318a648d2f7d18b",
+   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding fixed or justified (C6.1 critique; C6.2 audit; C6.3 phone and tablet adaptation; C6.4 hardened error, loading and long-number states).",
+   "summary_sha": "d9a9bc36afd81f20b12f9825c318a648d2f7d18b"
   },
   {
    "path": "docs/repo_graph/REPO_MAP.md",
@@ -4412,6 +4412,15 @@
    "summary_sha": "fdbd44c748ed1b3aae392216b1cb13554b5c659c"
   },
   {
+   "path": "webapp/e2e/errors.spec.ts",
+   "type": "typescript",
+   "size": 2236,
+   "chunk": null,
+   "sha": "4dec6c4fc0750cecf5f6d028ae5e685e8c5982f5",
+   "summary": "Playwright error-state tests: a browser without WebAssembly gets the unsupported message and no Retry while the board still works; an ONNX file answering 503 shows the load message and Retry recovers once it is reachable; a missing meta.json shows the startup alert with Reload.",
+   "summary_sha": "4dec6c4fc0750cecf5f6d028ae5e685e8c5982f5"
+  },
+  {
    "path": "webapp/e2e/export.spec.ts",
    "type": "typescript",
    "size": 2042,
@@ -4419,6 +4428,15 @@
    "sha": "e73522e15840c069d4f5849736aede5ebae29813",
    "summary": "Playwright test of CSV export: after a Random antenna (Starting points), the |S11| CSV has its header and 201 rows from 1.000 to 4.000 GHz with a minimum matching the Depth cell, and the pattern CSV has N rows of N 0/1 values whose metal count matches the board.",
    "summary_sha": "e73522e15840c069d4f5849736aede5ebae29813"
+  },
+  {
+   "path": "webapp/e2e/extremes.spec.ts",
+   "type": "typescript",
+   "size": 2746,
+   "chunk": null,
+   "sha": "810c4dd0df9c24e140194b9b43bbe725e4707d68",
+   "summary": "Playwright long-number tests: an extreme synthetic curve (-95 dB, three bands, one still below -10 dB at 4 GHz) shown through the e2e hook fits at 375 and 1440 px with no clipped values, no sideways scroll and the minimum label inside the chart.",
+   "summary_sha": "810c4dd0df9c24e140194b9b43bbe725e4707d68"
   },
   {
    "path": "webapp/e2e/fill-meter.spec.ts",
@@ -4657,29 +4675,29 @@
   {
    "path": "webapp/src/App.css",
    "type": "other",
-   "size": 2811,
+   "size": 3311,
    "chunk": null,
-   "sha": "f57b8ee014d341c2fdf7142f8d415f08ce19e8f2",
-   "summary": "Core screen layout: flex-column app with an optional share-link error banner, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, one tool row and the fill meter in the viewport, stacked under aspect ratio 5/4 or below 768px (with a scroll margin for the sticky summary), and the tools-row secondary buttons.",
-   "summary_sha": "f57b8ee014d341c2fdf7142f8d415f08ce19e8f2"
+   "sha": "788bb88649517d414f39fb20b24f986783435612",
+   "summary": "Core screen layout: flex-column app with optional share-link and startup error panels, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, one tool row and the fill meter in the viewport, stacked under aspect ratio 5/4 or below 768px (with a scroll margin for the sticky summary), and the tools-row secondary buttons.",
+   "summary_sha": "788bb88649517d414f39fb20b24f986783435612"
   },
   {
    "path": "webapp/src/App.test.tsx",
    "type": "typescript",
-   "size": 1094,
+   "size": 1457,
    "chunk": null,
-   "sha": "ffac838f85bc4b597c592ca4a0f733bc8034a69d",
-   "summary": "Vitest + Testing Library tests of the top-bar status: reports the model state (not the metadata) and a readable message when meta.json fails with HTTP 404.",
-   "summary_sha": "ffac838f85bc4b597c592ca4a0f733bc8034a69d"
+   "sha": "19f0f201ec636b6f0643bfdf29dbf5206b35d251",
+   "summary": "Vitest + Testing Library tests of the top-bar status and errors: a browser without Web Workers (jsdom) reports that it cannot run the model with no Retry, and a meta.json HTTP 404 gives a readable message.",
+   "summary_sha": "19f0f201ec636b6f0643bfdf29dbf5206b35d251"
   },
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 11732,
+   "size": 13104,
    "chunk": null,
-   "sha": "086a718b59195bf277ce24544eff47883ca21b95",
-   "summary": "Core screen: loads meta.json and opens on the share link or the grid's example antenna, keeps the hash in sync, loads pasted links; top bar with grid size, Starting points and the model status; undo/redo history; sticky PredictionSummary on stacked layouts; GridEditor, Undo/Redo/Clear, FillMeter; via usePrediction the live S11Chart, ResultsPanel, ScopeNotice, Share and export and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
-   "summary_sha": "086a718b59195bf277ce24544eff47883ca21b95"
+   "sha": "d3c4b85e860fa43a6a53d757ad90ef715ab54d98",
+   "summary": "Core screen: loads meta.json (startup alert with Reload if it fails) and opens on the share link or the grid's example antenna, keeps the hash in sync, loads pasted links; top bar with grid size, Starting points and the model status; undo/redo history; sticky PredictionSummary on stacked layouts; GridEditor, Undo/Redo/Clear, FillMeter; via usePrediction the live S11Chart with user-facing error sentences, ResultsPanel, ScopeNotice, Share and export and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
+   "summary_sha": "d3c4b85e860fa43a6a53d757ad90ef715ab54d98"
   },
   {
    "path": "webapp/src/components/FillMeter.css",
@@ -4801,11 +4819,11 @@
   {
    "path": "webapp/src/components/S11Chart.css",
    "type": "other",
-   "size": 2696,
+   "size": 2780,
    "chunk": null,
-   "sha": "3ca101ccb8dd95f1e2ce6764de8cd86f87472239",
-   "summary": "Chart styles: label-style header with a CSS-delayed 'Updating…' reveal, error line with a primary Retry button, substrate plot field, rule gridlines, muted 12px ticks and units, threshold-red −10 dB line and haloed label, 2px ink curve, minimum ring, dashed drop line and haloed label, placeholder text.",
-   "summary_sha": "3ca101ccb8dd95f1e2ce6764de8cd86f87472239"
+   "sha": "305f08dc740d0f95a80ad5f4d833f3df616f5b64",
+   "summary": "Chart styles: label-style header with a CSS-delayed Updating reveal, error line with muted technical detail and a primary Retry button, substrate plot field, rule gridlines, muted 12px ticks and units, threshold-red -10 dB line and haloed label, 2px ink curve, minimum ring, dashed drop line and haloed label, placeholder text.",
+   "summary_sha": "305f08dc740d0f95a80ad5f4d833f3df616f5b64"
   },
   {
    "path": "webapp/src/components/S11Chart.test.tsx",
@@ -4819,11 +4837,11 @@
   {
    "path": "webapp/src/components/S11Chart.tsx",
    "type": "typescript",
-   "size": 9295,
+   "size": 9647,
    "chunk": null,
-   "sha": "9960a92336306001eb2232875223b76ecaaf8201",
-   "summary": "Live |S11| SVG chart at the container's pixel size: 1–4 GHz by dB with auto range, rule gridlines, ink curve, threshold-red −10 dB line with its label at the end away from the minimum, minimum ring + drop line + 'depth · frequency' label; 180 ms ease-out tween between predictions (instant under reduced motion, state set only in animation frames); loading placeholder, delayed 'Updating…' mark that never blanks the curve, inline error with Retry; role=img with title and desc.",
-   "summary_sha": "9960a92336306001eb2232875223b76ecaaf8201"
+   "sha": "add89b3356d7ea53c27d1cecf97fe2e9a1404ff6",
+   "summary": "Live |S11| SVG chart at the container's pixel size: 1-4 GHz by dB with auto range, rule gridlines, ink curve, threshold-red -10 dB line with its label away from the minimum, minimum ring + drop line + 'depth · frequency' label; 180 ms ease-out tween (instant under reduced motion); loading placeholder, delayed Updating mark that never blanks the curve, an alert with a user-facing error sentence, its detail and an optional Retry; role=img with title and desc.",
+   "summary_sha": "add89b3356d7ea53c27d1cecf97fe2e9a1404ff6"
   },
   {
    "path": "webapp/src/components/ScopeNotice.css",
@@ -4864,20 +4882,20 @@
   {
    "path": "webapp/src/components/ShareTools.test.tsx",
    "type": "typescript",
-   "size": 1662,
+   "size": 2292,
    "chunk": null,
-   "sha": "326ef6a8710f4b268d1471140eb500f651b53738",
-   "summary": "Vitest tests of ShareTools: Copy share link writes location.href to a mocked clipboard and confirms, a clipboard failure points to the address bar, and the status is a polite live region.",
-   "summary_sha": "326ef6a8710f4b268d1471140eb500f651b53738"
+   "sha": "502b732fae3dde756e5f441e6a4a6f283429495b",
+   "summary": "Vitest tests of ShareTools: Copy share link writes location.href to a mocked clipboard and confirms, a clipboard failure points to the address bar, the confirmation disappears once the pattern changes, and the status is a polite live region.",
+   "summary_sha": "502b732fae3dde756e5f441e6a4a6f283429495b"
   },
   {
    "path": "webapp/src/components/ShareTools.tsx",
    "type": "typescript",
-   "size": 1420,
+   "size": 1859,
    "chunk": null,
-   "sha": "cfce67213fa8d55c6718d5f3198e4c6625f56b2c",
-   "summary": "Share and export toolbar under the results: Copy share link (the URL hash already holds the pattern) with a politely announced outcome, plus slots for the CSV download buttons.",
-   "summary_sha": "cfce67213fa8d55c6718d5f3198e4c6625f56b2c"
+   "sha": "e98a75ef6ba27f9cbe055e6a560cf4c644757e13",
+   "summary": "Share and export toolbar under the results: Copy share link (the URL hash already holds the pattern) with a politely announced outcome that shows only while the copied pattern is unchanged, plus slots for the CSV download buttons.",
+   "summary_sha": "e98a75ef6ba27f9cbe055e6a560cf4c644757e13"
   },
   {
    "path": "webapp/src/components/StartingPoints.css",
@@ -5161,11 +5179,11 @@
   {
    "path": "webapp/src/hooks/usePrediction.ts",
    "type": "typescript",
-   "size": 4027,
+   "size": 4867,
    "chunk": null,
-   "sha": "ac5841daf3e9af3a9434ab2c2263cd5f5a9212e3",
-   "summary": "React hook that sends every grid change to the inference worker through predictClient and returns the chart status (loading, updating, error, ready), the model state (loading, ready, error), the latest curve and its worker inference time, and retry; records each applied result as the 'graphpatch:predict' User Timing measure.",
-   "summary_sha": "ac5841daf3e9af3a9434ab2c2263cd5f5a9212e3"
+   "sha": "534441b76727118f10c1c0ee408fa8f2c6af22ea",
+   "summary": "React hook that checks for Web Workers and WebAssembly, sends every grid change to the inference worker through predictClient and returns the chart status, the model state (loading, ready, error, unsupported), the latest curve and its worker inference time, a classified error (unsupported, load, predict) with its detail, and retry; records each applied result as the 'graphpatch:predict' User Timing measure.",
+   "summary_sha": "534441b76727118f10c1c0ee408fa8f2c6af22ea"
   },
   {
    "path": "webapp/src/main.tsx",

@@ -4445,7 +4445,7 @@
    "chunk": null,
    "sha": "6dce20b04b550b78c4132b37e1586f5f29d7d858",
    "summary": "npm lockfile pinning the full dependency tree of the web app for reproducible installs (npm ci).",
-   "summary_sha": "559e3d4f53453fd53f5e0d29a386ad0abfe1c0e1"
+   "summary_sha": "6dce20b04b550b78c4132b37e1586f5f29d7d858"
   },
   {
    "path": "webapp/package.json",

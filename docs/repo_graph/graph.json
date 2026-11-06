@@ -716,9 +716,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "5bb94698e98e95bbe27a37354d29c888b32a01ac",
+   "sha": "e6e63407c095983eda5111c2618e826e92374e4d",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "5bb94698e98e95bbe27a37354d29c888b32a01ac"
+   "summary_sha": "e6e63407c095983eda5111c2618e826e92374e4d"
   },
   {
    "path": "README.md",
@@ -4281,6 +4281,15 @@
    "summary_sha": "d51d0ee0a472b91e3baac522c97025f9dcbaf976"
   },
   {
+   "path": "webapp/bench/infer.bench.test.ts",
+   "type": "typescript",
+   "size": 2680,
+   "chunk": null,
+   "sha": "1b0b7e2a6bdbec5d09c30c6140a0b0d9a964f676",
+   "summary": "Benchmark run by npm run bench:infer: median buildGraph and predict times per grid over the fixture patterns (40 runs after 5 warm-ups) with onnxruntime-web wasm on one thread in Node.",
+   "summary_sha": "1b0b7e2a6bdbec5d09c30c6140a0b0d9a964f676"
+  },
+  {
    "path": "webapp/e2e/smoke.spec.ts",
    "type": "typescript",
    "size": 555,
@@ -4364,11 +4373,11 @@
   {
    "path": "webapp/package.json",
    "type": "json",
-   "size": 1363,
+   "size": 1443,
    "chunk": null,
-   "sha": "fa6ad50807ea7c0e96f7e301dd6f0931269b021e",
-   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0) with scripts dev, build, preview, typecheck, lint, format, test and e2e.",
-   "summary_sha": "fa6ad50807ea7c0e96f7e301dd6f0931269b021e"
+   "sha": "b34d3933259bc16e8e99707cb54350446d615a61",
+   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0) with scripts dev, build, preview, typecheck, lint, format, test, e2e and bench:infer.",
+   "summary_sha": "b34d3933259bc16e8e99707cb54350446d615a61"
   },
   {
    "path": "webapp/playwright.config.ts",
@@ -4452,6 +4461,15 @@
    "summary_sha": "254736371890f79591c4bb6a50f7082612b84f2c"
   },
   {
+   "path": "webapp/src/core/infer.ts",
+   "type": "typescript",
+   "size": 3944,
+   "chunk": null,
+   "sha": "8175e58285a830a6db153a281a6e94e7ca65031f",
+   "summary": "Inference with onnxruntime-web: loadModel creates a wasm session with one thread and no proxy (GitHub Pages has no COOP/COEP) from a URL or model bytes, logging errors only; predictZ validates the graph and runs the model; predict de-normalises z with the exact float32 statistics into a Float64Array of 201 dB values.",
+   "summary_sha": "8175e58285a830a6db153a281a6e94e7ca65031f"
+  },
+  {
    "path": "webapp/src/main.tsx",
    "type": "typescript",
    "size": 298,
@@ -4479,6 +4497,15 @@
    "summary_sha": "412efb828e3cc0299d3bf8c059fa66cc4151210c"
   },
   {
+   "path": "webapp/tests/node/infer.parity.test.ts",
+   "type": "typescript",
+   "size": 3261,
+   "chunk": null,
+   "sha": "20a1deaff323cb423122963500b65c1e9e15a0c6",
+   "summary": "Vitest Node-environment parity test: for every golden fixture case, the full TypeScript pipeline (grid, buildGraph, onnxruntime-web, de-normalisation) stays within 1e-4 dB of the float64 Python reference; also checks the session interface and graph validation, and prints the worst cases.",
+   "summary_sha": "20a1deaff323cb423122963500b65c1e9e15a0c6"
+  },
+  {
    "path": "webapp/tsconfig.app.json",
    "type": "json",
    "size": 628,
@@ -4499,11 +4526,11 @@
   {
    "path": "webapp/tsconfig.node.json",
    "type": "json",
-   "size": 502,
+   "size": 631,
    "chunk": null,
-   "sha": "eafb883cf8173e6233bc27a0e64a2525a6a53bfb",
-   "summary": "Strict TypeScript settings for the Node-side tooling: vite, vitest and playwright configs and the e2e tests.",
-   "summary_sha": "eafb883cf8173e6233bc27a0e64a2525a6a53bfb"
+   "sha": "dc6bd27af70011e646c9ab715cc54a4804dbc5e3",
+   "summary": "Strict TypeScript settings for Node-side code: tool configs, e2e and Node tests and benchmarks, with node and vite/client types and JSON imports.",
+   "summary_sha": "dc6bd27af70011e646c9ab715cc54a4804dbc5e3"
   },
   {
    "path": "webapp/vite.config.ts",
@@ -4515,13 +4542,22 @@
    "summary_sha": "12bc72bf1df07c40bf8e81fd4ce317e448baaa78"
   },
   {
+   "path": "webapp/vitest.bench.config.ts",
+   "type": "typescript",
+   "size": 361,
+   "chunk": null,
+   "sha": "c2fb7b89503d716d2d7bc4f782c37d7aa3598060",
+   "summary": "Vitest config for benchmarks only (bench/**/*.bench.test.ts, Node environment, long timeout); not part of make check.",
+   "summary_sha": "c2fb7b89503d716d2d7bc4f782c37d7aa3598060"
+  },
+  {
    "path": "webapp/vitest.config.ts",
    "type": "typescript",
-   "size": 284,
+   "size": 306,
    "chunk": null,
-   "sha": "eed2cf3bcc7af3174c4bdeda7e469ee74791671a",
-   "summary": "Vitest config merged onto the Vite config: jsdom environment, src/**/*.test.{ts,tsx}, mocks restored between tests.",
-   "summary_sha": "eed2cf3bcc7af3174c4bdeda7e469ee74791671a"
+   "sha": "71ef726f30214132a78d136d2d222056e475a794",
+   "summary": "Vitest config merged onto the Vite config: jsdom by default (Node tests opt in per file), src/**/*.test.{ts,tsx} and tests/**/*.test.ts, mocks restored between tests.",
+   "summary_sha": "71ef726f30214132a78d136d2d222056e475a794"
   }
  ],
  "edges": [

@@ -680,9 +680,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "35d8e6d05fe3dec7ac390984a42eb516015f1384",
+   "sha": "fc865fb98f48cdccc2419270420cb10b8d6a7b04",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "35d8e6d05fe3dec7ac390984a42eb516015f1384"
+   "summary_sha": "fc865fb98f48cdccc2419270420cb10b8d6a7b04"
   },
   {
    "path": "README.md",
@@ -2262,11 +2262,11 @@
   {
    "path": "docs/repo_graph/REPO_MAP.md",
    "type": "markdown",
-   "size": 16388,
+   "size": 16768,
    "chunk": null,
-   "sha": "ce2479de310b729b61360e1424dfae6f77b9dfe4",
-   "summary": "Human-readable repository map: Mermaid diagrams of the model lineage (deployed Chunk 52 chain best_model -> bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45, with Chunk 51 data and Chunk 53 CNN comparison, plus the earlier natural-distribution lineage), src/ module dependencies and the planned web-app data flow; a table of every notebook; the golden fixtures; and the files and exact graph-builder specification the web app depends on.",
-   "summary_sha": "ce2479de310b729b61360e1424dfae6f77b9dfe4"
+   "sha": "d24ab9ee0d816b1c74ae20f2caae9c0065133b3e",
+   "summary": "Human-readable repository map: Mermaid diagrams of the model lineage (deployed Chunk 52 chain best_model -> bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45, with Chunk 51 data and Chunk 53 CNN comparison, plus the earlier natural-distribution lineage), src/ module dependencies and the planned web-app data flow; a table of every notebook; the browser model assets and golden fixtures; and the files and exact graph-builder specification the web app depends on.",
+   "summary_sha": "d24ab9ee0d816b1c74ae20f2caae9c0065133b3e"
   },
   {
    "path": "docs/repo_graph/graph.json",
@@ -2381,6 +2381,38 @@
    "summary_sha": "34b5b9b9a96e4bfcff2fb018ac02c2884884aba5"
   },
   {
+   "path": "export/antenna_export/meta.py",
+   "type": "python",
+   "size": 5373,
+   "chunk": null,
+   "sha": "2ad027a5d4767a96f7b9abfe912948608009c695",
+   "imports": [
+    ".",
+    ".graph_builder",
+    ".onnx_export",
+    ".predict",
+    "__future__",
+    "datetime",
+    "json",
+    "math",
+    "numpy",
+    "pathlib"
+   ],
+   "functions": [
+    "_matlab_round",
+    "feed_rc",
+    "_exact_f32",
+    "build_meta",
+    "write_meta"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Builds webapp/public/model/meta.json: frequency grid, exact float32 s11_mean/s11_std, supported grids, flattened seed masks and 0-based feed pixels per grid, parameter count, checkpoint name and SHA-256 (verified against ch52_runs.csv), ONNX SHA-256/size/interface, functioning and band rules, fill warning range, and the scope with Chunk 52 test MSE/MAE per grid.",
+   "summary_sha": "2ad027a5d4767a96f7b9abfe912948608009c695"
+  },
+  {
    "path": "export/antenna_export/onnx_export.py",
    "type": "python",
    "size": 5699,
@@ -2462,6 +2494,27 @@
    "sha": "879ca79d7f7589914433bbdf1e6a5b24a94e4fa8",
    "summary": "Packaging for antenna-export: Python 3.12 with pinned numpy 2.5.4, onnx 1.23.2, onnxruntime 1.31.1, onnxscript 0.7.2, scipy 1.18.1, torch 2.15.0, torch_geometric 2.8.1 and (test extra) pytest 9.2.0; pytest runs from export/tests.",
    "summary_sha": "879ca79d7f7589914433bbdf1e6a5b24a94e4fa8"
+  },
+  {
+   "path": "export/scripts/export_meta.py",
+   "type": "python",
+   "size": 799,
+   "chunk": null,
+   "sha": "7713c069abf2cfa2b4cce6c276a881a8f399860c",
+   "imports": [
+    "antenna_export",
+    "argparse",
+    "sys"
+   ],
+   "functions": [
+    "main"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Command-line wrapper that writes webapp/public/model/meta.json (optionally with a given export date); re-run after every ONNX export.",
+   "summary_sha": "7713c069abf2cfa2b4cce6c276a881a8f399860c"
   },
   {
    "path": "export/scripts/export_onnx.py",
@@ -2602,6 +2655,45 @@
    "writes": [],
    "summary": "C1.1 exact-parity tests: rebuilds all 100 stored training graphs in webapp_private/graphs from their own metal patterns and requires identical x, edge_index (sorted pairs and order) and edge_attr; checks the generator seed rule reproduces each seed_mask file and is used when one is missing; checks the builder source equals the notebook copy; and checks invalid patterns are rejected.",
    "summary_sha": "beec5df29b8de08fe27534bddee118c2a558078c"
+  },
+  {
+   "path": "export/tests/test_meta.py",
+   "type": "python",
+   "size": 3574,
+   "chunk": null,
+   "sha": "3523e55cdd1e63797af39350f6c3949df3ccc96a",
+   "imports": [
+    "antenna_export",
+    "antenna_export.graph_builder",
+    "antenna_export.onnx_export",
+    "antenna_export.predict",
+    "feed_component",
+    "json",
+    "numpy",
+    "pathlib",
+    "pytest",
+    "re",
+    "sys"
+   ],
+   "functions": [
+    "data",
+    "test_schema_and_basic_fields",
+    "test_round_trip_matches_a_fresh_build",
+    "test_freq_grid",
+    "test_statistics_are_the_exact_float32_values",
+    "test_seed_masks_and_feed_pixels",
+    "test_hashes_and_size_match_the_files",
+    "test_onnx_size_is_reasonable",
+    "test_scope_numbers_match_the_chunk52_report"
+   ],
+   "classes": [],
+   "src_imports": [
+    "src/feed_component.py"
+   ],
+   "reads": [],
+   "writes": [],
+   "summary": "C2.3 tests: meta.json equals a fresh build, frequency grid, statistics equal the float32 .npy values exactly, seed masks and feed pixels match the files and src/feed_component, ONNX and checkpoint SHA-256 and size match the files, ONNX under 5 MB, and the scope metrics match the Chunk 52 notebook's saved report.",
+   "summary_sha": "3523e55cdd1e63797af39350f6c3949df3ccc96a"
   },
   {
    "path": "export/tests/test_onnx.py",
@@ -4187,6 +4279,15 @@
    "sha": "66e85e097cd44112521b0aeda4062cfce9279879",
    "summary": "The deployed model ch52_bal_ft45_s0 exported to ONNX (opset 18, 2.59 MB): inputs x [num_nodes, 6] float32, edge_index [2, num_edges] int64, edge_attr [num_edges, 2] float32; output z [1, 201] float32 (z-scored |S11|, de-normalise with s11_std and s11_mean). Matches the fixtures within 2.5e-5 dB.",
    "summary_sha": "66e85e097cd44112521b0aeda4062cfce9279879"
+  },
+  {
+   "path": "webapp/public/model/meta.json",
+   "type": "json",
+   "size": 38956,
+   "chunk": null,
+   "sha": "2df8293108a23934b45ffd42bc686f7a679262e3",
+   "summary": "Browser metadata for antenna_gnn.onnx: frequency grid (201 points, 1-4 GHz), exact float32 s11_mean and s11_std for de-normalisation, grids, seed masks and feed pixels, feature columns, functioning/band rules, fill warning range, scope (trained on single-band and non-functioning antennas for 12/15/35/45, natural data for 25x25; Chunk 52 test metrics) and SHA-256 provenance.",
+   "summary_sha": "2df8293108a23934b45ffd42bc686f7a679262e3"
   }
  ],
  "edges": [
@@ -4198,6 +4299,11 @@
   {
    "source": "export/antenna_export/predict.py",
    "target": "src/model.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_meta.py",
+   "target": "src/feed_component.py",
    "kind": "imports"
   },
   {

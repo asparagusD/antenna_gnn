@@ -117,3 +117,23 @@ body {
     animation-duration: 0ms !important;
   }
 }
+
+/* Touch (coarse pointer): every control is at least 44×44 px (WCAG 2.5.5, platform guidance), whatever
+   the screen size. Fine pointers keep the denser 34–36 px desktop controls. */
+@media (pointer: coarse) {
+  button,
+  select {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  input[type='range'] {
+    min-height: 44px;
+  }
+
+  a[href] {
+    display: inline-block;
+    min-height: 44px;
+    padding-block: 12px;
+  }
+}

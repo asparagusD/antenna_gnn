@@ -2,6 +2,7 @@ import { useCallback, useEffect, useReducer, useState } from 'react';
 import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
 import { GridSizeSelector } from './components/GridSizeSelector';
+import { S11Chart } from './components/S11Chart';
 import { create, fill, isEdited, type Grid } from './core/grid';
 import {
   canRedo,
@@ -11,6 +12,7 @@ import {
   type GridHistory,
   type HistoryAction,
 } from './core/history';
+import { usePrediction } from './hooks/usePrediction';
 import { loadMeta, type ModelMeta } from './model/meta';
 import './App.css';
 
@@ -24,10 +26,11 @@ function historyOrNull(state: GridHistory | null, action: HistoryAction): GridHi
   return state === null ? null : historyReducer(state, action);
 }
 
-/** Core screen (C5): grid size, the board with undo/redo and the fill meter; plot and results arrive in C5.3-C5.5. */
+/** Core screen (C5): grid size, the board with undo/redo and the fill meter, and the live |S11| chart; results arrive in C5.4-C5.5. */
 export function App() {
   const [state, setState] = useState<MetaState>({ status: 'loading' });
   const [history, dispatch] = useReducer(historyOrNull, null);
+  const prediction = usePrediction(history?.present ?? null);
 
   useEffect(() => {
     let cancelled = false;
@@ -139,6 +142,14 @@ export function App() {
               <FillMeter value={fill(history.present)} />
             </>
           )}
+        </section>
+        <section className="workspace-results" aria-label="Prediction">
+          <S11Chart
+            db={prediction.db}
+            status={prediction.status}
+            error={prediction.error ?? undefined}
+            onRetry={prediction.retry}
+          />
         </section>
       </main>
     </div>

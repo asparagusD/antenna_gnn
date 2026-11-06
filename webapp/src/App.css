@@ -37,6 +37,10 @@
   align-items: start;
 }
 
+.workspace-results {
+  min-width: 0;
+}
+
 @media (max-width: 767px) {
   .topbar {
     padding: var(--space-md);

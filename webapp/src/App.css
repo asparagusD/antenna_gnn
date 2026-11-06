@@ -30,9 +30,9 @@
 .workspace {
   flex: 1;
   display: grid;
-  /* Board column: square board plus dimension line, readout, two tool rows and fill meter (with its warning)
-     all inside the viewport. */
-  grid-template-columns: minmax(0, min(100%, calc(100dvh - 468px), 640px)) 1fr;
+  /* Board column: square board plus dimension line, readout, one tool row and the fill meter (with its
+     warning) all inside the viewport (starting points live in the top bar). */
+  grid-template-columns: minmax(0, min(100%, calc(100dvh - 380px), 640px)) 1fr;
   gap: var(--space-xl);
   padding: var(--space-xl);
   align-items: start;

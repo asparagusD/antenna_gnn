@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test';
+import { startingPoint } from './helpers';
 
 // C5.5 share links: the URL hash holds N and the pixels (src/core/share.ts).
 
@@ -23,10 +24,7 @@ test('a share URL restores the exact pattern and the same curve', async ({ page,
   await page.goto('./');
   await settledCurve(page);
   await page.getByRole('group', { name: 'Grid size' }).getByRole('button', { name: '35×35' }).click();
-  await page
-    .getByRole('toolbar', { name: 'Board tools' })
-    .getByRole('button', { name: 'Random antenna' })
-    .click();
+  await startingPoint(page, 'Random antenna');
   const board = page.getByRole('application', { name: /35 by 35 pixels/ });
   const metal = await board.getAttribute('data-metal-count');
   await expect.poll(() => new URL(page.url()).hash).toMatch(/^#p=v1\.35\.[A-Za-z0-9_-]+$/);
@@ -50,10 +48,7 @@ test('the address bar follows edits, and Copy share link copies it', async ({ pa
   await page.goto('./');
   await settledCurve(page);
   const before = page.url();
-  await page
-    .getByRole('toolbar', { name: 'Board tools' })
-    .getByRole('button', { name: 'Random antenna' })
-    .click();
+  await startingPoint(page, 'Random antenna');
   await expect.poll(() => page.url()).not.toBe(before);
   await page.getByRole('button', { name: 'Copy share link' }).click();
   await expect(page.getByText('Link copied. It restores this exact pattern.')).toBeVisible();
@@ -75,10 +70,7 @@ test('an invalid share link shows a friendly error and a fresh grid', async ({ p
 test('a link pasted into the same tab loads its pattern', async ({ page }) => {
   await page.goto('./');
   await settledCurve(page);
-  await page
-    .getByRole('toolbar', { name: 'Board tools' })
-    .getByRole('button', { name: 'Random antenna' })
-    .click();
+  await startingPoint(page, 'Random antenna');
   const shared = new URL(page.url()).hash;
   await page.getByRole('toolbar', { name: 'Board tools' }).getByRole('button', { name: 'Clear' }).click();
   await expect(page.getByRole('application', { name: /25 by 25/ })).toHaveAttribute('data-metal-count', '65');

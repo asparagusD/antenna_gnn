@@ -10,6 +10,8 @@ test('page renders and the model becomes ready', async ({ page }) => {
   await page.goto('./');
 
   await expect(page.getByRole('heading', { name: 'GraphPatch' })).toBeVisible();
-  await expect(page.getByRole('status')).toHaveText('Model ready · runs in your browser', { timeout: 30_000 });
+  await expect(page.getByRole('status')).toHaveText('Model ready · runs in your browser', {
+    timeout: 30_000,
+  });
   expect(errors).toEqual([]);
 });

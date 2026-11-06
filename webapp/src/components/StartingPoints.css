@@ -1,0 +1,58 @@
+/* Starting points disclosure in the top bar; the panel is flat (DESIGN.md elevation: none). */
+.starting-points {
+  position: relative;
+}
+
+.starting-points-toggle[aria-expanded='true'] {
+  border-color: var(--action);
+  color: var(--text);
+}
+
+.starting-points-panel {
+  position: absolute;
+  top: calc(100% + var(--space-sm));
+  left: 0;
+  z-index: 10;
+  display: grid;
+  gap: var(--space-md);
+  width: min(380px, calc(100vw - 2 * var(--space-md)));
+  padding: var(--space-md);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--substrate);
+}
+
+.starting-points-random {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+}
+
+.starting-points-fill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-small);
+}
+
+.starting-points-fill label {
+  color: var(--text-muted);
+}
+
+.starting-points-fill input {
+  width: 112px;
+  accent-color: var(--action);
+}
+
+.starting-points-value {
+  min-width: 3.5ch;
+  font-weight: 600;
+  text-align: right;
+}
+
+.starting-points-note {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}

@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { expect, test, type Page } from '@playwright/test';
+import { startingPoint } from './helpers';
 
 // C5.5 export: |S11| CSV (frequency, dB) and the pattern CSV (N×N 0/1).
 
@@ -15,10 +16,7 @@ async function download(page: Page, name: string) {
 test('downloads the predicted |S11| and the pattern as CSV', async ({ page }) => {
   await page.goto('./');
   await expect(page.locator('figure.s11-chart')).toHaveAttribute('aria-busy', 'false', { timeout: 30_000 });
-  await page
-    .getByRole('toolbar', { name: 'Board tools' })
-    .getByRole('button', { name: 'Random antenna' })
-    .click();
+  await startingPoint(page, 'Random antenna');
   await expect(page.locator('figure.s11-chart')).toHaveAttribute('aria-busy', 'false', { timeout: 30_000 });
 
   const s11 = await download(page, 'Download |S11| CSV');

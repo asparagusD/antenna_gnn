@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useReducer, useState } from 'react';
 import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
 import { GridSizeSelector } from './components/GridSizeSelector';
-import { PatternTools } from './components/PatternTools';
+import { StartingPoints } from './components/StartingPoints';
 import { ResultsPanel } from './components/ResultsPanel';
 import { S11Chart } from './components/S11Chart';
 import { ScopeNotice } from './components/ScopeNotice';
@@ -185,6 +185,7 @@ export function App() {
             onChange={changeSize}
           />
         )}
+        {meta !== null && history !== null && <StartingPoints onRandom={randomAntenna} />}
         <p className="topbar-status" role="status">
           {topbarStatus(state, prediction.model)}
         </p>
@@ -238,11 +239,14 @@ export function App() {
                 >
                   Redo
                 </button>
-                <PatternTools
-                  edited={isEdited(history.present)}
-                  onRandom={randomAntenna}
-                  onClear={clearBoard}
-                />
+                <button
+                  type="button"
+                  className="tool"
+                  disabled={!isEdited(history.present)}
+                  onClick={clearBoard}
+                >
+                  Clear
+                </button>
               </div>
               <FillMeter value={fill(history.present)} />
             </>

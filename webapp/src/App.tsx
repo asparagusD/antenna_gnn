@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
+import { BoardLegend } from './components/BoardLegend';
 import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
 import { GridSizeSelector } from './components/GridSizeSelector';
@@ -307,6 +308,7 @@ export function App() {
                 </button>
               </div>
               <FillMeter value={fill(history.present)} />
+              <BoardLegend />
             </>
           )}
         </section>

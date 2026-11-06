@@ -7,11 +7,19 @@ VENV_PY := $(VENV)/Scripts/python.exe
 else
 VENV_PY := $(VENV)/bin/python
 endif
+# Impeccable design detector (bundled, checksum-verified launcher; the npm package of that name is the
+# retired 3.x CLI, so `npx impeccable` is not used).
+ifeq ($(OS),Windows_NT)
+IMPECCABLE ?= .claude\skills\impeccable\scripts\impeccable.cmd
+else
+IMPECCABLE ?= .claude/skills/impeccable/scripts/impeccable
+endif
 
-.PHONY: check typecheck lint vitest e2e graph graph-check py-setup py-test web-setup
+.PHONY: check typecheck lint vitest design-check e2e graph graph-check py-setup py-test web-setup
 
-## Fast quality gate (< 2 min): TypeScript typecheck, ESLint, Vitest, Python reference tests.
-check: typecheck lint vitest py-test
+## Fast quality gate (< 2 min): TypeScript typecheck, ESLint, Vitest, the Impeccable design detector on
+## the web app source, Python reference tests.
+check: typecheck lint vitest design-check py-test
 
 typecheck:
 	cd $(WEB) && npm run typecheck
@@ -21,6 +29,10 @@ lint:
 
 vitest:
 	cd $(WEB) && npm test
+
+## Impeccable design detector on webapp/src (exit 2 = findings; justify any exception in docs/design_review.md).
+design-check:
+	$(IMPECCABLE) detect webapp/src
 
 ## End-to-end tests (Playwright, Chromium) against the production build.
 e2e:

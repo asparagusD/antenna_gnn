@@ -24,6 +24,22 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: C6.2: axe reports low contrast on "Updating…" in one light-theme state
+
+- **Status:** closed (test timing; no product change)
+- **Symptom:** `e2e/a11y.spec.ts` › light › "Starting points panel and grid-size question open": `color-contrast` on
+  `.s11-chart-updating`, 3.72:1 (`#77827c` on `#f4f8f6`).
+- **Reproducer:** `cd webapp && npx playwright test e2e/a11y.spec.ts`.
+- **Localised to:** the scan right after Clear and a size click, while a prediction runs and "Updating…" is fading in.
+- **Hypotheses:**
+  1. axe sampled the element mid-way through its 150 ms opacity reveal (`s11-reveal`); at full opacity the text is
+     the muted token, 7.18:1 in light (C6.1 measurement). Check: wait for `aria-busy="false"` before scanning and
+     rerun 3×. **confirmed** (24/24 passed).
+- **Root cause:** the test scanned a transient animation frame.
+- **Fix:** the spec waits for the settled chart before that scan (C6.2 a11y commit). No rule disabled, no colour
+  change.
+- **Verification:** `npx playwright test e2e/a11y.spec.ts --repeat-each 3`: 24 passed.
+
 ### 2026-11-06: C5.5: smoke test finds two status regions after the Random antenna tools
 
 - **Status:** closed

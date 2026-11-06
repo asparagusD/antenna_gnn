@@ -63,3 +63,43 @@ link, 30–80 % random-fill range (user decisions in C5.2–C5.5).
 |---|---|---|
 | `line-length` (~92 ch) | `.validity p` | Real; fix in C6.5 (rank 12) |
 | `text-occlusion` | chart title under the open grid-size question | Real while the question is open; addressed with rank 11 in C6.3 |
+
+## C6.2 Audit (2026-11-06)
+
+Method: Impeccable audit (code-level). Evidence: `@axe-core/playwright` (WCAG 2.1 A/AA tags) over the loaded app,
+the Starting points panel, the grid-size question, the share-link error, the fill warning and the scope notice,
+in dark and light, plus stacked 768×1024 and 375×812 (`e2e/a11y.spec.ts`); the C6.1 measurements (contrast,
+focus order, touch targets); `npm run build` sizes; 200% text zoom at 1280×800; source reading.
+
+### Scores
+
+| # | Dimension | Score | Key finding |
+|---|---|---|---|
+| 1 | Accessibility | 3 | axe: one serious violation (band table scroll region not focusable on phones); 200% text overlaps result values |
+| 2 | Performance | 2 | The JSEP (WebGPU/WebNN) onnxruntime build ships 29.5 MB of wasm (7.1 MB gzip) that the CPU-only app never uses |
+| 3 | Theming | 4 | All colour through tokens (hex only as canvas fallbacks); board redraws on theme change; light theme verified |
+| 4 | Responsive | 2 | Phone and tablet gaps (C6.3): 34–36 px targets (AA 24 px passes), board swallows scroll, chart below the fold |
+| 5 | Implementation integrity | 3 | Detector: 0 CLI findings; in-page `line-length` and `text-occlusion` (C6.1 table) |
+| | **Total** | **14/20** | **Good** |
+
+Implementation integrity verdict: **pass**. Tokens, components and copy follow DESIGN.md; the deviations are
+recorded user decisions or open findings below.
+
+### Findings
+
+| Sev | Finding | Location | Standard | Decision |
+|---|---|---|---|---|
+| **P1** | Band table scrolls sideways on phones but cannot receive focus, so keyboard users cannot scroll it | ResultsPanel.css (`display:block; overflow-x:auto` on the table) | WCAG 2.1.1; axe `scrollable-region-focusable` (serious) | Fix in C6.2 |
+| **P1** | 200% text: result values overlap their neighbours and the page scrolls 76 px sideways | ResultsPanel.css (fixed 4 / 2 columns, `white-space: nowrap`) | WCAG 1.4.4 Resize text | Fix in C6.2 |
+| **P1** | 29.5 MB JSEP wasm (WebGPU/WebNN) shipped though inference is CPU wasm only; first load ≈ 7.1 MB gzip + 2.6 MB model | `import * as ort from 'onnxruntime-web'` (infer.ts) | Performance budget, offline-first | Fix in C6.2: `onnxruntime-web/wasm` |
+| P2 | Grid size is five toggle buttons (five tab stops) rather than a radio group with arrow keys | GridSizeSelector.tsx | ARIA APG radio group | C6.5 |
+| P2 | "\|S11\|" in the chart title is read as "vertical bar S 11 vertical bar" | S11Chart.tsx | — | C6.5 |
+| P2 | Touch targets 34–36 px (AA 24 px passes; 44 px recommended); board `touch-action: none` swallows page scroll | GridSizeSelector.css, App.css, GridEditor.css | WCAG 2.5.5 (AAA) | C6.3 |
+| P2 | No theme toggle (approved shape lists one); theme follows the system only | App.tsx | — | C6.5 |
+| P3 | The example grid is decoded on every render to decide "edited" | App.tsx | — | C6.5 |
+| P3 | Native range track (UA-drawn) 1.07–1.53:1 against the panel; thumb and filled part pass | StartingPoints.css | WCAG 1.4.11 (UA styling) | Justified: native control, thumb and value text carry the state |
+| P3 | Button and segment borders 1.4–1.7:1; buttons are identified by their text labels | App.css, GridSizeSelector.css | WCAG 1.4.11 | Justified: text label identifies the control |
+
+Positive: axe clean in every other state and both themes; every focus stop has a visible 2 px ring; one tab
+stop for the board with full keyboard painting; polite live regions that do not flood; reduced motion swaps the
+chart without a tween; no console errors.

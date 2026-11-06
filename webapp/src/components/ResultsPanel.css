@@ -44,9 +44,13 @@
   font-size: var(--text-small);
 }
 
+.results-bands-scroll {
+  margin-top: var(--space-md);
+  overflow-x: auto;
+}
+
 .results-bands {
   width: 100%;
-  margin-top: var(--space-md);
   border-collapse: collapse;
   font-size: var(--text-small);
 }
@@ -111,12 +115,5 @@
 
   .results-cell:nth-child(n + 3) {
     border-top: 1px solid var(--rule);
-  }
-}
-
-@media (max-width: 767px) {
-  .results-bands {
-    display: block;
-    overflow-x: auto;
   }
 }

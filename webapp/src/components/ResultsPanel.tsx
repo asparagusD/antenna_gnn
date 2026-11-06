@@ -9,7 +9,7 @@
  * Screen readers hear only the verdict and the band count (polite), so painting does not flood them
  * with every frequency change; the cells and table hold the detail.
  */
-import { useMemo } from 'react';
+import { useId, useMemo } from 'react';
 import { analyse, type Analysis } from '../core/analysis';
 import { formatDb, formatGhz } from './chartScale';
 import { formatBandwidth, formatMs, formatRange } from './resultText';
@@ -34,6 +34,7 @@ function announcement(a: Analysis | null): string {
 
 export function ResultsPanel({ db, inferMs }: ResultsPanelProps) {
   const a = useMemo(() => (db === null ? null : analyse(db)), [db]);
+  const captionId = useId();
   const deepest = a === null ? undefined : [...a.bands].sort((x, y) => x.depthDb - y.depthDb)[0];
 
   const cells: { key: string; label: string; value: string; note: string }[] = [
@@ -78,29 +79,33 @@ export function ResultsPanel({ db, inferMs }: ResultsPanelProps) {
       </dl>
 
       {a !== null && a.bands.length > 0 && (
-        <table className="results-bands">
-          <caption>Bands below −10 dB</caption>
-          <thead>
-            <tr>
-              <th scope="col">Band</th>
-              <th scope="col">Centre</th>
-              <th scope="col">Depth</th>
-              <th scope="col">−10 dB bandwidth</th>
-              <th scope="col">−10 dB range</th>
-            </tr>
-          </thead>
-          <tbody>
-            {a.bands.map((band, i) => (
-              <tr key={band.index}>
-                <th scope="row">{i + 1}</th>
-                <td>{formatGhz(band.freqGhz)}</td>
-                <td>{formatDb(band.depthDb)}</td>
-                <td>{formatBandwidth(band)}</td>
-                <td>{formatRange(band)}</td>
+        // A focusable, labelled scroll region: on narrow screens the table scrolls sideways, and keyboard
+        // users must be able to scroll it too (WCAG 2.1.1).
+        <div className="results-bands-scroll" role="region" aria-labelledby={captionId} tabIndex={0}>
+          <table className="results-bands">
+            <caption id={captionId}>Bands below −10 dB</caption>
+            <thead>
+              <tr>
+                <th scope="col">Band</th>
+                <th scope="col">Centre</th>
+                <th scope="col">Depth</th>
+                <th scope="col">−10 dB bandwidth</th>
+                <th scope="col">−10 dB range</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {a.bands.map((band, i) => (
+                <tr key={band.index}>
+                  <th scope="row">{i + 1}</th>
+                  <td>{formatGhz(band.freqGhz)}</td>
+                  <td>{formatDb(band.depthDb)}</td>
+                  <td>{formatBandwidth(band)}</td>
+                  <td>{formatRange(band)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
       {a !== null && a.functioning && a.bands.length === 0 && (
         <p className="results-empty">

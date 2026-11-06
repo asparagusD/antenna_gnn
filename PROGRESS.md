@@ -26,7 +26,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C4.1 Grid state model
 - [x] C4.2 TypeScript graph builder (bit-exact)
 - [x] C4.3 Inference engine and the parity test in Node
-- [ ] C4.4 Web Worker and post-processing
+- [x] C4.4 Web Worker and post-processing
 
 ## C5 The user interface
 - [ ] C5.1 Pixel grid editor

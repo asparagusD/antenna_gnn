@@ -31,12 +31,12 @@ function mockSession() {
     inputNames: ['x', 'edge_index', 'edge_attr'],
     outputNames: ['z'],
     run: (feeds: Record<string, { dims: readonly number[] }>) => {
-      const gate = deferred<void>();
+      const gate = deferred<undefined>();
       const value = calls.length + 1;
       calls.push({
         numNodes: feeds.x?.dims[0] ?? -1,
         release: () => {
-          gate.resolve();
+          gate.resolve(undefined);
         },
         fail: gate.reject,
       });

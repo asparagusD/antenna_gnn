@@ -2350,6 +2350,15 @@
    "summary_sha": null
   },
   {
+   "path": "docs/deployment.md",
+   "type": "markdown",
+   "size": 5761,
+   "chunk": null,
+   "sha": "e3eeccdeb77e08953072a142e3523d31ab0b7e9e",
+   "summary": "Deployment record for GitHub Pages: how a deployment happens (Pages source, merge to main, the workflow steps), how to run the live checks (npm run e2e:live, LIVE_URL), what they check, results (local /antenna_gnn/ preview: 7 passed, parity 2e-6 to 1e-5 dB; GitHub Pages pending), and the deployment playbook for base path, 404s, MIME types, cross-origin isolation and caching.",
+   "summary_sha": "e3eeccdeb77e08953072a142e3523d31ab0b7e9e"
+  },
+  {
    "path": "docs/design_review.md",
    "type": "markdown",
    "size": 16699,
@@ -4403,6 +4412,15 @@
    "summary_sha": "1b0b7e2a6bdbec5d09c30c6140a0b0d9a964f676"
   },
   {
+   "path": "webapp/e2e-live/live.spec.ts",
+   "type": "typescript",
+   "size": 6001,
+   "chunk": null,
+   "sha": "16b725a0f47b44ff5c6d49a5ab4c23f88e46252c",
+   "summary": "Playwright live-site suite: page and model load with a clean console; index, meta.json, the ONNX model and the onnxruntime wasm return 200 with no no-store, wasm as application/wasm, headers and crossOriginIsolated printed; browser parity for one golden fixture per grid via share link and |S11| CSV within 1e-4 dB; share link round trip in a fresh context.",
+   "summary_sha": "16b725a0f47b44ff5c6d49a5ab4c23f88e46252c"
+  },
+  {
    "path": "webapp/e2e/a11y.spec.ts",
    "type": "typescript",
    "size": 3706,
@@ -4630,11 +4648,11 @@
   {
    "path": "webapp/package.json",
    "type": "json",
-   "size": 1530,
+   "size": 1594,
    "chunk": null,
-   "sha": "4b415f9c3f43437951b29eb4da92d4db5a23319f",
-   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1, @fontsource-variable/public-sans 5.3.0) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0, @axe-core/playwright 4.14.0) with scripts dev, build, preview, typecheck, lint, format, test, e2e and bench:infer.",
-   "summary_sha": "4b415f9c3f43437951b29eb4da92d4db5a23319f"
+   "sha": "c5772770f129c85e84ba0013606b79eb016b16d6",
+   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1, @fontsource-variable/public-sans 5.3.0) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0, @axe-core/playwright 4.14.0) with scripts dev, build, preview, typecheck, lint, format, test, e2e, e2e:live and bench:infer.",
+   "summary_sha": "c5772770f129c85e84ba0013606b79eb016b16d6"
   },
   {
    "path": "webapp/playwright.config.ts",
@@ -4644,6 +4662,15 @@
    "sha": "894dde08f473542dec0263c97765c205b95a3421",
    "summary": "Playwright config: Chromium only, runs against the production build served by vite preview on port 4173 under BASE_PATH, built with VITE_E2E_HOOKS=1 to include the e2e test hook, CI-aware retries and reporter.",
    "summary_sha": "894dde08f473542dec0263c97765c205b95a3421"
+  },
+  {
+   "path": "webapp/playwright.live.config.ts",
+   "type": "typescript",
+   "size": 832,
+   "chunk": null,
+   "sha": "02d60073582ae16965a15674b21befa12c96c7a5",
+   "summary": "Playwright config for a deployed copy of the app: no local server, base URL from LIVE_URL (default https://asparagusd.github.io/antenna_gnn/), Chromium, list reporter, long timeouts; run with npm run e2e:live.",
+   "summary_sha": "02d60073582ae16965a15674b21befa12c96c7a5"
   },
   {
    "path": "webapp/public/model/antenna_gnn.onnx",
@@ -5350,11 +5377,11 @@
   {
    "path": "webapp/tsconfig.node.json",
    "type": "json",
-   "size": 631,
+   "size": 680,
    "chunk": null,
-   "sha": "dc6bd27af70011e646c9ab715cc54a4804dbc5e3",
-   "summary": "Strict TypeScript settings for Node-side code: tool configs, e2e and Node tests and benchmarks, with node and vite/client types and JSON imports.",
-   "summary_sha": "dc6bd27af70011e646c9ab715cc54a4804dbc5e3"
+   "sha": "c927fca5a2e70a555a499fdd28f5dcd285823586",
+   "summary": "Strict TypeScript settings for Node-side code: tool configs (incl. the live Playwright config), e2e and live e2e specs, Node tests and benchmarks, with node and vite/client types and JSON imports.",
+   "summary_sha": "c927fca5a2e70a555a499fdd28f5dcd285823586"
   },
   {
    "path": "webapp/vite.config.ts",

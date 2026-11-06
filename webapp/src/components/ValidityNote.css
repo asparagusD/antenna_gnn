@@ -17,6 +17,8 @@
 }
 
 .validity p {
+  /* About 75 characters per line at the small size (the detector's line-length bound is 80). */
+  max-width: 60ch;
   margin: 0 0 var(--space-sm);
 }
 

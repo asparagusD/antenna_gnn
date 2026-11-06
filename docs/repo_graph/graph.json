@@ -752,9 +752,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "74260487a4bc41b839c5944a745e15f33986af15",
+   "sha": "44f2265d15a4947901847c48f1ed591e398b16bc",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "74260487a4bc41b839c5944a745e15f33986af15"
+   "summary_sha": "44f2265d15a4947901847c48f1ed591e398b16bc"
   },
   {
    "path": "README.md",
@@ -4403,6 +4403,15 @@
    "summary_sha": "ef4d0725a761d591b2ffa6d0abe2d43018f65ab2"
   },
   {
+   "path": "webapp/e2e/results.spec.ts",
+   "type": "typescript",
+   "size": 5676,
+   "chunk": null,
+   "sha": "909ebbc715ba5ceab7a8376f4d2a6f7ac57f1af9",
+   "summary": "Playwright tests of C5.4 using the e2e test hook: results panel values (functioning, resonance, depth, band count, bandwidth and range) match analyse() of fixture 25x25 rand-fill70; the scope notice appears for a synthetic 2-band curve (band_vectors.json) and is absent for the real single-band prediction of 35x35 rand-fill70; the 25x25 wording; the validity note's per-grid MAE and repository link.",
+   "summary_sha": "909ebbc715ba5ceab7a8376f4d2a6f7ac57f1af9"
+  },
+  {
    "path": "webapp/e2e/s11-chart.spec.ts",
    "type": "typescript",
    "size": 2522,
@@ -4513,11 +4522,11 @@
   {
    "path": "webapp/playwright.config.ts",
    "type": "typescript",
-   "size": 874,
+   "size": 1004,
    "chunk": null,
-   "sha": "19578fd859bc40acdca72544472c7fc40696e51b",
-   "summary": "Playwright config: Chromium only, runs against the production build served by vite preview on port 4173 under BASE_PATH, CI-aware retries and reporter.",
-   "summary_sha": "19578fd859bc40acdca72544472c7fc40696e51b"
+   "sha": "894dde08f473542dec0263c97765c205b95a3421",
+   "summary": "Playwright config: Chromium only, runs against the production build served by vite preview on port 4173 under BASE_PATH, built with VITE_E2E_HOOKS=1 to include the e2e test hook, CI-aware retries and reporter.",
+   "summary_sha": "894dde08f473542dec0263c97765c205b95a3421"
   },
   {
    "path": "webapp/public/model/antenna_gnn.onnx",
@@ -4567,11 +4576,11 @@
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 5393,
+   "size": 6693,
    "chunk": null,
-   "sha": "f55263eb2a24869655bcc7deeeacbe7d23553324",
-   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, Ctrl+Y), renders the GridSizeSelector in the top bar (a size change resets history to a fresh grid; the board is keyed by N), the GridEditor, Undo/Redo, the FillMeter and, via usePrediction, the live S11Chart; result cells and notes arrive in C5.4-C5.5.",
-   "summary_sha": "f55263eb2a24869655bcc7deeeacbe7d23553324"
+   "sha": "36b5d7f09f43febdba7d070458012ca89d25333e",
+   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history, renders the GridSizeSelector, GridEditor, Undo/Redo and FillMeter on the left and, via usePrediction, the live S11Chart, ResultsPanel, ScopeNotice (2+ bands) and ValidityNote on the right; installs the e2e test hook only in VITE_E2E_HOOKS builds.",
+   "summary_sha": "36b5d7f09f43febdba7d070458012ca89d25333e"
   },
   {
    "path": "webapp/src/components/FillMeter.css",
@@ -4646,6 +4655,33 @@
    "summary_sha": "07e115281b57b73e62b5c19f5b96da11b4a292df"
   },
   {
+   "path": "webapp/src/components/ResultsPanel.css",
+   "type": "other",
+   "size": 2255,
+   "chunk": null,
+   "sha": "795f7c2b074f17a8c23756ef74f247d3b08c2d74",
+   "summary": "Results styles: four fixed cells separated by rules (two columns below 1200px), uppercase labels, 1.75rem tabular values, reserved note lines, the band table, footnote and the visually hidden announcement region.",
+   "summary_sha": "795f7c2b074f17a8c23756ef74f247d3b08c2d74"
+  },
+  {
+   "path": "webapp/src/components/ResultsPanel.test.tsx",
+   "type": "typescript",
+   "size": 5270,
+   "chunk": null,
+   "sha": "ef1d5fe43a37d37eca3b8076c6d6a21b793d754b",
+   "summary": "Vitest tests of the result text helpers and ResultsPanel: dashes before a prediction, single band vs analyse(), non-functioning, band-edge case, strict −10 dB, synthetic 2-band rows and deepest-band resonance, and the verdict-only announcement.",
+   "summary_sha": "ef1d5fe43a37d37eca3b8076c6d6a21b793d754b"
+  },
+  {
+   "path": "webapp/src/components/ResultsPanel.tsx",
+   "type": "typescript",
+   "size": 4481,
+   "chunk": null,
+   "sha": "11bc608e4a17db4e95be6beab26b5e1bb9b4af04",
+   "summary": "Results under the chart from analyse(): fixed cells Functioning (strict min < −10 dB), Resonance (deepest band centre), Depth (minimum |S11|), Bands below −10 dB; a per-band table with centre, depth, −10 dB bandwidth and range; inference time; a polite announcement of the verdict and band count only.",
+   "summary_sha": "11bc608e4a17db4e95be6beab26b5e1bb9b4af04"
+  },
+  {
    "path": "webapp/src/components/S11Chart.css",
    "type": "other",
    "size": 2696,
@@ -4671,6 +4707,60 @@
    "sha": "9960a92336306001eb2232875223b76ecaaf8201",
    "summary": "Live |S11| SVG chart at the container's pixel size: 1–4 GHz by dB with auto range, rule gridlines, ink curve, threshold-red −10 dB line with its label at the end away from the minimum, minimum ring + drop line + 'depth · frequency' label; 180 ms ease-out tween between predictions (instant under reduced motion, state set only in animation frames); loading placeholder, delayed 'Updating…' mark that never blanks the curve, inline error with Retry; role=img with title and desc.",
    "summary_sha": "9960a92336306001eb2232875223b76ecaaf8201"
+  },
+  {
+   "path": "webapp/src/components/ScopeNotice.css",
+   "type": "other",
+   "size": 544,
+   "chunk": null,
+   "sha": "27d3437a101ce0bb4b192a1e61359526e25604f0",
+   "summary": "Scope notice styles: calm substrate panel with hairline border, muted info icon, body text in ink; spacing only when shown.",
+   "summary_sha": "27d3437a101ce0bb4b192a1e61359526e25604f0"
+  },
+  {
+   "path": "webapp/src/components/ScopeNotice.test.tsx",
+   "type": "typescript",
+   "size": 1628,
+   "chunk": null,
+   "sha": "3f63cbedd2aa883d7b77930f621fef40becd31ba",
+   "summary": "Vitest tests of ScopeNotice: empty with the live region mounted for 0/1 bands, the single-band training text on 12/15/35/45, the 25x25 variant, and the notice appearing inside the same polite region.",
+   "summary_sha": "3f63cbedd2aa883d7b77930f621fef40becd31ba"
+  },
+  {
+   "path": "webapp/src/components/ScopeNotice.tsx",
+   "type": "typescript",
+   "size": 1798,
+   "chunk": null,
+   "sha": "a879cd5d98d7984c37816efc5a01042975e899d7",
+   "summary": "Non-blocking notice shown when the predicted curve has 2+ bands: multi-band predictions are less reliable because training was single-band (25x25 variant: that grid's data included multi-band antennas but accuracy on them was never measured); role=note inside an always-mounted polite live region.",
+   "summary_sha": "a879cd5d98d7984c37816efc5a01042975e899d7"
+  },
+  {
+   "path": "webapp/src/components/ValidityNote.css",
+   "type": "other",
+   "size": 731,
+   "chunk": null,
+   "sha": "4bed660bbda486417ce245fe861878db269f3711",
+   "summary": "Validity note styles: ruled section under the results, uppercase heading, small body text, bold test-error line, underlined repository link.",
+   "summary_sha": "4bed660bbda486417ce245fe861878db269f3711"
+  },
+  {
+   "path": "webapp/src/components/ValidityNote.test.tsx",
+   "type": "typescript",
+   "size": 2452,
+   "chunk": null,
+   "sha": "163c1f46aaf3766fc91e9446936462e2a4e352f0",
+   "summary": "Vitest tests of ValidityNote: the stated training facts and surrogate caveat, per-grid test MAE and test-set size from meta.json for all five grids, the balanced-test-set caveat, and a single repository link with no paper citation.",
+   "summary_sha": "163c1f46aaf3766fc91e9446936462e2a4e352f0"
+  },
+  {
+   "path": "webapp/src/components/ValidityNote.tsx",
+   "type": "typescript",
+   "size": 2005,
+   "chunk": null,
+   "sha": "b913eaf31ece96c47a36c0ef85b704cc44f32e8e",
+   "summary": "'About this prediction' note: surrogate not full-wave; trained on randomly generated pixel antennas (five grids, 1-4 GHz, fixed patch and feed); 12/15/35/45 single-band and non-functioning only; hand-drawn shapes may be out of distribution; the selected grid's test MAE from meta.json scope.test; link to the GitHub repository only.",
+   "summary_sha": "b913eaf31ece96c47a36c0ef85b704cc44f32e8e"
   },
   {
    "path": "webapp/src/components/chartScale.test.ts",
@@ -4718,6 +4808,15 @@
    "summary_sha": "4e5a785e65f75479c903a2eba59d8432b752750c"
   },
   {
+   "path": "webapp/src/components/resultText.ts",
+   "type": "typescript",
+   "size": 803,
+   "chunk": null,
+   "sha": "4d8af5cb0889d8f2bcb31834cdb264a95dfdffd3",
+   "summary": "Result formatting helpers: −10 dB bandwidth in whole MHz (with ≥ when clipped at 1 or 4 GHz), the −10 dB range in GHz, and inference time in ms.",
+   "summary_sha": "4d8af5cb0889d8f2bcb31834cdb264a95dfdffd3"
+  },
+  {
    "path": "webapp/src/core/analysis.test.ts",
    "type": "typescript",
    "size": 6140,
@@ -4756,20 +4855,20 @@
   {
    "path": "webapp/src/core/grid.test.ts",
    "type": "typescript",
-   "size": 7233,
+   "size": 8104,
    "chunk": null,
-   "sha": "e3ab39828d7d2cd810aa402a055123dcb3369fa4",
-   "summary": "Vitest tests of the grid state model against the real meta.json: seed-only creation for all five grids, locked seeds, immutability, index and value validation, isEdited, fill and fillStatus bounds, deterministic randomPattern with exact fill, and mulberry32 reproducibility.",
-   "summary_sha": "e3ab39828d7d2cd810aa402a055123dcb3369fa4"
+   "sha": "41dd0cd2fcba6baca6aca60793a0bd473f7b74e7",
+   "summary": "Vitest tests of the grid state model against the real meta.json: seed-only creation for all five grids, locked seeds, immutability, index and value validation, fromCells validation, isEdited, fill and fillStatus bounds, deterministic randomPattern with exact fill, and mulberry32 reproducibility.",
+   "summary_sha": "41dd0cd2fcba6baca6aca60793a0bd473f7b74e7"
   },
   {
    "path": "webapp/src/core/grid.ts",
    "type": "typescript",
-   "size": 5444,
+   "size": 6193,
    "chunk": null,
-   "sha": "1073d947b81b12b0565cd83686d3cb1577e441d8",
-   "summary": "Immutable grid state for the pixel editor: create(N, meta) with seed pixels metal, get/isSeed, paint and toggle that return a new Grid (or the same one when a seed pixel or unchanged value makes them a no-op), isEdited (any pixel differs from the seed mask), fill as metal fraction over N^2, fillStatus with the 30-80% bounds inclusive, randomPattern with an exact metal count via a seeded partial Fisher-Yates shuffle, and the mulberry32 PRNG; unsupported grids and out-of-range indices throw RangeError.",
-   "summary_sha": "1073d947b81b12b0565cd83686d3cb1577e441d8"
+   "sha": "f210f8e3c57d9faf179c74e8687b7b4eea223f09",
+   "summary": "Immutable grid state for the pixel editor: create(N, meta) with seed pixels metal, fromCells (validated N*N 0/1 values with metal seeds), get/isSeed, paint and toggle returning a new Grid (or the same one for no-ops), isEdited, fill over N^2, fillStatus with inclusive 30-80% bounds, exact-count randomPattern and the mulberry32 PRNG; invalid input throws RangeError.",
+   "summary_sha": "f210f8e3c57d9faf179c74e8687b7b4eea223f09"
   },
   {
    "path": "webapp/src/core/history.test.ts",
@@ -4846,11 +4945,11 @@
   {
    "path": "webapp/src/hooks/usePrediction.ts",
    "type": "typescript",
-   "size": 3610,
+   "size": 3884,
    "chunk": null,
-   "sha": "124fea262fffc88c1ee37c6b76d2b5f34399405c",
-   "summary": "React hook that sends every grid change to the inference worker through predictClient and derives the chart status (loading, updating while the shown curve belongs to an older grid, error, ready), exposes retry, and records each applied result as the 'graphpatch:predict' User Timing measure.",
-   "summary_sha": "124fea262fffc88c1ee37c6b76d2b5f34399405c"
+   "sha": "bbc67c10bb466ad05408429b699825dba61d35f9",
+   "summary": "React hook that sends every grid change to the inference worker through predictClient and returns the chart status (loading, updating, error, ready), the latest curve and its worker inference time, and retry; records each applied result as the 'graphpatch:predict' User Timing measure.",
+   "summary_sha": "bbc67c10bb466ad05408429b699825dba61d35f9"
   },
   {
    "path": "webapp/src/main.tsx",
@@ -4887,6 +4986,24 @@
    "sha": "fbde88ba26f43e6c34c60b3ac0cb38be470c7e82",
    "summary": "Design tokens from DESIGN.md as CSS custom properties (dark laminate default, light theme by system preference or data-theme; light caution is an ochre, oklch(58% 0.11 88)), self-hosted Public Sans Variable, tabular figures, themed selection, focus, caret and scrollbars, reduced-motion guard.",
    "summary_sha": "fbde88ba26f43e6c34c60b3ac0cb38be470c7e82"
+  },
+  {
+   "path": "webapp/src/testHook.ts",
+   "type": "typescript",
+   "size": 1113,
+   "chunk": null,
+   "sha": "1d83146e9e1ba98d0b923f14f64e5478b1d3804f",
+   "summary": "End-to-end test hook window.__graphpatchTest (loadPattern for fixture patterns, setCurve to show a synthetic curve) installed only when built with VITE_E2E_HOOKS=1; removed from all other builds.",
+   "summary_sha": "1d83146e9e1ba98d0b923f14f64e5478b1d3804f"
+  },
+  {
+   "path": "webapp/src/vite-env.d.ts",
+   "type": "typescript",
+   "size": 259,
+   "chunk": null,
+   "sha": "49753f417c92fffc63a730d0cfada074a44cac22",
+   "summary": "Vite client type reference plus the typed VITE_E2E_HOOKS environment variable used by the e2e test hook.",
+   "summary_sha": "49753f417c92fffc63a730d0cfada074a44cac22"
   },
   {
    "path": "webapp/tests/node/infer.parity.test.ts",

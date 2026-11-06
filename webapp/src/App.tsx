@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useReducer, useState } from 'react';
+import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
-import { create, type Grid } from './core/grid';
+import { create, fill, type Grid } from './core/grid';
 import {
   canRedo,
   canUndo,
@@ -22,7 +23,7 @@ function historyOrNull(state: GridHistory | null, action: HistoryAction): GridHi
   return state === null ? null : historyReducer(state, action);
 }
 
-/** Core screen (C5): the board with undo/redo now; plot, results and controls arrive in C5.2-C5.5. */
+/** Core screen (C5): the board with undo/redo and the fill meter; size, plot and results arrive in C5.2-C5.5. */
 export function App() {
   const [state, setState] = useState<MetaState>({ status: 'loading' });
   const [history, dispatch] = useReducer(historyOrNull, null);
@@ -118,6 +119,7 @@ export function App() {
                   Redo
                 </button>
               </div>
+              <FillMeter value={fill(history.present)} />
             </>
           )}
         </section>

@@ -179,6 +179,14 @@ export function App() {
     };
   }, [meta]);
 
+  // The current grid's example antenna, decoded once per grid size (it decides whether a size change
+  // asks first); not on every render.
+  const currentN = history?.present.N ?? null;
+  const example = useMemo(
+    () => (meta === null || currentN === null ? null : exampleGrid(currentN, meta)),
+    [meta, currentN],
+  );
+
   const db = curveOverride ?? prediction.db;
   const bandCount = useMemo(() => (db === null ? 0 : analyse(db).bands.length), [db]);
 
@@ -213,7 +221,7 @@ export function App() {
           <GridSizeSelector
             sizes={meta.grids}
             value={history.present.N}
-            edited={!sameCells(history.present, exampleGrid(history.present.N, meta))}
+            edited={example === null || !sameCells(history.present, example)}
             onChange={changeSize}
           />
         )}

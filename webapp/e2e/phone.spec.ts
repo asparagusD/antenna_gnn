@@ -52,3 +52,17 @@ test('a sticky summary keeps the verdict in view while painting; tapping it show
   // The share link stays in the address bar.
   expect(new URL(page.url()).hash).toMatch(/^#p=v1\./);
 });
+
+test('result cells sit two to a row on a phone, with nothing clipped', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await ready(page);
+  const tops = await page
+    .locator('.results-cell')
+    .evaluateAll((els) => els.map((el) => Math.round(el.getBoundingClientRect().top)));
+  expect(tops[0]).toBe(tops[1]);
+  expect(tops[2]).toBe(tops[3]);
+  const clipped = await page
+    .locator('.results-value')
+    .evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth + 1).length);
+  expect(clipped).toBe(0);
+});

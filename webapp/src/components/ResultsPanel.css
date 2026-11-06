@@ -8,7 +8,7 @@
    ground draws the separators for any number of columns. */
 .results-cells {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 11.25rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--results-cell-min, 11.25rem)), 1fr));
   gap: 1px;
   margin: 0;
   border-block: 1px solid var(--rule);
@@ -104,4 +104,20 @@
   clip-path: inset(50%);
   white-space: nowrap;
   border: 0;
+}
+
+/* Phones: slightly smaller values and padding, so the four cells sit two to a row (9.5rem fits
+   "3.850 GHz" at 1.5rem plus 12 px padding each side). */
+@media (max-width: 767px) {
+  .results-cells {
+    --results-cell-min: 9.5rem;
+  }
+
+  .results-cell {
+    padding: 12px;
+  }
+
+  .results-value {
+    font-size: 1.5rem;
+  }
 }

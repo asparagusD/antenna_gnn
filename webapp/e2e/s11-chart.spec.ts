@@ -29,7 +29,7 @@ test('painting changes the predicted curve', async ({ page }) => {
   const canvas = page.getByRole('application', { name: /25 by 25 pixels/ }).locator('canvas');
   const before = await settledCurve(page);
   await expect(page.locator('path.s11-curve')).toHaveAttribute('d', /^M[\d.]+,[\d.]+( L[\d.]+,[\d.]+){200}$/);
-  await expect(page.locator('.s11-reference text')).toHaveText('−10 dB');
+  await expect(page.locator('.s11-reference-label')).toHaveText('−10 dB');
   await expect(page.locator('.s11-min text')).toHaveText(/^−?\d+\.\d dB · \d\.\d{3} GHz$/);
 
   // Bridge the feed pixel (5, 12) to the seed block (rows 8-15): paint (6, 12) and (7, 12).

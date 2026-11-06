@@ -45,6 +45,7 @@ interface Frame {
 }
 
 const TWEEN_MS = 180;
+const REFERENCE_LABEL = '−10 dB';
 const MARGIN = { top: 14, right: 18, bottom: 34, left: 44 };
 const DEFAULT_SIZE = { width: 640, height: 360 };
 
@@ -153,6 +154,7 @@ export function S11Chart({ db, status, error, onRetry }: S11ChartProps) {
   const anchor = mx > x1 - 150 ? 'end' : 'start';
   const labelX = anchor === 'end' ? mx - (below ? 6 : 10) : mx + (below ? 6 : 10);
   const labelY = below ? my + 18 : my;
+  const refLeft = minGhz !== null && mx > (x0 + x1) / 2;
 
   return (
     <figure className="s11-chart" aria-busy={status === 'loading' || status === 'updating'}>
@@ -213,12 +215,7 @@ export function S11Chart({ db, status, error, onRetry }: S11ChartProps) {
             </text>
           </g>
 
-          <g className="s11-reference" aria-hidden="true">
-            <line x1={x0} x2={x1} y1={sy(-10)} y2={sy(-10)} />
-            <text x={x1 - 6} y={sy(-10) - 6} textAnchor="end">
-              {formatDb(-10).replace('.0', '')}
-            </text>
-          </g>
+          <line className="s11-reference" x1={x0} x2={x1} y1={sy(-10)} y2={sy(-10)} aria-hidden="true" />
 
           {frame !== null && (
             <g clipPath={`url(#${clipId})`}>
@@ -235,6 +232,17 @@ export function S11Chart({ db, status, error, onRetry }: S11ChartProps) {
               </text>
             </g>
           )}
+
+          {/* The −10 dB label sits at the end of the line away from the minimum marker, drawn on top. */}
+          <text
+            className="s11-reference-label"
+            x={refLeft ? x0 + 6 : x1 - 6}
+            y={sy(-10) - 7}
+            textAnchor={refLeft ? 'start' : 'end'}
+            aria-hidden="true"
+          >
+            {REFERENCE_LABEL}
+          </text>
 
           {frame === null && (
             <text className="s11-chart-placeholder" x={(x0 + x1) / 2} y={(y0 + y1) / 2} textAnchor="middle">

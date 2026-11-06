@@ -72,6 +72,26 @@ describe('S11Chart', () => {
     expect(curvePath(container)?.getAttribute('d')).not.toBe(before);
   });
 
+  it('puts the −10 dB label at the end of the line away from the minimum, drawn on top', () => {
+    const label = () => screen.getByText('−10 dB', { selector: 'text' });
+    const lineEnds = (container: HTMLElement) => {
+      const line = container.querySelector('line.s11-reference');
+      return [Number(line?.getAttribute('x1')), Number(line?.getAttribute('x2'))] as const;
+    };
+    // Minimum near 4 GHz (sample 190 = 3.85 GHz, the default 25×25 start): label at the left end.
+    const { container, rerender } = render(<S11Chart db={dip(-3, 190)} status="ready" />);
+    const [left, right] = lineEnds(container);
+    expect(label().getAttribute('text-anchor')).toBe('start');
+    expect(Number(label().getAttribute('x'))).toBeLessThan(left + 20);
+    // Minimum near 1 GHz: label at the right end.
+    rerender(<S11Chart db={dip(-12, 10)} status="ready" />);
+    expect(label().getAttribute('text-anchor')).toBe('end');
+    expect(Number(label().getAttribute('x'))).toBeGreaterThan(right - 20);
+    // Drawn after the curve and the minimum marker, so nothing runs over it.
+    const order = Array.from(container.querySelectorAll('.s11-curve, .s11-min, .s11-reference-label'));
+    expect(order.at(-1)?.textContent).toBe('−10 dB');
+  });
+
   it('shows an error with Retry and keeps the last curve', () => {
     const onRetry = vi.fn();
     const { container } = render(

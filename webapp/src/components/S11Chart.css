@@ -91,15 +91,20 @@
   font-weight: 600;
 }
 
-.s11-reference line {
+.s11-reference {
   stroke: var(--threshold);
   stroke-width: 1.5;
 }
 
-.s11-reference text {
+/* Halo in the field colour: the curve or a gridline never runs through the label. */
+.s11-reference-label {
   fill: var(--threshold);
   font-size: 0.75rem;
   font-weight: 600;
+  paint-order: stroke;
+  stroke: var(--substrate);
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 .s11-curve {

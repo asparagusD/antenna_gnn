@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useReducer, useState } from 'react';
 import { FillMeter } from './components/FillMeter';
 import { GridEditor } from './components/GridEditor';
-import { create, fill, type Grid } from './core/grid';
+import { GridSizeSelector } from './components/GridSizeSelector';
+import { create, fill, isEdited, type Grid } from './core/grid';
 import {
   canRedo,
   canUndo,
@@ -23,7 +24,7 @@ function historyOrNull(state: GridHistory | null, action: HistoryAction): GridHi
   return state === null ? null : historyReducer(state, action);
 }
 
-/** Core screen (C5): the board with undo/redo and the fill meter; size, plot and results arrive in C5.2-C5.5. */
+/** Core screen (C5): grid size, the board with undo/redo and the fill meter; plot and results arrive in C5.3-C5.5. */
 export function App() {
   const [state, setState] = useState<MetaState>({ status: 'loading' });
   const [history, dispatch] = useReducer(historyOrNull, null);
@@ -73,11 +74,26 @@ export function App() {
   const endStroke = useCallback(() => {
     dispatch({ type: 'end' });
   }, []);
+  const meta = state.status === 'ready' ? state.meta : null;
+  const changeSize = useCallback(
+    (size: number) => {
+      if (meta !== null) dispatch({ type: 'reset', grid: create(size, meta) });
+    },
+    [meta],
+  );
 
   return (
     <div className="app">
       <header className="topbar">
         <h1 className="topbar-title">GraphPatch</h1>
+        {meta !== null && history !== null && (
+          <GridSizeSelector
+            sizes={meta.grids}
+            value={history.present.N}
+            edited={isEdited(history.present)}
+            onChange={changeSize}
+          />
+        )}
         <p className="topbar-status" role="status">
           {state.status === 'loading' && 'loading model meta…'}
           {state.status === 'ready' && `model meta loaded: ${state.meta.grids.length} grids`}
@@ -89,6 +105,7 @@ export function App() {
           {state.status === 'ready' && history !== null && (
             <>
               <GridEditor
+                key={history.present.N}
                 grid={history.present}
                 spec={state.meta}
                 onChange={setGrid}

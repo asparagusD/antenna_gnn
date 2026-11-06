@@ -89,6 +89,13 @@ export function toggle(grid: Grid, r: number, c: number): Grid {
   return paint(grid, r, c, grid.cells[k] === 1 ? 0 : 1);
 }
 
+/** True when any pixel differs from a fresh grid (metal outside the seed pixels). */
+export function isEdited(grid: Grid): boolean {
+  const { cells, seed } = grid;
+  for (let k = 0; k < cells.length; k++) if (cells[k] !== seed[k]) return true;
+  return false;
+}
+
 /** Metal fraction over all N² pixels, seed pixels included. */
 export function fill(grid: Grid): number {
   let metal = 0;

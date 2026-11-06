@@ -6,8 +6,9 @@
 
 .topbar {
   display: flex;
-  align-items: baseline;
-  gap: var(--space-lg);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-lg);
   padding: var(--space-md) var(--space-xl);
   border-bottom: 1px solid var(--rule);
 }

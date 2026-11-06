@@ -6,6 +6,7 @@ import {
   fill,
   fillStatus,
   get,
+  isEdited,
   isSeed,
   mulberry32,
   paint,
@@ -149,6 +150,24 @@ describe('fill and fillStatus', () => {
 
   it.each([Number.NaN, -0.1, 1.1])('fillStatus(%s) throws RangeError', (value) => {
     expect(() => fillStatus(value)).toThrow(RangeError);
+  });
+});
+
+describe('isEdited', () => {
+  it.each(GRIDS)('a fresh grid of N = %i (seeds only) is not edited', (N) => {
+    expect(isEdited(create(N, meta))).toBe(false);
+  });
+
+  it('one painted pixel makes it edited; painting it back makes it fresh again', () => {
+    const grid = create(25, meta);
+    const [r, c] = freeCell(grid);
+    const painted = toggle(grid, r, c);
+    expect(isEdited(painted)).toBe(true);
+    expect(isEdited(toggle(painted, r, c))).toBe(false);
+  });
+
+  it('a random pattern is edited', () => {
+    expect(isEdited(randomPattern(15, 0.5, mulberry32(1), meta))).toBe(true);
   });
 });
 

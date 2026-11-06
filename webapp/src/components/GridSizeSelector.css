@@ -1,0 +1,121 @@
+/* Grid-size segmented control (DESIGN.md: square segments, selected = action fill). */
+.grid-size {
+  position: relative;
+}
+
+.grid-size-segments {
+  display: flex;
+}
+
+.grid-size-segment {
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  background: var(--laminate);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-small);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.grid-size-segment + .grid-size-segment {
+  margin-left: -1px;
+}
+
+.grid-size-segment:first-child {
+  border-radius: var(--radius-sm) 0 0 var(--radius-sm);
+}
+
+.grid-size-segment:last-child {
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.grid-size-segment:hover:not([aria-pressed='true']) {
+  position: relative;
+  border-color: var(--text-muted);
+}
+
+.grid-size-segment[aria-pressed='true'] {
+  position: relative;
+  border-color: var(--action);
+  background: var(--action);
+  color: var(--on-action);
+  font-weight: 600;
+  cursor: default;
+}
+
+.grid-size-segment:focus-visible {
+  position: relative;
+  z-index: 1;
+}
+
+/* The question: an inline panel under the segments, flat, no shadow (DESIGN.md elevation: none). */
+.grid-size-question {
+  position: absolute;
+  top: calc(100% + var(--space-sm));
+  left: 0;
+  z-index: 10;
+  width: min(360px, calc(100vw - 2 * var(--space-md)));
+  padding: var(--space-md);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--substrate);
+}
+
+.grid-size-question-text {
+  margin: 0 0 var(--space-md);
+  font-size: var(--text-body);
+}
+
+.grid-size-question-text strong {
+  display: block;
+  margin-bottom: var(--space-xs);
+  font-weight: 600;
+}
+
+.grid-size-question-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.grid-size-confirm,
+.grid-size-keep {
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--action);
+  border-radius: var(--radius-sm);
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-standard),
+    border-color var(--duration-fast) var(--ease-standard);
+}
+
+.grid-size-confirm {
+  background: var(--action);
+  color: var(--on-action);
+  font-weight: 600;
+}
+
+.grid-size-confirm:hover {
+  border-color: var(--action-hover);
+  background: var(--action-hover);
+}
+
+.grid-size-keep {
+  border-color: var(--rule);
+  background: var(--laminate);
+  color: var(--text);
+}
+
+.grid-size-keep:hover {
+  border-color: var(--text-muted);
+}

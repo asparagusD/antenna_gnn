@@ -46,6 +46,15 @@
    "summary_sha": "a1e179cbed669cf4f25267d5684fa813553df6a7"
   },
   {
+   "path": ".claude/launch.json",
+   "type": "json",
+   "size": 238,
+   "chunk": null,
+   "sha": "2ff4203411a8d88bde6fb4c706bdece51e5ffa6f",
+   "summary": "Preview launch config for the desktop app's browser pane: one 'webapp' entry that runs the Vite dev server for webapp/ on port 5173 (strict port).",
+   "summary_sha": "2ff4203411a8d88bde6fb4c706bdece51e5ffa6f"
+  },
+  {
    "path": ".claude/settings.json",
    "type": "json",
    "size": 1348,
@@ -658,13 +667,22 @@
    "summary_sha": "0783a5614a5d5c8c089a82fb7b053278190170db"
   },
   {
+   "path": ".impeccable/critique/2026-11-06T02-12-39Z__webapp-src-components.md",
+   "type": "markdown",
+   "size": 3386,
+   "chunk": null,
+   "sha": "7a6c64020de7a1b57e3e83790228f6b1c05d6a4b",
+   "summary": "Impeccable critique snapshot of the C5.2 grid-size selector and fill meter (dual-agent): heuristic scores 22/36 (help n/a), design-specificity verdict (meter authored, selector and question generic), detector 0 findings, measured light-theme amber contrast failure, four P1s (focus after switch, focus on the destructive button, question covering the board and going stale, light amber vs copper) fixed in the style commit, open P2s and persona red flags.",
+   "summary_sha": "7a6c64020de7a1b57e3e83790228f6b1c05d6a4b"
+  },
+  {
    "path": ".impeccable/design.json",
    "type": "json",
    "size": 16380,
    "chunk": null,
-   "sha": "ddb7ec11199a8237fab1f9c13833cf141b429050",
-   "summary": "Impeccable sidecar (schemaVersion 2) for DESIGN.md: colour metadata with OKLCH tonal ramps, typography purposes, motion and breakpoint tokens, self-contained HTML/CSS snippets for six components (buttons, segmented control, result cells, board, scope notice) and the design narrative.",
-   "summary_sha": "ddb7ec11199a8237fab1f9c13833cf141b429050"
+   "sha": "a669f65779c105d7c14041f2acedf358b33d58b1",
+   "summary": "Impeccable sidecar (schemaVersion 2) for DESIGN.md: colour metadata with OKLCH tonal ramps (light caution now an ochre at hue 88 after the C5.2 critique), typography purposes, motion and breakpoint tokens, self-contained HTML/CSS snippets for six components (buttons, segmented control, result cells, board, scope notice) and the design narrative.",
+   "summary_sha": "a669f65779c105d7c14041f2acedf358b33d58b1"
   },
   {
    "path": ".impeccable/surfaces/webapp-src-app-tsx.md",
@@ -687,20 +705,20 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 5517,
+   "size": 6933,
    "chunk": null,
-   "sha": "6154a1a630a2dc0856a97468fd19f67f7ca4fbfa",
-   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first.",
-   "summary_sha": "6154a1a630a2dc0856a97468fd19f67f7ca4fbfa"
+   "sha": "c43972d4135a110dd93a1b821a0c813f464b8e78",
+   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C5.2 missing Testing Library cleanup under Vitest without globals).",
+   "summary_sha": "c43972d4135a110dd93a1b821a0c813f464b8e78"
   },
   {
    "path": "DESIGN.md",
    "type": "markdown",
-   "size": 10619,
+   "size": 10746,
    "chunk": null,
-   "sha": "e57c696735184e35670e9731f90be17041d8858d",
-   "summary": "Design system for GraphPatch (microwave laminate world, recorded before the build): OKLCH colour tokens for dark and light themes with checked WCAG contrast, Public Sans type scale with tabular figures, 4px spacing, square shapes, flat elevation, components (buttons, grid segmented control, result cells, the live-copper board, the plot) and do's and don'ts; to be re-documented from the built screen at C6.",
-   "summary_sha": "e57c696735184e35670e9731f90be17041d8858d"
+   "sha": "a59e5349b3382b3b097aedb6a88c69ecf8bcf7de",
+   "summary": "Design system for GraphPatch (microwave laminate world, recorded before the build): OKLCH colour tokens for dark and light themes with checked WCAG contrast (light caution changed to an ochre in C5.2 so it never reads as copper), Public Sans type scale with tabular figures, 4px spacing, square shapes, flat elevation, components (buttons, grid segmented control, result cells, the live-copper board, the plot) and do's and don'ts; to be re-documented from the built screen at C6.",
+   "summary_sha": "a59e5349b3382b3b097aedb6a88c69ecf8bcf7de"
   },
   {
    "path": "Makefile",
@@ -725,9 +743,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "19b2e7fe2e8b4008ecfb45050a4f4c538af64c4b",
+   "sha": "de8aedf60c910ec9e9c58f1496eb751358a1d935",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "19b2e7fe2e8b4008ecfb45050a4f4c538af64c4b"
+   "summary_sha": "de8aedf60c910ec9e9c58f1496eb751358a1d935"
   },
   {
    "path": "README.md",
@@ -4349,6 +4367,15 @@
    "summary_sha": "1b0b7e2a6bdbec5d09c30c6140a0b0d9a964f676"
   },
   {
+   "path": "webapp/e2e/fill-meter.spec.ts",
+   "type": "typescript",
+   "size": 3324,
+   "chunk": null,
+   "sha": "21222841ac9e4fb7dd624982f051f6f71364b103",
+   "summary": "Playwright test of the fill meter on the 25x25 board: paints free pixels in row-major runs to exact counts and checks the shown percentage and warning at 29.0% and 29.9% (warn), 30.1% (none), 80.0% exact (none), 80.2% and 81.0% (warn).",
+   "summary_sha": "21222841ac9e4fb7dd624982f051f6f71364b103"
+  },
+  {
    "path": "webapp/e2e/grid-editor.spec.ts",
    "type": "typescript",
    "size": 6281,
@@ -4356,6 +4383,15 @@
    "sha": "717b9186bb0aaf9b437807836c702c0c590e6756",
    "summary": "Playwright tests of the board with real mouse and keyboard: click toggle, gap-free drag and erase, locked seeds and feed with tooltips, feed-to-seed bridge reported as connected, keyboard editing, and stroke-level undo/redo by keys and buttons.",
    "summary_sha": "717b9186bb0aaf9b437807836c702c0c590e6756"
+  },
+  {
+   "path": "webapp/e2e/grid-size.spec.ts",
+   "type": "typescript",
+   "size": 4745,
+   "chunk": null,
+   "sha": "ef4d0725a761d591b2ffa6d0abe2d43018f65ab2",
+   "summary": "Playwright tests of the grid-size selector: an unedited board switches at once; an edited board asks first with Keep focused, Keep/Escape/a press on the board cancel; confirming starts a fresh 35x35 seeds-only grid (145 metal) with empty undo history, focus on the new size and an announcement.",
+   "summary_sha": "ef4d0725a761d591b2ffa6d0abe2d43018f65ab2"
   },
   {
    "path": "webapp/e2e/smoke.spec.ts",
@@ -4486,11 +4522,11 @@
   {
    "path": "webapp/src/App.css",
    "type": "other",
-   "size": 1613,
+   "size": 1682,
    "chunk": null,
-   "sha": "6aec9b792bddd678eb8d609401abb78b4365e05d",
-   "summary": "Core screen layout: top bar, two-column workspace with the board column sized to keep the board, its readout and tools in the viewport, single column under 768px, and the tools-row secondary buttons.",
-   "summary_sha": "6aec9b792bddd678eb8d609401abb78b4365e05d"
+   "sha": "9db098129203fbb4c5bf6d83d6d8ae3c4fb9be61",
+   "summary": "Core screen layout: wrapping top bar (title, grid-size control, status), two-column workspace with the board column sized to keep the board, readout, tools and fill meter with its warning in the viewport, single column under 768px, and the tools-row secondary buttons.",
+   "summary_sha": "9db098129203fbb4c5bf6d83d6d8ae3c4fb9be61"
   },
   {
    "path": "webapp/src/App.test.tsx",
@@ -4504,11 +4540,38 @@
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 4205,
+   "size": 4926,
    "chunk": null,
-   "sha": "b5d31c998aa483f04a3ea87bd6692b742a6cd27f",
-   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, Ctrl+Y), renders the GridEditor and the Undo/Redo tools row; plot, results and controls arrive in later subchunks.",
-   "summary_sha": "b5d31c998aa483f04a3ea87bd6692b742a6cd27f"
+   "sha": "6ae54dec36276bdf1408fb41952d905e6d530603",
+   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, Ctrl+Y), renders the GridSizeSelector in the top bar (a size change resets history to a fresh grid; the board is keyed by N), the GridEditor, the Undo/Redo tools row and the FillMeter; plot and results arrive in later subchunks.",
+   "summary_sha": "6ae54dec36276bdf1408fb41952d905e6d530603"
+  },
+  {
+   "path": "webapp/src/components/FillMeter.css",
+   "type": "other",
+   "size": 2590,
+   "chunk": null,
+   "sha": "32701d1d7d66f08285514315903a19d72826e2d6",
+   "summary": "Fill meter styles: uppercase label and tabular value, flat 8px substrate track with the bar in ink (caution amber outside 30-80%), 30%/80% ticks drawn across the track above the bar, the training range as a silkscreen dimension line with centred bounds, and the icon + warning row.",
+   "summary_sha": "32701d1d7d66f08285514315903a19d72826e2d6"
+  },
+  {
+   "path": "webapp/src/components/FillMeter.test.tsx",
+   "type": "typescript",
+   "size": 2318,
+   "chunk": null,
+   "sha": "7976ba3081f9b793a3e620e90488fd94cd4453fd",
+   "summary": "Vitest tests of fillPercentText (one decimal, never rounding a warned fill onto 30.0% or 80.0%) and FillMeter (warning at 181/625, 187/625, 501/625, 506/625 but not at 188/625, 0.3, 0.8; role=meter with valuetext words; one persistent polite live region).",
+   "summary_sha": "7976ba3081f9b793a3e620e90488fd94cd4453fd"
+  },
+  {
+   "path": "webapp/src/components/FillMeter.tsx",
+   "type": "typescript",
+   "size": 3232,
+   "chunk": null,
+   "sha": "ac68bc36b5ec279198656ae6ea559515b4a7c27d",
+   "summary": "Metal-fill meter under the board: live metal % of all N^2 pixels as role=meter with below/inside/above words, a 0-100% track with the 30-80% training range marked, and outside the range an amber bar plus the non-blocking warning 'Outside the 30-80% range the model was trained on; predictions are less reliable' in a polite live region that stays mounted.",
+   "summary_sha": "ac68bc36b5ec279198656ae6ea559515b4a7c27d"
   },
   {
    "path": "webapp/src/components/GridEditor.css",
@@ -4527,6 +4590,42 @@
    "sha": "8bcbc3af0ea2ae661a0e2dc782ad99586f7b7a9b",
    "summary": "The board: canvas pixel editor drawn as flat copper on laminate at device-pixel resolution; live copper (feed-connected) vs floating islands outlined by a dashed silkscreen perimeter, hatched locked seeds, ringed feed pixel, adaptive grid lines; pointer painting with first-pixel value and gap-free drags, keyboard cursor (two-tone outline) with Space and Shift+arrow painting, tooltips and screen-reader text with connection status, stroke start/end callbacks for undo.",
    "summary_sha": "8bcbc3af0ea2ae661a0e2dc782ad99586f7b7a9b"
+  },
+  {
+   "path": "webapp/src/components/GridSizeSelector.css",
+   "type": "other",
+   "size": 2962,
+   "chunk": null,
+   "sha": "94b43f2efd510d5f66f349bdd69e77dd8b747444",
+   "summary": "Grid-size segmented control styles: square joined segments with 2px outer corners, selected segment filled with the action colour; the inline question panel (substrate, hairline border, no shadow) with Keep as the primary button and Switch secondary; visually hidden announcement region.",
+   "summary_sha": "94b43f2efd510d5f66f349bdd69e77dd8b747444"
+  },
+  {
+   "path": "webapp/src/components/GridSizeSelector.test.tsx",
+   "type": "typescript",
+   "size": 5335,
+   "chunk": null,
+   "sha": "4b077bfb283f8769e63bec022c022448ed730887",
+   "summary": "Vitest tests of GridSizeSelector: exactly 12/15/25/35/45 with aria-pressed, immediate switch when unedited, ask-first when edited with Keep focused and the cost as aria-describedby, focus and announcement after a confirmed switch, Keep/Escape (also from segments)/outside press cancel, question disappears when no longer edited, a second choice replaces the question.",
+   "summary_sha": "4b077bfb283f8769e63bec022c022448ed730887"
+  },
+  {
+   "path": "webapp/src/components/GridSizeSelector.tsx",
+   "type": "typescript",
+   "size": 5143,
+   "chunk": null,
+   "sha": "07e115281b57b73e62b5c19f5b96da11b4a292df",
+   "summary": "Grid-size segmented control (12, 15, 25, 35, 45) as toggle buttons; on an edited board it asks first in an inline non-modal question (Keep primary and focused, cost in aria-describedby; closes on Keep, Escape, outside press or when no longer edited); after a switch focuses the new size and announces it in a polite live region.",
+   "summary_sha": "07e115281b57b73e62b5c19f5b96da11b4a292df"
+  },
+  {
+   "path": "webapp/src/components/fillText.ts",
+   "type": "typescript",
+   "size": 677,
+   "chunk": null,
+   "sha": "427da3bc7b3de502dbcae79308fa51789a38f0e8",
+   "summary": "fillPercentText: metal fill as a one-decimal percentage that never contradicts the fill warning (a fill below 30% never reads 30.0%, above 80% never 80.0%).",
+   "summary_sha": "427da3bc7b3de502dbcae79308fa51789a38f0e8"
   },
   {
    "path": "webapp/src/components/gridGeometry.test.ts",
@@ -4585,20 +4684,20 @@
   {
    "path": "webapp/src/core/grid.test.ts",
    "type": "typescript",
-   "size": 6618,
+   "size": 7233,
    "chunk": null,
-   "sha": "116f6cd8044a281d74b80d4efc7ecb484996e109",
-   "summary": "Vitest tests of the grid state model against the real meta.json: seed-only creation for all five grids, locked seeds, immutability, index and value validation, fill and fillStatus bounds, deterministic randomPattern with exact fill, and mulberry32 reproducibility.",
-   "summary_sha": "116f6cd8044a281d74b80d4efc7ecb484996e109"
+   "sha": "e3ab39828d7d2cd810aa402a055123dcb3369fa4",
+   "summary": "Vitest tests of the grid state model against the real meta.json: seed-only creation for all five grids, locked seeds, immutability, index and value validation, isEdited, fill and fillStatus bounds, deterministic randomPattern with exact fill, and mulberry32 reproducibility.",
+   "summary_sha": "e3ab39828d7d2cd810aa402a055123dcb3369fa4"
   },
   {
    "path": "webapp/src/core/grid.ts",
    "type": "typescript",
-   "size": 5179,
+   "size": 5444,
    "chunk": null,
-   "sha": "254736371890f79591c4bb6a50f7082612b84f2c",
-   "summary": "Immutable grid state for the pixel editor: create(N, meta) with seed pixels metal, get/isSeed, paint and toggle that return a new Grid (or the same one when a seed pixel or unchanged value makes them a no-op), fill as metal fraction over N^2, fillStatus with the 30-80% bounds inclusive, randomPattern with an exact metal count via a seeded partial Fisher-Yates shuffle, and the mulberry32 PRNG; unsupported grids and out-of-range indices throw RangeError.",
-   "summary_sha": "254736371890f79591c4bb6a50f7082612b84f2c"
+   "sha": "1073d947b81b12b0565cd83686d3cb1577e441d8",
+   "summary": "Immutable grid state for the pixel editor: create(N, meta) with seed pixels metal, get/isSeed, paint and toggle that return a new Grid (or the same one when a seed pixel or unchanged value makes them a no-op), isEdited (any pixel differs from the seed mask), fill as metal fraction over N^2, fillStatus with the 30-80% bounds inclusive, randomPattern with an exact metal count via a seeded partial Fisher-Yates shuffle, and the mulberry32 PRNG; unsupported grids and out-of-range indices throw RangeError.",
+   "summary_sha": "1073d947b81b12b0565cd83686d3cb1577e441d8"
   },
   {
    "path": "webapp/src/core/history.test.ts",
@@ -4686,9 +4785,9 @@
    "type": "other",
    "size": 2968,
    "chunk": null,
-   "sha": "c7a1c063ab8ed775d2e8bc6fee29d4a475d7ca2a",
-   "summary": "Design tokens from DESIGN.md as CSS custom properties (dark laminate default, light theme by system preference or data-theme), self-hosted Public Sans Variable, tabular figures, themed selection, focus, caret and scrollbars, reduced-motion guard.",
-   "summary_sha": "c7a1c063ab8ed775d2e8bc6fee29d4a475d7ca2a"
+   "sha": "fbde88ba26f43e6c34c60b3ac0cb38be470c7e82",
+   "summary": "Design tokens from DESIGN.md as CSS custom properties (dark laminate default, light theme by system preference or data-theme; light caution is an ochre, oklch(58% 0.11 88)), self-hosted Public Sans Variable, tabular figures, themed selection, focus, caret and scrollbars, reduced-motion guard.",
+   "summary_sha": "fbde88ba26f43e6c34c60b3ac0cb38be470c7e82"
   },
   {
    "path": "webapp/tests/node/infer.parity.test.ts",

@@ -24,6 +24,26 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: C5.2: new FillMeter tests find the warning text several times
+
+- **Status:** closed (test-harness bug in the new test file; component unchanged)
+- **Symptom:** after implementing FillMeter, 7 of 19 tests in the new `FillMeter.test.tsx` failed.
+- **Reproducer:** `cd webapp && npx vitest run src/components/FillMeter.test.tsx` →
+  `TestingLibraryElementError: Found multiple elements with the text: Outside the 30–80% range …`.
+- **Localised to:** the second and later `it.each` cases: each found the warnings of all earlier renders in
+  `document.body`.
+- **Hypotheses:**
+  1. Earlier renders stay mounted because Testing Library's automatic `afterEach(cleanup)` is registered
+     only when the test runner exposes globals, and this Vitest config runs without globals. Check: add
+     `afterEach(cleanup)` to the file and rerun; nothing else changes. **confirmed** (19 passed).
+- **Root cause:** no cleanup between renders in a new test file (the earlier App test renders once per test
+  and never queried across renders, so it never showed).
+- **Fix:** included in the C5.2 feature commits (`afterEach(cleanup)` in `FillMeter.test.tsx` and
+  `GridSizeSelector.test.tsx`); no component change. Regression: the same files, which now fail if cleanup is
+  removed.
+- **Verification:** `npx vitest run src/components/FillMeter.test.tsx`: 19 passed; `make check`: vitest 637,
+  pytest 267 passed.
+
 ### 2026-11-06: C2.1: dynamo ONNX exporter fails on PyG scatter (data-dependent shape)
 
 - **Status:** closed (exporter choice; model unchanged, no patch)

@@ -649,6 +649,15 @@
    "summary_sha": "d1803ef5bdaeadb6e9b73df2da4595633c11211f"
   },
   {
+   "path": ".impeccable/critique/2026-11-06T01-48-29Z__webapp-src-components-grideditor-tsx.md",
+   "type": "markdown",
+   "size": 4852,
+   "chunk": null,
+   "sha": "0783a5614a5d5c8c089a82fb7b053278190170db",
+   "summary": "Impeccable critique snapshot of the board (C5.1, dual-agent): heuristic scores 22/40, design-specificity verdict, detector result (0 findings; canvas invisible to it), priority issues with the three P1s marked fixed and the open P2s (seed hatch, legend and summary, mobile DPR), persona red flags and questions; read by the later polish pass.",
+   "summary_sha": "0783a5614a5d5c8c089a82fb7b053278190170db"
+  },
+  {
    "path": ".impeccable/design.json",
    "type": "json",
    "size": 16380,
@@ -716,9 +725,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "e6606003315271da701730641ec1934866dc24c4",
+   "sha": "19b2e7fe2e8b4008ecfb45050a4f4c538af64c4b",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "e6606003315271da701730641ec1934866dc24c4"
+   "summary_sha": "19b2e7fe2e8b4008ecfb45050a4f4c538af64c4b"
   },
   {
    "path": "README.md",
@@ -4340,13 +4349,22 @@
    "summary_sha": "1b0b7e2a6bdbec5d09c30c6140a0b0d9a964f676"
   },
   {
+   "path": "webapp/e2e/grid-editor.spec.ts",
+   "type": "typescript",
+   "size": 6281,
+   "chunk": null,
+   "sha": "717b9186bb0aaf9b437807836c702c0c590e6756",
+   "summary": "Playwright tests of the board with real mouse and keyboard: click toggle, gap-free drag and erase, locked seeds and feed with tooltips, feed-to-seed bridge reported as connected, keyboard editing, and stroke-level undo/redo by keys and buttons.",
+   "summary_sha": "717b9186bb0aaf9b437807836c702c0c590e6756"
+  },
+  {
    "path": "webapp/e2e/smoke.spec.ts",
    "type": "typescript",
-   "size": 555,
+   "size": 544,
    "chunk": null,
-   "sha": "c0d6c24603a78ec9e9df951ecf80f18c25ab05b1",
-   "summary": "Playwright smoke test: the page renders its heading, shows 'model meta loaded: 5 grids' and logs no page or console errors.",
-   "summary_sha": "c0d6c24603a78ec9e9df951ecf80f18c25ab05b1"
+   "sha": "4cd92e27e191cefc98c76e129757ad9f848768b8",
+   "summary": "Playwright smoke test: the GraphPatch page renders its heading, loads the model meta and logs no page or console errors.",
+   "summary_sha": "4cd92e27e191cefc98c76e129757ad9f848768b8"
   },
   {
    "path": "webapp/eslint.config.js",
@@ -4414,29 +4432,29 @@
   {
    "path": "webapp/index.html",
    "type": "other",
-   "size": 308,
+   "size": 297,
    "chunk": null,
-   "sha": "079e1649d4cadf904aee1bfdb1ba20b6b46021bb",
-   "summary": "Vite HTML entry for the web app: page title and the #root element, loading src/main.tsx.",
-   "summary_sha": "079e1649d4cadf904aee1bfdb1ba20b6b46021bb"
+   "sha": "02b7143133f71c644250a76b371ce437c58d41fb",
+   "summary": "Vite HTML entry for GraphPatch: page title and the #root element, loading src/main.tsx.",
+   "summary_sha": "02b7143133f71c644250a76b371ce437c58d41fb"
   },
   {
    "path": "webapp/package-lock.json",
    "type": "json",
-   "size": 131049,
+   "size": 131521,
    "chunk": null,
-   "sha": "559e3d4f53453fd53f5e0d29a386ad0abfe1c0e1",
+   "sha": "6dce20b04b550b78c4132b37e1586f5f29d7d858",
    "summary": "npm lockfile pinning the full dependency tree of the web app for reproducible installs (npm ci).",
    "summary_sha": "559e3d4f53453fd53f5e0d29a386ad0abfe1c0e1"
   },
   {
    "path": "webapp/package.json",
    "type": "json",
-   "size": 1443,
+   "size": 1492,
    "chunk": null,
-   "sha": "b34d3933259bc16e8e99707cb54350446d615a61",
-   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0) with scripts dev, build, preview, typecheck, lint, format, test, e2e and bench:infer.",
-   "summary_sha": "b34d3933259bc16e8e99707cb54350446d615a61"
+   "sha": "45c696c1f6cb4f3a977627c9d010a83524649bda",
+   "summary": "Web app manifest: exact-pinned runtime deps (React 19.3.1, onnxruntime-web 1.31.1, @fontsource-variable/public-sans 5.3.0) and dev deps (Vite 8.3.6, TypeScript 6.0.3, ESLint 10, Prettier, Vitest 5.1.0, jsdom, Testing Library, Playwright 1.65.0) with scripts dev, build, preview, typecheck, lint, format, test, e2e and bench:infer.",
+   "summary_sha": "45c696c1f6cb4f3a977627c9d010a83524649bda"
   },
   {
    "path": "webapp/playwright.config.ts",
@@ -4466,6 +4484,15 @@
    "summary_sha": "2df8293108a23934b45ffd42bc686f7a679262e3"
   },
   {
+   "path": "webapp/src/App.css",
+   "type": "other",
+   "size": 1613,
+   "chunk": null,
+   "sha": "6aec9b792bddd678eb8d609401abb78b4365e05d",
+   "summary": "Core screen layout: top bar, two-column workspace with the board column sized to keep the board, its readout and tools in the viewport, single column under 768px, and the tools-row secondary buttons.",
+   "summary_sha": "6aec9b792bddd678eb8d609401abb78b4365e05d"
+  },
+  {
    "path": "webapp/src/App.test.tsx",
    "type": "typescript",
    "size": 938,
@@ -4477,11 +4504,47 @@
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 1158,
+   "size": 4205,
    "chunk": null,
-   "sha": "62c29d44d025af83d4145cbc406dc36fdd71e578",
-   "summary": "Placeholder page (C3.1): loads public/model/meta.json via loadMeta and shows 'model meta loaded: 5 grids', with loading and error states; replaced by the real UI in C5.",
-   "summary_sha": "62c29d44d025af83d4145cbc406dc36fdd71e578"
+   "sha": "b5d31c998aa483f04a3ea87bd6692b742a6cd27f",
+   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, Ctrl+Y), renders the GridEditor and the Undo/Redo tools row; plot, results and controls arrive in later subchunks.",
+   "summary_sha": "b5d31c998aa483f04a3ea87bd6692b742a6cd27f"
+  },
+  {
+   "path": "webapp/src/components/GridEditor.css",
+   "type": "other",
+   "size": 1855,
+   "chunk": null,
+   "sha": "8b5fd98fea56f947ac8347b3b9e33ab8701c17fc",
+   "summary": "Styles for the board: substrate frame, square canvas, seed tooltip, silkscreen dimension line with end ticks, readout and visually hidden helpers.",
+   "summary_sha": "8b5fd98fea56f947ac8347b3b9e33ab8701c17fc"
+  },
+  {
+   "path": "webapp/src/components/GridEditor.tsx",
+   "type": "typescript",
+   "size": 17481,
+   "chunk": null,
+   "sha": "8bcbc3af0ea2ae661a0e2dc782ad99586f7b7a9b",
+   "summary": "The board: canvas pixel editor drawn as flat copper on laminate at device-pixel resolution; live copper (feed-connected) vs floating islands outlined by a dashed silkscreen perimeter, hatched locked seeds, ringed feed pixel, adaptive grid lines; pointer painting with first-pixel value and gap-free drags, keyboard cursor (two-tone outline) with Space and Shift+arrow painting, tooltips and screen-reader text with connection status, stroke start/end callbacks for undo.",
+   "summary_sha": "8bcbc3af0ea2ae661a0e2dc782ad99586f7b7a9b"
+  },
+  {
+   "path": "webapp/src/components/gridGeometry.test.ts",
+   "type": "typescript",
+   "size": 4909,
+   "chunk": null,
+   "sha": "959cc413f2a5e7ad03b5e1deb59139933c841f94",
+   "summary": "Vitest tests of the board geometry: pointer-to-cell mapping incl. edges and round trips for every grid, gap-free 8-connected drag lines, exact device-pixel tiling, keyboard moves.",
+   "summary_sha": "959cc413f2a5e7ad03b5e1deb59139933c841f94"
+  },
+  {
+   "path": "webapp/src/components/gridGeometry.ts",
+   "type": "typescript",
+   "size": 3008,
+   "chunk": null,
+   "sha": "4e5a785e65f75479c903a2eba59d8432b752750c",
+   "summary": "Pure geometry for the board: pointer position to cell, Bresenham cells between drag samples, device-pixel cell edges and rectangles, and keyboard cursor moves.",
+   "summary_sha": "4e5a785e65f75479c903a2eba59d8432b752750c"
   },
   {
    "path": "webapp/src/core/analysis.test.ts",
@@ -4538,6 +4601,24 @@
    "summary_sha": "254736371890f79591c4bb6a50f7082612b84f2c"
   },
   {
+   "path": "webapp/src/core/history.test.ts",
+   "type": "typescript",
+   "size": 3226,
+   "chunk": null,
+   "sha": "5b82d4dfa1e1b6ca3a1afefb37603796de13b656",
+   "summary": "Vitest tests of the undo/redo reducer: stroke-level entries, no-op strokes, redo clearing, mid-stroke guards, the 100-entry cap and reset.",
+   "summary_sha": "5b82d4dfa1e1b6ca3a1afefb37603796de13b656"
+  },
+  {
+   "path": "webapp/src/core/history.ts",
+   "type": "typescript",
+   "size": 2706,
+   "chunk": null,
+   "sha": "c5c17dda73c6db7d1254384fe82a017dde2d801e",
+   "summary": "Pure undo/redo reducer for the board: one entry per stroke or keyboard edit, no-op strokes ignored, redo cleared by new edits, 100-entry cap, reset for a new grid.",
+   "summary_sha": "c5c17dda73c6db7d1254384fe82a017dde2d801e"
+  },
+  {
    "path": "webapp/src/core/infer.ts",
    "type": "typescript",
    "size": 3944,
@@ -4576,11 +4657,11 @@
   {
    "path": "webapp/src/main.tsx",
    "type": "typescript",
-   "size": 298,
+   "size": 328,
    "chunk": null,
-   "sha": "1fd874460fa39987118d7ffe07c21a3e8e79ed0f",
-   "summary": "React entry point: mounts App in StrictMode on #root and fails loudly if the element is missing.",
-   "summary_sha": "1fd874460fa39987118d7ffe07c21a3e8e79ed0f"
+   "sha": "fc0162faad5c98347846ab13862a73f383ea1600",
+   "summary": "React entry point: imports the design tokens and mounts App in StrictMode on #root.",
+   "summary_sha": "fc0162faad5c98347846ab13862a73f383ea1600"
   },
   {
    "path": "webapp/src/model/meta.test.ts",
@@ -4599,6 +4680,15 @@
    "sha": "412efb828e3cc0299d3bf8c059fa66cc4151210c",
    "summary": "Typed loader for public/model/meta.json: metaUrl builds the URL under the Vite base path, loadMeta fetches it, and parseMeta validates schema, 201-point frequency and statistics arrays, positive std, per-grid seed masks and feed pixels before returning a ModelMeta.",
    "summary_sha": "412efb828e3cc0299d3bf8c059fa66cc4151210c"
+  },
+  {
+   "path": "webapp/src/styles/tokens.css",
+   "type": "other",
+   "size": 2968,
+   "chunk": null,
+   "sha": "c7a1c063ab8ed775d2e8bc6fee29d4a475d7ca2a",
+   "summary": "Design tokens from DESIGN.md as CSS custom properties (dark laminate default, light theme by system preference or data-theme), self-hosted Public Sans Variable, tabular figures, themed selection, focus, caret and scrollbars, reduced-motion guard.",
+   "summary_sha": "c7a1c063ab8ed775d2e8bc6fee29d4a475d7ca2a"
   },
   {
    "path": "webapp/tests/node/infer.parity.test.ts",

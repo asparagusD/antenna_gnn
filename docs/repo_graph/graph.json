@@ -770,9 +770,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "b864b9f3f4a809d98af8582cb83d2c30b349c098",
+   "sha": "ede6020d2593814b6cd31bd258d762975fec7af6",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk acceptance criteria are shown passing and committed.",
-   "summary_sha": "b864b9f3f4a809d98af8582cb83d2c30b349c098"
+   "summary_sha": "ede6020d2593814b6cd31bd258d762975fec7af6"
   },
   {
    "path": "README.md",
@@ -2387,11 +2387,11 @@
   {
    "path": "docs/verification.md",
    "type": "markdown",
-   "size": 2827,
+   "size": 6227,
    "chunk": null,
-   "sha": "83977c3e59a501c15af209f67f13f450e7462a24",
-   "summary": "Chunk 8 final verification record: C8.1 full regression (make check, make e2e, live suite counts) and parity on all 48 golden fixtures per layer (TS graph builder exact; Node onnxruntime-web and deployed browser max about 2.2e-5 dB against the 1e-4 dB contract, worst cases listed).",
-   "summary_sha": "83977c3e59a501c15af209f67f13f450e7462a24"
+   "sha": "739d6a5059eb0e710a6d952a0d359d4ac1aba270",
+   "summary": "Chunk 8 final verification record: C8.1 full regression (make check, make e2e, live suite counts) and parity on all 48 golden fixtures per layer (TS graph builder exact; Node onnxruntime-web and deployed browser max about 2.2e-5 dB against the 1e-4 dB contract); C8.2 performance on the live site (download 2.16 MiB model, 5.97 MiB cold total, time to first prediction cold 1.33 s / warm 0.53 s, median inference per grid 14 to 225 ms in the browser worker and in Node).",
+   "summary_sha": "739d6a5059eb0e710a6d952a0d359d4ac1aba270"
   },
   {
    "path": "export/antenna_export/__init__.py",
@@ -4711,11 +4711,20 @@
   {
    "path": "webapp/scripts/measure-latency.mjs",
    "type": "other",
-   "size": 3638,
+   "size": 3646,
    "chunk": null,
-   "sha": "c8aaee7d0684363f902cce7b1e18aa056d449be5",
-   "summary": "Latency script: drives the served production build in Chromium, toggles a corner pixel N times per grid (12, 25, 45) and reports median/p90/mean/max of the app's 'graphpatch:predict' User Timing measure (perceived) and the worker's inference time; --cpu throttles only the main thread, not the worker.",
-   "summary_sha": "c8aaee7d0684363f902cce7b1e18aa056d449be5"
+   "sha": "3fed969ff6fb62fd029924686a93a622e2e34505",
+   "summary": "Latency script: drives the served production build (or the live site) in Chromium, toggles a corner pixel N times per grid (12, 15, 25, 35, 45) and reports median/p90/mean/max of the app's 'graphpatch:predict' User Timing measure (perceived) and the worker's graph-build + inference time; --cpu throttles only the main thread, not the worker.",
+   "summary_sha": "3fed969ff6fb62fd029924686a93a622e2e34505"
+  },
+  {
+   "path": "webapp/scripts/measure-startup.mjs",
+   "type": "other",
+   "size": 4890,
+   "chunk": null,
+   "sha": "ba6d5878e1bba91b18a2ddea8d3456ebded757a9",
+   "summary": "Startup script (C8.2): opens the app (default: the GitHub Pages site) in fresh Chromium contexts, cold then warm from the HTTP cache, and reports transferred bytes per asset kind (model, wasm, JS, CSS, fonts; worker fetches included via context request events) and the time from navigation start to the first 'graphpatch:predict' measure, median over --runs.",
+   "summary_sha": "ba6d5878e1bba91b18a2ddea8d3456ebded757a9"
   },
   {
    "path": "webapp/src/App.css",

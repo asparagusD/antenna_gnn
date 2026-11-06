@@ -41,3 +41,65 @@ every fixture case (48), plus the asset/console test and the share-link round-tr
 Live asset check (same run): page, `meta.json`, `antenna_gnn.onnx` and the ORT `.wasm` all 200, no
 `no-store`, wasm served as `application/wasm`, console clean, `crossOriginIsolated` false (not needed for
 single-thread wasm).
+
+## C8.2 Performance report
+
+Machine: AMD Ryzen 5 5600X (6 cores / 12 threads), Windows 11, headless Chromium 158 (Playwright 1.65),
+home broadband to GitHub Pages. All browser figures are for the live site,
+https://asparagusd.github.io/antenna_gnn/. onnxruntime-web runs single-threaded wasm in a Web Worker.
+
+### Download size
+
+Bytes on the wire for one cold load (gzip as served by GitHub Pages), from
+`node webapp/scripts/measure-startup.mjs --runs 5`:
+
+| Asset | Uncompressed | Transferred (cold) |
+|---|---|---|
+| Model `model/antenna_gnn.onnx` | 2,590,161 B (2.47 MiB) | 2,268,579 B (2.16 MiB) |
+| `model/meta.json` (normalisation stats, grids, seeds) | 38,956 B | 6.4 KiB |
+| onnxruntime-web wasm (`ort-wasm-simd-threaded-*.wasm`) | 14,848,852 B (14.2 MiB) | 3,867,655 B (3.69 MiB) |
+| App JS (React, app, onnxruntime-web JS) + worker stub | — | 83.5 KiB |
+| CSS, HTML, font (Public Sans, latin subset) | — | 31.6 KiB |
+| **Total, cold** | | **6,113.9 KiB (5.97 MiB)** |
+| **Total, warm** (second visit within the cache lifetime) | | **0 B of response bodies** (all from the HTTP cache) |
+
+The model itself is 2.16 MiB to download; the wasm runtime is the largest item. GitHub Pages sends
+`Cache-Control: max-age=600` with an ETag, so after 10 minutes a repeat visit revalidates (304s) rather
+than downloading again.
+
+### Time to first prediction
+
+From navigation start to the first frame after the first prediction reached the page (the first
+`graphpatch:predict` User Timing measure): page load, worker start, wasm and model download and compile,
+session creation, graph build, inference of the 25×25 example antenna, first render. Five runs, each in a
+fresh browser context (cold, empty cache) followed by a second page in the same context (warm).
+
+| Load | Median | Min | Max |
+|---|---|---|---|
+| Cold (empty cache) | **1,330 ms** | 1,169 ms | 1,759 ms |
+| Warm (HTTP cache) | **530 ms** | 515 ms | 547 ms |
+
+A first run on this machine, before these five, took 2,528 ms cold (DNS and TLS set-up included). Warm
+loads still spend about half a second compiling the 14 MiB wasm and creating the ONNX session; the cold
+figure depends on the network and will be slower on a slower connection.
+
+### Inference time per grid
+
+Browser (live site): `node webapp/scripts/measure-latency.mjs https://asparagusd.github.io/antenna_gnn/ --clicks 40`;
+each sample is one single-pixel edit. "Worker inference" is graph build + onnxruntime inside the worker;
+"perceived" adds messaging, the React commit and the next animation frame.
+
+Node: `cd webapp && npm run bench:infer` (same TypeScript graph builder and onnxruntime-web wasm, one
+thread, median of 40 runs after 5 warm-up).
+
+| Grid | Nodes | Browser worker inference (median) | Browser perceived (median / p90) | Node build + predict (median) |
+|---|---|---|---|---|
+| 12×12 | 145 | 14.1 ms | 30.5 / 31.4 ms | 13.4 ms |
+| 15×15 | 226 | 21.4 ms | 30.7 / 31.6 ms | 20.1 ms |
+| 25×25 | 626 | 59.3 ms | 64.1 / 64.9 ms | 53.8 ms |
+| 35×35 | 1,226 | 119.6 ms | 130.2 / 131.2 ms | 112.0 ms |
+| 45×45 | 2,026 | 224.5 ms | 230.3 / 246.8 ms | 199.5 ms |
+
+The graph build is under 1 ms on every grid (Node: 0.09–0.64 ms), so inference dominates and grows
+roughly linearly with the node count. On 12×12 and 15×15 the perceived time is set by frame alignment
+(about two 60 Hz frames), not by inference. No mid-range laptop or phone was measured.

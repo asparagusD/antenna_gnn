@@ -1,0 +1,122 @@
+/* Results (DESIGN.md "Result cells"): fixed cells separated by rules, label above value, tabular. */
+.results {
+  margin-top: var(--space-lg);
+}
+
+.results-cells {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+  border-block: 1px solid var(--rule);
+}
+
+.results-cell {
+  min-width: 0;
+  padding: 14px 16px;
+}
+
+.results-cell + .results-cell {
+  border-left: 1px solid var(--rule);
+}
+
+.results-label {
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.results-value {
+  margin: var(--space-xs) 0 0;
+  font-size: var(--text-value);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+/* Reserves its line even when empty, so the row never changes height. */
+.results-note {
+  min-height: 1.45em;
+  margin: var(--space-xs) 0 0;
+  color: var(--text-muted);
+  font-size: var(--text-small);
+}
+
+.results-bands {
+  width: 100%;
+  margin-top: var(--space-md);
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.results-bands caption {
+  padding-bottom: var(--space-sm);
+  color: var(--text-muted);
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.results-bands th,
+.results-bands td {
+  padding: 6px var(--space-md) 6px 0;
+  border-bottom: 1px solid var(--rule);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.results-bands thead th {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.results-bands tbody th {
+  font-weight: 600;
+}
+
+.results-empty,
+.results-foot {
+  margin: var(--space-md) 0 0;
+  font-size: var(--text-small);
+}
+
+.results-foot {
+  color: var(--text-muted);
+}
+
+.results-announce {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 1199px) {
+  .results-cells {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .results-cell:nth-child(3) {
+    border-left: 0;
+  }
+
+  .results-cell:nth-child(n + 3) {
+    border-top: 1px solid var(--rule);
+  }
+}
+
+@media (max-width: 767px) {
+  .results-bands {
+    display: block;
+    overflow-x: auto;
+  }
+}

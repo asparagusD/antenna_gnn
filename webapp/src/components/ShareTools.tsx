@@ -7,12 +7,19 @@ import { useState, type ReactNode } from 'react';
 import './ShareTools.css';
 
 export interface ShareToolsProps {
+  /** The current share string; a copy confirmation shows only while the pattern is unchanged. */
+  pattern: string;
   /** Further actions in the same row (the CSV downloads). */
   children?: ReactNode;
 }
 
-export function ShareTools({ children }: ShareToolsProps) {
-  const [message, setMessage] = useState('');
+export function ShareTools({ pattern, children }: ShareToolsProps) {
+  // The outcome belongs to the pattern it was copied for; after an edit it would no longer be true.
+  const [outcome, setOutcome] = useState<{ text: string; pattern: string } | null>(null);
+  const message = outcome !== null && outcome.pattern === pattern ? outcome.text : '';
+  const setMessage = (text: string) => {
+    setOutcome({ text, pattern });
+  };
 
   const copy = () => {
     const url = window.location.href;

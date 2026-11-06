@@ -321,7 +321,7 @@ export function App() {
           <ResultsPanel db={db} inferMs={curveOverride === null ? prediction.inferMs : null} />
           {history !== null && <ScopeNotice bands={bandCount} N={history.present.N} />}
           {history !== null && (
-            <ShareTools>
+            <ShareTools pattern={encodeShare(history.present)}>
               <button
                 type="button"
                 className="tool"

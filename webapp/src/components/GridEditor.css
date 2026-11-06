@@ -11,7 +11,8 @@
   padding: 18px;
   background: var(--substrate);
   outline-offset: 3px;
-  touch-action: none;
+  /* The frame around the canvas scrolls the page and zooms; only the canvas paints. */
+  touch-action: pan-y pinch-zoom;
   cursor: crosshair;
   user-select: none;
 }
@@ -24,7 +25,9 @@
   display: block;
   width: 100%;
   aspect-ratio: 1;
-  touch-action: none;
+  /* One finger paints (no panning on the canvas); two-finger pinch still zooms the page, so fine pixels
+     at 45×45 can be enlarged on phones. */
+  touch-action: pinch-zoom;
 }
 
 .board-tooltip {

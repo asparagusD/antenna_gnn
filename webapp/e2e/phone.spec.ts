@@ -79,3 +79,37 @@ test('the Starting points panel and the size question open as bottom sheets', as
   const question = await page.getByRole('group', { name: 'Switch to 35×35?' }).boundingBox();
   expect(height - ((question?.y ?? 0) + (question?.height ?? 0))).toBeLessThanOrEqual(24);
 });
+
+test('board gestures: one finger paints, a second finger does not, pinch-zoom is allowed', async ({
+  page,
+}) => {
+  await ready(page);
+  const board = page.getByRole('application', { name: /25 by 25 pixels/ });
+  const canvas = board.locator('canvas');
+  expect(await canvas.evaluate((el) => getComputedStyle(el).touchAction)).toBe('pinch-zoom');
+  // The frame around the canvas scrolls the page vertically.
+  expect(await board.evaluate((el) => getComputedStyle(el).touchAction)).toBe('pan-y pinch-zoom');
+
+  const box = await canvas.boundingBox();
+  if (box === null) throw new Error('no canvas');
+  const at = (row: number, col: number) => ({
+    x: box.x + ((col + 0.5) * box.width) / 25,
+    y: box.y + ((row + 0.5) * box.height) / 25,
+  });
+  const before = Number(await board.getAttribute('data-metal-count'));
+  await page.touchscreen.tap(at(22, 2).x, at(22, 2).y);
+  await expect(board).not.toHaveAttribute('data-metal-count', String(before));
+  const afterTap = Number(await board.getAttribute('data-metal-count'));
+  expect(Math.abs(afterTap - before)).toBe(1);
+
+  // Two fingers on different pixels: only the first (primary) pointer paints.
+  const cdp = await page.context().newCDPSession(page);
+  const p1 = { ...at(20, 20), id: 1 };
+  const p2 = { ...at(2, 20), id: 2 };
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [p1] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [p1, p2] });
+  await cdp.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  await expect
+    .poll(async () => Math.abs(Number(await board.getAttribute('data-metal-count')) - afterTap))
+    .toBe(1);
+});

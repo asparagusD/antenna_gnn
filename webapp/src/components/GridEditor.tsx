@@ -325,6 +325,8 @@ export function GridEditor({ grid, spec, onChange, onStrokeStart, onStrokeEnd }:
 
   const onPointerDown = (event: React.PointerEvent<HTMLCanvasElement>) => {
     if (event.pointerType === 'mouse' && event.button !== 0) return;
+    // A second finger (pinch-zoom) never paints; only the primary pointer starts a stroke.
+    if (!event.isPrimary) return;
     const cell = cellFromEvent(event, false);
     if (cell === null) return;
     event.preventDefault();

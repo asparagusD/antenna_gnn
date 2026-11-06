@@ -716,9 +716,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "55b7def4dbdb4b0b9d18031bf36987b66d144cb4",
+   "sha": "0e046037737f0fecbce0041cef9407626a1e6f8f",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "55b7def4dbdb4b0b9d18031bf36987b66d144cb4"
+   "summary_sha": "0e046037737f0fecbce0041cef9407626a1e6f8f"
   },
   {
    "path": "README.md",
@@ -4414,6 +4414,24 @@
    "sha": "62c29d44d025af83d4145cbc406dc36fdd71e578",
    "summary": "Placeholder page (C3.1): loads public/model/meta.json via loadMeta and shows 'model meta loaded: 5 grids', with loading and error states; replaced by the real UI in C5.",
    "summary_sha": "62c29d44d025af83d4145cbc406dc36fdd71e578"
+  },
+  {
+   "path": "webapp/src/core/grid.test.ts",
+   "type": "typescript",
+   "size": 6618,
+   "chunk": null,
+   "sha": "116f6cd8044a281d74b80d4efc7ecb484996e109",
+   "summary": "Vitest tests of the grid state model against the real meta.json: seed-only creation for all five grids, locked seeds, immutability, index and value validation, fill and fillStatus bounds, deterministic randomPattern with exact fill, and mulberry32 reproducibility.",
+   "summary_sha": "116f6cd8044a281d74b80d4efc7ecb484996e109"
+  },
+  {
+   "path": "webapp/src/core/grid.ts",
+   "type": "typescript",
+   "size": 5179,
+   "chunk": null,
+   "sha": "254736371890f79591c4bb6a50f7082612b84f2c",
+   "summary": "Immutable grid state for the pixel editor: create(N, meta) with seed pixels metal, get/isSeed, paint and toggle that return a new Grid (or the same one when a seed pixel or unchanged value makes them a no-op), fill as metal fraction over N^2, fillStatus with the 30-80% bounds inclusive, randomPattern with an exact metal count via a seeded partial Fisher-Yates shuffle, and the mulberry32 PRNG; unsupported grids and out-of-range indices throw RangeError.",
+   "summary_sha": "254736371890f79591c4bb6a50f7082612b84f2c"
   },
   {
    "path": "webapp/src/main.tsx",

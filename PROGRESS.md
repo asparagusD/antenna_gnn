@@ -23,7 +23,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C3.2 Impeccable: product context and the design plan
 
 ## C4 TypeScript core (no UI)
-- [ ] C4.1 Grid state model
+- [x] C4.1 Grid state model
 - [ ] C4.2 TypeScript graph builder (bit-exact)
 - [ ] C4.3 Inference engine and the parity test in Node
 - [ ] C4.4 Web Worker and post-processing

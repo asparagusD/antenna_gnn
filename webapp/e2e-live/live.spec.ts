@@ -5,7 +5,7 @@ import { encodeShare, decodeShare } from '../src/core/share';
 import { parseMeta } from '../src/model/meta';
 
 // C7.2: the deployed app, end to end, in a real browser: page and model load, browser inference matches
-// the Python reference on the golden fixtures within the 1e-4 dB contract, share links round-trip, the
+// the Python reference on every golden fixture within the 1e-4 dB contract, share links round-trip, the
 // console is clean, and the big assets are served correctly.
 
 const TOLERANCE_DB = 1e-4;
@@ -18,13 +18,13 @@ interface FixtureCase {
   pattern: number[];
   expected_db: number[];
 }
-const fixture = (N: number): FixtureCase => {
+/** Every golden fixture case for grid N (C8.1: all 48 cases, not only the first per grid). */
+const fixtures = (N: number): FixtureCase[] => {
   const file = JSON.parse(
     readFileSync(new URL(`../fixtures/${String(N)}x${String(N)}.json`, import.meta.url), 'utf8'),
   ) as { cases: FixtureCase[] };
-  const first = file.cases[0];
-  if (first === undefined) throw new Error(`no fixture for ${String(N)}`);
-  return first;
+  if (file.cases.length === 0) throw new Error(`no fixture for ${String(N)}`);
+  return file.cases;
 };
 
 /** Collects console errors/warnings and page errors for the whole test. */
@@ -87,36 +87,34 @@ test('page and model load; console clean; assets served with 200, right types an
   expect(problems).toEqual([]);
 });
 
-for (const N of meta.grids) {
-  test(`parity in the browser: ${String(N)}×${String(N)} fixture within ${String(TOLERANCE_DB)} dB`, async ({
-    page,
-  }) => {
-    const problems = watchConsole(page);
-    const c = fixture(N);
-    const grid = create(N, meta);
-    const shared = decodeShare(encodeShare({ ...grid, cells: Uint8Array.from(c.pattern) }), meta);
-    if (shared === null || !shared.ok) throw new Error('fixture pattern does not encode');
-    await page.goto(`./#${encodeShare(shared.grid)}`);
-    await expect(
-      page.getByRole('application', { name: new RegExp(`${String(N)} by ${String(N)} pixels`) }),
-    ).toBeVisible();
-    await settled(page);
-    const [file] = await Promise.all([
-      page.waitForEvent('download'),
-      page.getByRole('button', { name: 'Download |S11| CSV' }).click(),
-    ]);
-    const rows = readFileSync(await file.path(), 'utf8')
-      .trimEnd()
-      .split('\n')
-      .slice(1);
-    const db = rows.map((row) => Number(row.split(',')[1]));
-    expect(db).toHaveLength(201);
-    const maxDiff = Math.max(...db.map((v, k) => Math.abs(v - (c.expected_db[k] ?? Number.NaN))));
-    console.log(`${c.id}: max |browser − reference| = ${maxDiff.toExponential(2)} dB`);
-    expect(maxDiff).toBeLessThanOrEqual(TOLERANCE_DB);
-    expect(problems).toEqual([]);
-  });
-}
+for (const N of meta.grids)
+  for (const c of fixtures(N)) {
+    test(`parity in the browser: ${c.id} within ${String(TOLERANCE_DB)} dB`, async ({ page }) => {
+      const problems = watchConsole(page);
+      const grid = create(N, meta);
+      const shared = decodeShare(encodeShare({ ...grid, cells: Uint8Array.from(c.pattern) }), meta);
+      if (shared === null || !shared.ok) throw new Error('fixture pattern does not encode');
+      await page.goto(`./#${encodeShare(shared.grid)}`);
+      await expect(
+        page.getByRole('application', { name: new RegExp(`${String(N)} by ${String(N)} pixels`) }),
+      ).toBeVisible();
+      await settled(page);
+      const [file] = await Promise.all([
+        page.waitForEvent('download'),
+        page.getByRole('button', { name: 'Download |S11| CSV' }).click(),
+      ]);
+      const rows = readFileSync(await file.path(), 'utf8')
+        .trimEnd()
+        .split('\n')
+        .slice(1);
+      const db = rows.map((row) => Number(row.split(',')[1]));
+      expect(db).toHaveLength(201);
+      const maxDiff = Math.max(...db.map((v, k) => Math.abs(v - (c.expected_db[k] ?? Number.NaN))));
+      console.log(`${c.id}: max |browser − reference| = ${maxDiff.toExponential(2)} dB`);
+      expect(maxDiff).toBeLessThanOrEqual(TOLERANCE_DB);
+      expect(problems).toEqual([]);
+    });
+  }
 
 test('a share link round-trips in a fresh browser context', async ({ page, browser }) => {
   await page.goto('./');

@@ -642,11 +642,29 @@
   {
    "path": ".gitignore",
    "type": "config",
-   "size": 1421,
+   "size": 1546,
    "chunk": null,
-   "sha": "f47b3062062794ae1988c15eb7e6ec56ad8d854a",
-   "summary": "Ignores webapp_private/ (local-only checkpoint and data copies), node_modules/, webapp/dist/, .env files, Impeccable's ephemeral runtime files, its per-platform engine binary, Claude Code's per-user settings.local.json, Python virtual environments and caches, and the web app's Playwright and coverage outputs.",
-   "summary_sha": "f47b3062062794ae1988c15eb7e6ec56ad8d854a"
+   "sha": "d1803ef5bdaeadb6e9b73df2da4595633c11211f",
+   "summary": "Ignores webapp_private/ (local-only checkpoint and data copies), node_modules/, webapp/dist/, .env files, Impeccable's ephemeral runtime files, decision-round sketches and per-platform engine binary, Claude Code's per-user settings.local.json, Python virtual environments and caches, and the web app's Playwright and coverage outputs.",
+   "summary_sha": "d1803ef5bdaeadb6e9b73df2da4595633c11211f"
+  },
+  {
+   "path": ".impeccable/design.json",
+   "type": "json",
+   "size": 16380,
+   "chunk": null,
+   "sha": "ddb7ec11199a8237fab1f9c13833cf141b429050",
+   "summary": "Impeccable sidecar (schemaVersion 2) for DESIGN.md: colour metadata with OKLCH tonal ramps, typography purposes, motion and breakpoint tokens, self-contained HTML/CSS snippets for six components (buttons, segmented control, result cells, board, scope notice) and the design narrative.",
+   "summary_sha": "ddb7ec11199a8237fab1f9c13833cf141b429050"
+  },
+  {
+   "path": ".impeccable/surfaces/webapp-src-app-tsx.md",
+   "type": "markdown",
+   "size": 3940,
+   "chunk": null,
+   "sha": "61a410c4c57047e62908f0acf312166f1bf37c92",
+   "summary": "Surface brief for the GraphPatch core screen: Operate mode scope, audience and proof, the approved C3.2 shape plan (layouts and states), and the direction contract (THESIS, OWN-WORLD, STORY, FIRST VIEWPORT, FORM with seed reference, FINISH) for the microwave laminate direction with the live-copper signature move.",
+   "summary_sha": "61a410c4c57047e62908f0acf312166f1bf37c92"
   },
   {
    "path": "CLAUDE.md",
@@ -667,6 +685,15 @@
    "summary_sha": "6154a1a630a2dc0856a97468fd19f67f7ca4fbfa"
   },
   {
+   "path": "DESIGN.md",
+   "type": "markdown",
+   "size": 10619,
+   "chunk": null,
+   "sha": "e57c696735184e35670e9731f90be17041d8858d",
+   "summary": "Design system for GraphPatch (microwave laminate world, recorded before the build): OKLCH colour tokens for dark and light themes with checked WCAG contrast, Public Sans type scale with tabular figures, 4px spacing, square shapes, flat elevation, components (buttons, grid segmented control, result cells, the live-copper board, the plot) and do's and don'ts; to be re-documented from the built screen at C6.",
+   "summary_sha": "e57c696735184e35670e9731f90be17041d8858d"
+  },
+  {
    "path": "Makefile",
    "type": "config",
    "size": 1436,
@@ -676,13 +703,22 @@
    "summary_sha": "7713d8f988b8cc48cf19b59682160a92e7d42f66"
   },
   {
+   "path": "PRODUCT.md",
+   "type": "markdown",
+   "size": 5867,
+   "chunk": null,
+   "sha": "05ac5329c7eb9c718c41d35ad0a4df88b0ed0e35",
+   "summary": "Product record for GraphPatch (Impeccable init): users (RF researchers, students, reviewers of the paper under review), purpose (instant in-browser |S11| prediction from a painted pattern), positioning (one 587k-parameter GATv2 for five grids, client-side, single-band scope), constraints (static, offline, WCAG AA, 1e-4 dB parity), brand commitments, evidence (Chunk 52 per-grid test error and Chunk 53 CNN comparison) and product principles.",
+   "summary_sha": "05ac5329c7eb9c718c41d35ad0a4df88b0ed0e35"
+  },
+  {
    "path": "PROGRESS.md",
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "48b1f170e6be14aae1e775cce0897c1ff775c2cb",
+   "sha": "55b7def4dbdb4b0b9d18031bf36987b66d144cb4",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "48b1f170e6be14aae1e775cce0897c1ff775c2cb"
+   "summary_sha": "55b7def4dbdb4b0b9d18031bf36987b66d144cb4"
   },
   {
    "path": "README.md",

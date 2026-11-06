@@ -20,7 +20,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 
 ## C3 Web scaffold and design foundation
 - [x] C3.1 Vite + React + TypeScript scaffold and quality gate
-- [ ] C3.2 Impeccable: product context and the design plan
+- [x] C3.2 Impeccable: product context and the design plan
 
 ## C4 TypeScript core (no UI)
 - [ ] C4.1 Grid state model

@@ -44,3 +44,6 @@ __pycache__/
 webapp/playwright-report/
 webapp/test-results/
 webapp/coverage/
+
+# Impeccable decision-round sketches: spent hand, not shared (README lists the shareable files)
+.impeccable/mocks/decision/

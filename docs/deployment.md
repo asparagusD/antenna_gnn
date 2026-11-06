@@ -1,6 +1,6 @@
 # Deployment: GitHub Pages
 
-GraphPatch is a static site served from GitHub Pages at **https://asparagusd.github.io/antenna_gnn/**.
+GraphPatch is a static site served from GitHub Pages at **https://asparagusd.github.io/graphpatch/**.
 Workflow: `.github/workflows/deploy-webapp.yml` (C7.1). Live checks: `webapp/e2e-live/live.spec.ts` (C7.2).
 
 ## How a deployment happens
@@ -9,7 +9,7 @@ Workflow: `.github/workflows/deploy-webapp.yml` (C7.1). Live checks: `webapp/e2e
 2. Merge `webapp` into `main`. A push to `main` that touches `webapp/**` (or the workflow) starts the workflow;
    it can also be started by hand (Actions → "Deploy web app to GitHub Pages" → Run workflow).
 3. The build job runs `make check-web` (typecheck, lint, Vitest including the ONNX parity tests against the
-   committed fixtures, the Impeccable detector), builds with `BASE_PATH=/antenna_gnn/`, checks that
+   committed fixtures, the Impeccable detector), builds with `BASE_PATH=/graphpatch/`, checks that
    `dist/model/antenna_gnn.onnx`, `dist/model/meta.json` and the onnxruntime `.wasm` are present, and uploads
    `webapp/dist`. The deploy job publishes it with `actions/deploy-pages`.
 4. Run the live checks (below) against the published site.
@@ -26,12 +26,12 @@ npm run e2e:live
 production preview:
 
 ```bash
-MSYS_NO_PATHCONV=1 BASE_PATH=/antenna_gnn/ npm run build
-MSYS_NO_PATHCONV=1 BASE_PATH=/antenna_gnn/ npx vite preview --port 4173
-MSYS_NO_PATHCONV=1 LIVE_URL=http://localhost:4173/antenna_gnn/ npm run e2e:live
+MSYS_NO_PATHCONV=1 BASE_PATH=/graphpatch/ npm run build
+MSYS_NO_PATHCONV=1 BASE_PATH=/graphpatch/ npx vite preview --port 4173
+MSYS_NO_PATHCONV=1 LIVE_URL=http://localhost:4173/graphpatch/ npm run e2e:live
 ```
 
-(`MSYS_NO_PATHCONV=1` only matters in Git Bash on Windows, which would otherwise rewrite `/antenna_gnn/`.)
+(`MSYS_NO_PATHCONV=1` only matters in Git Bash on Windows, which would otherwise rewrite `/graphpatch/`.)
 
 What they check, in a real Chromium:
 
@@ -48,6 +48,10 @@ The production build has no test hook (it exists only in the e2e build, C5.4), s
 public path: share link in, CSV out.
 
 ## Results
+
+The results below were recorded before the repository was renamed from `antenna_gnn` to `graphpatch`,
+so they show the old base path `/antenna_gnn/` and the old site URL. The model file keeps its name
+(`antenna_gnn.onnx`).
 
 ### Local production preview, base `/antenna_gnn/` (2026-11-06)
 
@@ -113,7 +117,7 @@ Sensible for this app; no change needed.
 
 | Area | Expectation in this app | Status |
 |---|---|---|
-| Base path | Vite `base` comes from `BASE_PATH` (`/antenna_gnn/` in CI). meta.json and the model are fetched through `import.meta.env.BASE_URL` (`model/meta.ts`, `core/worker.ts`); the onnxruntime wasm is a Vite asset resolved relative to the worker chunk, so it is under `/antenna_gnn/assets/` too. `index.html` references `/antenna_gnn/assets/…` (checked in CI). | Verified on Pages (live suite) and locally (52 + 156 e2e runs, C7.1) |
+| Base path | Vite `base` comes from `BASE_PATH` (`/graphpatch/` in CI). meta.json and the model are fetched through `import.meta.env.BASE_URL` (`model/meta.ts`, `core/worker.ts`); the onnxruntime wasm is a Vite asset resolved relative to the worker chunk, so it is under `/graphpatch/assets/` too. `index.html` references `/graphpatch/assets/…` (checked in CI). | Verified on Pages (live suite) and locally (52 + 156 e2e runs, C7.1) |
 | 404s | The app has one page; state lives in the URL hash (`#p=v1.…`), which never reaches the server, so share links cannot 404. A missing model or meta.json shows an explicit error (C6.4). | Verified on Pages (share links load; error states tested locally, C6.4) |
 | MIME types | `.wasm` must be `application/wasm` (GitHub Pages serves it so); `.onnx` is fetched as bytes, any type works. | Verified on Pages: `application/wasm` |
 | Cross-origin isolation | Not needed: onnxruntime-web runs single-threaded wasm (`numThreads = 1`), so no SharedArrayBuffer, no COOP/COEP headers (GitHub Pages cannot set them anyway). | Verified on Pages (`crossOriginIsolated` false, inference works) |

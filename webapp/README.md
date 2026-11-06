@@ -1,6 +1,6 @@
 # GraphPatch: the antenna GNN in your browser
 
-**Live: https://asparagusd.github.io/antenna_gnn/**
+**Live: https://asparagusd.github.io/graphpatch/**
 
 GraphPatch is a static, client-side web app for the GATv2 surrogate in [`src/model.py`](../src/model.py).
 You draw the metal pattern of an N×N pixelated microstrip patch antenna (N = 12, 15, 25, 35 or 45), and the
@@ -65,7 +65,7 @@ Production build in `webapp/dist/`, served at http://localhost:4173/.
 
 Deployment is automatic: a push to `main` that touches `webapp/**` runs
 [`.github/workflows/deploy-webapp.yml`](../.github/workflows/deploy-webapp.yml) (checks, build with
-`BASE_PATH=/antenna_gnn/`, publish to GitHub Pages). See [`docs/deployment.md`](../docs/deployment.md).
+`BASE_PATH=/graphpatch/`, publish to GitHub Pages). See [`docs/deployment.md`](../docs/deployment.md).
 
 ## How it works
 

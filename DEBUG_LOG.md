@@ -24,6 +24,26 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: rename: live suite fails 50/50 against a local /graphpatch/ preview
+
+- **Status:** closed (test set-up; no product or test change)
+- **Symptom:** after the rename to `graphpatch`, `LIVE_URL=http://localhost:4173/graphpatch/ npm run e2e:live`
+  against a local production build failed every test (`toBeVisible` / `toHaveText` timeouts).
+- **Reproducer:** `BASE_PATH=/graphpatch/ npm run build`, then `npx vite preview --port 4173` **without**
+  `BASE_PATH`, then the live suite with that `LIVE_URL`: 50 failed.
+- **Localised to:** `curl http://localhost:4173/graphpatch/model/meta.json` returned 200 `text/html` (the
+  preview's index fallback), not JSON: the preview served the build under `/`, not `/graphpatch/`.
+- **Hypotheses:**
+  1. The preview server was started without `BASE_PATH`, so it does not serve files under `/graphpatch/`.
+     Check: restart it with `BASE_PATH=/graphpatch/` (as `docs/deployment.md` prescribes) and repeat the curl.
+     **confirmed**: the second attempt first hit a leftover preview process still holding port 4173 (stopping
+     the background `npx` left its `node` child running); after `taskkill` on that PID, meta.json returned
+     `application/json`.
+- **Root cause:** reproduction set-up (preview without `BASE_PATH`, then a stale server on the port), not the app.
+- **Fix:** none needed in code; the documented procedure (`docs/deployment.md`, Live checks) was already right.
+- **Verification:** with `BASE_PATH=/graphpatch/ npx vite preview`, the live suite passes **50/50** (max
+  |browser − reference| 2.2e-5 dB); `make check` exit 0; `make e2e` 52 passed.
+
 ### 2026-11-06: C7.1: one e2e failure under BASE_PATH=/antenna_gnn/ that did not reproduce
 
 - **Status:** open, not reproduced (watch in CI)

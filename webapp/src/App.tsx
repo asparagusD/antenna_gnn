@@ -6,6 +6,7 @@ import { PatternTools } from './components/PatternTools';
 import { ResultsPanel } from './components/ResultsPanel';
 import { S11Chart } from './components/S11Chart';
 import { ScopeNotice } from './components/ScopeNotice';
+import { ShareTools } from './components/ShareTools';
 import { ValidityNote } from './components/ValidityNote';
 import { analyse } from './core/analysis';
 import { create, fill, fromCells, isEdited, mulberry32, randomPattern, type Grid } from './core/grid';
@@ -17,6 +18,7 @@ import {
   type GridHistory,
   type HistoryAction,
 } from './core/history';
+import { decodeShare, encodeShare } from './core/share';
 import { usePrediction } from './hooks/usePrediction';
 import { loadMeta, type ModelMeta } from './model/meta';
 import { installTestHook, TEST_HOOKS_ENABLED } from './testHook';
@@ -26,6 +28,15 @@ type MetaState =
   { status: 'loading' } | { status: 'ready'; meta: ModelMeta } | { status: 'error'; message: string };
 
 const DEFAULT_N = 25;
+
+/** The grid a page load or a pasted link asks for: the hash's pattern, else a fresh 25×25 grid. */
+function gridFromHash(meta: ModelMeta): { grid: Grid; error: string | null } | null {
+  const shared = decodeShare(window.location.hash, meta);
+  if (shared === null) return null;
+  return shared.ok
+    ? { grid: shared.grid, error: null }
+    : { grid: create(DEFAULT_N, meta), error: shared.reason };
+}
 
 function historyOrNull(state: GridHistory | null, action: HistoryAction): GridHistory | null {
   if (action.type === 'reset') return initHistory(action.grid);
@@ -40,6 +51,7 @@ export function App() {
   const [state, setState] = useState<MetaState>({ status: 'loading' });
   const [history, dispatch] = useReducer(historyOrNull, null);
   const prediction = usePrediction(history?.present ?? null);
+  const [shareError, setShareError] = useState<string | null>(null);
   // Only ever set by the e2e test hook (testHook.ts); null in every real build.
   const [curveOverride, setCurveOverride] = useState<Float64Array | null>(null);
 
@@ -49,7 +61,9 @@ export function App() {
       .then((meta) => {
         if (cancelled) return;
         setState({ status: 'ready', meta });
-        dispatch({ type: 'reset', grid: create(DEFAULT_N, meta) });
+        const start = gridFromHash(meta);
+        setShareError(start?.error ?? null);
+        dispatch({ type: 'reset', grid: start?.grid ?? create(DEFAULT_N, meta) });
       })
       .catch((error: unknown) => {
         if (!cancelled)
@@ -59,6 +73,14 @@ export function App() {
       cancelled = true;
     };
   }, []);
+
+  // The address bar always holds the share link for the board (replaceState: no history entries).
+  const present = history?.present ?? null;
+  useEffect(() => {
+    if (present === null) return;
+    const hash = `#${encodeShare(present)}`;
+    if (window.location.hash !== hash) window.history.replaceState(null, '', hash);
+  }, [present]);
 
   // Ctrl/Cmd+Z undoes, Ctrl/Cmd+Shift+Z and Ctrl+Y redo, wherever focus is on the page.
   useEffect(() => {
@@ -101,6 +123,21 @@ export function App() {
     });
   }, [meta]);
 
+  // A link pasted into this tab (our own replaceState never fires hashchange).
+  useEffect(() => {
+    if (meta === null) return;
+    const onHashChange = () => {
+      const next = gridFromHash(meta);
+      if (next === null) return;
+      setShareError(next.error);
+      dispatch({ type: 'reset', grid: next.grid });
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => {
+      window.removeEventListener('hashchange', onHashChange);
+    };
+  }, [meta]);
+
   const db = curveOverride ?? prediction.db;
   const bandCount = useMemo(() => (db === null ? 0 : analyse(db).bands.length), [db]);
 
@@ -141,6 +178,20 @@ export function App() {
           {state.status === 'error' && `model meta failed to load: ${state.message}`}
         </p>
       </header>
+      {shareError !== null && (
+        <div className="share-error" role="alert">
+          <p>{`This share link could not be opened: ${shareError}. Showing a fresh 25×25 grid instead.`}</p>
+          <button
+            type="button"
+            className="tool"
+            onClick={() => {
+              setShareError(null);
+            }}
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
       <main className="workspace">
         <section className="workspace-board" aria-label="Metal pattern">
           {state.status === 'ready' && history !== null && (
@@ -195,6 +246,7 @@ export function App() {
           />
           <ResultsPanel db={db} inferMs={curveOverride === null ? prediction.inferMs : null} />
           {history !== null && <ScopeNotice bands={bandCount} N={history.present.N} />}
+          {history !== null && <ShareTools />}
           {meta !== null && history !== null && <ValidityNote N={history.present.N} scope={meta.scope} />}
         </section>
       </main>

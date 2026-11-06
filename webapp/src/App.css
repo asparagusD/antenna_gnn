@@ -1,7 +1,7 @@
 .app {
   min-height: 100dvh;
-  display: grid;
-  grid-template-rows: auto 1fr;
+  display: flex;
+  flex-direction: column;
 }
 
 .topbar {
@@ -28,6 +28,7 @@
 }
 
 .workspace {
+  flex: 1;
   display: grid;
   /* Board column: square board plus dimension line, readout, tools and fill meter (with its warning)
      all inside the viewport. */
@@ -35,6 +36,23 @@
   gap: var(--space-xl);
   padding: var(--space-xl);
   align-items: start;
+}
+
+/* A share link that could not be read: calm, in words, dismissable (not the caution amber). */
+.share-error {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm) var(--space-md);
+  margin: var(--space-md) var(--space-xl) 0;
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-md);
+  background: var(--substrate);
+}
+
+.share-error p {
+  margin: 0;
 }
 
 .workspace-results {
@@ -49,6 +67,10 @@
   .workspace {
     grid-template-columns: minmax(0, 1fr);
     padding: var(--space-md);
+  }
+
+  .share-error {
+    margin-inline: var(--space-md);
   }
 }
 

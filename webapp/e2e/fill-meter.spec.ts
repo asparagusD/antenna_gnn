@@ -1,7 +1,8 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
+import { seedsOnlyUrl } from './helpers';
 
-// C5.2 fill meter. The app opens on a 25x25 board with only the seed pixels metal: rows/cols 8-15
-// (0-based) plus the feed pixel (5, 12) -> 65 of 625 pixels (10.4%).
+// C5.2 fill meter, on a seeds-only 25x25 board opened through seedsOnlyUrl: rows/cols 8-15 (0-based)
+// plus the feed pixel (5, 12) -> 65 of 625 pixels (10.4%).
 const N = 25;
 const SEED_METAL = 65;
 const WARNING = 'Outside the 30–80% range the model was trained on; predictions are less reliable';
@@ -49,7 +50,7 @@ async function paintFree(page: Page, canvas: Locator, from: number, to: number) 
 }
 
 async function openBoard(page: Page) {
-  await page.goto('./');
+  await page.goto(seedsOnlyUrl(N));
   const board = page.getByRole('application', { name: /Metal pattern, 25 by 25 pixels/ });
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL));
   return { board, canvas: board.locator('canvas') };

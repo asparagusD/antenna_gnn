@@ -10,7 +10,16 @@ import { ShareTools } from './components/ShareTools';
 import { downloadText } from './components/download';
 import { ValidityNote } from './components/ValidityNote';
 import { analyse } from './core/analysis';
-import { create, fill, fromCells, isEdited, mulberry32, randomPattern, type Grid } from './core/grid';
+import {
+  create,
+  fill,
+  fromCells,
+  isEdited,
+  mulberry32,
+  randomPattern,
+  sameCells,
+  type Grid,
+} from './core/grid';
 import {
   canRedo,
   canUndo,
@@ -22,6 +31,7 @@ import {
 import { exportFilename, patternCsv, s11Csv } from './core/exportCsv';
 import { decodeShare, encodeShare } from './core/share';
 import { usePrediction } from './hooks/usePrediction';
+import { exampleGrid } from './model/examples';
 import { loadMeta, type ModelMeta } from './model/meta';
 import { installTestHook, TEST_HOOKS_ENABLED } from './testHook';
 import './App.css';
@@ -31,13 +41,13 @@ type MetaState =
 
 const DEFAULT_N = 25;
 
-/** The grid a page load or a pasted link asks for: the hash's pattern, else a fresh 25×25 grid. */
+/** The grid a page load or a pasted link asks for: the hash's pattern, else the 25×25 example antenna. */
 function gridFromHash(meta: ModelMeta): { grid: Grid; error: string | null } | null {
   const shared = decodeShare(window.location.hash, meta);
   if (shared === null) return null;
   return shared.ok
     ? { grid: shared.grid, error: null }
-    : { grid: create(DEFAULT_N, meta), error: shared.reason };
+    : { grid: exampleGrid(DEFAULT_N, meta), error: shared.reason };
 }
 
 /** The top bar's status: the model's own state (the chart reports single predictions). */
@@ -76,7 +86,7 @@ export function App() {
         setState({ status: 'ready', meta });
         const start = gridFromHash(meta);
         setShareError(start?.error ?? null);
-        dispatch({ type: 'reset', grid: start?.grid ?? create(DEFAULT_N, meta) });
+        dispatch({ type: 'reset', grid: start?.grid ?? exampleGrid(DEFAULT_N, meta) });
       })
       .catch((error: unknown) => {
         if (!cancelled)
@@ -162,13 +172,17 @@ export function App() {
     },
     [meta, history],
   );
+  const loadExample = useCallback(() => {
+    if (meta !== null && history !== null)
+      dispatch({ type: 'set', grid: exampleGrid(history.present.N, meta) });
+  }, [meta, history]);
   const clearBoard = useCallback(() => {
     if (meta !== null && history !== null) dispatch({ type: 'set', grid: create(history.present.N, meta) });
   }, [meta, history]);
 
   const changeSize = useCallback(
     (size: number) => {
-      if (meta !== null) dispatch({ type: 'reset', grid: create(size, meta) });
+      if (meta !== null) dispatch({ type: 'reset', grid: exampleGrid(size, meta) });
     },
     [meta],
   );
@@ -181,18 +195,20 @@ export function App() {
           <GridSizeSelector
             sizes={meta.grids}
             value={history.present.N}
-            edited={isEdited(history.present)}
+            edited={!sameCells(history.present, exampleGrid(history.present.N, meta))}
             onChange={changeSize}
           />
         )}
-        {meta !== null && history !== null && <StartingPoints onRandom={randomAntenna} />}
+        {meta !== null && history !== null && (
+          <StartingPoints N={history.present.N} onExample={loadExample} onRandom={randomAntenna} />
+        )}
         <p className="topbar-status" role="status">
           {topbarStatus(state, prediction.model)}
         </p>
       </header>
       {shareError !== null && (
         <div className="share-error" role="alert">
-          <p>{`This share link could not be opened: ${shareError}. Showing a fresh 25×25 grid instead.`}</p>
+          <p>{`This share link could not be opened: ${shareError}. Showing the 25×25 example antenna instead.`}</p>
           <button
             type="button"
             className="tool"

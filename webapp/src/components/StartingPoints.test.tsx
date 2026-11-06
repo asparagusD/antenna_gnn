@@ -4,9 +4,10 @@ import { StartingPoints } from './StartingPoints';
 
 function setup() {
   const onRandom = vi.fn();
-  render(<StartingPoints onRandom={onRandom} />);
+  const onExample = vi.fn();
+  render(<StartingPoints N={25} onExample={onExample} onRandom={onRandom} />);
   const toggle = () => screen.getByRole('button', { name: 'Starting points' });
-  return { onRandom, toggle };
+  return { onRandom, onExample, toggle };
 }
 
 describe('StartingPoints', () => {
@@ -20,6 +21,17 @@ describe('StartingPoints', () => {
     fireEvent.click(toggle());
     expect(toggle().getAttribute('aria-expanded')).toBe('true');
     expect(screen.getByRole('group', { name: 'Starting points' })).toBeDefined();
+  });
+
+  it('Example antenna loads the grid example first in the panel, and focus starts there', () => {
+    const { onExample, toggle } = setup();
+    fireEvent.click(toggle());
+    const example = screen.getByRole('button', { name: 'Example antenna' });
+    expect(document.activeElement).toBe(example);
+    expect(screen.getByText('A known single-band 25×25 design.')).toBeDefined();
+    fireEvent.click(example);
+    expect(onExample).toHaveBeenCalledTimes(1);
+    expect(toggle().getAttribute('aria-expanded')).toBe('false');
   });
 
   it('the fill slider defaults to 60% and spans the 30–80% training range', () => {

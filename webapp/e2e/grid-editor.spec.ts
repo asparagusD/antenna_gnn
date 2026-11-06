@@ -1,7 +1,8 @@
 import { expect, test, type Locator, type Page } from '@playwright/test';
+import { seedsOnlyUrl } from './helpers';
 
-// The app opens on a 25x25 board with only the seed pixels metal: the block at rows/cols 8-15
-// (0-based) plus the feed pixel at (5, 12) -> 65 metal pixels.
+// These tests open a seeds-only 25x25 board through seedsOnlyUrl (the app itself opens on an example
+// antenna): the block at rows/cols 8-15 (0-based) plus the feed pixel at (5, 12) -> 65 metal pixels.
 const N = 25;
 const SEED_METAL = 65;
 
@@ -16,7 +17,7 @@ async function metalCount(board: Locator): Promise<number> {
 }
 
 async function openBoard(page: Page) {
-  await page.goto('./');
+  await page.goto(seedsOnlyUrl(N));
   const board = page.getByRole('application', { name: /Metal pattern, 25 by 25 pixels/ });
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL));
   return { board, canvas: board.locator('canvas') };

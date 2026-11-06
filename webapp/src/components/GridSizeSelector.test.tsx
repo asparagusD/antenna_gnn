@@ -66,7 +66,7 @@ describe('GridSizeSelector', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Switch to 12×12' }));
     rerender(<GridSizeSelector sizes={SIZES} value={12} edited={false} onChange={onChange} />);
     expect(document.activeElement).toBe(screen.getByRole('button', { name: '12×12' }));
-    expect(screen.getByText('Switched to 12×12: new grid, seed pixels only.')).toBeDefined();
+    expect(screen.getByText('Switched to 12×12: example antenna loaded.')).toBeDefined();
   });
 
   it('Keep and Escape cancel without changing size, returning focus to the current size', () => {

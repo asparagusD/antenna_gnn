@@ -55,13 +55,13 @@ test('the address bar follows edits, and Copy share link copies it', async ({ pa
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(page.url());
 });
 
-test('an invalid share link shows a friendly error and a fresh grid', async ({ page }) => {
+test('an invalid share link shows a friendly error and the example antenna', async ({ page }) => {
   await page.goto('./#p=v1.25.AAAA');
   await expect(page.getByRole('alert')).toHaveText(
-    /This share link could not be opened: the pattern data is incomplete or damaged\. Showing a fresh 25×25 grid instead\./,
+    /This share link could not be opened: the pattern data is incomplete or damaged\. Showing the 25×25 example antenna instead\./,
   );
   const board = page.getByRole('application', { name: /25 by 25 pixels/ });
-  await expect(board).toHaveAttribute('data-metal-count', '65');
+  await expect(board).toHaveAttribute('data-metal-count', '438');
   await expect.poll(() => new URL(page.url()).hash).toMatch(/^#p=v1\.25\./);
   await page.getByRole('button', { name: 'Dismiss' }).click();
   await expect(page.getByRole('alert')).toHaveCount(0);

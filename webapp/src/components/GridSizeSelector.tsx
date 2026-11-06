@@ -62,7 +62,7 @@ export function GridSizeSelector({ sizes, value, edited, onChange }: GridSizeSel
   const switchTo = (size: number) => {
     focusAfterSwitch.current = size;
     setAsked(null);
-    setAnnouncement(`Switched to ${label(size)}: new grid, seed pixels only.`);
+    setAnnouncement(`Switched to ${label(size)}: example antenna loaded.`);
     onChange(size);
   };
 

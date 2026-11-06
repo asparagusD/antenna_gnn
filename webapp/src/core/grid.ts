@@ -106,6 +106,13 @@ export function fromCells(N: number, values: ArrayLike<number>, spec: GridSpec):
   return { ...grid, cells };
 }
 
+/** True when both grids have the same size and the same pixels. */
+export function sameCells(a: Grid, b: Grid): boolean {
+  if (a.N !== b.N) return false;
+  for (let k = 0; k < a.cells.length; k++) if (a.cells[k] !== b.cells[k]) return false;
+  return true;
+}
+
 /** True when any pixel differs from a fresh grid (metal outside the seed pixels). */
 export function isEdited(grid: Grid): boolean {
   const { cells, seed } = grid;

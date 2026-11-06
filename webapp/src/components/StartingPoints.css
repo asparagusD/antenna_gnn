@@ -22,6 +22,12 @@
   background: var(--substrate);
 }
 
+.starting-points-item {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-xs);
+}
+
 .starting-points-random {
   display: flex;
   flex-wrap: wrap;

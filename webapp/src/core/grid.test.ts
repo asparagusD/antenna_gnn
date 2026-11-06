@@ -12,6 +12,7 @@ import {
   mulberry32,
   paint,
   randomPattern,
+  sameCells,
   toggle,
   type Grid,
   type GridSpec,
@@ -175,6 +176,16 @@ describe('fromCells', () => {
     const cells = Array.from(grid.cells);
     cells[r * 12 + c] = 0;
     expect(() => fromCells(12, cells, meta)).toThrow(/seed pixel/);
+  });
+});
+
+describe('sameCells', () => {
+  it('compares size and every pixel', () => {
+    const a = randomPattern(15, 0.5, mulberry32(1), meta);
+    expect(sameCells(a, fromCells(15, Array.from(a.cells), meta))).toBe(true);
+    const [r, c] = freeCell(a);
+    expect(sameCells(a, toggle(a, r, c))).toBe(false);
+    expect(sameCells(create(12, meta), create(15, meta))).toBe(false);
   });
 });
 

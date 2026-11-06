@@ -1,6 +1,7 @@
 /**
  * Starting points (C5.5, moved to the top bar in C6.1 as the approved shape planned): a disclosure that
- * opens a small non-modal panel with "Random antenna" and its fill slider (default 60%, range 30–80%, the
+ * opens a small non-modal panel with "Example antenna" (the grid's known single-band design) and
+ * "Random antenna" and its fill slider (default 60%, range 30–80%, the
  * fill range the model was trained on). Every action is an ordinary undoable edit, so none confirms.
  *
  * Keyboard: the toggle has aria-expanded; opening focuses the panel's first action; Escape or a press
@@ -10,10 +11,14 @@ import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import './StartingPoints.css';
 
 export interface StartingPointsProps {
+  /** Current grid size, named in the example's description. */
+  N: number;
+  /** Loads the grid's example antenna (a known single-band design). */
+  onExample: () => void;
   onRandom: (fill: number) => void;
 }
 
-export function StartingPoints({ onRandom }: StartingPointsProps) {
+export function StartingPoints({ N, onExample, onRandom }: StartingPointsProps) {
   const [open, setOpen] = useState(false);
   const [percent, setPercent] = useState(60);
   const panelId = useId();
@@ -68,6 +73,19 @@ export function StartingPoints({ onRandom }: StartingPointsProps) {
           role="group"
           aria-label="Starting points"
         >
+          <div className="starting-points-item">
+            <button
+              type="button"
+              className="tool"
+              onClick={() => {
+                onExample();
+                close();
+              }}
+            >
+              Example antenna
+            </button>
+            <p className="starting-points-note">{`A known single-band ${String(N)}×${String(N)} design.`}</p>
+          </div>
           <div className="starting-points-random">
             <button
               type="button"

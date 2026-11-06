@@ -2,7 +2,9 @@
 """Build the repository graph: docs/repo_graph/graph.json.
 
 Nodes are repository files (plus external Drive artifacts that notebooks read or
-write); edges are imports / reads / writes / produces / precedes.
+write); edges are imports / reads / writes / produces / precedes. Import edges cover Python
+imports of src/ modules and of repository packages (export/antenna_export), and relative
+TypeScript/JavaScript imports in webapp/ (data files such as .json fixtures become reads).
 
 Usage (from the repository root):
     python scripts/repo_graph/build_graph.py                 # regenerate graph.json
@@ -170,6 +172,102 @@ def local_module(module: str, src_modules: set[str]) -> str | None:
     return f"src/{head}.py" if head in src_modules else None
 
 
+# ---------------------------------------------------------------- local imports (C8.4)
+
+TS_SUFFIXES = (".ts", ".tsx", ".js", ".mjs", ".cjs")
+TS_RESOLVE = ("", ".ts", ".tsx", ".js", ".mjs", ".json", ".css", "/index.ts", "/index.tsx", "/index.js")
+DATA_SUFFIXES = (".json", ".onnx", ".wasm", ".csv")
+# Literal specifiers only (template literals are skipped): static import/export-from, side-effect
+# import, dynamic import(), new URL('...', import.meta.url) (workers, fixtures), Vite import.meta.glob.
+TS_IMPORT_RES = [
+    re.compile(r"""(?:^|[;\s])(?:import|export)\s+(?:type\s+)?[^;'"`]*?\sfrom\s*(['"])(.+?)\1""", re.S),
+    re.compile(r"""(?:^|[;\s])import\s*(['"])(.+?)\1"""),
+    re.compile(r"""(?<![\w.])import\(\s*(['"])(.+?)\1"""),
+    re.compile(r"""new\s+URL\(\s*(['"])(.+?)\1\s*,\s*import\.meta\.url"""),
+    re.compile(r"""import\.meta\.glob\s*(?:<.*?>)?\s*\(\s*(['"])(.+?)\1"""),
+]
+
+
+def _norm(path: str) -> str:
+    parts: list[str] = []
+    for part in path.split("/"):
+        if part == "..":
+            if parts:
+                parts.pop()
+        elif part not in ("", "."):
+            parts.append(part)
+    return "/".join(parts)
+
+
+def ts_local_imports(path: str, text: str, files: set[str]) -> set[tuple[str, str]]:
+    """(target, kind) for every relative specifier in a TS/JS file that resolves to a repository file.
+    kind is "reads" for data files (.json, .onnx, ...) and "imports" otherwise."""
+    base = path.rsplit("/", 1)[0] if "/" in path else ""
+    found: set[tuple[str, str]] = set()
+    for regex in TS_IMPORT_RES:
+        for m in regex.finditer(text):
+            spec = m.group(2).split("?", 1)[0]
+            if not spec.startswith(("./", "../")):
+                continue
+            joined = _norm(f"{base}/{spec}")
+            if "*" in spec:
+                pattern = re.compile("^" + ".*?".join("[^/]*".join(map(re.escape, seg.split("*")))
+                                                      for seg in joined.split("**")) + "$")
+                targets = [f for f in files if pattern.match(f)]
+            else:
+                targets = [joined + ext for ext in TS_RESOLVE if joined + ext in files][:1]
+            for target in targets:
+                if target != path:
+                    found.add((target, "reads" if target.endswith(DATA_SUFFIXES) else "imports"))
+    return found
+
+
+def py_local_imports(path: str, text: str, files: set[str]) -> set[str]:
+    """Repository modules a Python file imports: relative imports, and absolute imports of packages
+    that live in the repository (e.g. antenna_export under export/). src/ modules imported by bare
+    name are handled by local_module()."""
+    try:
+        tree = ast.parse(text)
+    except SyntaxError:
+        return set()
+    roots = sorted({p.rsplit("/", 2)[0] + "/" if p.count("/") >= 2 else ""
+                    for p in files if p.endswith("/__init__.py")})
+    here = path.rsplit("/", 1)[0] if "/" in path else ""
+
+    def resolve(module: str, level: int) -> str | None:
+        rel = module.replace(".", "/")
+        if level:
+            base = here
+            for _ in range(level - 1):
+                base = base.rsplit("/", 1)[0] if "/" in base else ""
+            candidates = [_norm(f"{base}/{rel}")] if rel else [base]
+        else:
+            candidates = [root + rel for root in roots]
+        for c in candidates:
+            for target in (f"{c}.py", f"{c}/__init__.py"):
+                if target in files:
+                    return target
+        return None
+
+    found: set[str] = set()
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for alias in node.names:
+                target = resolve(alias.name, 0)
+                if target:
+                    found.add(target)
+        elif isinstance(node, ast.ImportFrom):
+            module = node.module or ""
+            submodules = [resolve(f"{module}.{a.name}" if module else a.name, node.level) for a in node.names]
+            found.update(t for t in submodules if t)
+            if not all(submodules):
+                target = resolve(module, node.level)
+                if target:
+                    found.add(target)
+    found.discard(path)
+    return found
+
+
 def notebook_cells(path: str) -> list[dict]:
     nb = json.loads(normalised_bytes(path).decode("utf-8"))
     return nb.get("cells", [])
@@ -219,6 +317,7 @@ def notebook_text(path: str) -> str:
 
 def build(previous: dict | None) -> dict:
     files = list_files()
+    fileset = set(files)
     src_modules = {Path(p).stem for p in files if p.startswith("src/") and p.endswith(".py")}
     old = {n["path"]: n for n in (previous or {}).get("nodes", [])}
 
@@ -258,6 +357,13 @@ def build(previous: dict | None) -> dict:
         for target in node.get("src_imports", []):
             if target != path:
                 edges.add((path, target, "imports"))
+        if path.endswith(".py"):
+            for target in py_local_imports(path, text, fileset):
+                edges.add((path, target, "imports"))
+        elif path.endswith(TS_SUFFIXES):
+            text = normalised_bytes(path).decode("utf-8", errors="replace")
+            for target, kind in ts_local_imports(path, text, fileset):
+                edges.add((path, target, kind))
         for name in node.get("reads", []):
             edges.add((path, artifact(name, None), "reads"))
         for name in node.get("writes", []):

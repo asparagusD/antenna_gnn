@@ -2,7 +2,8 @@
 
 The human-readable companion to [`graph.json`](graph.json) (one node per file, each with a hand-written summary, plus imports / reads / writes / produces / precedes edges). Regenerate the graph with `make graph` (or `python scripts/repo_graph/build_graph.py`); `make graph-check` fails if a tracked file is missing, the graph is stale, or a summary is missing or out of date. See the `repo-graph` skill for the update procedure.
 
-- **Code:** `src/` (5 modules), `scripts/repo_graph/build_graph.py`, and `export/` (the Python reference pipeline for the web app: `antenna_export.graph_builder` holds the frozen `build_pyg_graph` verbatim plus `pattern_to_graph`; tests in `export/tests/`, run with `make py-test`).
+- **Code:** `src/` (5 modules), `scripts/repo_graph/build_graph.py` (+ its tests), `export/` (the Python reference pipeline for the web app: `antenna_export.graph_builder` holds the frozen `build_pyg_graph` verbatim plus `pattern_to_graph`; tests in `export/tests/`, run with `make py-test`) and `webapp/` (GraphPatch, the deployed web app: Vite + React + TypeScript, onnxruntime-web; see [section 3](#3-web-app-graphpatch)).
+- **Import edges in `graph.json`:** Python imports of `src/` modules and of `antenna_export`, and relative TypeScript/JavaScript imports in `webapp/` (including `new URL(…, import.meta.url)` workers and `import.meta.glob` fixtures); imported data files (`.json`, `.onnx`) are `reads` edges. Example: `jq '.edges[] | select(.target=="webapp/src/core/graph.ts")' docs/repo_graph/graph.json` lists everything that uses the TS graph builder.
 - **Research log:** `notebooks/` (50 notebooks, Chunks 1–53 plus 3 unnumbered). They ran on Colab/Kaggle against a Google Drive tree (`{DATA_ROOT}/artifacts`, `checkpoints/`, `splits/`, `data/processed/`), which is **not** in the repository; local copies of what the web app needs are in `webapp_private/` (ignored, never committed).
 - **Web-app working files:** `CLAUDE.md`, `PROGRESS.md`, `DEBUG_LOG.md`, `.claude/skills/*`, `.githooks/pre-commit`.
 - **Browser model assets:** `webapp/public/model/antenna_gnn.onnx` (the deployed model, fp32, opset 18) and `meta.json` (frequency grid, exact float32 `s11_mean`/`s11_std`, seed masks, feed pixels, rules, scope with the Chunk 52 test metrics, and SHA-256 hashes of the checkpoint and the ONNX file), written by `export/scripts/export_onnx.py` and `export/scripts/export_meta.py`.
@@ -103,18 +104,123 @@ Only `model.py` and `feed_component.py` matter for the web app (highlighted). No
 
 ---
 
-## 3. Web-app data flow (planned, C1–C5)
+## 3. Web app (GraphPatch)
+
+Live at https://asparagusd.github.io/antenna_gnn/. How to run, re-export and test it: [`webapp/README.md`](../../webapp/README.md); final checks and performance: [`docs/verification.md`](../verification.md); deployment: [`docs/deployment.md`](../deployment.md).
+
+### 3a. Runtime data flow
+
+One prediction per edit, latest request wins. The main thread never runs the model; the worker fetches `meta.json` and the ONNX file itself (under the Vite base path, `/antenna_gnn/` on Pages).
 
 ```mermaid
 flowchart LR
-    ui["Grid editor<br/>N ∈ {12,15,25,35,45}<br/>seed pixels locked metal"] --> gb["TS graph builder<br/>= build_pyg_graph<br/>+ feed-component column"]
-    seeds[("seed_mask_N.npy")] --> gb
-    gb --> ort["onnxruntime-web<br/>(Web Worker)<br/>ch52_bal_ft45_s0 → ONNX"]
-    ort -- "z (201)" --> denorm["dB = z · s11_std + s11_mean"]
-    stats[("s11_mean.npy<br/>s11_std.npy")] --> denorm
-    denorm --> post["post-processing:<br/>functioning (min < −10 dB),<br/>bands (find_peaks rule),<br/>scope / validity flags"]
-    post --> chart["S11 chart + results panel"]
+    subgraph main ["Main thread (React)"]
+        editor["GridEditor<br/>paint pixels, seeds locked"] --> grid["core/grid.ts<br/>Grid state, fill"]
+        start["StartingPoints<br/>example / random"] --> grid
+        hash["URL hash #p=v1.N.…<br/>core/share.ts"] <--> grid
+        grid --> hist["core/history.ts<br/>undo / redo"]
+        grid --> hook["hooks/usePrediction.ts"]
+        hook --> client["core/predictClient.ts<br/>latest wins"]
+        res["S11Chart · ResultsPanel ·<br/>PredictionSummary · ScopeNotice"]
+        analysis["core/analysis.ts<br/>functioning: min < −10 dB<br/>bands: find_peaks port"]
+        csv["core/exportCsv.ts<br/>|S11| and pattern CSV"]
+    end
+    subgraph worker ["Web Worker (core/worker.ts)"]
+        server["core/predictServer.ts"] --> gb["core/graph.ts<br/>N²+1 nodes × 6 features,<br/>4-neighbour + virtual edges"]
+        gb --> infer["core/infer.ts<br/>onnxruntime-web, wasm, 1 thread"]
+        infer --> denorm["dB = z · s11_std + s11_mean"]
+    end
+    client -- "postMessage(grid)" --> server
+    denorm -- "201 dB values" --> hook
+    hook --> analysis --> res
+    analysis --> csv
+    meta[("public/model/meta.json<br/>stats, seed masks, feed_rc,<br/>rules, scope")] -.-> server
+    meta -.-> grid
+    onnx[("public/model/antenna_gnn.onnx<br/>ch52_bal_ft45_s0, opset 18")] -.-> infer
+    wasm[("ort-wasm-simd-threaded.wasm")] -.-> infer
 ```
+
+### 3b. Module dependencies (`webapp/src/`, from the `imports` edges in `graph.json`)
+
+Tests, CSS and type-only imports of chart helpers are left out.
+
+```mermaid
+flowchart TD
+    mainx["main.tsx"] --> app["App.tsx"]
+    app --> comps["components/<br/>GridEditor · GridSizeSelector · StartingPoints ·<br/>FillMeter · BoardLegend · S11Chart · ResultsPanel ·<br/>PredictionSummary · ScopeNotice · ValidityNote ·<br/>ShareTools · ThemeToggle"]
+    app --> usep["hooks/usePrediction.ts"]
+    app --> examples["model/examples.ts<br/>(examples.json)"]
+    app --> testhook["testHook.ts<br/>(e2e builds only)"]
+    app --> share["core/share.ts"]
+    app --> history["core/history.ts"]
+    app --> exportcsv["core/exportCsv.ts"]
+    usep --> pclient["core/predictClient.ts"]
+    usep -. "new Worker(new URL(...))" .-> workerts["core/worker.ts"]
+    pclient --> pserver["core/predictServer.ts"]
+    workerts --> pserver
+    workerts --> infer["core/infer.ts"]
+    pserver --> infer
+    pserver --> gbts["core/graph.ts"]
+    infer --> gbts
+    comps --> analysis["core/analysis.ts"]
+    comps --> gbts
+    exportcsv --> analysis
+    examples --> share
+    gbts --> grid["core/grid.ts"]
+    share --> grid
+    history --> grid
+    exportcsv --> grid
+    grid --> meta["model/meta.ts<br/>loadMeta, parseMeta"]
+    gbts --> meta
+    infer --> meta
+
+    classDef wk fill:#dbeafe,stroke:#1d4ed8,color:#000;
+    class workerts,pserver,infer,gbts wk;
+```
+
+Blue: code that runs in the worker (`core/graph.ts` also runs on the main thread, where `GridEditor` uses `feedComponent` to draw the live copper).
+
+### 3c. Assets, parity contract and deployment
+
+```mermaid
+flowchart LR
+    subgraph priv ["webapp_private/ (local only, never committed)"]
+        ck[("checkpoints/ch52_bal_ft45_s0.pt")]
+        st[("artifacts/s11_mean, s11_std,<br/>seed_mask_N, ch52_runs.csv")]
+        rg[("graphs/NxN (training graphs)")]
+    end
+    subgraph exp ["export/ (Python reference, float64)"]
+        gbpy["antenna_export/graph_builder.py<br/>frozen build_pyg_graph"]
+        pred["antenna_export/predict.py<br/>SHA-256 check, src/model.py"]
+        fx["scripts/make_fixtures.py"]
+        ox["scripts/export_onnx.py<br/>parity ≤ 1e-4 dB"]
+        mx["scripts/export_meta.py"]
+        bv["scripts/make_band_vectors.py"]
+    end
+    ck --> pred
+    st --> pred
+    rg -. "exact parity test" .-> gbpy
+    gbpy --> pred
+    pred --> fx --> fixtures[("webapp/fixtures/NxN.json<br/>48 golden cases")]
+    pred --> ox --> onnx[("webapp/public/model/antenna_gnn.onnx")]
+    ox --> mx --> metaj[("webapp/public/model/meta.json")]
+    st --> mx
+    bv --> bvj[("webapp/fixtures/analysis/band_vectors.json")]
+    fixtures --> tests["Vitest: graph.test.ts (exact),<br/>tests/node/infer.parity.test.ts (≤ 1e-4 dB),<br/>e2e-live/live.spec.ts (deployed app)"]
+    onnx --> tests
+    bvj --> tests
+    tests --> ci["GitHub Actions deploy-webapp.yml<br/>make check-web → build (BASE_PATH=/antenna_gnn/) → asset check"]
+    ci --> pages["GitHub Pages"]
+```
+
+| Area | Files |
+|---|---|
+| App source | `webapp/src/` (`core/`, `hooks/`, `model/`, `components/`, `styles/`, `App.tsx`, `main.tsx`) |
+| Shipped assets | `webapp/public/model/antenna_gnn.onnx`, `meta.json`; examples in `webapp/src/model/examples.json` (`webapp/scripts/make-examples.mjs`) |
+| Tests | unit and component tests next to the code (`*.test.ts(x)`, jsdom); `webapp/tests/node/` (ONNX parity in Node); `webapp/e2e/` (Playwright on the production build); `webapp/e2e-live/` (the deployed site) |
+| Measurement | `webapp/bench/infer.bench.test.ts`, `webapp/scripts/measure-latency.mjs`, `webapp/scripts/measure-startup.mjs` |
+| Build and CI | `webapp/vite.config.ts`, `webapp/playwright*.config.ts`, `Makefile`, `.github/workflows/deploy-webapp.yml` |
+| Design | `PRODUCT.md`, `DESIGN.md`, `docs/design_review.md`, `.impeccable/` |
 
 ---
 

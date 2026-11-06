@@ -7,6 +7,7 @@ A graph neural network that predicts the full |S11| spectrum of a pixelated micr
 
 ## Contents
 
+- [Web app](#web-app)
 - [Headline results](#headline-results)
 - [Problem and data](#problem-and-data)
 - [Graph representation](#graph-representation)
@@ -19,6 +20,20 @@ A graph neural network that predicts the full |S11| spectrum of a pixelated micr
 - [Running the notebooks](#running-the-notebooks)
 - [Drive layout and key artifacts](#drive-layout-and-key-artifacts)
 - [Known issues and caveats](#known-issues-and-caveats)
+
+---
+
+## Web app
+
+**GraphPatch: https://asparagusd.github.io/antenna_gnn/**
+
+A static web app that runs the model in your browser: draw the metal pattern on a 12×12, 15×15, 25×25, 35×35 or 45×45 grid and the predicted |S11| curve, the functioning verdict (minimum below −10 dB) and the bands update on every edit. Nothing is sent to a server; the model runs with onnxruntime-web (WebAssembly) in a Web Worker. Patterns can be shared as links and exported as CSV.
+
+- **Model:** the app ships `ch52_bal_ft45_s0` (Chunk 52, seed 0), the same 587,129-parameter `AntennaGNN` fine-tuned on balanced single-band and non-functioning data on 12/15/35/45 and the natural data on 25×25. Chunks 51–53 are not yet in the [research log](#research-log-every-notebook) below.
+- **Accuracy (Chunk 52 test sets):** MAE 0.495 / 0.454 / 0.393 / 0.314 / 0.310 dB on 12 / 15 / 25 / 35 / 45. Multi-band designs are outside what this model learned, and the app flags them.
+- **Parity:** the browser reproduces the Python reference (frozen graph builder + PyTorch, float64) to within 2.2e-5 dB on 48 golden fixtures; the contract is 1e-4 dB.
+- **Speed (Ryzen 5 5600X desktop):** about 14 ms per prediction at 12×12 and 225 ms at 45×45; the first visit downloads about 6 MB.
+- **Code and docs:** [`webapp/`](webapp) (Vite, React, TypeScript), [`webapp/README.md`](webapp/README.md) (how to run it, re-export the model, the parity contract, limitations), [`export/`](export) (Python reference and ONNX export), [`docs/verification.md`](docs/verification.md) (final checks and performance), [`docs/deployment.md`](docs/deployment.md) (GitHub Pages).
 
 ---
 

@@ -47,8 +47,8 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C7.2 Deploy and run the smoke test against the live site
 
 ## C8 Final verification and handover
-- [ ] C8.1 Full regression
-- [ ] C8.2 Performance report
-- [ ] C8.3 Documentation
-- [ ] C8.4 Repository graph update
-- [ ] C8.5 Final summary
+- [x] C8.1 Full regression
+- [x] C8.2 Performance report
+- [x] C8.3 Documentation
+- [x] C8.4 Repository graph update
+- [x] C8.5 Final summary

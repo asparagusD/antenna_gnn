@@ -41,7 +41,7 @@ What they check, in a real Chromium:
 | Console clean | no console errors or warnings and no page errors during any test |
 | Assets | `index.html`, `model/meta.json`, `model/antenna_gnn.onnx` and the onnxruntime `.wasm` return 200; nothing sends `Cache-Control: no-store`; the wasm is `application/wasm` (needed for streaming compilation); headers are printed for this record |
 | No cross-origin isolation needed | `window.crossOriginIsolated` is reported; inference must work without COOP/COEP (single-thread wasm) |
-| Parity in the browser | for each grid (12, 15, 25, 35, 45) the first golden fixture pattern is opened as a share link; the downloaded \|S11\| CSV (6 decimals) must be within **1e-4 dB** of the fixture's `expected_db` at all 201 frequencies |
+| Parity in the browser | every golden fixture pattern (48 cases over 12, 15, 25, 35, 45; the first per grid until C8.1) is opened as a share link; the downloaded \|S11\| CSV (6 decimals) must be within **1e-4 dB** of the fixture's `expected_db` at all 201 frequencies |
 | Share link round-trips | a random antenna's URL opened in a fresh browser context restores the same pixel count, the same hash and the same Depth |
 
 The production build has no test hook (it exists only in the e2e build, C5.4), so parity goes through the
@@ -80,6 +80,7 @@ Deployed by the workflow run for merge commit `52329bc` (Node 24 action releases
 was not yet set to GitHub Actions; after the setting was changed, the next run succeeded.
 
 `npm run e2e:live` (default `LIVE_URL`): **7 passed** (20.8 s). Console clean in every test.
+The C8.1 rerun with all 48 fixtures (50 tests) is recorded in [`verification.md`](verification.md).
 
 | Fixture | max \|browser − reference\| (dB) |
 |---|---|

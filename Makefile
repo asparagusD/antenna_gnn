@@ -60,6 +60,8 @@ py-setup:
 	uv venv $(VENV) --python 3.12
 	uv pip install --python $(VENV_PY) -e "export[test]"
 
-## Python reference-pipeline tests (needs the local webapp_private/ data).
+## Python reference-pipeline tests (needs the local webapp_private/ data), then the repository-graph
+## builder's tests (no private data needed).
 py-test:
 	cd export && $(abspath $(VENV_PY)) -m pytest
+	$(VENV_PY) -m pytest scripts/repo_graph -q -p no:cacheprovider

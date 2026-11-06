@@ -653,9 +653,9 @@
    "type": "config",
    "size": 2088,
    "chunk": null,
-   "sha": "fd32af42c244a1643ba3ada63b0525c79538a4f8",
-   "summary": "GitHub Actions workflow: on push to main touching webapp/** (or manual dispatch) installs Node 24 dependencies, runs make check-web, builds with BASE_PATH=/antenna_gnn/, checks that the ONNX model, meta.json and onnxruntime wasm are in dist, uploads dist as the Pages artifact and deploys it with actions/deploy-pages (requires Pages source: GitHub Actions).",
-   "summary_sha": "fd32af42c244a1643ba3ada63b0525c79538a4f8"
+   "sha": "3b3c58ea7ac1c046a9e1fb51727cf50e968e28da",
+   "summary": "GitHub Actions workflow (Node 24 action releases: checkout v7, setup-node v7, configure-pages v6, upload-pages-artifact v5, deploy-pages v5): on push to main touching webapp/** or manual dispatch, installs dependencies, runs make check-web, builds with BASE_PATH=/antenna_gnn/, checks the ONNX model, meta.json and onnxruntime wasm are in dist, uploads dist as the Pages artifact and deploys it (Pages source must be GitHub Actions).",
+   "summary_sha": "3b3c58ea7ac1c046a9e1fb51727cf50e968e28da"
   },
   {
    "path": ".gitignore",
@@ -770,9 +770,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "2b966fe2998e063979cece549dd68fcd54f020ad",
-   "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "2b966fe2998e063979cece549dd68fcd54f020ad"
+   "sha": "ed9cd09b8fb39c090d73b0a349bc72d206f73296",
+   "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk acceptance criteria are shown passing and committed.",
+   "summary_sha": "ed9cd09b8fb39c090d73b0a349bc72d206f73296"
   },
   {
    "path": "README.md",
@@ -2352,11 +2352,11 @@
   {
    "path": "docs/deployment.md",
    "type": "markdown",
-   "size": 5761,
+   "size": 7571,
    "chunk": null,
-   "sha": "e3eeccdeb77e08953072a142e3523d31ab0b7e9e",
-   "summary": "Deployment record for GitHub Pages: how a deployment happens (Pages source, merge to main, the workflow steps), how to run the live checks (npm run e2e:live, LIVE_URL), what they check, results (local /antenna_gnn/ preview: 7 passed, parity 2e-6 to 1e-5 dB; GitHub Pages pending), and the deployment playbook for base path, 404s, MIME types, cross-origin isolation and caching.",
-   "summary_sha": "e3eeccdeb77e08953072a142e3523d31ab0b7e9e"
+   "sha": "779bc03b25214d9337ac6634f0c1226e73d2f52c",
+   "summary": "Deployment record for GitHub Pages: how a deployment happens (Pages source, merge to main, the workflow steps), how to run the live checks (npm run e2e:live, LIVE_URL), what they check, results (local /antenna_gnn/ preview and the live site: 7 passed, parity 2e-6 to 1e-5 dB, assets 200 with max-age=600 + ETag + gzip, wasm application/wasm, no cross-origin isolation needed), the first failed run and its cause, and the deployment playbook.",
+   "summary_sha": "779bc03b25214d9337ac6634f0c1226e73d2f52c"
   },
   {
    "path": "docs/design_review.md",

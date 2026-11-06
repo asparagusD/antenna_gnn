@@ -59,6 +59,18 @@
   min-width: 0;
 }
 
+/* Portrait and near-square viewports (tablets held upright) stack board above results: two columns
+   there left the results column ~100 px wide. The board keeps its square, capped at 640 px. */
+@media (max-aspect-ratio: 5/4) {
+  .workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .workspace-board {
+    width: min(100%, 640px);
+  }
+}
+
 @media (max-width: 767px) {
   .topbar {
     padding: var(--space-md);

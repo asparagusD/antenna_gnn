@@ -44,7 +44,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 
 ## C7 Deployment to GitHub Pages
 - [x] C7.1 GitHub Actions workflow
-- [ ] C7.2 Deploy and run the smoke test against the live site
+- [x] C7.2 Deploy and run the smoke test against the live site
 
 ## C8 Final verification and handover
 - [ ] C8.1 Full regression

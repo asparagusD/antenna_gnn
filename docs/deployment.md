@@ -73,20 +73,50 @@ The CSV rounds dB to 6 decimals, so up to 5e-7 of each figure is rounding.
 `crossOriginIsolated`: **false**, and inference worked: no COOP/COEP headers are needed. Console: clean.
 These headers are vite preview's, not GitHub Pages'; the Pages headers are recorded below.
 
-### GitHub Pages, https://asparagusd.github.io/antenna_gnn/
+### GitHub Pages, https://asparagusd.github.io/antenna_gnn/ (2026-11-06)
 
-**Pending.** On 2026-11-06 the web app was not yet on `main` (the C7.1 workflow commits were not pushed) and the
-URL returned 404. Run `npm run e2e:live` after the first deployment and record the results here.
+Deployed by the workflow run for merge commit `52329bc` (Node 24 action releases, `8f80fa1`). The first run
+(`cff2ca0`) failed in `actions/configure-pages` with "Get Pages site failed … Not Found" because the Pages source
+was not yet set to GitHub Actions; after the setting was changed, the next run succeeded.
+
+`npm run e2e:live` (default `LIVE_URL`): **7 passed** (20.8 s). Console clean in every test.
+
+| Fixture | max \|browser − reference\| (dB) |
+|---|---|
+| 12x12-ref-sample_0 | 5.0e-6 |
+| 15x15-ref-sample_0 | 1.0e-5 |
+| 25x25-ref-sample_1534 | 2.0e-6 |
+| 35x35-ref-sample_5 | 2.0e-6 |
+| 45x45-ref-sample_1 | 4.0e-6 |
+
+Identical to the local preview: the deployed model and wasm are the tested ones.
+
+| Asset | Status | Content-Type | Cache-Control | ETag | Encoding |
+|---|---|---|---|---|---|
+| `/antenna_gnn/` | 200 | text/html; charset=utf-8 | max-age=600 | weak | gzip |
+| `model/meta.json` | 200 | application/json; charset=utf-8 | max-age=600 | weak | gzip |
+| `model/antenna_gnn.onnx` | 200 | application/octet-stream | max-age=600 | weak | gzip |
+| `assets/ort-wasm-simd-threaded-*.wasm` | 200 | application/wasm | max-age=600 | weak | gzip |
+
+`crossOriginIsolated`: **false**, inference works: no COOP/COEP needed, as designed. Share link round-trip in a
+fresh browser context: passed. Viewed in a browser: the 25×25 example antenna opens with "Model ready · runs
+in your browser", Functioning Yes, 3.850 GHz, −21.4 dB.
+
+Caching assessment: GitHub Pages sends `max-age=600` with an ETag for every file, so repeat visits revalidate
+cheaply and files are at most 10 minutes stale after a deploy. The hashed `assets/*` names change with every
+build; `model/antenna_gnn.onnx` and `meta.json` keep fixed names, so after a model update a returning visitor may
+use the old pair for up to 10 minutes (they are deployed together, so they stay consistent with each other).
+Sensible for this app; no change needed.
 
 ## Deployment playbook (what to check when something breaks)
 
 | Area | Expectation in this app | Status |
 |---|---|---|
-| Base path | Vite `base` comes from `BASE_PATH` (`/antenna_gnn/` in CI). meta.json and the model are fetched through `import.meta.env.BASE_URL` (`model/meta.ts`, `core/worker.ts`); the onnxruntime wasm is a Vite asset resolved relative to the worker chunk, so it is under `/antenna_gnn/assets/` too. `index.html` references `/antenna_gnn/assets/…` (checked in CI). | Verified locally (52 + 156 e2e runs under the base path, C7.1; live suite above) |
-| 404s | The app has one page; state lives in the URL hash (`#p=v1.…`), which never reaches the server, so share links cannot 404. A missing model or meta.json shows an explicit error (C6.4). | Verified locally |
-| MIME types | `.wasm` must be `application/wasm` (GitHub Pages serves it so); `.onnx` is fetched as bytes, any type works. | Verified locally; confirm on Pages |
-| Cross-origin isolation | Not needed: onnxruntime-web runs single-threaded wasm (`numThreads = 1`), so no SharedArrayBuffer, no COOP/COEP headers (GitHub Pages cannot set them anyway). | Verified locally (`crossOriginIsolated` false, inference works) |
-| Caching | GitHub Pages sends a short `Cache-Control: max-age` with an ETag. Hashed assets (`assets/*`) can be cached safely; `model/antenna_gnn.onnx` and `meta.json` keep fixed names, so after a model update browsers may use the old files until the max-age passes and revalidate. | Confirm on Pages |
+| Base path | Vite `base` comes from `BASE_PATH` (`/antenna_gnn/` in CI). meta.json and the model are fetched through `import.meta.env.BASE_URL` (`model/meta.ts`, `core/worker.ts`); the onnxruntime wasm is a Vite asset resolved relative to the worker chunk, so it is under `/antenna_gnn/assets/` too. `index.html` references `/antenna_gnn/assets/…` (checked in CI). | Verified on Pages (live suite) and locally (52 + 156 e2e runs, C7.1) |
+| 404s | The app has one page; state lives in the URL hash (`#p=v1.…`), which never reaches the server, so share links cannot 404. A missing model or meta.json shows an explicit error (C6.4). | Verified on Pages (share links load; error states tested locally, C6.4) |
+| MIME types | `.wasm` must be `application/wasm` (GitHub Pages serves it so); `.onnx` is fetched as bytes, any type works. | Verified on Pages: `application/wasm` |
+| Cross-origin isolation | Not needed: onnxruntime-web runs single-threaded wasm (`numThreads = 1`), so no SharedArrayBuffer, no COOP/COEP headers (GitHub Pages cannot set them anyway). | Verified on Pages (`crossOriginIsolated` false, inference works) |
+| Caching | GitHub Pages sends a short `Cache-Control: max-age` with an ETag. Hashed assets (`assets/*`) can be cached safely; `model/antenna_gnn.onnx` and `meta.json` keep fixed names, so after a model update browsers may use the old files until the max-age passes and revalidate. | Verified on Pages: `max-age=600` + ETag, gzip |
 
 Known gap: PRODUCT.md asks for the app to work offline after the first load; there is no service worker yet, so
 offline use relies on the browser's HTTP cache only.

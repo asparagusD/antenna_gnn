@@ -38,6 +38,7 @@ interface Palette {
   text: string;
   muted: string;
   action: string;
+  laminate: string;
 }
 
 function readPalette(element: Element): Palette {
@@ -51,6 +52,7 @@ function readPalette(element: Element): Palette {
     text: v('--text', '#eae8df'),
     muted: v('--text-muted', '#aab4ac'),
     action: v('--action', '#68bea8'),
+    laminate: v('--laminate', '#121e18'),
   };
 }
 
@@ -111,22 +113,45 @@ function draw(canvas: HTMLCanvasElement, state: DrawState): void {
       }
       ctx.stroke();
       ctx.restore();
-    } else if (!live && w >= 8 * dpr) {
-      // Floating copper: dashed inset edge (never colour alone).
-      ctx.save();
-      ctx.strokeStyle = palette.muted;
-      ctx.lineWidth = line;
-      ctx.setLineDash([2 * line, 2 * line]);
-      const inset = Math.max(2, Math.round(w * 0.18));
-      ctx.strokeRect(
-        x + inset + 0.5 * line,
-        y + inset + 0.5 * line,
-        w - 2 * inset - line,
-        h - 2 * inset - line,
-      );
-      ctx.restore();
     }
   }
+
+  // Floating copper (seeds included): a dashed silkscreen line traced around each island's
+  // perimeter, so "not connected to the feed" never rests on colour alone, at any cell size.
+  // Contrast: silkscreen vs floating copper >= 3.3:1, vs substrate >= 12:1 (both themes).
+  const floating = (r: number, c: number) =>
+    r >= 0 && c >= 0 && r < N && c < N && cells[r * N + c] === 1 && state.live[r * N + c] !== 1;
+  ctx.save();
+  ctx.strokeStyle = palette.text;
+  ctx.lineWidth = Math.max(1, Math.round(1.5 * dpr));
+  const dash = Math.max(2, Math.round(Math.min(cellPx / 3, 4 * dpr)));
+  ctx.setLineDash([dash, dash]);
+  ctx.beginPath();
+  for (let r = 0; r < N; r++) {
+    for (let c = 0; c < N; c++) {
+      if (!floating(r, c)) continue;
+      const [x0, x1] = cellEdges(c, px, N);
+      const [y0, y1] = cellEdges(r, px, N);
+      if (!floating(r - 1, c)) {
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x1, y0);
+      }
+      if (!floating(r + 1, c)) {
+        ctx.moveTo(x0, y1);
+        ctx.lineTo(x1, y1);
+      }
+      if (!floating(r, c - 1)) {
+        ctx.moveTo(x0, y0);
+        ctx.lineTo(x0, y1);
+      }
+      if (!floating(r, c + 1)) {
+        ctx.moveTo(x1, y0);
+        ctx.lineTo(x1, y1);
+      }
+    }
+  }
+  ctx.stroke();
+  ctx.restore();
 
   // Feed pixel: silkscreen ring.
   const [fr, fc] = state.feed;
@@ -137,22 +162,41 @@ function draw(canvas: HTMLCanvasElement, state: DrawState): void {
   ctx.arc(fx + fw / 2, fy + fh / 2, Math.max(2 * dpr, Math.min(fw, fh) * 0.28), 0, 2 * Math.PI);
   ctx.stroke();
 
-  const outline = (cell: Cell, color: string, width: number) => {
+  // Two-tone outlines (silkscreen outside, laminate inside): one of the two always clears 3:1
+  // against air, live copper and floating copper, in both themes (WCAG 1.4.11).
+  const outline = (cell: Cell, outer: number) => {
     const [x, y, w, h] = cellRect(cell, px, N);
-    ctx.strokeStyle = color;
-    ctx.lineWidth = width;
-    ctx.strokeRect(x + width / 2, y + width / 2, w - width, h - width);
+    ctx.strokeStyle = palette.text;
+    ctx.lineWidth = outer;
+    ctx.strokeRect(x + outer / 2, y + outer / 2, w - outer, h - outer);
+    ctx.strokeStyle = palette.laminate;
+    ctx.lineWidth = line;
+    ctx.strokeRect(x + outer + line / 2, y + outer + line / 2, w - 2 * outer - line, h - 2 * outer - line);
   };
-  if (state.hover) outline(state.hover, palette.action, line);
-  if (state.cursor) outline(state.cursor, palette.action, 2 * line);
+  if (state.hover) outline(state.hover, line);
+  if (state.cursor) outline(state.cursor, 2 * line);
 }
 
-function describe(grid: Grid, cell: Cell, feed: readonly [number, number]): string {
+function describe(grid: Grid, live: Uint8Array, cell: Cell, feed: readonly [number, number]): string {
   const k = cell.row * grid.N + cell.col;
   const where = `Row ${String(cell.row + 1)}, column ${String(cell.col + 1)}`;
   if (cell.row === feed[0] && cell.col === feed[1]) return `${where}: feed pixel, always metal`;
-  if (grid.seed[k] === 1) return `${where}: seed pixel, always metal (feed region)`;
-  return `${where}: ${grid.cells[k] === 1 ? 'metal' : 'air'}`;
+  const connection = live[k] === 1 ? 'connected to the feed' : 'not connected to the feed';
+  if (grid.seed[k] === 1) return `${where}: seed pixel, always metal, ${connection}`;
+  return grid.cells[k] === 1 ? `${where}: metal, ${connection}` : `${where}: air`;
+}
+
+/** Hover hint for locked pixels; null for editable ones. */
+function lockedHint(
+  grid: Grid,
+  live: Uint8Array,
+  cell: Cell,
+  feed: readonly [number, number],
+): string | null {
+  const k = cell.row * grid.N + cell.col;
+  if (cell.row === feed[0] && cell.col === feed[1]) return 'Feed pixel: always metal';
+  if (grid.seed[k] !== 1) return null;
+  return live[k] === 1 ? 'Seed pixel: always metal' : 'Seed pixel: always metal · not connected to the feed';
 }
 
 export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProps) {
@@ -259,20 +303,22 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
     [onChange],
   );
 
+  /** Describes a pixel of the current grid (after any edit in this event), with its connection. */
+  const describeNow = (cell: Cell) => {
+    const g = gridRef.current;
+    return describe(g, feedComponent(g, spec), cell, feed);
+  };
+
   const updateTooltip = (event: React.PointerEvent, cell: Cell | null) => {
     const board = boardRef.current;
     const g = gridRef.current;
-    if (board === null || cell === null || g.seed[cell.row * g.N + cell.col] !== 1) {
+    const hint = board === null || cell === null ? null : lockedHint(g, feedComponent(g, spec), cell, feed);
+    if (board === null || hint === null) {
       setTooltip(null);
       return;
     }
     const box = board.getBoundingClientRect();
-    const isFeed = cell.row === feed[0] && cell.col === feed[1];
-    setTooltip({
-      x: event.clientX - box.left,
-      y: event.clientY - box.top,
-      text: isFeed ? 'Feed pixel: always metal' : 'Always metal: feed region',
-    });
+    setTooltip({ x: event.clientX - box.left, y: event.clientY - box.top, text: hint });
   };
 
   const onPointerDown = (event: React.PointerEvent<HTMLCanvasElement>) => {
@@ -288,7 +334,7 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
     penRef.current = value;
     setCursor(cell);
     apply([cell], value);
-    setAnnouncement(describe(gridRef.current, cell, feed));
+    setAnnouncement(describeNow(cell));
   };
 
   const onPointerMove = (event: React.PointerEvent<HTMLCanvasElement>) => {
@@ -335,7 +381,7 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
         onStrokeEnd?.();
       }
       setCursor(current);
-      setAnnouncement(describe(gridRef.current, current, feed));
+      setAnnouncement(describeNow(current));
       return;
     }
     const next = moveCursor(current, event.key, g.N);
@@ -346,10 +392,11 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
       onStrokeEnd?.();
     }
     setCursor(next);
-    setAnnouncement(describe(gridRef.current, next, feed));
+    setAnnouncement(describeNow(next));
   };
 
   const readout = hover ?? (focused ? cursor : null);
+  const hoverLocked = hover !== null && grid.seed[hover.row * N + hover.col] === 1;
   const pitch = (PATCH_MM / N).toFixed(2);
 
   return (
@@ -377,6 +424,7 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
           ref={canvasRef}
           className="board-canvas"
           aria-hidden="true"
+          style={{ cursor: hoverLocked ? 'not-allowed' : 'crosshair' }}
           onPointerDown={onPointerDown}
           onPointerMove={onPointerMove}
           onPointerUp={endStroke}
@@ -398,7 +446,9 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
       <figcaption className="board-readout">
         <span aria-live="polite">{focused ? announcement : ''}</span>
         <span className="board-readout-visible" aria-hidden="true">
-          {readout ? describe(grid, readout, feed) : `${String(metalCount)} of ${String(N * N)} pixels metal`}
+          {readout
+            ? describe(grid, live, readout, feed)
+            : `${String(metalCount)} of ${String(N * N)} pixels metal`}
         </span>
       </figcaption>
       <p id={instructionsId} className="visually-hidden">

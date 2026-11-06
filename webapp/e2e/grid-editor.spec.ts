@@ -27,7 +27,7 @@ test('a click toggles a free cell to metal and back', async ({ page }) => {
   const at = await cellCentre(canvas, 20, 20);
   await page.mouse.click(at.x, at.y);
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 1));
-  await expect(page.getByText('Row 21, column 21: metal')).toBeVisible();
+  await expect(page.getByText('Row 21, column 21: metal, not connected to the feed')).toBeVisible();
   await page.mouse.click(at.x, at.y);
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL));
 });
@@ -55,8 +55,10 @@ test('seed cells do not change and explain why', async ({ page }) => {
   const seed = await cellCentre(canvas, 10, 10);
   await page.mouse.click(seed.x, seed.y);
   expect(await metalCount(board)).toBe(SEED_METAL);
-  await expect(page.getByRole('tooltip')).toHaveText('Always metal: feed region');
-  await expect(page.getByText('Row 11, column 11: seed pixel, always metal (feed region)')).toBeVisible();
+  await expect(page.getByRole('tooltip')).toHaveText('Seed pixel: always metal · not connected to the feed');
+  await expect(
+    page.getByText('Row 11, column 11: seed pixel, always metal, not connected to the feed'),
+  ).toBeVisible();
 
   // A drag across the seed block in erase mode leaves every seed pixel metal.
   const metal = await cellCentre(canvas, 12, 2);
@@ -77,6 +79,24 @@ test('the feed pixel is marked and locked', async ({ page }) => {
   await expect(page.getByRole('tooltip')).toHaveText('Feed pixel: always metal');
   await page.mouse.click(feed.x, feed.y);
   expect(await metalCount(board)).toBe(SEED_METAL);
+});
+
+test('bridging the feed to the seed block reports it as connected (live copper)', async ({ page }) => {
+  const { canvas } = await openBoard(page);
+  // At 25x25 the feed (5, 12) sits one pixel above the seed block; a diagonal pair joins them (8-connected).
+  for (const [row, col] of [
+    [6, 13],
+    [7, 14],
+  ] as const) {
+    const at = await cellCentre(canvas, row, col);
+    await page.mouse.click(at.x, at.y);
+  }
+  const seed = await cellCentre(canvas, 10, 10);
+  await page.mouse.move(seed.x, seed.y);
+  await expect(page.getByRole('tooltip')).toHaveText('Seed pixel: always metal');
+  await expect(
+    page.getByText('Row 11, column 11: seed pixel, always metal, connected to the feed'),
+  ).toBeVisible();
 });
 
 test('the keyboard moves a cursor and toggles with Space', async ({ page }) => {

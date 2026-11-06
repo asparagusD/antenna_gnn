@@ -43,7 +43,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 - [x] C6.5 Polish and the detector check
 
 ## C7 Deployment to GitHub Pages
-- [ ] C7.1 GitHub Actions workflow
+- [x] C7.1 GitHub Actions workflow
 - [ ] C7.2 Deploy and run the smoke test against the live site
 
 ## C8 Final verification and handover

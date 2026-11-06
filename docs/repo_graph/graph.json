@@ -649,6 +649,15 @@
    "summary_sha": "7e58421776842cc2496df4640f81b9cbc47067e7"
   },
   {
+   "path": ".github/workflows/deploy-webapp.yml",
+   "type": "config",
+   "size": 2088,
+   "chunk": null,
+   "sha": "fd32af42c244a1643ba3ada63b0525c79538a4f8",
+   "summary": "GitHub Actions workflow: on push to main touching webapp/** (or manual dispatch) installs Node 24 dependencies, runs make check-web, builds with BASE_PATH=/antenna_gnn/, checks that the ONNX model, meta.json and onnxruntime wasm are in dist, uploads dist as the Pages artifact and deploys it with actions/deploy-pages (requires Pages source: GitHub Actions).",
+   "summary_sha": "fd32af42c244a1643ba3ada63b0525c79538a4f8"
+  },
+  {
    "path": ".gitignore",
    "type": "config",
    "size": 1546,
@@ -723,11 +732,11 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 12301,
+   "size": 13390,
    "chunk": null,
-   "sha": "d31761af7ba171be4f2f094f5beef315752e5ff8",
-   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C6.2 axe sampling the fading Updating mark).",
-   "summary_sha": "d31761af7ba171be4f2f094f5beef315752e5ff8"
+   "sha": "eb6d6101d5ee924cd123db3e6bfe2bc4f53926d2",
+   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C7.1 one unreproduced e2e failure under the /antenna_gnn/ base path, open).",
+   "summary_sha": "eb6d6101d5ee924cd123db3e6bfe2bc4f53926d2"
   },
   {
    "path": "DESIGN.md",
@@ -741,11 +750,11 @@
   {
    "path": "Makefile",
    "type": "config",
-   "size": 1993,
+   "size": 2216,
    "chunk": null,
-   "sha": "59bda6f5ac5e36e73ba24fb4f3e485cda1ca3ca3",
-   "summary": "Project task runner: `make check` (typecheck, lint, Vitest, the Impeccable design detector on webapp/src via the bundled launcher, Python tests), `make design-check`, `make e2e` (Playwright), `make graph` (regenerate and fail on drift), `make graph-check`, `make web-setup`, `make py-setup` and `make py-test`.",
-   "summary_sha": "59bda6f5ac5e36e73ba24fb4f3e485cda1ca3ca3"
+   "sha": "824c1de304c918c3037b204c71be09eb3596ae88",
+   "summary": "Project task runner: `make check` (= check-web + py-test), `make check-web` (typecheck, lint, Vitest incl. ONNX parity tests, the Impeccable design detector; used by CI), `make design-check`, `make e2e` (Playwright), `make graph` (regenerate and fail on drift), `make graph-check`, `make web-setup`, `make py-setup` and `make py-test`.",
+   "summary_sha": "824c1de304c918c3037b204c71be09eb3596ae88"
   },
   {
    "path": "PRODUCT.md",
@@ -761,9 +770,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "90070624da8bc36f1307675b94a664f0534a0dfd",
+   "sha": "2b966fe2998e063979cece549dd68fcd54f020ad",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "90070624da8bc36f1307675b94a664f0534a0dfd"
+   "summary_sha": "2b966fe2998e063979cece549dd68fcd54f020ad"
   },
   {
    "path": "README.md",

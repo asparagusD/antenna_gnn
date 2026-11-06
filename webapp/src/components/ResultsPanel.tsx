@@ -78,7 +78,7 @@ export function ResultsPanel({ db, inferMs }: ResultsPanelProps) {
         ))}
       </dl>
 
-      {a !== null && a.bands.length > 0 && (
+      {
         // A focusable, labelled scroll region: on narrow screens the table scrolls sideways, and keyboard
         // users must be able to scroll it too (WCAG 2.1.1).
         <div className="results-bands-scroll" role="region" aria-labelledby={captionId} tabIndex={0}>
@@ -94,7 +94,18 @@ export function ResultsPanel({ db, inferMs }: ResultsPanelProps) {
               </tr>
             </thead>
             <tbody>
-              {a.bands.map((band, i) => (
+              {(a === null || a.bands.length === 0) && (
+                <tr>
+                  <td className="results-bands-empty" colSpan={5}>
+                    {a === null
+                      ? '—'
+                      : a.functioning
+                        ? `Below −10 dB only at the ${edgeGhz(a)} edge; the edges are not counted as bands.`
+                        : 'No band below −10 dB.'}
+                  </td>
+                </tr>
+              )}
+              {(a?.bands ?? []).map((band, i) => (
                 <tr key={band.index}>
                   <th scope="row">{i + 1}</th>
                   <td>{formatGhz(band.freqGhz)}</td>
@@ -106,12 +117,7 @@ export function ResultsPanel({ db, inferMs }: ResultsPanelProps) {
             </tbody>
           </table>
         </div>
-      )}
-      {a !== null && a.functioning && a.bands.length === 0 && (
-        <p className="results-empty">
-          {`Below −10 dB only at the ${edgeGhz(a)} edge; the edges are not counted as bands.`}
-        </p>
-      )}
+      }
 
       {a !== null && inferMs !== null && (
         <p className="results-foot">{`Predicted in ${formatMs(inferMs)} in this browser.`}</p>

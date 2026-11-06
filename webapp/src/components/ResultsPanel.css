@@ -84,7 +84,11 @@
   font-weight: 600;
 }
 
-.results-empty,
+.results-bands td.results-bands-empty {
+  color: var(--text-muted);
+  white-space: normal;
+}
+
 .results-foot {
   margin: var(--space-md) 0 0;
   font-size: var(--text-small);

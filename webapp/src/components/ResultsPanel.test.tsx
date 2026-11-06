@@ -47,7 +47,8 @@ describe('ResultsPanel', () => {
   it('shows dashes with units implied by labels before the first prediction', () => {
     render(<ResultsPanel db={null} inferMs={null} />);
     for (const name of ['functioning', 'resonance', 'depth', 'bands']) expect(value(name)).toBe('—');
-    expect(screen.queryByRole('table')).toBeNull();
+    // The band table is always there (no layout shift as bands come and go).
+    expect(screen.getByRole('table', { name: 'Bands below −10 dB' }).textContent).toContain('—');
   });
 
   it('a functioning single-band curve: values match analyse(), units always shown', () => {
@@ -66,15 +67,16 @@ describe('ResultsPanel', () => {
     expect(screen.getByText('Predicted in 54 ms in this browser.')).toBeDefined();
   });
 
-  it('a non-functioning curve: No, no resonance, the minimum as depth, no table', () => {
+  it('a non-functioning curve: No, no resonance, the minimum as depth, an empty band table', () => {
     render(<ResultsPanel db={dip(-6, 150)} inferMs={10} />);
     expect(value('functioning')).toBe('No');
     expect(value('resonance')).toBe('None');
     expect(value('depth')).toBe('−6.0 dB');
     expect(value('bands')).toBe('0');
-    expect(screen.queryByRole('table')).toBeNull();
-    // Said once, in the cells: no extra "no band" line.
-    expect(document.querySelector('.results-empty')).toBeNull();
+    // The table keeps its place with an empty-state row, so content below does not jump.
+    expect(screen.getByRole('table', { name: 'Bands below −10 dB' }).textContent).toContain(
+      'No band below −10 dB.',
+    );
     expect(screen.getByText('|S11| stays above −10 dB')).toBeDefined();
   });
 

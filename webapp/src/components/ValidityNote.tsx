@@ -8,7 +8,7 @@ import { useId } from 'react';
 import type { ModelMeta } from '../model/meta';
 import './ValidityNote.css';
 
-export const REPOSITORY_URL = 'https://github.com/asparagusD/antenna_gnn';
+export const REPOSITORY_URL = 'https://github.com/asparagusD/graphpatch';
 
 export interface ValidityNoteProps {
   N: number;

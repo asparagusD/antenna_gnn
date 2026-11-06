@@ -1,4 +1,4 @@
-# Build, check and deploy the GraphPatch web app (webapp/) to GitHub Pages at /antenna_gnn/.
+# Build, check and deploy the GraphPatch web app (webapp/) to GitHub Pages at /graphpatch/.
 #
 # One-time manual step in the repository: Settings -> Pages -> Build and deployment -> Source: GitHub Actions.
 #
@@ -44,10 +44,10 @@ jobs:
       - name: Quality gate (make check without the torch-based Python tests)
         run: make check-web
 
-      - name: Build for /antenna_gnn/
+      - name: Build for /graphpatch/
         working-directory: webapp
         env:
-          BASE_PATH: /antenna_gnn/
+          BASE_PATH: /graphpatch/
         run: npm run build
 
       - name: Check that the model and onnxruntime wasm are in the build
@@ -56,7 +56,7 @@ jobs:
           test -s model/antenna_gnn.onnx
           test -s model/meta.json
           ls assets/*.wasm
-          grep -q 'src="/antenna_gnn/assets/' index.html
+          grep -q 'src="/graphpatch/assets/' index.html
 
       - uses: actions/configure-pages@v6
 

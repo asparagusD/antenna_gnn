@@ -1,5 +1,5 @@
 {
-  "name": "antenna-gnn-webapp",
+  "name": "graphpatch-webapp",
   "private": true,
   "version": "0.1.0",
   "description": "Client-side web app for the GATv2 antenna S11 surrogate (ch52_bal_ft45_s0).",

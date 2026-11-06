@@ -21,7 +21,7 @@ const option = (name, fallback) => {
   const i = args.indexOf(name);
   return i >= 0 ? Number(args[i + 1]) : fallback;
 };
-const url = args.find((a) => a.startsWith('http')) ?? 'https://asparagusd.github.io/antenna_gnn/';
+const url = args.find((a) => a.startsWith('http')) ?? 'https://asparagusd.github.io/graphpatch/';
 const runs = option('--runs', 5);
 
 const median = (values) => {

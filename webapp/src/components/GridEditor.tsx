@@ -23,7 +23,9 @@ export interface GridEditorProps {
   grid: Grid;
   spec: GraphSpec;
   onChange: (grid: Grid) => void;
-  /** Called when a pointer stroke or a keyboard edit finishes (e.g. to run the final prediction). */
+  /** Called before a pointer stroke or a keyboard edit starts changing pixels (undo history). */
+  onStrokeStart?: () => void;
+  /** Called when a pointer stroke or a keyboard edit finishes (undo history, final prediction). */
   onStrokeEnd?: () => void;
 }
 
@@ -199,7 +201,7 @@ function lockedHint(
   return live[k] === 1 ? 'Seed pixel: always metal' : 'Seed pixel: always metal · not connected to the feed';
 }
 
-export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProps) {
+export function GridEditor({ grid, spec, onChange, onStrokeStart, onStrokeEnd }: GridEditorProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const boardRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef(grid);
@@ -332,6 +334,7 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
     const value: CellValue = g.seed[k] === 1 ? 1 : g.cells[k] === 1 ? 0 : 1;
     strokeRef.current = { value, last: cell, pointerId: event.pointerId };
     penRef.current = value;
+    onStrokeStart?.();
     setCursor(cell);
     apply([cell], value);
     setAnnouncement(describeNow(cell));
@@ -377,6 +380,7 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
       if (g.seed[k] !== 1) {
         const value: CellValue = g.cells[k] === 1 ? 0 : 1;
         penRef.current = value;
+        onStrokeStart?.();
         apply([current], value);
         onStrokeEnd?.();
       }
@@ -388,6 +392,7 @@ export function GridEditor({ grid, spec, onChange, onStrokeEnd }: GridEditorProp
     if (next === null) return;
     event.preventDefault();
     if (event.shiftKey) {
+      onStrokeStart?.();
       apply(lineCells(current, next), penRef.current);
       onStrokeEnd?.();
     }

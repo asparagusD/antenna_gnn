@@ -28,7 +28,8 @@
 
 .workspace {
   display: grid;
-  grid-template-columns: minmax(0, min(100%, calc(100dvh - 180px), 640px)) 1fr;
+  /* Board column: square board plus dimension line, readout and tools all inside the viewport. */
+  grid-template-columns: minmax(0, min(100%, calc(100dvh - 290px), 640px)) 1fr;
   gap: var(--space-xl);
   padding: var(--space-xl);
   align-items: start;
@@ -43,4 +44,37 @@
     grid-template-columns: minmax(0, 1fr);
     padding: var(--space-md);
   }
+}
+
+/* Tools row under the board (DESIGN.md secondary buttons). */
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.tool {
+  height: 36px;
+  padding: var(--space-sm) 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-sm);
+  background: var(--laminate);
+  color: var(--text);
+  font: inherit;
+  font-size: var(--text-body);
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color var(--duration-fast) var(--ease-standard);
+}
+
+.tool:hover:not(:disabled) {
+  border-color: var(--text-muted);
+}
+
+.tool:disabled {
+  color: var(--text-muted);
+  border-color: var(--rule);
+  cursor: default;
+  opacity: 0.6;
 }

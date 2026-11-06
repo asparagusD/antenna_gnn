@@ -110,3 +110,29 @@ test('the keyboard moves a cursor and toggles with Space', async ({ page }) => {
   await page.keyboard.press('Shift+ArrowLeft'); // paints (3, 11) and (3, 10) with metal
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 3));
 });
+
+test('undo reverts a whole stroke; redo re-applies it (keys and buttons)', async ({ page }) => {
+  const { board, canvas } = await openBoard(page);
+  const undo = page.getByRole('button', { name: 'Undo' });
+  const redo = page.getByRole('button', { name: 'Redo' });
+  await expect(undo).toBeDisabled();
+
+  const from = await cellCentre(canvas, 22, 2);
+  const to = await cellCentre(canvas, 22, 9);
+  await page.mouse.move(from.x, from.y);
+  await page.mouse.down();
+  await page.mouse.move(to.x, to.y, { steps: 3 });
+  await page.mouse.up();
+  await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 8));
+
+  await page.keyboard.press('ControlOrMeta+z'); // one step undoes the whole 8-pixel stroke
+  await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL));
+  await page.keyboard.press('ControlOrMeta+Shift+z');
+  await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 8));
+
+  await undo.click();
+  await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL));
+  await expect(undo).toBeDisabled();
+  await redo.click();
+  await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 8));
+});

@@ -66,3 +66,16 @@ test('result cells sit two to a row on a phone, with nothing clipped', async ({ 
     .evaluateAll((els) => els.filter((el) => el.scrollWidth > el.clientWidth + 1).length);
   expect(clipped).toBe(0);
 });
+
+test('the Starting points panel and the size question open as bottom sheets', async ({ page }) => {
+  await ready(page);
+  const height = page.viewportSize()?.height ?? 0;
+  await page.getByRole('button', { name: 'Starting points' }).tap();
+  const panel = await page.getByRole('group', { name: 'Starting points' }).boundingBox();
+  expect(height - ((panel?.y ?? 0) + (panel?.height ?? 0))).toBeLessThanOrEqual(24);
+  await page.getByRole('button', { name: 'Random antenna' }).tap();
+
+  await page.getByRole('group', { name: 'Grid size' }).getByRole('button', { name: '35×35' }).tap();
+  const question = await page.getByRole('group', { name: 'Switch to 35×35?' }).boundingBox();
+  expect(height - ((question?.y ?? 0) + (question?.height ?? 0))).toBeLessThanOrEqual(24);
+});

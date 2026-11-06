@@ -62,3 +62,15 @@
   color: var(--text-muted);
   font-size: var(--text-small);
 }
+
+/* Phones: a bottom sheet within thumb reach that leaves the board visible. */
+@media (max-width: 767px) {
+  .starting-points-panel {
+    position: fixed;
+    top: auto;
+    right: var(--space-md);
+    bottom: max(var(--space-md), env(safe-area-inset-bottom));
+    left: var(--space-md);
+    width: auto;
+  }
+}

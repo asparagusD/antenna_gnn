@@ -761,9 +761,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "0aa430fd2bff833dd0e08578da66adb9d50d5bf6",
+   "sha": "1eb48020b676f24edd10ec7c5530d0e25c98cec5",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "0aa430fd2bff833dd0e08578da66adb9d50d5bf6"
+   "summary_sha": "1eb48020b676f24edd10ec7c5530d0e25c98cec5"
   },
   {
    "path": "README.md",
@@ -2343,11 +2343,11 @@
   {
    "path": "docs/design_review.md",
    "type": "markdown",
-   "size": 9222,
+   "size": 11285,
    "chunk": null,
-   "sha": "22945afed9a3b4679984c6017efe4ef2d971ec10",
-   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding either fixed or justified (C6.1 whole-app critique 26/40; C6.2 audit 14/20 with three P1s fixed: focusable band table, 200% text, wasm-only onnxruntime).",
-   "summary_sha": "22945afed9a3b4679984c6017efe4ef2d971ec10"
+   "sha": "57925f19fcd124fb1ab1792dc59f961834f371be",
+   "summary": "Living design review for Chunk 6: per-subchunk Impeccable findings ranked P0-P3 with evidence, decision and the closing commit, plus every detector finding fixed or justified (C6.1 critique 26/40; C6.2 audit 14/20, three P1s fixed; C6.3 phone and tablet adaptation with the justified segmented control).",
+   "summary_sha": "57925f19fcd124fb1ab1792dc59f961834f371be"
   },
   {
    "path": "docs/repo_graph/REPO_MAP.md",
@@ -4459,11 +4459,20 @@
   {
    "path": "webapp/e2e/layout.spec.ts",
    "type": "typescript",
-   "size": 2454,
+   "size": 2714,
    "chunk": null,
-   "sha": "d9cb830951df8f332b9315a476ee577492d469b3",
-   "summary": "Playwright layout regressions: portrait 768x1024, 820x1180 and 1024x1366 stack board above results with no sideways scroll, a chart wider than 80% of the viewport and no clipped result values; 1024x768 keeps two columns; at 200% text (1280x800) no sideways scroll and no clipped result values.",
-   "summary_sha": "d9cb830951df8f332b9315a476ee577492d469b3"
+   "sha": "fbd1b28b105064065589ffd3b0234749e014284d",
+   "summary": "Playwright layout regressions: portrait 768x1024, 820x1180 and 1024x1366 stack board above results with no sideways scroll, a wide chart and no clipped values; 1024x768 keeps two columns; 200% text has no sideways scroll or clipped values; the desktop two-column layout shows no sticky summary.",
+   "summary_sha": "fbd1b28b105064065589ffd3b0234749e014284d"
+  },
+  {
+   "path": "webapp/e2e/phone.spec.ts",
+   "type": "typescript",
+   "size": 5206,
+   "chunk": null,
+   "sha": "03c91d4b9b089f53bc08829b7ee23546317c3c8d",
+   "summary": "Playwright phone tests (Pixel 7 emulation, synthesized touch): every visible control at least 44x44 px; the sticky summary shows the verdict, stays pinned while scrolling and scrolls to the chart; result cells two to a row; Starting points and the size question open as bottom sheets; board gestures (tap paints one pixel, a second finger does not paint, pinch-zoom allowed).",
+   "summary_sha": "03c91d4b9b089f53bc08829b7ee23546317c3c8d"
   },
   {
    "path": "webapp/e2e/results.spec.ts",
@@ -4576,11 +4585,11 @@
   {
    "path": "webapp/index.html",
    "type": "other",
-   "size": 297,
+   "size": 317,
    "chunk": null,
-   "sha": "02b7143133f71c644250a76b371ce437c58d41fb",
-   "summary": "Vite HTML entry for GraphPatch: page title and the #root element, loading src/main.tsx.",
-   "summary_sha": "02b7143133f71c644250a76b371ce437c58d41fb"
+   "sha": "87f8c05c36434685e964578e45218df03d26f406",
+   "summary": "Vite HTML entry for GraphPatch: page title, viewport with viewport-fit=cover (safe-area insets for bottom sheets), and the #root element loading src/main.tsx.",
+   "summary_sha": "87f8c05c36434685e964578e45218df03d26f406"
   },
   {
    "path": "webapp/package-lock.json",
@@ -4648,11 +4657,11 @@
   {
    "path": "webapp/src/App.css",
    "type": "other",
-   "size": 2618,
+   "size": 2811,
    "chunk": null,
-   "sha": "e32227dd1e8a408ae72a7388bb2ca20b2df3409c",
-   "summary": "Core screen layout: flex-column app with an optional share-link error banner, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, one tool row and the fill meter with its warning in the viewport, stacked under aspect ratio 5/4 (portrait tablets), single column under 768px, and the tools-row secondary buttons.",
-   "summary_sha": "e32227dd1e8a408ae72a7388bb2ca20b2df3409c"
+   "sha": "f57b8ee014d341c2fdf7142f8d415f08ce19e8f2",
+   "summary": "Core screen layout: flex-column app with an optional share-link error banner, wrapping top bar, two-column workspace with the board column sized to keep the board, readout, one tool row and the fill meter in the viewport, stacked under aspect ratio 5/4 or below 768px (with a scroll margin for the sticky summary), and the tools-row secondary buttons.",
+   "summary_sha": "f57b8ee014d341c2fdf7142f8d415f08ce19e8f2"
   },
   {
    "path": "webapp/src/App.test.tsx",
@@ -4666,11 +4675,11 @@
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 11228,
+   "size": 11732,
    "chunk": null,
-   "sha": "07ba75c03536eaad54569b4c7c7f504d8b05b9fb",
-   "summary": "Core screen: loads meta.json and opens on the share link or the grid's example antenna, keeps the hash in sync, loads pasted links; top bar with grid size, Starting points (example, random) and the model status; undo/redo history; GridEditor, Undo/Redo/Clear, FillMeter; via usePrediction the live S11Chart, ResultsPanel, ScopeNotice, Share and export and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
-   "summary_sha": "07ba75c03536eaad54569b4c7c7f504d8b05b9fb"
+   "sha": "086a718b59195bf277ce24544eff47883ca21b95",
+   "summary": "Core screen: loads meta.json and opens on the share link or the grid's example antenna, keeps the hash in sync, loads pasted links; top bar with grid size, Starting points and the model status; undo/redo history; sticky PredictionSummary on stacked layouts; GridEditor, Undo/Redo/Clear, FillMeter; via usePrediction the live S11Chart, ResultsPanel, ScopeNotice, Share and export and ValidityNote; e2e test hook in VITE_E2E_HOOKS builds only.",
+   "summary_sha": "086a718b59195bf277ce24544eff47883ca21b95"
   },
   {
    "path": "webapp/src/components/FillMeter.css",
@@ -4702,29 +4711,29 @@
   {
    "path": "webapp/src/components/GridEditor.css",
    "type": "other",
-   "size": 1855,
+   "size": 2111,
    "chunk": null,
-   "sha": "8b5fd98fea56f947ac8347b3b9e33ab8701c17fc",
-   "summary": "Styles for the board: substrate frame, square canvas, seed tooltip, silkscreen dimension line with end ticks, readout and visually hidden helpers.",
-   "summary_sha": "8b5fd98fea56f947ac8347b3b9e33ab8701c17fc"
+   "sha": "b000689237f195eece55c8831e5c0e3467ae4a33",
+   "summary": "Styles for the board: substrate frame (touch-action pan-y pinch-zoom so swipes there scroll), square canvas (touch-action pinch-zoom: one finger paints, two zoom), seed tooltip, silkscreen dimension line with end ticks, readout and visually hidden helpers.",
+   "summary_sha": "b000689237f195eece55c8831e5c0e3467ae4a33"
   },
   {
    "path": "webapp/src/components/GridEditor.tsx",
    "type": "typescript",
-   "size": 17481,
+   "size": 17607,
    "chunk": null,
-   "sha": "8bcbc3af0ea2ae661a0e2dc782ad99586f7b7a9b",
-   "summary": "The board: canvas pixel editor drawn as flat copper on laminate at device-pixel resolution; live copper (feed-connected) vs floating islands outlined by a dashed silkscreen perimeter, hatched locked seeds, ringed feed pixel, adaptive grid lines; pointer painting with first-pixel value and gap-free drags, keyboard cursor (two-tone outline) with Space and Shift+arrow painting, tooltips and screen-reader text with connection status, stroke start/end callbacks for undo.",
-   "summary_sha": "8bcbc3af0ea2ae661a0e2dc782ad99586f7b7a9b"
+   "sha": "60b82198d09a2e01740c4737e9bba4113b8c0ec3",
+   "summary": "The board: canvas pixel editor drawn as flat copper on laminate at device-pixel resolution; live copper (feed-connected) vs floating islands outlined by a dashed silkscreen perimeter, hatched locked seeds, ringed feed pixel, adaptive grid lines; primary-pointer painting with first-pixel value and gap-free drags (a pinch's second finger never paints), keyboard cursor with Space and Shift+arrow painting, tooltips and screen-reader text with connection status, stroke start/end callbacks for undo.",
+   "summary_sha": "60b82198d09a2e01740c4737e9bba4113b8c0ec3"
   },
   {
    "path": "webapp/src/components/GridSizeSelector.css",
    "type": "other",
-   "size": 2962,
+   "size": 3271,
    "chunk": null,
-   "sha": "94b43f2efd510d5f66f349bdd69e77dd8b747444",
-   "summary": "Grid-size segmented control styles: square joined segments with 2px outer corners, selected segment filled with the action colour; the inline question panel (substrate, hairline border, no shadow) with Keep as the primary button and Switch secondary; visually hidden announcement region.",
-   "summary_sha": "94b43f2efd510d5f66f349bdd69e77dd8b747444"
+   "sha": "166bf966b5be8ec4be33df037daea25d4c0b16a2",
+   "summary": "Grid-size segmented control styles: square joined segments with 2px outer corners, selected segment filled with the action colour; the inline question panel (substrate, hairline border, no shadow; a bottom sheet below 768px) with Keep as the primary button and Switch secondary; visually hidden announcement region.",
+   "summary_sha": "166bf966b5be8ec4be33df037daea25d4c0b16a2"
   },
   {
    "path": "webapp/src/components/GridSizeSelector.test.tsx",
@@ -4745,13 +4754,31 @@
    "summary_sha": "29311bc4e1dde7a07e0c0d015201fd5eabca9e68"
   },
   {
+   "path": "webapp/src/components/PredictionSummary.css",
+   "type": "other",
+   "size": 1229,
+   "chunk": null,
+   "sha": "85bd915889bffbb32dc7751f8586f2a1efd8e218",
+   "summary": "Styles for the sticky one-line prediction summary: hidden in the two-column layout, pinned to the top on stacked layouts with label/value pairs, an Updating mark and a chevron; visually hidden lead-in for its accessible name.",
+   "summary_sha": "85bd915889bffbb32dc7751f8586f2a1efd8e218"
+  },
+  {
+   "path": "webapp/src/components/PredictionSummary.tsx",
+   "type": "typescript",
+   "size": 2450,
+   "chunk": null,
+   "sha": "b89105f718f1f58cd2c2e56a40503245c7ee833b",
+   "summary": "Compact sticky prediction summary for stacked layouts (phones, portrait tablets): Functioning, Resonance and Depth from analyse(), a button whose accessible name is its visible text that scrolls the results into view (not an #anchor, since the hash is the share link).",
+   "summary_sha": "b89105f718f1f58cd2c2e56a40503245c7ee833b"
+  },
+  {
    "path": "webapp/src/components/ResultsPanel.css",
    "type": "other",
-   "size": 2261,
+   "size": 2615,
    "chunk": null,
-   "sha": "bd3c7028527e27c2e27a730ccb7b5bd5c8bdc508",
-   "summary": "Results styles: cells that reflow by content width (auto-fit, 11.25rem minimum) with 1px rule separators from the grid gap, uppercase labels, 1.75rem tabular values, reserved note lines, the band table in a focusable horizontal scroll region, footnote and the visually hidden announcement region.",
-   "summary_sha": "bd3c7028527e27c2e27a730ccb7b5bd5c8bdc508"
+   "sha": "10ee7d50e90c0e3a35cf9b3b0f139f07955b6009",
+   "summary": "Results styles: cells that reflow by content width (auto-fit, 11.25rem minimum; 9.5rem with smaller values and padding on phones) with 1px rule separators from the grid gap, uppercase labels, tabular values, reserved note lines, the band table in a focusable horizontal scroll region, footnote and the visually hidden announcement region.",
+   "summary_sha": "10ee7d50e90c0e3a35cf9b3b0f139f07955b6009"
   },
   {
    "path": "webapp/src/components/ResultsPanel.test.tsx",
@@ -4855,11 +4882,11 @@
   {
    "path": "webapp/src/components/StartingPoints.css",
    "type": "other",
-   "size": 1261,
+   "size": 1573,
    "chunk": null,
-   "sha": "e1aa1f662e02835658c6e97930a6d86a1bc3d4e4",
-   "summary": "Styles for the top-bar Starting points disclosure: toggle state, flat substrate panel, example item with its note, Random antenna with the labelled fill slider and value.",
-   "summary_sha": "e1aa1f662e02835658c6e97930a6d86a1bc3d4e4"
+   "sha": "f44970e69238d2dd56fdf89de7a92e0a87905b7e",
+   "summary": "Styles for the top-bar Starting points disclosure: toggle state, flat substrate panel (a bottom sheet below 768px), example item with its note, Random antenna with the labelled fill slider and value.",
+   "summary_sha": "f44970e69238d2dd56fdf89de7a92e0a87905b7e"
   },
   {
    "path": "webapp/src/components/StartingPoints.test.tsx",
@@ -5197,11 +5224,11 @@
   {
    "path": "webapp/src/styles/tokens.css",
    "type": "other",
-   "size": 2968,
+   "size": 3395,
    "chunk": null,
-   "sha": "fbde88ba26f43e6c34c60b3ac0cb38be470c7e82",
-   "summary": "Design tokens from DESIGN.md as CSS custom properties (dark laminate default, light theme by system preference or data-theme; light caution is an ochre, oklch(58% 0.11 88)), self-hosted Public Sans Variable, tabular figures, themed selection, focus, caret and scrollbars, reduced-motion guard.",
-   "summary_sha": "fbde88ba26f43e6c34c60b3ac0cb38be470c7e82"
+   "sha": "52e3763c6038798b922d60382fc5a96590c425d0",
+   "summary": "Design tokens from DESIGN.md as CSS custom properties (dark laminate default, light theme by system preference or data-theme; light caution is an ochre), self-hosted Public Sans Variable, tabular figures, themed selection, focus, caret and scrollbars, reduced-motion guard, and 44x44 px minimum targets for buttons, selects, ranges and links under a coarse pointer.",
+   "summary_sha": "52e3763c6038798b922d60382fc5a96590c425d0"
   },
   {
    "path": "webapp/src/testHook.ts",

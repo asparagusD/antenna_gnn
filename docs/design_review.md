@@ -103,3 +103,29 @@ recorded user decisions or open findings below.
 Positive: axe clean in every other state and both themes; every focus stop has a visible 2 px ring; one tab
 stop for the board with full keyboard painting; polite live regions that do not flood; reduced motion swaps the
 chart without a tween; no console errors.
+
+## C6.3 Adapt: tablet and phone (2026-11-06)
+
+Context: PRODUCT.md says desktop mostly, tablets sometimes; phones must work but are not the primary device.
+Stacked layout (aspect ratio ≤ 5/4 or < 768 px): board on top, chart below, as requested. Evidence is Chromium
+emulation (Pixel 7 profile, synthesized touch through CDP) and the browser pane at 375×812; no physical device.
+
+| Change | Finding addressed | Commit |
+|---|---|---|
+| 44×44 px targets for every control under `(pointer: coarse)` | C6.1 rank 5, C6.2 P2 (34–36 px targets) | 5389bf6 |
+| Sticky one-line summary (Functioning · Resonance · Depth) above the board on stacked layouts; press to scroll to the chart | C6.1 rank 5 (chart below the fold; DESIGN.md sticky summary) | 6ce5c5d |
+| Result cells two to a row on phones | follow-on of 1484bb2 on 343 px columns | 5d6c1d6 |
+| Grid-size question and Starting points as bottom sheets on phones; `viewport-fit=cover` with safe-area inset | C6.1 rank 11 (popover covered the board; detector `text-occlusion`) | 2ce999a |
+| Board: canvas `touch-action: pinch-zoom`, frame `pan-y pinch-zoom`; only the primary pointer paints | C6.1 rank 5 (board swallowed scroll; 45×45 pixels too small to tap) | 3f4e1fc |
+
+Justified deviation: DESIGN.md asks for a native `<select>` for the grid size on phones. The segmented control
+now has 44 px targets and fits a 343 px column in one row (5 × 69 px), shows all sizes at once and changes size
+in one tap (a select needs two); keeping one control also keeps one keyboard and screen-reader model. Kept as
+segments; DESIGN.md is re-documented in C6.5.
+
+Not verified: pinch-zoom and scroll on a physical iOS or Android device (emulation only).
+
+Detector `text-occlusion` (C6.1): on phones the question no longer covers the chart title (bottom sheet). On
+desktop the question still opens under the segments over the plot's top edge while it is open; justified: it is
+a transient, non-modal question that closes on any outside press, and keeping it next to the control that
+opened it is the expected pattern.

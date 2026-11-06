@@ -770,18 +770,18 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "ede6020d2593814b6cd31bd258d762975fec7af6",
+   "sha": "cba22efa67d875fa2f7ca9d104a9ad7a4e1186a2",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk acceptance criteria are shown passing and committed.",
-   "summary_sha": "ede6020d2593814b6cd31bd258d762975fec7af6"
+   "summary_sha": "cba22efa67d875fa2f7ca9d104a9ad7a4e1186a2"
   },
   {
    "path": "README.md",
    "type": "markdown",
-   "size": 22598,
+   "size": 24254,
    "chunk": null,
-   "sha": "477c1053f25e00e7cbcdecc1d67dd0990a7ed395",
-   "summary": "Project README: the problem and data (five grids, 201-point |S11| from alternate.m simulations), graph representation, GATv2 architecture, model lineage up to the Chunk 44/45/50 natural-distribution models, the Gupta et al. CNN baseline, a research log of every notebook, source modules, conventions and known caveats. It predates Chunks 51-53 in its headline table (it names ch44_ft15_from4_replay_p100_s0 as the final five-grid model).",
-   "summary_sha": "477c1053f25e00e7cbcdecc1d67dd0990a7ed395"
+   "sha": "921415a4a37ecdf5c33768af423ec39010b31777",
+   "summary": "Project README: a Web app section (GraphPatch live link, the deployed ch52_bal_ft45_s0 model, Chunk 52 accuracy, parity and speed, links to webapp/README.md and the docs), then the problem and data (five grids, 201-point |S11| from alternate.m simulations), graph representation, GATv2 architecture, model lineage up to the Chunk 44/45/50 natural-distribution models, the Gupta et al. CNN baseline, a research log of every notebook, source modules, conventions and known caveats. It predates Chunks 51-53 in its headline table (it names ch44_ft15_from4_replay_p100_s0 as the final five-grid model).",
+   "summary_sha": "921415a4a37ecdf5c33768af423ec39010b31777"
   },
   {
    "path": "artifact:al_curves.csv",
@@ -4410,6 +4410,15 @@
    "sha": "d51d0ee0a472b91e3baac522c97025f9dcbaf976",
    "summary": "Prettier settings for the web app: single quotes, trailing commas, print width 110.",
    "summary_sha": "d51d0ee0a472b91e3baac522c97025f9dcbaf976"
+  },
+  {
+   "path": "webapp/README.md",
+   "type": "markdown",
+   "size": 12825,
+   "chunk": null,
+   "sha": "0a9486d1aef9c75ea7e1de723d8f7b0155d98f85",
+   "summary": "Web app README (C8.3): what GraphPatch is (live link, features, deployed ch52 model and assets), how to run it (setup, dev, build, the make and npm commands, deployment), how it works (Mermaid data flow and module table), the parity contract per layer with its tests and tolerances, the step-by-step model re-export (make_fixtures, export_onnx, export_meta, make-examples), private data rules, and limitations (scope, domain of validity, accuracy, grids, speed, offline, unbuilt items).",
+   "summary_sha": "0a9486d1aef9c75ea7e1de723d8f7b0155d98f85"
   },
   {
    "path": "webapp/bench/infer.bench.test.ts",

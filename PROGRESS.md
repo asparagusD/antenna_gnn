@@ -49,6 +49,6 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 ## C8 Final verification and handover
 - [x] C8.1 Full regression
 - [x] C8.2 Performance report
-- [ ] C8.3 Documentation
+- [x] C8.3 Documentation
 - [ ] C8.4 Repository graph update
 - [ ] C8.5 Final summary

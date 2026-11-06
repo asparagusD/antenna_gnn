@@ -716,9 +716,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "0e046037737f0fecbce0041cef9407626a1e6f8f",
+   "sha": "5bb94698e98e95bbe27a37354d29c888b32a01ac",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "0e046037737f0fecbce0041cef9407626a1e6f8f"
+   "summary_sha": "5bb94698e98e95bbe27a37354d29c888b32a01ac"
   },
   {
    "path": "README.md",
@@ -4414,6 +4414,24 @@
    "sha": "62c29d44d025af83d4145cbc406dc36fdd71e578",
    "summary": "Placeholder page (C3.1): loads public/model/meta.json via loadMeta and shows 'model meta loaded: 5 grids', with loading and error states; replaced by the real UI in C5.",
    "summary_sha": "62c29d44d025af83d4145cbc406dc36fdd71e578"
+  },
+  {
+   "path": "webapp/src/core/graph.test.ts",
+   "type": "typescript",
+   "size": 6164,
+   "chunk": null,
+   "sha": "85ac2648607d558276f3a8b0c60ad422779bdc81",
+   "summary": "Vitest parity tests of the TypeScript graph builder against every golden fixture case: node/edge counts and array types, x exactly equal as float32, edges and edge_attr equal as sorted sets and in order, with first-difference reports by node, feature and pixel (row, col); plus feed-component unit tests for 8-connectivity.",
+   "summary_sha": "85ac2648607d558276f3a8b0c60ad422779bdc81"
+  },
+  {
+   "path": "webapp/src/core/graph.ts",
+   "type": "typescript",
+   "size": 6260,
+   "chunk": null,
+   "sha": "6e30c6f57312e45902072086a0f8513591a1e488",
+   "summary": "TypeScript port of the frozen build_pyg_graph plus AppendFeedComponentFeature: buildGraph(grid, meta) returns the 6-feature float32 node matrix, the int64 edge index (2 x E) and float32 edge attributes in the frozen builder's node and edge order, and feedComponent computes the feed's 8-connected metal component; exactly equal to the golden fixtures.",
+   "summary_sha": "6e30c6f57312e45902072086a0f8513591a1e488"
   },
   {
    "path": "webapp/src/core/grid.test.ts",

@@ -750,11 +750,11 @@
   {
    "path": "Makefile",
    "type": "config",
-   "size": 2216,
+   "size": 2351,
    "chunk": null,
-   "sha": "824c1de304c918c3037b204c71be09eb3596ae88",
-   "summary": "Project task runner: `make check` (= check-web + py-test), `make check-web` (typecheck, lint, Vitest incl. ONNX parity tests, the Impeccable design detector; used by CI), `make design-check`, `make e2e` (Playwright), `make graph` (regenerate and fail on drift), `make graph-check`, `make web-setup`, `make py-setup` and `make py-test`.",
-   "summary_sha": "824c1de304c918c3037b204c71be09eb3596ae88"
+   "sha": "f1828f5dcee6c213c2dc9ffd9e1376312cc643f9",
+   "summary": "Project task runner: `make check` (= check-web + py-test), `make check-web` (typecheck, lint, Vitest incl. ONNX parity tests, the Impeccable design detector; used by CI), `make design-check`, `make e2e` (Playwright), `make graph` (regenerate and fail on drift), `make graph-check`, `make web-setup`, `make py-setup` and `make py-test` (export/ pytest, then the repository-graph builder tests in scripts/repo_graph).",
+   "summary_sha": "f1828f5dcee6c213c2dc9ffd9e1376312cc643f9"
   },
   {
    "path": "PRODUCT.md",
@@ -770,9 +770,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "cba22efa67d875fa2f7ca9d104a9ad7a4e1186a2",
+   "sha": "861ecd9eb2bee81f4ed86a1d4d01444d3f77c34f",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk acceptance criteria are shown passing and committed.",
-   "summary_sha": "cba22efa67d875fa2f7ca9d104a9ad7a4e1186a2"
+   "summary_sha": "861ecd9eb2bee81f4ed86a1d4d01444d3f77c34f"
   },
   {
    "path": "README.md",
@@ -2370,11 +2370,11 @@
   {
    "path": "docs/repo_graph/REPO_MAP.md",
    "type": "markdown",
-   "size": 16768,
+   "size": 22517,
    "chunk": null,
-   "sha": "d24ab9ee0d816b1c74ae20f2caae9c0065133b3e",
-   "summary": "Human-readable repository map: Mermaid diagrams of the model lineage (deployed Chunk 52 chain best_model -> bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45, with Chunk 51 data and Chunk 53 CNN comparison, plus the earlier natural-distribution lineage), src/ module dependencies and the planned web-app data flow; a table of every notebook; the browser model assets and golden fixtures; and the files and exact graph-builder specification the web app depends on.",
-   "summary_sha": "d24ab9ee0d816b1c74ae20f2caae9c0065133b3e"
+   "sha": "da171b32c80c3f70704c9c4e7456ea6a24f933a1",
+   "summary": "Human-readable repository map: Mermaid diagrams of the model lineage (deployed Chunk 52 chain best_model -> bal_ft12 -> bal_ft15 -> bal_ft35 -> bal_ft45, with Chunk 51 data and Chunk 53 CNN comparison, plus the earlier natural-distribution lineage) and src/ module dependencies; the web app section (C8.4): runtime data flow (main thread, worker, assets), webapp/src module dependencies from the graph's import edges, and the assets / parity / deployment pipeline from webapp_private through export/ to GitHub Pages, with a file-area table; a table of every notebook; and the files and exact graph-builder specification the web app depends on.",
+   "summary_sha": "da171b32c80c3f70704c9c4e7456ea6a24f933a1"
   },
   {
    "path": "docs/repo_graph/graph.json",
@@ -4196,9 +4196,9 @@
   {
    "path": "scripts/repo_graph/build_graph.py",
    "type": "python",
-   "size": 16982,
+   "size": 21806,
    "chunk": null,
-   "sha": "7d01b63cee37d61ad6a5c8a400ef583a961952d9",
+   "sha": "1a5501977052907b4f6d87a3ce6394e20a50320d",
    "imports": [
     "__future__",
     "argparse",
@@ -4223,6 +4223,9 @@
     "path_literals",
     "python_facts",
     "local_module",
+    "_norm",
+    "ts_local_imports",
+    "py_local_imports",
     "notebook_cells",
     "cell_source",
     "notebook_facts",
@@ -4241,8 +4244,34 @@
    "src_imports": [],
    "reads": [],
    "writes": [],
-   "summary": "Builds docs/repo_graph/graph.json from git-listed files (excluding webapp_private, node_modules, caches): node type/size/sha/chunk, Python imports and top-level definitions, notebook src imports and Drive artifacts read/written, plus precedes edges in chunk order. Also checks for drift, dumps notebook text for reading, and merges hand-written summaries while tracking the hash each was written against.",
-   "summary_sha": "7d01b63cee37d61ad6a5c8a400ef583a961952d9"
+   "summary": "Builds docs/repo_graph/graph.json from git-listed files (excluding webapp_private, node_modules, caches): node type/size/sha/chunk, Python imports and top-level definitions, notebook src imports and Drive artifacts read/written, precedes edges in chunk order, and (C8.4) local import edges: Python relative and repository-package imports (antenna_export) and relative TS/JS imports in webapp/ (static, side-effect, dynamic, new URL workers, import.meta.glob), data files becoming reads edges. Also checks for drift, dumps notebook text for reading, and merges hand-written summaries while tracking the hash each was written against.",
+   "summary_sha": "1a5501977052907b4f6d87a3ce6394e20a50320d"
+  },
+  {
+   "path": "scripts/repo_graph/test_build_graph.py",
+   "type": "python",
+   "size": 4346,
+   "chunk": null,
+   "sha": "18121c835edf5c0fc9d1c2e1259596e5bd759705",
+   "imports": [
+    "importlib.util",
+    "pathlib"
+   ],
+   "functions": [
+    "edges",
+    "test_ts_static_imports_resolve_extensions_and_kinds",
+    "test_ts_worker_url_dynamic_import_and_multiline_import",
+    "test_ts_globs_expand_and_templates_and_unknown_paths_are_skipped",
+    "test_ts_vite_query_suffix_is_ignored_and_config_imports_resolve",
+    "test_python_relative_and_package_imports_resolve",
+    "test_python_absolute_package_imports_resolve_modules_and_names"
+   ],
+   "classes": [],
+   "src_imports": [],
+   "reads": [],
+   "writes": [],
+   "summary": "Pytest for build_graph.py's import edges (C8.4), run by make py-test: TS static, type, side-effect, multi-line, dynamic, new URL worker and import.meta.glob imports with extension/index resolution, Vite query suffixes, data files as reads, skipped templates and unknown paths; Python relative and absolute antenna_export imports resolving modules and imported submodule names.",
+   "summary_sha": "18121c835edf5c0fc9d1c2e1259596e5bd759705"
   },
   {
    "path": "src/cascade.py",
@@ -5440,6 +5469,61 @@
  ],
  "edges": [
   {
+   "source": "export/antenna_export/fixtures.py",
+   "target": "export/antenna_export/bands.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/fixtures.py",
+   "target": "export/antenna_export/graph_builder.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/fixtures.py",
+   "target": "export/antenna_export/predict.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/meta.py",
+   "target": "export/antenna_export/bands.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/meta.py",
+   "target": "export/antenna_export/graph_builder.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/meta.py",
+   "target": "export/antenna_export/onnx_export.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/meta.py",
+   "target": "export/antenna_export/predict.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/onnx_export.py",
+   "target": "export/antenna_export/fixtures.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/onnx_export.py",
+   "target": "export/antenna_export/graph_builder.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/onnx_export.py",
+   "target": "export/antenna_export/predict.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/antenna_export/predict.py",
+   "target": "export/antenna_export/graph_builder.py",
+   "kind": "imports"
+  },
+  {
    "source": "export/antenna_export/predict.py",
    "target": "src/feed_component.py",
    "kind": "imports"
@@ -5450,8 +5534,93 @@
    "kind": "imports"
   },
   {
+   "source": "export/scripts/export_meta.py",
+   "target": "export/antenna_export/meta.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/scripts/export_onnx.py",
+   "target": "export/antenna_export/onnx_export.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/scripts/make_band_vectors.py",
+   "target": "export/antenna_export/bands.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/scripts/make_fixtures.py",
+   "target": "export/antenna_export/fixtures.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_band_vectors.py",
+   "target": "export/antenna_export/bands.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_bands.py",
+   "target": "export/antenna_export/bands.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_fixtures.py",
+   "target": "export/antenna_export/bands.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_fixtures.py",
+   "target": "export/antenna_export/fixtures.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_fixtures.py",
+   "target": "export/antenna_export/graph_builder.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_fixtures.py",
+   "target": "export/antenna_export/predict.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_graph_builder.py",
+   "target": "export/antenna_export/graph_builder.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_meta.py",
+   "target": "export/antenna_export/graph_builder.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_meta.py",
+   "target": "export/antenna_export/meta.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_meta.py",
+   "target": "export/antenna_export/onnx_export.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_meta.py",
+   "target": "export/antenna_export/predict.py",
+   "kind": "imports"
+  },
+  {
    "source": "export/tests/test_meta.py",
    "target": "src/feed_component.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_onnx.py",
+   "target": "export/antenna_export/onnx_export.py",
+   "kind": "imports"
+  },
+  {
+   "source": "export/tests/test_predict.py",
+   "target": "export/antenna_export/predict.py",
    "kind": "imports"
   },
   {
@@ -7992,6 +8161,891 @@
   {
    "source": "src/spectral.py",
    "target": "src/feed_component.py",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/bench/infer.bench.test.ts",
+   "target": "webapp/src/core/graph.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/bench/infer.bench.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/bench/infer.bench.test.ts",
+   "target": "webapp/src/core/infer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/bench/infer.bench.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e-live/live.spec.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/e2e-live/live.spec.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e-live/live.spec.ts",
+   "target": "webapp/src/core/share.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e-live/live.spec.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/a11y.spec.ts",
+   "target": "webapp/fixtures/analysis/band_vectors.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/e2e/a11y.spec.ts",
+   "target": "webapp/src/testHook.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/export.spec.ts",
+   "target": "webapp/e2e/helpers.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/extremes.spec.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/extremes.spec.ts",
+   "target": "webapp/src/testHook.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/fill-meter.spec.ts",
+   "target": "webapp/e2e/helpers.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/grid-editor.spec.ts",
+   "target": "webapp/e2e/helpers.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/helpers.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/e2e/helpers.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/helpers.ts",
+   "target": "webapp/src/core/share.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/helpers.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/results.spec.ts",
+   "target": "webapp/fixtures/analysis/band_vectors.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/e2e/results.spec.ts",
+   "target": "webapp/src/components/chartScale.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/results.spec.ts",
+   "target": "webapp/src/components/resultText.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/results.spec.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/results.spec.ts",
+   "target": "webapp/src/testHook.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/share.spec.ts",
+   "target": "webapp/e2e/helpers.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/e2e/starting-points.spec.ts",
+   "target": "webapp/e2e/helpers.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/scripts/make-examples.mjs",
+   "target": "webapp/src/model/examples.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/App.test.tsx",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/App.test.tsx",
+   "target": "webapp/src/App.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/App.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/BoardLegend.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/FillMeter.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/GridEditor.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/GridSizeSelector.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/PredictionSummary.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/ResultsPanel.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/S11Chart.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/ScopeNotice.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/ShareTools.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/StartingPoints.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/ThemeToggle.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/ValidityNote.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/components/download.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/core/exportCsv.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/core/history.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/core/share.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/hooks/usePrediction.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/model/examples.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/App.tsx",
+   "target": "webapp/src/testHook.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/BoardLegend.test.tsx",
+   "target": "webapp/src/components/BoardLegend.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/BoardLegend.tsx",
+   "target": "webapp/src/components/BoardLegend.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/FillMeter.test.tsx",
+   "target": "webapp/src/components/FillMeter.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/FillMeter.test.tsx",
+   "target": "webapp/src/components/fillText.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/FillMeter.tsx",
+   "target": "webapp/src/components/FillMeter.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/FillMeter.tsx",
+   "target": "webapp/src/components/fillText.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/FillMeter.tsx",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/GridEditor.tsx",
+   "target": "webapp/src/components/GridEditor.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/GridEditor.tsx",
+   "target": "webapp/src/components/gridGeometry.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/GridEditor.tsx",
+   "target": "webapp/src/core/graph.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/GridEditor.tsx",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/GridSizeSelector.test.tsx",
+   "target": "webapp/src/components/GridSizeSelector.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/GridSizeSelector.tsx",
+   "target": "webapp/src/components/GridSizeSelector.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/PredictionSummary.tsx",
+   "target": "webapp/src/components/PredictionSummary.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/PredictionSummary.tsx",
+   "target": "webapp/src/components/S11Chart.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/PredictionSummary.tsx",
+   "target": "webapp/src/components/chartScale.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/PredictionSummary.tsx",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.test.tsx",
+   "target": "webapp/fixtures/analysis/band_vectors.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.test.tsx",
+   "target": "webapp/src/components/ResultsPanel.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.test.tsx",
+   "target": "webapp/src/components/resultText.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.test.tsx",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.tsx",
+   "target": "webapp/src/components/ResultsPanel.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.tsx",
+   "target": "webapp/src/components/chartScale.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.tsx",
+   "target": "webapp/src/components/resultText.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ResultsPanel.tsx",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/S11Chart.test.tsx",
+   "target": "webapp/src/components/S11Chart.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/S11Chart.test.tsx",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/S11Chart.tsx",
+   "target": "webapp/src/components/S11Chart.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/S11Chart.tsx",
+   "target": "webapp/src/components/chartScale.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/S11Chart.tsx",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ScopeNotice.test.tsx",
+   "target": "webapp/src/components/ScopeNotice.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ScopeNotice.tsx",
+   "target": "webapp/src/components/ScopeNotice.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ShareTools.test.tsx",
+   "target": "webapp/src/components/ShareTools.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ShareTools.tsx",
+   "target": "webapp/src/components/ShareTools.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/StartingPoints.test.tsx",
+   "target": "webapp/src/components/StartingPoints.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/StartingPoints.tsx",
+   "target": "webapp/src/components/StartingPoints.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ThemeToggle.test.tsx",
+   "target": "webapp/src/components/ThemeToggle.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ValidityNote.test.tsx",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/components/ValidityNote.test.tsx",
+   "target": "webapp/src/components/ValidityNote.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ValidityNote.test.tsx",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ValidityNote.tsx",
+   "target": "webapp/src/components/ValidityNote.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/ValidityNote.tsx",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/chartScale.test.ts",
+   "target": "webapp/src/components/chartScale.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/chartScale.test.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/chartScale.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/fillText.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/gridGeometry.test.ts",
+   "target": "webapp/src/components/gridGeometry.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/components/resultText.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/analysis.test.ts",
+   "target": "webapp/fixtures/analysis/band_vectors.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/analysis.test.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/exportCsv.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/exportCsv.test.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/exportCsv.test.ts",
+   "target": "webapp/src/core/exportCsv.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/exportCsv.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/exportCsv.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/exportCsv.ts",
+   "target": "webapp/src/core/analysis.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/exportCsv.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/fixtures/12x12.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/fixtures/15x15.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/fixtures/25x25.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/fixtures/35x35.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/fixtures/45x45.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/src/core/graph.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/graph.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/graph.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/graph.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/grid.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/grid.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/grid.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/grid.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/history.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/history.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/history.test.ts",
+   "target": "webapp/src/core/history.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/history.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/history.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/infer.ts",
+   "target": "webapp/src/core/graph.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/infer.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictClient.test.ts",
+   "target": "webapp/src/core/predictClient.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictClient.test.ts",
+   "target": "webapp/src/core/predictServer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictClient.ts",
+   "target": "webapp/src/core/predictServer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/predictServer.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.test.ts",
+   "target": "webapp/src/core/infer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.test.ts",
+   "target": "webapp/src/core/predictServer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.ts",
+   "target": "webapp/src/core/graph.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.ts",
+   "target": "webapp/src/core/infer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/predictServer.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/share.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/core/share.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/share.test.ts",
+   "target": "webapp/src/core/share.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/share.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/share.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/worker.ts",
+   "target": "webapp/src/core/infer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/worker.ts",
+   "target": "webapp/src/core/predictServer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/core/worker.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/hooks/usePrediction.ts",
+   "target": "webapp/src/components/S11Chart.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/hooks/usePrediction.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/hooks/usePrediction.ts",
+   "target": "webapp/src/core/predictClient.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/hooks/usePrediction.ts",
+   "target": "webapp/src/core/worker.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/main.tsx",
+   "target": "webapp/src/App.tsx",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/main.tsx",
+   "target": "webapp/src/styles/tokens.css",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/fixtures/12x12.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/fixtures/15x15.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/fixtures/25x25.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/fixtures/35x35.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/fixtures/45x45.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/src/model/examples.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/model/examples.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/model/examples.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/model/examples.ts",
+   "target": "webapp/src/core/share.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/src/model/examples.ts",
+   "target": "webapp/src/model/examples.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/meta.test.ts",
+   "target": "webapp/public/model/meta.json",
+   "kind": "reads"
+  },
+  {
+   "source": "webapp/src/model/meta.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/tests/node/infer.parity.test.ts",
+   "target": "webapp/src/core/graph.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/tests/node/infer.parity.test.ts",
+   "target": "webapp/src/core/grid.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/tests/node/infer.parity.test.ts",
+   "target": "webapp/src/core/infer.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/tests/node/infer.parity.test.ts",
+   "target": "webapp/src/model/meta.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/vitest.bench.config.ts",
+   "target": "webapp/vite.config.ts",
+   "kind": "imports"
+  },
+  {
+   "source": "webapp/vitest.config.ts",
+   "target": "webapp/vite.config.ts",
    "kind": "imports"
   }
  ]

@@ -3,8 +3,12 @@
  * with the action colour. Each size is a toggle button (aria-pressed), one tab stop each.
  *
  * Changing size starts a fresh grid. When the pattern has edits, the control asks first in an inline,
- * non-modal question under the segments (no dialog: DESIGN.md bans modals for routine states); focus
- * moves to its confirm button, and Keep or Escape returns focus to the size that was chosen.
+ * non-modal question under the segments (no dialog: DESIGN.md bans modals for routine states):
+ * - "Keep" is the primary button and takes focus, so a stray Enter keeps the work; the cost is the
+ *   question's accessible description.
+ * - Keep, Escape (from the question or the segments) or a press anywhere outside closes it; it also
+ *   closes by itself once the pattern is no longer edited (e.g. after undo).
+ * - After a switch, focus moves to the new size and a polite live region announces it.
  */
 import { useEffect, useId, useRef, useState, type KeyboardEvent } from 'react';
 import './GridSizeSelector.css';
@@ -22,36 +26,67 @@ const label = (n: number) => `${String(n)}×${String(n)}`;
 export function GridSizeSelector({ sizes, value, edited, onChange }: GridSizeSelectorProps) {
   // The question remembers the size it was asked from, so it closes by itself once the size changes.
   const [asked, setAsked] = useState<{ size: number; from: number } | null>(null);
-  const pending = asked !== null && asked.from === value ? asked.size : null;
+  const pending = asked !== null && asked.from === value && edited ? asked.size : null;
+  const [announcement, setAnnouncement] = useState('');
   const questionId = useId();
-  const confirmRef = useRef<HTMLButtonElement>(null);
+  const costId = useId();
+  const rootRef = useRef<HTMLDivElement>(null);
+  const keepRef = useRef<HTMLButtonElement>(null);
   const segmentRefs = useRef(new Map<number, HTMLButtonElement>());
+  const focusAfterSwitch = useRef<number | null>(null);
 
   useEffect(() => {
-    if (pending !== null) confirmRef.current?.focus();
+    if (pending !== null) keepRef.current?.focus();
   }, [pending]);
+
+  // Once the parent has applied a confirmed switch, put focus on the new size.
+  useEffect(() => {
+    if (focusAfterSwitch.current === value) {
+      segmentRefs.current.get(value)?.focus();
+      focusAfterSwitch.current = null;
+    }
+  }, [value]);
+
+  // A press anywhere outside the control closes the question (counts as Keep).
+  useEffect(() => {
+    if (pending === null) return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (!(event.target instanceof Node) || !rootRef.current?.contains(event.target)) setAsked(null);
+    };
+    document.addEventListener('pointerdown', onPointerDown);
+    return () => {
+      document.removeEventListener('pointerdown', onPointerDown);
+    };
+  }, [pending]);
+
+  const switchTo = (size: number) => {
+    focusAfterSwitch.current = size;
+    setAsked(null);
+    setAnnouncement(`Switched to ${label(size)}: new grid, seed pixels only.`);
+    onChange(size);
+  };
 
   const choose = (size: number) => {
     if (size === value) setAsked(null);
     else if (edited) setAsked({ size, from: value });
-    else onChange(size);
+    else switchTo(size);
   };
 
   const cancel = () => {
     if (pending === null) return;
-    segmentRefs.current.get(pending)?.focus();
+    segmentRefs.current.get(value)?.focus();
     setAsked(null);
   };
 
-  const onQuestionKey = (event: KeyboardEvent) => {
-    if (event.key === 'Escape') {
+  const onKeyDown = (event: KeyboardEvent) => {
+    if (event.key === 'Escape' && pending !== null) {
       event.preventDefault();
       cancel();
     }
   };
 
   return (
-    <div className="grid-size">
+    <div className="grid-size" ref={rootRef} onKeyDown={onKeyDown}>
       <div className="grid-size-segments" role="group" aria-label="Grid size">
         {sizes.map((size) => (
           <button
@@ -71,30 +106,34 @@ export function GridSizeSelector({ sizes, value, edited, onChange }: GridSizeSel
           </button>
         ))}
       </div>
+      <p className="grid-size-announcement" aria-live="polite">
+        {announcement}
+      </p>
       {pending !== null && (
         <div
           className="grid-size-question"
           role="group"
           aria-labelledby={questionId}
-          onKeyDown={onQuestionKey}
+          aria-describedby={costId}
         >
           <p className="grid-size-question-text">
-            <strong id={questionId}>Switch to {label(pending)}?</strong> Your {label(value)} edits will be
-            cleared, and undo cannot bring them back.
+            <strong id={questionId}>Switch to {label(pending)}?</strong>{' '}
+            <span id={costId}>
+              Your {label(value)} edits will be cleared, and undo cannot bring them back.
+            </span>
           </p>
           <div className="grid-size-question-actions">
+            <button ref={keepRef} type="button" className="grid-size-keep" onClick={cancel}>
+              Keep {label(value)}
+            </button>
             <button
-              ref={confirmRef}
               type="button"
               className="grid-size-confirm"
               onClick={() => {
-                onChange(pending);
+                switchTo(pending);
               }}
             >
               Switch to {label(pending)}
-            </button>
-            <button type="button" className="grid-size-keep" onClick={cancel}>
-              Keep {label(value)}
             </button>
           </div>
         </div>

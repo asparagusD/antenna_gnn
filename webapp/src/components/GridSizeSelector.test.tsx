@@ -43,30 +43,65 @@ describe('GridSizeSelector', () => {
     expect(screen.queryByRole('group', { name: /Switch to/ })).toBeNull();
   });
 
-  it('asks first when the pattern has edits, and switches only on confirmation', () => {
+  it('asks first when the pattern has edits; Keep is focused and the cost is described', () => {
     const { onChange, size } = setup(true);
     fireEvent.click(size(35));
     expect(onChange).not.toHaveBeenCalled();
     const confirm = screen.getByRole('group', { name: 'Switch to 35×35?' });
-    expect(confirm.textContent).toContain('Your 25×25 edits will be cleared');
-    const go = screen.getByRole('button', { name: 'Switch to 35×35' });
-    expect(document.activeElement).toBe(go);
-    fireEvent.click(go);
+    expect(confirm.getAttribute('aria-describedby')).not.toBeNull();
+    const description = document.getElementById(confirm.getAttribute('aria-describedby') ?? '');
+    expect(description?.textContent).toBe(
+      'Your 25×25 edits will be cleared, and undo cannot bring them back.',
+    );
+    // The safe choice takes focus, so a stray Enter keeps the work.
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: 'Keep 25×25' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch to 35×35' }));
     expect(onChange).toHaveBeenCalledWith(35);
   });
 
-  it('Keep and Escape cancel without changing size, returning focus to the chosen size', () => {
+  it('after a confirmed switch, focus moves to the new size and the change is announced', () => {
+    const onChange = vi.fn();
+    const { rerender } = render(<GridSizeSelector sizes={SIZES} value={25} edited onChange={onChange} />);
+    fireEvent.click(screen.getByRole('button', { name: '12×12' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Switch to 12×12' }));
+    rerender(<GridSizeSelector sizes={SIZES} value={12} edited={false} onChange={onChange} />);
+    expect(document.activeElement).toBe(screen.getByRole('button', { name: '12×12' }));
+    expect(screen.getByText('Switched to 12×12: new grid, seed pixels only.')).toBeDefined();
+  });
+
+  it('Keep and Escape cancel without changing size, returning focus to the current size', () => {
     const { onChange, size } = setup(true);
     fireEvent.click(size(12));
     fireEvent.click(screen.getByRole('button', { name: 'Keep 25×25' }));
     expect(screen.queryByRole('group', { name: /Switch to/ })).toBeNull();
-    expect(document.activeElement).toBe(size(12));
+    expect(document.activeElement).toBe(size(25));
 
     fireEvent.click(size(45));
-    fireEvent.keyDown(screen.getByRole('button', { name: 'Switch to 45×45' }), { key: 'Escape' });
+    fireEvent.keyDown(screen.getByRole('button', { name: 'Keep 25×25' }), { key: 'Escape' });
     expect(screen.queryByRole('group', { name: /Switch to/ })).toBeNull();
-    expect(document.activeElement).toBe(size(45));
+
+    // Escape works with focus back on the segments too.
+    fireEvent.click(size(45));
+    fireEvent.keyDown(size(45), { key: 'Escape' });
+    expect(screen.queryByRole('group', { name: /Switch to/ })).toBeNull();
     expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('a press outside the question closes it (counts as Keep)', () => {
+    const { onChange, size } = setup(true);
+    fireEvent.click(size(35));
+    fireEvent.pointerDown(document.body);
+    expect(screen.queryByRole('group', { name: /Switch to/ })).toBeNull();
+    expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it('the question disappears once the pattern is no longer edited (e.g. after undo)', () => {
+    const onChange = vi.fn();
+    const { rerender } = render(<GridSizeSelector sizes={SIZES} value={25} edited onChange={onChange} />);
+    fireEvent.click(screen.getByRole('button', { name: '35×35' }));
+    expect(screen.getByRole('group', { name: 'Switch to 35×35?' })).toBeDefined();
+    rerender(<GridSizeSelector sizes={SIZES} value={25} edited={false} onChange={onChange} />);
+    expect(screen.queryByRole('group', { name: /Switch to/ })).toBeNull();
   });
 
   it('a second size chosen while asking replaces the question', () => {

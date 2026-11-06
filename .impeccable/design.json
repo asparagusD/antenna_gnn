@@ -292,16 +292,16 @@
    "caution-light": {
     "role": "tertiary",
     "displayName": "Caution amber (light theme)",
-    "canonical": "oklch(64% 0.120 70)",
+    "canonical": "oklch(58% 0.110 88)",
     "tonalRamp": [
-     "oklch(15% 0.059 70)",
-     "oklch(25% 0.074 70)",
-     "oklch(35% 0.089 70)",
-     "oklch(45% 0.105 70)",
-     "oklch(55% 0.120 70)",
-     "oklch(70% 0.097 70)",
-     "oklch(82% 0.079 70)",
-     "oklch(95% 0.059 70)"
+     "oklch(15% 0.059 88)",
+     "oklch(25% 0.074 88)",
+     "oklch(35% 0.089 88)",
+     "oklch(45% 0.105 88)",
+     "oklch(55% 0.120 88)",
+     "oklch(70% 0.097 88)",
+     "oklch(82% 0.079 88)",
+     "oklch(95% 0.059 88)"
     ]
    }
   },

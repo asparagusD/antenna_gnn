@@ -21,7 +21,7 @@ colors:
   copper-floating-light: "oklch(61% 0.045 60)"
   action-light: "oklch(44% 0.075 175)"
   threshold-light: "oklch(52% 0.180 28)"
-  caution-light: "oklch(64% 0.120 70)"
+  caution-light: "oklch(58% 0.110 88)"
 typography:
   title:
     fontFamily: "Public Sans, system-ui, sans-serif"
@@ -143,7 +143,7 @@ Both themes are complete palettes; the light theme mirrors every dark role (suff
 
 ### Tertiary
 - **Threshold red** (`threshold` / `threshold-light`): the −10 dB line and its label only. 5.5:1 / 5.6:1 against the ground.
-- **Caution amber** (`caution` / `caution-light`): the fill meter bar outside 30–80% and its icon; the message text stays in silkscreen/ink.
+- **Caution amber** (`caution` / `caution-light`): the fill meter bar outside 30–80% and its icon; the message text stays in silkscreen/ink. The light value is an ochre (hue 88) so it never reads as copper: 3.6:1 on the meter track, 4.0:1 on the page (C5.2 critique).
 
 ### Neutral
 - **Laminate** (`laminate` / `laminate-light`): page ground.

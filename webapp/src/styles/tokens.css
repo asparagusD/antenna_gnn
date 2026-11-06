@@ -56,7 +56,7 @@
     --action-hover: oklch(38% 0.075 175);
     --on-action: oklch(97.5% 0.004 165);
     --threshold: oklch(52% 0.18 28);
-    --caution: oklch(64% 0.12 70);
+    --caution: oklch(58% 0.11 88);
   }
 }
 
@@ -73,7 +73,7 @@
   --action-hover: oklch(38% 0.075 175);
   --on-action: oklch(97.5% 0.004 165);
   --threshold: oklch(52% 0.18 28);
-  --caution: oklch(64% 0.12 70);
+  --caution: oklch(58% 0.11 88);
 }
 
 *,

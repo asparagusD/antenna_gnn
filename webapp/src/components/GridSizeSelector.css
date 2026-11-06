@@ -99,23 +99,37 @@
     border-color var(--duration-fast) var(--ease-standard);
 }
 
-.grid-size-confirm {
+.grid-size-keep {
   background: var(--action);
   color: var(--on-action);
   font-weight: 600;
 }
 
-.grid-size-confirm:hover {
+.grid-size-keep:hover {
   border-color: var(--action-hover);
   background: var(--action-hover);
 }
 
-.grid-size-keep {
+/* The destructive choice is the quieter, secondary button (DESIGN.md: primary = the one main action). */
+.grid-size-confirm {
   border-color: var(--rule);
   background: var(--laminate);
   color: var(--text);
 }
 
-.grid-size-keep:hover {
+.grid-size-confirm:hover {
   border-color: var(--text-muted);
+}
+
+/* Announces a size change to screen readers only. */
+.grid-size-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }

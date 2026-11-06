@@ -41,7 +41,8 @@ test('an edited board asks before changing size, and keeps the pattern on cancel
 
   const confirm = page.getByRole('group', { name: 'Switch to 35×35?' });
   await expect(confirm).toContainText('Your 25×25 edits will be cleared');
-  await expect(confirm.getByRole('button', { name: 'Switch to 35×35' })).toBeFocused();
+  // The safe choice takes focus, so a stray Enter keeps the work.
+  await expect(confirm.getByRole('button', { name: 'Keep 25×25' })).toBeFocused();
   // Nothing changes until the user answers.
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 1));
   await expect(sizes.getByRole('button', { name: '25×25' })).toHaveAttribute('aria-pressed', 'true');
@@ -49,7 +50,7 @@ test('an edited board asks before changing size, and keeps the pattern on cancel
   await confirm.getByRole('button', { name: 'Keep 25×25' }).click();
   await expect(confirm).toHaveCount(0);
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 1));
-  await expect(sizes.getByRole('button', { name: '35×35' })).toBeFocused();
+  await expect(sizes.getByRole('button', { name: '25×25' })).toBeFocused();
 
   // Escape cancels too.
   await sizes.getByRole('button', { name: '12×12' }).click();
@@ -57,6 +58,14 @@ test('an edited board asks before changing size, and keeps the pattern on cancel
   await page.keyboard.press('Escape');
   await expect(page.getByRole('group', { name: 'Switch to 12×12?' })).toHaveCount(0);
   await expect(board).toHaveAttribute('data-metal-count', String(SEED_METAL + 1));
+
+  // A press on the board closes the question (counts as Keep); the size does not change.
+  await sizes.getByRole('button', { name: '45×45' }).click();
+  await expect(page.getByRole('group', { name: 'Switch to 45×45?' })).toBeVisible();
+  const away = await centre(canvas, 22, 2);
+  await page.mouse.click(away.x, away.y);
+  await expect(page.getByRole('group', { name: 'Switch to 45×45?' })).toHaveCount(0);
+  await expect(page.getByRole('application', { name: /25 by 25 pixels/ })).toBeVisible();
 });
 
 test('confirming a size change starts a fresh grid with its own history', async ({ page }) => {
@@ -66,6 +75,10 @@ test('confirming a size change starts a fresh grid with its own history', async 
 
   await page.getByRole('group', { name: 'Grid size' }).getByRole('button', { name: '35×35' }).click();
   await page.getByRole('button', { name: 'Switch to 35×35' }).click();
+  await expect(
+    page.getByRole('group', { name: 'Grid size' }).getByRole('button', { name: '35×35' }),
+  ).toBeFocused();
+  await expect(page.getByText('Switched to 35×35: new grid, seed pixels only.')).toBeAttached();
 
   // 35x35 seeds: rows/cols 11-22 (144 pixels) plus the feed pixel (8, 17) -> 145 metal.
   const board = page.getByRole('application', { name: /Metal pattern, 35 by 35 pixels/ });

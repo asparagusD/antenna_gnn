@@ -24,17 +24,27 @@
   font-weight: 600;
 }
 
-/* Track: substrate field with the 30–80% training range a step lighter (hard stops, no blend). */
+/* Track: flat substrate field. The 30% and 80% bounds are ticks drawn across it, above the bar and
+   overhanging it, so they stay visible over any bar colour (no band fill for the bar to contrast with). */
 .fill-meter-track {
   position: relative;
   height: 8px;
   border: 1px solid var(--rule);
-  background: linear-gradient(to right, var(--substrate) 30%, var(--rule) 30% 80%, var(--substrate) 80%);
+  background: var(--substrate);
+}
+
+.fill-meter-track::after {
+  content: '';
+  position: absolute;
+  inset: -4px -1px;
+  background:
+    linear-gradient(var(--text-muted), var(--text-muted)) 30% 0 / 1px 100% no-repeat,
+    linear-gradient(var(--text-muted), var(--text-muted)) 80% 0 / 1px 100% no-repeat;
+  pointer-events: none;
 }
 
 .fill-meter-bar {
   height: 100%;
-  max-width: 100%;
   background: var(--text);
   transition:
     width var(--duration-fast) var(--ease-standard),

@@ -5,6 +5,7 @@ import { GridEditor } from './components/GridEditor';
 import { GridSizeSelector } from './components/GridSizeSelector';
 import { PredictionSummary } from './components/PredictionSummary';
 import { StartingPoints } from './components/StartingPoints';
+import { ThemeToggle } from './components/ThemeToggle';
 import { ResultsPanel } from './components/ResultsPanel';
 import { S11Chart } from './components/S11Chart';
 import { ScopeNotice } from './components/ScopeNotice';
@@ -222,6 +223,7 @@ export function App() {
         <p className="topbar-status" role="status">
           {topbarStatus(state, prediction.model)}
         </p>
+        <ThemeToggle />
       </header>
       {shareError !== null && (
         <div className="share-error" role="alert">

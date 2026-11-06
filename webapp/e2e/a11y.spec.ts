@@ -75,3 +75,16 @@ for (const [width, height] of [
     expect(await violations(page)).toEqual([]);
   });
 }
+
+test('the theme toggle switches the page palette and the board redraws', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('./');
+  await ready(page);
+  const ground = () => page.evaluate(() => getComputedStyle(document.documentElement).backgroundColor);
+  const dark = await ground();
+  await page.getByRole('button', { name: 'Theme: System' }).click();
+  await expect(page.getByRole('button', { name: 'Theme: Light' })).toBeVisible();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+  expect(await ground()).not.toBe(dark);
+  expect(await violations(page)).toEqual([]);
+});

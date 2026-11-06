@@ -676,6 +676,15 @@
    "summary_sha": "7a6c64020de7a1b57e3e83790228f6b1c05d6a4b"
   },
   {
+   "path": ".impeccable/critique/2026-11-06T02-36-19Z__webapp-src-components-s11chart-tsx.md",
+   "type": "markdown",
+   "size": 3139,
+   "chunk": null,
+   "sha": "051a23444bd958f7b4a641335bd3cd8e99eb507c",
+   "summary": "Impeccable critique snapshot of the C5.3 |S11| chart (dual-agent): heuristic scores 22/36 (error prevention n/a), design-specificity verdict (token-faithful but a generic line chart), detector 0 findings, measured contrast and geometry, the P1 (minimum drop line crossing the right-anchored −10 dB label, fixed in af48de3), open P2s (tween-frame minimum label, stale curve not dimmed, screen-reader desc, mobile chart below the fold), persona red flags and questions.",
+   "summary_sha": "051a23444bd958f7b4a641335bd3cd8e99eb507c"
+  },
+  {
    "path": ".impeccable/design.json",
    "type": "json",
    "size": 16380,
@@ -705,11 +714,11 @@
   {
    "path": "DEBUG_LOG.md",
    "type": "markdown",
-   "size": 6933,
+   "size": 8481,
    "chunk": null,
-   "sha": "c43972d4135a110dd93a1b821a0c813f464b8e78",
-   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C5.2 missing Testing Library cleanup under Vitest without globals).",
-   "summary_sha": "c43972d4135a110dd93a1b821a0c813f464b8e78"
+   "sha": "0e0704c03dd76b2c54f10beeac76fe5721c9bf44",
+   "summary": "Debugging log for the web app: entry format (date, subchunk, symptom, reproducer, localisation, hypotheses with status, root cause, fix commit, verification) and the entries themselves, newest first (latest: C5.3 test-side typing and fixture mistakes).",
+   "summary_sha": "0e0704c03dd76b2c54f10beeac76fe5721c9bf44"
   },
   {
    "path": "DESIGN.md",
@@ -743,9 +752,9 @@
    "type": "markdown",
    "size": 2091,
    "chunk": null,
-   "sha": "de8aedf60c910ec9e9c58f1496eb751358a1d935",
+   "sha": "74260487a4bc41b839c5944a745e15f33986af15",
    "summary": "Checklist of every web-app chunk and subchunk (C0 setup through C8 handover), ticked as each subchunk's acceptance criteria are shown passing and committed.",
-   "summary_sha": "de8aedf60c910ec9e9c58f1496eb751358a1d935"
+   "summary_sha": "74260487a4bc41b839c5944a745e15f33986af15"
   },
   {
    "path": "README.md",
@@ -4394,6 +4403,15 @@
    "summary_sha": "ef4d0725a761d591b2ffa6d0abe2d43018f65ab2"
   },
   {
+   "path": "webapp/e2e/s11-chart.spec.ts",
+   "type": "typescript",
+   "size": 2522,
+   "chunk": null,
+   "sha": "b702ec4c78667247255147df458fb3a3368a9b58",
+   "summary": "Playwright tests of the live chart on the production build with the real model: the settled curve has 201 points, the −10 dB label and a minimum label; painting the feed bridge changes path d without console errors; undo restores the identical path.",
+   "summary_sha": "b702ec4c78667247255147df458fb3a3368a9b58"
+  },
+  {
    "path": "webapp/e2e/smoke.spec.ts",
    "type": "typescript",
    "size": 544,
@@ -4520,13 +4538,22 @@
    "summary_sha": "2df8293108a23934b45ffd42bc686f7a679262e3"
   },
   {
+   "path": "webapp/scripts/measure-latency.mjs",
+   "type": "other",
+   "size": 3638,
+   "chunk": null,
+   "sha": "c8aaee7d0684363f902cce7b1e18aa056d449be5",
+   "summary": "Latency script: drives the served production build in Chromium, toggles a corner pixel N times per grid (12, 25, 45) and reports median/p90/mean/max of the app's 'graphpatch:predict' User Timing measure (perceived) and the worker's inference time; --cpu throttles only the main thread, not the worker.",
+   "summary_sha": "c8aaee7d0684363f902cce7b1e18aa056d449be5"
+  },
+  {
    "path": "webapp/src/App.css",
    "type": "other",
-   "size": 1682,
+   "size": 1722,
    "chunk": null,
-   "sha": "9db098129203fbb4c5bf6d83d6d8ae3c4fb9be61",
-   "summary": "Core screen layout: wrapping top bar (title, grid-size control, status), two-column workspace with the board column sized to keep the board, readout, tools and fill meter with its warning in the viewport, single column under 768px, and the tools-row secondary buttons.",
-   "summary_sha": "9db098129203fbb4c5bf6d83d6d8ae3c4fb9be61"
+   "sha": "555f8b6ce2eae0809c6d7745ea3b35f929cf132d",
+   "summary": "Core screen layout: wrapping top bar (title, grid-size control, status), two-column workspace with the board column sized to keep the board, readout, tools and fill meter with its warning in the viewport and the prediction column beside it, single column under 768px, and the tools-row secondary buttons.",
+   "summary_sha": "555f8b6ce2eae0809c6d7745ea3b35f929cf132d"
   },
   {
    "path": "webapp/src/App.test.tsx",
@@ -4540,11 +4567,11 @@
   {
    "path": "webapp/src/App.tsx",
    "type": "typescript",
-   "size": 4926,
+   "size": 5393,
    "chunk": null,
-   "sha": "6ae54dec36276bdf1408fb41952d905e6d530603",
-   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, Ctrl+Y), renders the GridSizeSelector in the top bar (a size change resets history to a fresh grid; the board is keyed by N), the GridEditor, the Undo/Redo tools row and the FillMeter; plot and results arrive in later subchunks.",
-   "summary_sha": "6ae54dec36276bdf1408fb41952d905e6d530603"
+   "sha": "f55263eb2a24869655bcc7deeeacbe7d23553324",
+   "summary": "Core screen: loads meta.json, keeps the board's grid in an undo/redo history (Ctrl/Cmd+Z, Ctrl/Cmd+Shift+Z, Ctrl+Y), renders the GridSizeSelector in the top bar (a size change resets history to a fresh grid; the board is keyed by N), the GridEditor, Undo/Redo, the FillMeter and, via usePrediction, the live S11Chart; result cells and notes arrive in C5.4-C5.5.",
+   "summary_sha": "f55263eb2a24869655bcc7deeeacbe7d23553324"
   },
   {
    "path": "webapp/src/components/FillMeter.css",
@@ -4617,6 +4644,51 @@
    "sha": "07e115281b57b73e62b5c19f5b96da11b4a292df",
    "summary": "Grid-size segmented control (12, 15, 25, 35, 45) as toggle buttons; on an edited board it asks first in an inline non-modal question (Keep primary and focused, cost in aria-describedby; closes on Keep, Escape, outside press or when no longer edited); after a switch focuses the new size and announces it in a polite live region.",
    "summary_sha": "07e115281b57b73e62b5c19f5b96da11b4a292df"
+  },
+  {
+   "path": "webapp/src/components/S11Chart.css",
+   "type": "other",
+   "size": 2696,
+   "chunk": null,
+   "sha": "3ca101ccb8dd95f1e2ce6764de8cd86f87472239",
+   "summary": "Chart styles: label-style header with a CSS-delayed 'Updating…' reveal, error line with a primary Retry button, substrate plot field, rule gridlines, muted 12px ticks and units, threshold-red −10 dB line and haloed label, 2px ink curve, minimum ring, dashed drop line and haloed label, placeholder text.",
+   "summary_sha": "3ca101ccb8dd95f1e2ce6764de8cd86f87472239"
+  },
+  {
+   "path": "webapp/src/components/S11Chart.test.tsx",
+   "type": "typescript",
+   "size": 5009,
+   "chunk": null,
+   "sha": "b08c8f0d842f6752df785e9585725138aee2ba11",
+   "summary": "Vitest tests of S11Chart: 201-point path, GHz/dB ticks and units, −10 dB label, minimum label and accessible desc; auto range; loading placeholder; curve kept while updating with the delayed mark; a new curve changes the path; −10 dB label placed away from the minimum and drawn on top; error with Retry keeps the curve.",
+   "summary_sha": "b08c8f0d842f6752df785e9585725138aee2ba11"
+  },
+  {
+   "path": "webapp/src/components/S11Chart.tsx",
+   "type": "typescript",
+   "size": 9295,
+   "chunk": null,
+   "sha": "9960a92336306001eb2232875223b76ecaaf8201",
+   "summary": "Live |S11| SVG chart at the container's pixel size: 1–4 GHz by dB with auto range, rule gridlines, ink curve, threshold-red −10 dB line with its label at the end away from the minimum, minimum ring + drop line + 'depth · frequency' label; 180 ms ease-out tween between predictions (instant under reduced motion, state set only in animation frames); loading placeholder, delayed 'Updating…' mark that never blanks the curve, inline error with Retry; role=img with title and desc.",
+   "summary_sha": "9960a92336306001eb2232875223b76ecaaf8201"
+  },
+  {
+   "path": "webapp/src/components/chartScale.test.ts",
+   "type": "typescript",
+   "size": 3692,
+   "chunk": null,
+   "sha": "af23e22f2d57f5260797daa2f59ca69c5eaf3b7f",
+   "summary": "Vitest tests of the chart helpers: y range table (strictly below the minimum, floored to 5 dB, capped at −15 dB, −30 dB default, NaN rejected), y/x ticks, linear scales, curve path shape, lerpCurve, easeOut clamping, dB/GHz/tick formatting with U+2212.",
+   "summary_sha": "af23e22f2d57f5260797daa2f59ca69c5eaf3b7f"
+  },
+  {
+   "path": "webapp/src/components/chartScale.ts",
+   "type": "typescript",
+   "size": 3497,
+   "chunk": null,
+   "sha": "19da0eff6ec8adc023e4bc3c8537ab1a0b680851",
+   "summary": "Pure chart helpers: yBottom (top +1 dB, bottom the largest multiple of 5 dB strictly below the minimum, never above −15 dB, −30 dB before the first curve), yTicks (5 dB, 10 dB beyond a 50 dB range), xTicks (1–4 GHz by 0.5), linear scale, curvePath (0.01 px), lerpCurve, easeOut, formatDb/formatGhz/formatTick with true minus signs.",
+   "summary_sha": "19da0eff6ec8adc023e4bc3c8537ab1a0b680851"
   },
   {
    "path": "webapp/src/components/fillText.ts",
@@ -4727,6 +4799,24 @@
    "summary_sha": "8175e58285a830a6db153a281a6e94e7ca65031f"
   },
   {
+   "path": "webapp/src/core/predictClient.test.ts",
+   "type": "typescript",
+   "size": 5105,
+   "chunk": null,
+   "sha": "e4dcea0e6bc6b3b65790c25e07d4faae5cf6744f",
+   "summary": "Vitest tests of the main-thread worker client with a fake worker: request ids and transferred cell copies, ready and latency, stale results/drops/errors ignored while the latest is pending, worker crash as a model error, retry for both failure phases, dispose.",
+   "summary_sha": "e4dcea0e6bc6b3b65790c25e07d4faae5cf6744f"
+  },
+  {
+   "path": "webapp/src/core/predictClient.ts",
+   "type": "typescript",
+   "size": 4138,
+   "chunk": null,
+   "sha": "a033d458cbf4b6d7f3f918d94350468f8f78e193",
+   "summary": "Main-thread client for the inference worker: request(grid) posts a transferred cell copy with an increasing id (latest wins), ignores answers to anything but the latest request, emits ready/result (with request-to-arrival latency and worker inference time)/error events, pending(), retry() (restart the worker after a load failure or resend the latest grid) and dispose().",
+   "summary_sha": "a033d458cbf4b6d7f3f918d94350468f8f78e193"
+  },
+  {
    "path": "webapp/src/core/predictServer.test.ts",
    "type": "typescript",
    "size": 7886,
@@ -4752,6 +4842,15 @@
    "sha": "0b387217c5396420fc7bb04a7212a3de9a41b0d3",
    "summary": "Inference Web Worker entry: wires createPredictServer to the worker global, loading meta.json and the ONNX model from the Vite base path.",
    "summary_sha": "0b387217c5396420fc7bb04a7212a3de9a41b0d3"
+  },
+  {
+   "path": "webapp/src/hooks/usePrediction.ts",
+   "type": "typescript",
+   "size": 3610,
+   "chunk": null,
+   "sha": "124fea262fffc88c1ee37c6b76d2b5f34399405c",
+   "summary": "React hook that sends every grid change to the inference worker through predictClient and derives the chart status (loading, updating while the shown curve belongs to an older grid, error, ready), exposes retry, and records each applied result as the 'graphpatch:predict' User Timing measure.",
+   "summary_sha": "124fea262fffc88c1ee37c6b76d2b5f34399405c"
   },
   {
    "path": "webapp/src/main.tsx",

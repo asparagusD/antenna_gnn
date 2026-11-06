@@ -24,6 +24,26 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: C5.3: new chart and client tests fail on test-side mistakes
+
+- **Status:** closed (two test-code mistakes; product code unchanged by either fix)
+- **Symptom:** (a) `tsc -b` rejected `predictClient.test.ts`: `FakeWorker.postMessage(message: WorkerRequest)` is not
+  assignable to `WorkerLike.postMessage(message: unknown, …)`. (b) The new −10 dB label test failed:
+  `expected 'end' to be 'start'`.
+- **Reproducer:** (a) `cd webapp && npx tsc -b --noEmit`; (b) `npx vitest run src/components/S11Chart.test.tsx`.
+- **Localised to:** (a) the fake's parameter type (method parameters are checked contravariantly under
+  `strictFunctionTypes` for property-style members); (b) the fixture `dip(-0.3, 190)`, which lies *above* the
+  helper's −2 dB baseline, so it is a bump and the minimum is at 1 GHz, not 3.85 GHz.
+- **Hypotheses:**
+  1. (a) Narrowing the parameter in the fake breaks assignability; typing it `unknown` and casting inside
+     fixes it without touching `WorkerLike`. Check: change and rerun tsc. **confirmed** (clean).
+  2. (b) The fixture, not the placement code, is wrong: with a dip deeper than the baseline the minimum is at
+     3.85 GHz and the label goes left. Check: use `dip(-3, 190)` and rerun. **confirmed** (7 passed).
+- **Root cause:** test-code mistakes while writing tests first.
+- **Fix:** (a) in `9d1b8ce` (feat(core) client); (b) in `af48de3` (style(ui) −10 dB label). Regression tests: the
+  same files.
+- **Verification:** `make check`: vitest 679, pytest 267 passed; `make e2e`: 14 passed.
+
 ### 2026-11-06: C5.2: new FillMeter tests find the warning text several times
 
 - **Status:** closed (test-harness bug in the new test file; component unchanged)

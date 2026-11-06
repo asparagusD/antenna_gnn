@@ -31,7 +31,7 @@ Tick a subchunk only when every acceptance criterion has been shown passing and 
 ## C5 The user interface
 - [x] C5.1 Pixel grid editor
 - [x] C5.2 Grid-size selector and fill meter with warning
-- [ ] C5.3 Live S11 chart
+- [x] C5.3 Live S11 chart
 - [ ] C5.4 Results panel, domain-of-validity note and scope notice
 - [ ] C5.5 Starting points, sharing, export
 

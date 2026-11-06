@@ -45,9 +45,11 @@ export function PatternTools({ edited, onRandom, onClear }: PatternToolsProps) {
               setPercent(Number(event.target.value));
             }}
           />
-          <output className="pattern-fill-value" htmlFor={sliderId}>
+          {/* Visible value only: the slider's aria-valuetext already speaks it (an <output> would be a
+              second, chattering status region). */}
+          <span className="pattern-fill-value" aria-hidden="true">
             {`${String(percent)}%`}
-          </output>
+          </span>
         </span>
       </span>
       <button type="button" className="tool" disabled={!edited} onClick={onClear}>

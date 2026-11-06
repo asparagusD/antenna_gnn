@@ -24,6 +24,42 @@ hypotheses** on the same failure, stop and report this log to the user.
 
 ## Entries
 
+### 2026-11-06: C5.5: smoke test finds two status regions after the Random antenna tools
+
+- **Status:** closed
+- **Symptom:** `make e2e`: `page renders and loads the model meta` failed with a strict-mode violation:
+  `getByRole('status')` resolved to the top-bar status and to `<output class="pattern-fill-value">60%</output>`.
+- **Reproducer:** `cd webapp && npx playwright test e2e/smoke.spec.ts`.
+- **Localised to:** `PatternTools.tsx` (commit d393f3f), the slider's visible value rendered as `<output>`.
+- **Hypotheses:**
+  1. `<output>` has the implicit ARIA role `status` (a polite live region), so it adds a second status region and
+     also announces every slider step, duplicating the slider's `aria-valuetext`. Check: render the value as an
+     `aria-hidden` span and rerun the smoke and tools tests. **confirmed** (both pass).
+- **Root cause:** an implicit live region from `<output>`; d393f3f was committed after running only its own
+  e2e file, not `make e2e` (process slip: the full suite is required before every commit).
+- **Fix:** `fix(ui)` commit replacing `<output>` with an `aria-hidden` span; regression check in
+  `PatternTools.test.tsx` ("no status role").
+- **Verification:** `npx playwright test e2e/smoke.spec.ts e2e/pattern-tools.spec.ts`: 2 passed; `make check` and
+  `make e2e`: see the commit.
+
+### 2026-11-06: C5.5: share-URL test sees a different curve after restoring the pattern
+
+- **Status:** closed (test timing; product behaviour correct)
+- **Symptom:** `a share URL restores the exact pattern and the same curve` failed: the restored page's path `d`
+  had the same shape as the original but a different vertical scale (e.g. first point y 38.48 vs 38.01, dip
+  y 82 vs 65). Metal count and the re-encoded hash matched.
+- **Reproducer:** `cd webapp && npx playwright test e2e/share.spec.ts` → `expect.poll(...).toBe(curve)` timed out.
+- **Localised to:** the original page's `curve`, read right after `aria-busy` turned false following "Random
+  antenna".
+- **Hypotheses:**
+  1. The original `d` was read mid-transition: `aria-busy` drops when the result arrives, while the chart still
+     tweens the curve and y range for 180 ms (S11Chart useTween), so the expected value was an in-between frame.
+     Check: read `d` only once two reads 250 ms apart agree; rerun 3×. **confirmed** (12/12 passed).
+- **Root cause:** the test helper treated "prediction arrived" as "chart settled".
+- **Fix:** `settledCurve()` in `e2e/share.spec.ts` waits until `d` stops changing (the C5.5 share commit). No
+  product change; no tolerance loosened (the comparison stays exact string equality).
+- **Verification:** `npx playwright test e2e/share.spec.ts --repeat-each 3`: 12 passed; `make e2e`: see the commit.
+
 ### 2026-11-06: C5.3: new chart and client tests fail on test-side mistakes
 
 - **Status:** closed (two test-code mistakes; product code unchanged by either fix)

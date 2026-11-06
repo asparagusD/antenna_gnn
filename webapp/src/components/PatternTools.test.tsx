@@ -21,6 +21,8 @@ describe('PatternTools', () => {
     expect((slider as HTMLInputElement).value).toBe('60');
     expect(slider.getAttribute('aria-valuetext')).toBe('60% metal');
     expect(screen.getByText('60%')).toBeDefined();
+    // The visible value is not a second live/status region; the slider's valuetext speaks it.
+    expect(screen.queryByRole('status')).toBeNull();
   });
 
   it('Random antenna asks for a pattern at the slider fill', () => {
